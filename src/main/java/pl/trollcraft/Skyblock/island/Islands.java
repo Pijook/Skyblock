@@ -6,27 +6,27 @@ import java.util.HashMap;
 
 public class Islands {
 
-    private static HashMap<Integer, Island> islands = new HashMap<>();
+    private static HashMap<String, Island> islands = new HashMap<>();
 
     /**
      * Adds island to list of list
      * @param island Island to add
      */
-    public static void addIsland(int id, Island island){
-        islands.put(id, island);
+    public static void addIsland(String owner, Island island){
+        islands.put(owner, island);
     }
 
     /**
      * Returns island with given id
-     * @param id Id of island
+     * @param owner Id of island
      * @return Island to return
      */
-    public static Island getIslandById(int id){
-        if(!islands.containsKey(id)){
+    public static Island getIslandById(String owner){
+        if(!islands.containsKey(owner)){
             return null;
         }
 
-        return islands.get(id);
+        return islands.get(owner);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Islands {
         return null;
     }
 
-    public static HashMap<Integer, Island> getIslands(){
+    public static HashMap<String, Island> getIslands(){
         return islands;
     }
 
