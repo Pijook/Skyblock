@@ -1,0 +1,8 @@
+main: pl.trollcraft.Skyblock.Main
+authors:
+  - Pijok
+  - LucyferMS
+version: 1.0
+api-version: 1.16
+name: Skyblock
+commands:
