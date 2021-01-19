@@ -1,9 +1,14 @@
 islands:
-  1:
+  Pijok_:
     owner: Pijok_
     members:
       - LucyferMS
     level: 1
+    spawn:
+      x: 0
+      y: 0
+      z: 0
+      world: World
     center:
       x: 0
       y: 0
