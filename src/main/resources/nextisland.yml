@@ -1,5 +1,7 @@
 nextIsland:
   id: 1
+  y: 150
+  world: TcIslands
   x: 0
   z: 0
   height: 150
