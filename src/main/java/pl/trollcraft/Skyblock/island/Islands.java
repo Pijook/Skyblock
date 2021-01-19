@@ -1,6 +1,11 @@
 package pl.trollcraft.Skyblock.island;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
+import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
 
 import java.util.HashMap;
 
@@ -43,6 +48,24 @@ public class Islands {
 
     public static HashMap<String, Island> getIslands(){
         return islands;
+    }
+
+    public static void loadIsland(String playerName){
+        YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
+
+
+    }
+
+    public static void checkIslands(String playerName){
+        SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(playerName);
+
+        if(skyblockPlayer.getIslandID() != null){
+            if(!islands.containsKey(playerName)){
+
+            }
+        }
+
+
     }
 
 
