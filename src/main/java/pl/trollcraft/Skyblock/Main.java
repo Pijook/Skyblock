@@ -15,7 +15,7 @@ public class Main extends JavaPlugin {
         //Events
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
-
+//Komentarz od Diabla
         //Commands
 
 
