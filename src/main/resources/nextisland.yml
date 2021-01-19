@@ -1,0 +1,11 @@
+nextIsland:
+  id: 1
+  x: 0
+  z: 0
+  height: 150
+  distance: 3
+  maxSize: 10
+  goNext: 1
+  last: 4
+  check: 1
+  isAv: false
