@@ -61,7 +61,7 @@ public class Islands {
 
         if(skyblockPlayer.getIslandID() != null){
             if(!islands.containsKey(playerName)){
-
+//
             }
         }
 

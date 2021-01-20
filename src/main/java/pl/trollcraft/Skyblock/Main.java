@@ -1,6 +1,9 @@
 package pl.trollcraft.Skyblock;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import pl.trollcraft.Skyblock.commands.HelpCommand;
+import pl.trollcraft.Skyblock.commands.IslandCommand;
+import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.listeners.JoinListener;
 import pl.trollcraft.Skyblock.listeners.QuitListener;
 
@@ -15,9 +18,12 @@ public class Main extends JavaPlugin {
         //Events
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
-//Komentarz od Diabla
-        //Commands
 
+        //Commands
+        getCommand("island").setExecutor(new IslandCommand());
+
+        //Functions
+        CreateIsland.getNextIsland();
 
     }
 

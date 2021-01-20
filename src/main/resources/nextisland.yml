@@ -1,13 +1,13 @@
 nextIsland:
-  id: 1
-  y: 150
-  world: TcIslands
-  x: 0
-  z: 0
-  height: 150
-  distance: 3
-  maxSize: 10
-  goNext: 1
-  last: 4
-  check: 1
-  isAv: false
+  schemat: "island.schem"       #Not working :(
+  id: 1                         #Don't edit!
+  x: 0                          #Don't edit!
+  z: 0                          #Don't edit!
+  y: 150                        #Editable
+  world: TcIslands              #Editable
+  distance: 3                   #Editable
+  maxSize: 10                   #Editable
+  goNext: 1                     #Don't edit!
+  last: 4                       #Don't edit!
+  check: 1                      #Don't edit!
+  isAv: false                   #Don't edit!
