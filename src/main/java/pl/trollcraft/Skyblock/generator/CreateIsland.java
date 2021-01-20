@@ -13,6 +13,7 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
@@ -111,19 +112,15 @@ public class CreateIsland {
 
         if( freePosistions.getConfigurationSection("free.1") != null ){
 
-            Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&4Lucyfer zjebau")));
             int freeInt = 0;
             for( String free : freePosistions.getConfigurationSection("free").getKeys(false) ){
                 freeInt = Integer.parseInt(free);
             }
 
             x =  freePosistions.getDouble("free." + freeInt + ".x");
-            Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&a&lX: " + x)));
             y = freePosistions.getDouble("free." + freeInt + ".y");
-            Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&a&lY: " + y)));
             z = freePosistions.getDouble("free." + freeInt + ".z");
-            Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&a&lZ: " + z)));
-//            world = freePosistions.getString("free." + freeInt + ".world");
+            world = freePosistions.getString("free." + freeInt + ".world");
 
             freePosistions.set("free." + freeInt, null);
             ConfigUtils.save(freePosistions, "freeislands.yml");
@@ -202,8 +199,10 @@ public class CreateIsland {
         pasteIsland(format, schem);
         //Wklejanie ^^^^^^^^^^^^^^^^
 
-        Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&a&lStworzylem wyspe na koordach: " + x + ", " +  y + ", " +  z)));
+//        Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&a&lStworzylem wyspe na koordach: " + x + ", " +  y + ", " +  z)));
 //
+        Location tpNew = new Location(Bukkit.getWorld("" + world), x, y, z);
+        Bukkit.getPlayer(owner).teleport(tpNew);
         configuration.set("islands." + owner + ".owner", owner);
         configuration.set("islands." + owner + ".members", members);
         configuration.set("islands." + owner + ".level", level);
