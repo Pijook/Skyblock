@@ -1,13 +1,17 @@
 package pl.trollcraft.Skyblock.island;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Islands {
 
@@ -52,7 +56,32 @@ public class Islands {
 
     public static void loadIsland(String playerName){
         YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
+        //////Added by Lucyfer
+        for( String owner : configuration.getConfigurationSection("islands").getKeys(false)){
+            ArrayList<String> members = new ArrayList<>();
+            if( configuration.getStringList("islands." + owner + ".members") != null){
+                members = (ArrayList<String>) configuration.getStringList("islands." + owner + ".members");
+            }
+            double spawnX = configuration.getLong("islands." + owner + ".spawn.x");
+            double spawnY = configuration.getLong("islands." + owner + ".spawn.y");
+            double spawnZ = configuration.getLong("islands." + owner + ".spawn.z");
+            World spawnWorld = Bukkit.getWorld(Objects.requireNonNull(configuration.getString("islands." + owner + ".spawn.world")));
+            Location islandSpawn = null;
+            islandSpawn = new Location(spawnWorld, spawnX, spawnY, spawnZ);
 
+            double centerX = configuration.getLong("islands." + owner + ".spawn.x");
+            double centerY = configuration.getLong("islands." + owner + ".spawn.y");
+            double centerZ = configuration.getLong("islands." + owner + ".spawn.z");
+            World centerWorld = Bukkit.getWorld(Objects.requireNonNull(configuration.getString("islands." + owner + ".center.world")));
+            Location islandCenter = null;
+            islandCenter = new Location(centerWorld, centerX, centerY, centerZ);
+
+            int islandLevel = 1;
+            islandLevel = configuration.getInt("islands." + owner + "level");
+
+            islands.put(owner, new Island(owner, members, islandCenter, islandSpawn, islandLevel));
+        }
+        //End of Lucyfer changes
 
     }
 
@@ -69,4 +98,24 @@ public class Islands {
     }
 
 
+    public static boolean isPlayerOwner( String owner ){
+        if( islands.containsKey(owner) ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static boolean isPlayerMember( String member){
+        if( islands.containsKey(member)){
+            return true;
+        }
+        for( int i = 0 ; i < islands.size() ; i++ ){
+            if( islands.get(i).getMembers().contains(member)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

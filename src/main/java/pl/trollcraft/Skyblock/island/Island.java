@@ -9,12 +9,14 @@ public class Island {
     private String owner;
     private ArrayList<String> members;
     private Location center;
+    private Location spawn;
     private int islandLevel;
 
-    public Island(String owner, ArrayList<String> members, Location center, int islandLevel){
+    public Island(String owner, ArrayList<String> members, Location center, Location spawn, int islandLevel){
         this.owner = owner;
         this.members = members;
         this.center = center;
+        this.spawn = spawn;
         this.islandLevel = islandLevel;
     }
 
@@ -32,6 +34,14 @@ public class Island {
 
     public void setCenter(Location center) {
         this.center = center;
+    }
+
+    public Location getHome() {
+        return spawn;
+    }
+
+    public void setHome(Location home) {
+        this.spawn = home;
     }
 
     public int getIslandLevel() {
