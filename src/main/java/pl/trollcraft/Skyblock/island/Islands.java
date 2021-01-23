@@ -107,15 +107,14 @@ public class Islands {
         }
     }
 
-    public static boolean isPlayerMember( String member){
-        if( islands.containsKey(member)){
-            return true;
-        }
-        for( int i = 0 ; i < islands.size() ; i++ ){
-            if( islands.get(i).getMembers().contains(member)){
-                return true;
-            }
-        }
-        return false;
+    public static void addMember( String owner, String member ){
+        ArrayList<String> mbrs = islands.get(owner).getMembers();
+        mbrs.add(member);
+        islands.get(owner).setMembers(mbrs);
+    }
+    public static void remMember( String owner, String member ){
+        ArrayList<String> mbrs = islands.get(owner).getMembers();
+        mbrs.remove(member);
+        islands.get(owner).setMembers(mbrs);
     }
 }

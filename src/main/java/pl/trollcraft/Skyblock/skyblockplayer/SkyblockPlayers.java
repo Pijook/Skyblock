@@ -5,6 +5,7 @@ import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import sun.security.krb5.Config;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkyblockPlayers {
@@ -26,7 +27,7 @@ public class SkyblockPlayers {
     public static void loadPlayer(String playerName){
         YamlConfiguration configuration = ConfigUtils.load("players.yml", Main.getInstance());
 
-        SkyblockPlayer skyblockPlayer = new SkyblockPlayer(null, null);
+        SkyblockPlayer skyblockPlayer = new SkyblockPlayer(null, null, null);
 
         if(configuration.contains("players." + playerName + ".island")){
             skyblockPlayer.setIslandID(configuration.getString("players." + playerName + ".island"));
@@ -35,7 +36,8 @@ public class SkyblockPlayers {
             skyblockPlayer.setCoopIslandID(configuration.getString("players." + playerName + ".coopIsland"));
         }
 
-        skyblockPlayers.put(playerName, skyblockPlayer);
+        addPlayer(playerName, skyblockPlayer);
+//        skyblockPlayers.put(playerName, skyblockPlayer);
     }
 
     public static void savePlayer(String playerName){
@@ -53,5 +55,25 @@ public class SkyblockPlayers {
         removePlayer(playerName);
 
         ConfigUtils.save(configuration, "players.yml");
+    }
+
+    public static boolean hasInvite(String owner, String member){
+        return skyblockPlayers.get(member).getInvites().contains(owner);
+    }
+
+    public static void addInvite(String owner, String member){
+        ArrayList<String> invites = skyblockPlayers.get(member).getInvites();
+        invites.add(owner);
+        skyblockPlayers.get(member).setInvites(invites);
+    }
+
+    public static void remInvite(String owner, String member){
+        ArrayList<String> invites = skyblockPlayers.get(member).getInvites();
+        invites.remove(owner);
+        skyblockPlayers.get(member).setInvites(invites);
+    }
+
+    public static void clearInvites(String member){
+        skyblockPlayers.get(member).setInvites(null);
     }
 }
