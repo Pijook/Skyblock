@@ -16,7 +16,7 @@ public class SkyblockPlayers {
         return skyblockPlayers.get(nickname);
     }
 
-    private static void addPlayer(String nickname, SkyblockPlayer skyblockPlayer){
+    public static void addPlayer(String nickname, SkyblockPlayer skyblockPlayer){
         skyblockPlayers.put(nickname, skyblockPlayer);
     }
 
