@@ -20,6 +20,7 @@ import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.island.Islands;
 
 import java.io.File;
 import java.io.FileInputStream;
