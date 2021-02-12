@@ -7,11 +7,13 @@ public class SkyblockPlayer {
     private String islandID;
     private String coopIslandID;
     private ArrayList<String> invites;
+    private int placedBlocks;
 
-    public SkyblockPlayer(String islandID, String coopIslandID, ArrayList<String> invites){
+    public SkyblockPlayer(String islandID, String coopIslandID, ArrayList<String> invites, int placedBlocks){
         this.islandID = islandID;
         this.coopIslandID = coopIslandID;
         this.invites = invites;
+        this.placedBlocks = placedBlocks;
 
     }
 
@@ -45,5 +47,13 @@ public class SkyblockPlayer {
 
     public boolean hasCOOP(){
         return coopIslandID != null;
+    }
+
+    public int getPlacedBlocks() {
+        return placedBlocks;
+    }
+
+    public void setPlacedBlocks(int placedBlocks) {
+        this.placedBlocks = placedBlocks;
     }
 }

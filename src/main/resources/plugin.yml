@@ -12,3 +12,5 @@ name: Skyblock
 commands:
   island:
     usage: /island
+  debug:
+    usage: /debug

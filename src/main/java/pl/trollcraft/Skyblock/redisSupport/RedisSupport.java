@@ -1,10 +1,12 @@
 package pl.trollcraft.Skyblock.redisSupport;
 
+import com.google.gson.Gson;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
 import redis.clients.jedis.Pipeline;
@@ -28,13 +30,15 @@ public class RedisSupport {
                 String code = Storage.redisCode;
                 code = code.replace("%player%", nickname);
 
-                String islandID = Main.getJedis().hget(code, "islandID");
-                String coopIslandID = Main.getJedis().hget(code, "coopIslandID");
-                String[] tempInvites = Main.getJedis().hget(code, "invites").split(":");
+                //String islandID = Main.getJedis().hget(code, "islandID");
+                //String coopIslandID = Main.getJedis().hget(code, "coopIslandID");
+                //String[] tempInvites = Main.getJedis().hget(code, "invites").split(":");
 
-                ArrayList<String> invites = new ArrayList<>(Arrays.asList(tempInvites));
+                //ArrayList<String> invites = new ArrayList<>(Arrays.asList(tempInvites));
 
-                SkyblockPlayers.addPlayer(nickname, new SkyblockPlayer(islandID, coopIslandID, invites));
+                String playerJSON = Main.getJedis().hget(code, "player");
+
+                SkyblockPlayers.addPlayer(nickname, stringToPlayer(playerJSON));
 
                 sendMessage(player, "&a&lLoaded stats!");
 
@@ -45,39 +49,30 @@ public class RedisSupport {
 
     public static void savePlayer(Player player){
         String nickname = player.getName();
+
+        Debug.log("Saving player " + nickname + "...");
         SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(nickname);
 
-        new BukkitRunnable(){
+        String code = getCode(nickname);
 
-            @Override
-            public void run() {
+        String islandID = skyblockPlayer.getIslandID();
+        String coopIslandID = skyblockPlayer.getCoopIslandID();
+        StringBuilder invites = new StringBuilder();
 
-                String code = Storage.redisCode;
-                code = code.replace("%player%", nickname);
+        String playerJSON = playerToString(skyblockPlayer);
+        Debug.log("JSON:" + playerJSON);
+        Main.getJedis().hset(code, "player", playerJSON);
+    }
 
-                String islandID = skyblockPlayer.getIslandID();
-                String coopIslandID = skyblockPlayer.getCoopIslandID();
-                StringBuilder invites = new StringBuilder();
+    public static String playerToString(SkyblockPlayer player){
+        Gson gson = Main.getGson();
+        return gson.toJson(player);
 
-                int i = 0;
-                for(String invite : skyblockPlayer.getInvites()){
-                    if(i == 0){
-                        invites.append(invite);
-                    }
-                    else{
-                        invites.append(":").append(invite);
-                    }
-                    i++;
-                }
+    }
 
-                Pipeline pipeline = Main.getJedis().pipelined();
-                pipeline.sadd(code, "islandID", islandID);
-                pipeline.sadd(code, "coopIslandID", coopIslandID);
-                pipeline.sadd(code, "invites", invites.toString());
-                pipeline.sync();
-
-            }
-        }.runTaskAsynchronously(Main.getInstance());
+    public static SkyblockPlayer stringToPlayer(String json){
+        Gson gson = Main.getGson();
+        return gson.fromJson(json, SkyblockPlayer.class);
     }
 
     private static void sendMessage(Player player, String message){
@@ -89,7 +84,9 @@ public class RedisSupport {
         });
     }
 
-    public static String convertIslandToString(String owner, ArrayList<String> members){
-        return null;
+    public static String getCode(String nickname){
+        String code = Storage.redisCode;
+        code = code.replace("%player%", nickname);
+        return code;
     }
 }

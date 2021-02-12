@@ -24,7 +24,7 @@ public class SkyblockPlayers {
         skyblockPlayers.remove(nickname);
     }
 
-    public static void loadPlayer(String playerName){
+    /*public static void loadPlayer(String playerName){
         YamlConfiguration configuration = ConfigUtils.load("players.yml", Main.getInstance());
 
         SkyblockPlayer skyblockPlayer = new SkyblockPlayer(null, null, null);
@@ -38,7 +38,7 @@ public class SkyblockPlayers {
 
         addPlayer(playerName, skyblockPlayer);
 //        skyblockPlayers.put(playerName, skyblockPlayer);
-    }
+    }*/
 
     public static void savePlayer(String playerName){
         SkyblockPlayer skyblockPlayer = getPlayer(playerName);
