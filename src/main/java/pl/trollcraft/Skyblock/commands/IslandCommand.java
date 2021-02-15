@@ -16,8 +16,11 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class IslandCommand implements CommandExecutor {
+
+
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -42,11 +45,11 @@ public class IslandCommand implements CommandExecutor {
             }
             else if( args[0].equalsIgnoreCase("delete")){
                 if(Islands.isPlayerOwner(player.getName())) {
-                    DeleteIsland.deleteIs(player.getName());
+                    DeleteIsland.deleteIs( Islands.getIslandById(player.getName()) );
                     sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
                 }
                 else{
-                    sender.sendMessage(ChatUtils.fixColor("&cNie posiadasz wyspy"));
+                    sender.sendMessage(ChatUtils.fixColor("&cNie jestes walscicielem wyspy"));
                 }
             }
             else if( args[0].equalsIgnoreCase("add")){
@@ -121,7 +124,7 @@ public class IslandCommand implements CommandExecutor {
                         }
                         else{
                             sender.sendMessage(ChatUtils.fixColor("&c" + member + " nie jest czlonkiem Twojej wyspy. Upewnij sie czy wpisales poprawny nick( Wielkosc liter ma znaczenie )"));
-                            ArrayList<String> members = Islands.getIslandById(player.getName()).getMembers();
+                            List<String> members = Islands.getIslandById(player.getName()).getMembers();
                             sender.sendMessage(ChatUtils.fixColor("&cCzlonkowie Twojej wyspy: "));
                             for( String mbr : members ){
                                 sender.sendMessage(ChatUtils.fixColor("&3" + mbr));

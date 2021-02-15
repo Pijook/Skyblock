@@ -56,4 +56,15 @@ public class SkyblockPlayer {
     public void setPlacedBlocks(int placedBlocks) {
         this.placedBlocks = placedBlocks;
     }
+
+    public String getIslandOrCoop(){
+        if(islandID != null){
+            return islandID;
+        }
+        if(coopIslandID != null){
+            return coopIslandID;
+        }
+
+        return null;
+    }
 }

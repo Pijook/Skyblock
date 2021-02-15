@@ -4,13 +4,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.island.Island;
 
 import java.util.Collections;
 import java.util.List;
 
-public class ReloadCommand extends Command{
+public class IsReloadCommand extends Command{
 
-    public ReloadCommand() {
+    public IsReloadCommand() {
         super(Collections.singletonList("reload"), "Przeladuj plugin", "TcSb.command.reload", true);
     }
 
@@ -21,7 +22,7 @@ public class ReloadCommand extends Command{
     }
 
     @Override
-    public void admin(CommandSender sender, String[] args, Player p) {
+    public void admin(CommandSender sender, String[] args, Island island, Player... player) {
         execute(sender, args);
     }
 

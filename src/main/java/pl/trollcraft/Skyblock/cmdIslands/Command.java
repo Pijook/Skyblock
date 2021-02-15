@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.island.Island;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public abstract class Command {
 
     public abstract void execute(CommandSender sender, String[] args);
 
-    public abstract void admin(CommandSender sender, String[] args, Player p);
+    public abstract void admin(CommandSender sender, String[] args, Island island, Player...player);
 
     public abstract List<String> TabComplete(CommandSender cs, org.bukkit.command.Command cmd, String s, String[] args);
 }

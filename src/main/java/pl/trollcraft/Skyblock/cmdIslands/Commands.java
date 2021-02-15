@@ -1,7 +1,11 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
+import org.bukkit.command.defaults.ReloadCommand;
+
 public class Commands {
 
-    public AdminCommand adminCommand = new AdminCommand();
-    public ReloadCommand reloadCommand = new ReloadCommand();
+    public IsAdminCommand isAdminCommand = new IsAdminCommand();
+    public IsReloadCommand isReloadCommand = new IsReloadCommand();
+    public IsCreateCommand isCreateCommand = new IsCreateCommand();
+    public IsDeleteCommand isDeleteCommand = new IsDeleteCommand();
 }

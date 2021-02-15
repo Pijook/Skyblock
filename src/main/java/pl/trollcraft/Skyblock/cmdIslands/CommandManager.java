@@ -61,7 +61,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     }
                     if ((cs.hasPermission(command.permission) || command.permission
                             .equalsIgnoreCase("") || command.permission
-                            .equalsIgnoreCase("test.")) && command.enabled) {
+                            .equalsIgnoreCase("TcSB.basic")) && command.enabled) {
                         command.execute(cs, args);
                     } else {
                         // No permission
@@ -90,7 +90,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     if (alias.toLowerCase().startsWith(args[0].toLowerCase()) && (
                             command.enabled && (cs.hasPermission(command.permission)
                                     || command.permission.equalsIgnoreCase("") || command.permission
-                                    .equalsIgnoreCase("iridiumskyblock.")))) {
+                                    .equalsIgnoreCase("TcSB.basic")))) {
                         result.add(alias);
                     }
                 }
@@ -100,7 +100,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         for (Command command : commands) {
             if (command.aliases.contains(args[0]) && (command.enabled && (
                     cs.hasPermission(command.permission) || command.permission.equalsIgnoreCase("")
-                            || command.permission.equalsIgnoreCase("iridiumskyblock.")))) {
+                            || command.permission.equalsIgnoreCase("TcSB.basic")))) {
                 return command.TabComplete(cs, cmd, s, args);
             }
         }

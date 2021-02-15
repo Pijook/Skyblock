@@ -7,6 +7,8 @@ import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.island.Island;
+import pl.trollcraft.Skyblock.island.Islands;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
 import redis.clients.jedis.Pipeline;
@@ -30,12 +32,6 @@ public class RedisSupport {
                 String code = Storage.redisCode;
                 code = code.replace("%player%", nickname);
 
-                //String islandID = Main.getJedis().hget(code, "islandID");
-                //String coopIslandID = Main.getJedis().hget(code, "coopIslandID");
-                //String[] tempInvites = Main.getJedis().hget(code, "invites").split(":");
-
-                //ArrayList<String> invites = new ArrayList<>(Arrays.asList(tempInvites));
-
                 String playerJSON = Main.getJedis().hget(code, "player");
 
                 SkyblockPlayers.addPlayer(nickname, stringToPlayer(playerJSON));
@@ -55,13 +51,39 @@ public class RedisSupport {
 
         String code = getCode(nickname);
 
-        String islandID = skyblockPlayer.getIslandID();
-        String coopIslandID = skyblockPlayer.getCoopIslandID();
-        StringBuilder invites = new StringBuilder();
-
         String playerJSON = playerToString(skyblockPlayer);
         Debug.log("JSON:" + playerJSON);
         Main.getJedis().hset(code, "player", playerJSON);
+    }
+
+    public static void loadIsland(String islandID){
+        Debug.log("Loading island " + islandID + "...");
+        new BukkitRunnable(){
+
+            @Override
+            public void run(){
+
+                String redisCode = getIslandCode(islandID);
+
+                String islandJSON = Main.getJedis().hget(redisCode, "island");
+
+                Island island = stringToIsland(islandJSON);
+
+                Islands.addIsland(island.getOwner(), island);
+                Debug.log("Loaded island" + islandID + "!");
+            }
+
+        }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
+    }
+
+    public static void saveIsland(String islandID){
+        Debug.log("Saving island " + islandID + "...");
+
+        Island island = Islands.getIslandById(islandID);
+
+        String islandJSON = islandToString(island);
+
+        Main.getJedis().hset(getIslandCode(islandID), "island", islandJSON);
     }
 
     public static String playerToString(SkyblockPlayer player){
@@ -73,6 +95,27 @@ public class RedisSupport {
     public static SkyblockPlayer stringToPlayer(String json){
         Gson gson = Main.getGson();
         return gson.fromJson(json, SkyblockPlayer.class);
+    }
+
+    /**
+     * Converts SkyblockPlayer object to json string
+     * @param island object to convert
+     * @return Converted object to string
+     */
+    public static String islandToString(Island island){
+        Gson gson = Main.getGson();
+        return gson.toJson(island);
+
+    }
+
+    /**
+     * Converts json string to Island object
+     * @param json String to convert
+     * @return Converted string to object
+     */
+    public static Island stringToIsland(String json){
+        Gson gson = Main.getGson();
+        return gson.fromJson(json, Island.class);
     }
 
     private static void sendMessage(Player player, String message){
@@ -87,6 +130,12 @@ public class RedisSupport {
     public static String getCode(String nickname){
         String code = Storage.redisCode;
         code = code.replace("%player%", nickname);
+        return code;
+    }
+
+    public static String getIslandCode(String islandID){
+        String code = Storage.islandCode;
+        code = code.replace("%id%", islandID);
         return code;
     }
 }
