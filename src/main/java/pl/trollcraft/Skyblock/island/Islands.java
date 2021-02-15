@@ -4,12 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -97,6 +99,42 @@ public class Islands {
 
     }
 
+    public static boolean isPlayerOnHisIsland(Player player){
+        SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(player.getName());
+
+        Island island = null;
+
+        if(skyblockPlayer.hasIsland()){
+            island = getIslandById(skyblockPlayer.getIslandID());
+        }
+        else if(skyblockPlayer.hasCOOP()){
+            island = getIslandById(skyblockPlayer.getCoopIslandID());
+        }
+
+        if(island == null){
+            return false;
+        }
+
+        double[] dim = new double[2];
+
+        dim[1] = island.getPoint1().getX();
+        dim[2] = island.getPoint2().getX();
+        Arrays.sort(dim);
+
+        if(player.getLocation().getX() > dim[1] || player.getLocation().getX() < dim[0]){
+            return false;
+        }
+
+        dim[0] = island.getPoint1().getZ();
+        dim[1] = island.getPoint2().getZ();
+        Arrays.sort(dim);
+
+        if(player.getLocation().getZ() > dim[1] || player.getLocation().getZ() < dim[0]){
+            return false;
+        }
+
+        return true;
+    }
 
     public static boolean isPlayerOwner( String owner ){
         if( islands.containsKey(owner) ){

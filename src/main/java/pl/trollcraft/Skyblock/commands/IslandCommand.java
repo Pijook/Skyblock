@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.generator.DeleteIsland;
@@ -35,7 +36,8 @@ public class IslandCommand implements CommandExecutor {
                 }
                 else {
                     sender.sendMessage(ChatUtils.fixColor("&aTworze wyspe..."));
-                    CreateIsland.createNew(player);
+                    //CreateIsland.createNew(player);
+                    BungeeSupport.sendGenerateIslandCommand(player);
                 }
             }
             else if( args[0].equalsIgnoreCase("delete")){

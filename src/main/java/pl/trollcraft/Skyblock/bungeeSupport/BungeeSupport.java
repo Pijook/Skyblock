@@ -50,6 +50,10 @@ public class BungeeSupport {
                 CreateIsland.createNew(player);
             }
         }
+    }
 
+    public static void sendGenerateIslandCommand(Player player){
+        String command = "generateIsland:" + player.getName();
+        sendMessage(command);
     }
 }

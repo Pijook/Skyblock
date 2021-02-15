@@ -10,7 +10,9 @@ import pl.trollcraft.Skyblock.cmdIslands.Commands;
 import pl.trollcraft.Skyblock.commands.DebugCommand;
 import pl.trollcraft.Skyblock.commands.IslandCommand;
 import pl.trollcraft.Skyblock.configs.Persist;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
+import pl.trollcraft.Skyblock.listeners.BlockBreakListener;
 import pl.trollcraft.Skyblock.listeners.BlockPlaceListener;
 import pl.trollcraft.Skyblock.listeners.JoinListener;
 import pl.trollcraft.Skyblock.listeners.QuitListener;
@@ -26,7 +28,6 @@ public class Main extends JavaPlugin {
     private Commands commands;
     private CommandManager commandManager;
     private Persist persist;
-    //Commands
 
     @Override
     public void onEnable() {
@@ -40,6 +41,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         //BungeeEvents
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeListener());
@@ -48,13 +50,7 @@ public class Main extends JavaPlugin {
         getCommand("island").setExecutor(new IslandCommand());
         getCommand("debug").setExecutor(new DebugCommand());
 
-        //Functions
-        CreateIsland.getNextIsland();
-        BungeeSupport.loadConfiguration();
-
-        loadCommands();
-        saveCommands();
-
+        loadStuff();
     }
 
     @Override
@@ -62,15 +58,25 @@ public class Main extends JavaPlugin {
 
     }
 
-
     /**
      * Loads every component of plugin
      */
     public void loadStuff(){
-        //Loads here
+
+        Debug.log("&aLoading generator settings...");
+        CreateIsland.getNextIsland();
+        Debug.log("&aLoaded generator settings!");
+
+        Debug.log("&aLoading bungee configuration...");
+        BungeeSupport.loadConfiguration();
+        Debug.log("&aLoaded bungee configuration!");
+
+        Debug.log("&aLoading commands...");
+        loadCommands();
+        saveCommands();
+        Debug.log("&aCommands set!");
     }
 
-    //Command Load/save
 
     public void loadCommands(){
 

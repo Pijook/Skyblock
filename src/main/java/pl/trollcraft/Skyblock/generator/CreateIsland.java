@@ -110,7 +110,6 @@ public class CreateIsland {
 
         boolean create = true;
 
-
         if( freePosistions.getConfigurationSection("free.1") != null ){
 
             int freeInt = 0;

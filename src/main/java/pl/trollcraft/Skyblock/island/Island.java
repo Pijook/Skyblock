@@ -11,6 +11,8 @@ public class Island {
     private Location center;
     private Location spawn;
     private int islandLevel;
+    private Location point1;
+    private Location point2;
 
     public Island(String owner, ArrayList<String> members, Location center, Location spawn, int islandLevel){
         this.owner = owner;
@@ -60,4 +62,19 @@ public class Island {
         this.members = members;
     }
 
+    public Location getPoint2() {
+        return point2;
+    }
+
+    public void setPoint2(Location point2) {
+        this.point2 = point2;
+    }
+
+    public Location getPoint1() {
+        return point1;
+    }
+
+    public void setPoint1(Location point1) {
+        this.point1 = point1;
+    }
 }
