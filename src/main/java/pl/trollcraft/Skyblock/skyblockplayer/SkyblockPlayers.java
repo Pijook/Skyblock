@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.skyblockplayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import sun.security.krb5.Config;
 
 import java.util.ArrayList;
@@ -75,5 +76,15 @@ public class SkyblockPlayers {
 
     public static void clearInvites(String member){
         skyblockPlayers.get(member).setInvites(null);
+    }
+
+    public static void debugPlayers(){
+        Debug.log("Debugging players...");
+        Debug.log("Players to show: " + skyblockPlayers.size());
+        for(String nickname : skyblockPlayers.keySet()){
+            SkyblockPlayer skyblockPlayer = getPlayer(nickname);
+            Debug.log("Nickname: " + nickname);
+            Debug.log("Has island: " + skyblockPlayer.hasIslandOrCoop());
+        }
     }
 }

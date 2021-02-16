@@ -37,6 +37,7 @@ public class RedisSupport {
                 SkyblockPlayers.addPlayer(nickname, stringToPlayer(playerJSON));
 
                 sendMessage(player, "&a&lLoaded stats!");
+                SkyblockPlayers.debugPlayers();
 
             }
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
