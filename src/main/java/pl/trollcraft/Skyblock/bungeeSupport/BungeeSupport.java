@@ -56,4 +56,9 @@ public class BungeeSupport {
         String command = "generateIsland:" + player.getName();
         sendMessage(command);
     }
+
+    public static void sendDeleteIslandCommand(String islandID){
+        String command = "deleteIsland:" + islandID;
+        sendMessage(command);
+    }
 }

@@ -14,6 +14,7 @@ public class BlockBreakListener implements Listener {
         Player player = event.getPlayer();
 
         if(!Islands.isPlayerOnHisIsland(player)){
+            event.setCancelled(true);
             ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
             return;
         }

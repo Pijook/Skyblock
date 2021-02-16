@@ -18,6 +18,7 @@ public class BlockPlaceListener implements Listener {
         SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(player.getName());
 
         if(!Islands.isPlayerOnHisIsland(player)){
+            event.setCancelled(true);
             ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
             return;
         }

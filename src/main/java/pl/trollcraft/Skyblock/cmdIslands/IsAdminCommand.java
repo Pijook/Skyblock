@@ -1,6 +1,5 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

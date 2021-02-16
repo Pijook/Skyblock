@@ -6,7 +6,6 @@ version: 1.0
 api-version: 1.16
 depend:
   - FastAsyncWorldEdit
-  - WorldGuard
   - Multiverse-Core
 name: Skyblock
 commands:
