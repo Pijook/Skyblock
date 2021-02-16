@@ -5,10 +5,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.island.Island;
-import pl.trollcraft.Skyblock.island.Islands;
+import pl.trollcraft.Skyblock.island.IslandsController;
 
 public class DeleteIsland {
 
+    private static final IslandsController islandsController = Main.getIslandsController();
 
     public static void deleteIs(Island island){
         String owner = island.getOwner();
@@ -40,6 +41,6 @@ public class DeleteIsland {
         freePosistions.set("free." + freeIsId + ".world", world);
 
         ConfigUtils.save(freePosistions, "freeislands.yml");
-        Islands.getIslands().remove(owner);
+        islandsController.getIslands().remove(owner);
     }
 }

@@ -2,25 +2,27 @@ package pl.trollcraft.Skyblock.island;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
-import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.*;
 
-public class Islands {
+public class IslandsController {
 
-    private static HashMap<String, Island> islands = new HashMap<>();
+    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+
+    private HashMap<String, Island> islands = new HashMap<>();
 
     /**
      * Adds island to list of list
      * @param island Island to add
      */
-    public static void addIsland(String owner, Island island){
+    public void addIsland(String owner, Island island){
         islands.put(owner, island);
     }
 
@@ -29,7 +31,7 @@ public class Islands {
      * @param owner Id of island
      * @return Island to return
      */
-    public static Island getIslandById(String owner){
+    public Island getIslandById(String owner){
         if(!islands.containsKey(owner)){
             return null;
         }
@@ -43,17 +45,17 @@ public class Islands {
      * @param location
      * @return
      */
-    public static Island getIslandByLocation(Location location){
+    public Island getIslandByLocation(Location location){
         //To do
 
         return null;
     }
 
-    public static HashMap<String, Island> getIslands(){
+    public HashMap<String, Island> getIslands(){
         return islands;
     }
 
-    public static void loadIsland(String playerName){
+    public void loadIsland(String playerName){
         YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
         //////Better option
 
@@ -104,8 +106,8 @@ public class Islands {
 
 
 
-    public static void checkIslands(String playerName){
-        SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(playerName);
+    public void checkIslands(String playerName){
+        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(playerName);
 
         if(skyblockPlayer.getIslandID() != null){
             if(!islands.containsKey(playerName)){
@@ -116,8 +118,8 @@ public class Islands {
 
     }
 
-    public static boolean isPlayerOnHisIsland(Player player){
-        SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(player.getName());
+    public boolean isPlayerOnHisIsland(Player player){
+        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
         Island island = null;
 
@@ -153,8 +155,8 @@ public class Islands {
         return true;
     }
 
-    public static boolean isPlayerOwner( String owner ){
-        if( islands.containsKey(owner) ){
+    public boolean isPlayerOwner( String owner ){
+        if(islands.containsKey(owner) ){
             return true;
         }
         else{
@@ -164,7 +166,7 @@ public class Islands {
             return false;
         }
     }
-    public static boolean isPlayerMember( String member ){
+    public boolean isPlayerMember( String member ){
         for(String key : islands.keySet()){
             if(islands.get(key).getMembers().contains(member)){
                 return true;
@@ -174,18 +176,18 @@ public class Islands {
         return false;
     }
 
-    public static void addMember( String owner, String member ){
+    public void addMember( String owner, String member ){
         List<String> mbrs = islands.get(owner).getMembers();
         mbrs.add(member);
         islands.get(owner).setMembers(mbrs);
     }
-    public static void remMember( String owner, String member ){
+    public void remMember( String owner, String member ){
         List<String> mbrs = islands.get(owner).getMembers();
         mbrs.remove(member);
         islands.get(owner).setMembers(mbrs);
     }
 
-    public static boolean isIslandLoaded(String islandID){
+    public boolean isIslandLoaded(String islandID){
         if(islands.containsKey(islandID)){
             return true;
         }
@@ -199,7 +201,7 @@ public class Islands {
         return false;
     }
 
-    public static boolean hasIslandOnlineMembers(String islandID){
+    public boolean hasIslandOnlineMembers(String islandID){
 
         Island island = getIslandById(islandID);
 

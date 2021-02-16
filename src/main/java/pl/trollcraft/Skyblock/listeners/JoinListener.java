@@ -8,13 +8,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
-import pl.trollcraft.Skyblock.essentials.Debug;
-import pl.trollcraft.Skyblock.island.Islands;
+import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
-import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class JoinListener implements Listener {
+
+    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private final IslandsController islandsController = Main.getIslandsController();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
@@ -27,7 +29,7 @@ public class JoinListener implements Listener {
 
             @Override
             public void run() {
-                SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(player.getName());
+                SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
                 String islandID = null;
 
 
@@ -36,7 +38,7 @@ public class JoinListener implements Listener {
                 }
 
                 if(islandID != null){
-                    if(!Islands.isIslandLoaded(islandID)){
+                    if(!islandsController.isIslandLoaded(islandID)){
                         if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)) {
                             RedisSupport.loadIsland(islandID);
                         }

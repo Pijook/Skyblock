@@ -8,15 +8,14 @@ import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
-import pl.trollcraft.Skyblock.island.Islands;
+import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
-import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayers;
-import redis.clients.jedis.Pipeline;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class RedisSupport {
+
+    private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private static final IslandsController islandsController = Main.getIslandsController();
 
     public static void loadPlayer(Player player){
 
@@ -34,10 +33,10 @@ public class RedisSupport {
 
                 String playerJSON = Main.getJedis().hget(code, "player");
 
-                SkyblockPlayers.addPlayer(nickname, stringToPlayer(playerJSON));
+                skyblockPlayerController.addPlayer(nickname, stringToPlayer(playerJSON));
 
                 sendMessage(player, "&a&lLoaded stats!");
-                SkyblockPlayers.debugPlayers();
+                skyblockPlayerController.debugPlayers();
 
             }
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
@@ -48,7 +47,7 @@ public class RedisSupport {
         String nickname = player.getName();
 
         Debug.log("Saving player " + nickname + "...");
-        SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(nickname);
+        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(nickname);
 
         String code = getCode(nickname);
 
@@ -70,7 +69,7 @@ public class RedisSupport {
 
                 Island island = stringToIsland(islandJSON);
 
-                Islands.addIsland(island.getOwner(), island);
+                islandsController.addIsland(island.getOwner(), island);
                 Debug.log("Loaded island" + islandID + "!");
             }
 
@@ -80,7 +79,7 @@ public class RedisSupport {
     public static void saveIsland(String islandID){
         Debug.log("Saving island " + islandID + "...");
 
-        Island island = Islands.getIslandById(islandID);
+        Island island = islandsController.getIslandById(islandID);
 
         String islandJSON = islandToString(island);
 

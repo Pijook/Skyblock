@@ -21,7 +21,7 @@ import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
-import pl.trollcraft.Skyblock.island.Islands;
+import pl.trollcraft.Skyblock.island.IslandsController;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CreateIsland {
+
+    private static final IslandsController islandsController = Main.getIslandsController();
 
     private static String schemFile = "island.schem";
     private static String world;
@@ -218,7 +220,7 @@ public class CreateIsland {
         ConfigUtils.save(configuration, "islands.yml");
 
 
-        Islands.addIsland( owner, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
+        islandsController.addIsland( owner, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
     }
 
     public static void pasteIsland(ClipboardFormat format, File schemat){

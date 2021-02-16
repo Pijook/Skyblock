@@ -9,19 +9,19 @@ import sun.security.krb5.Config;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkyblockPlayers {
+public class SkyblockPlayerController {
 
-    private static HashMap<String, SkyblockPlayer> skyblockPlayers = new HashMap<>();
+    private HashMap<String, SkyblockPlayer> skyblockPlayers = new HashMap<>();
 
-    public static SkyblockPlayer getPlayer(String nickname){
+    public SkyblockPlayer getPlayer(String nickname){
         return skyblockPlayers.get(nickname);
     }
 
-    public static void addPlayer(String nickname, SkyblockPlayer skyblockPlayer){
+    public void addPlayer(String nickname, SkyblockPlayer skyblockPlayer){
         skyblockPlayers.put(nickname, skyblockPlayer);
     }
 
-    private static void removePlayer(String nickname){
+    private void removePlayer(String nickname){
         skyblockPlayers.remove(nickname);
     }
 
@@ -41,7 +41,7 @@ public class SkyblockPlayers {
 //        skyblockPlayers.put(playerName, skyblockPlayer);
     }*/
 
-    public static void savePlayer(String playerName){
+    public void savePlayer(String playerName){
         SkyblockPlayer skyblockPlayer = getPlayer(playerName);
 
         YamlConfiguration configuration = ConfigUtils.load("players.yml", Main.getInstance());
@@ -58,27 +58,27 @@ public class SkyblockPlayers {
         ConfigUtils.save(configuration, "players.yml");
     }
 
-    public static boolean hasInvite(String owner, String member){
+    public boolean hasInvite(String owner, String member){
         return skyblockPlayers.get(member).getInvites().contains(owner);
     }
 
-    public static void addInvite(String owner, String member){
+    public void addInvite(String owner, String member){
         ArrayList<String> invites = skyblockPlayers.get(member).getInvites();
         invites.add(owner);
         skyblockPlayers.get(member).setInvites(invites);
     }
 
-    public static void remInvite(String owner, String member){
+    public void remInvite(String owner, String member){
         ArrayList<String> invites = skyblockPlayers.get(member).getInvites();
         invites.remove(owner);
         skyblockPlayers.get(member).setInvites(invites);
     }
 
-    public static void clearInvites(String member){
+    public void clearInvites(String member){
         skyblockPlayers.get(member).setInvites(null);
     }
 
-    public static void debugPlayers(){
+    public void debugPlayers(){
         Debug.log("Debugging players...");
         Debug.log("Players to show: " + skyblockPlayers.size());
         for(String nickname : skyblockPlayers.keySet()){

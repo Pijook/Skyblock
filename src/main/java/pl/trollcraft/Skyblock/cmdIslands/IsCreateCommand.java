@@ -2,15 +2,20 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
-import pl.trollcraft.Skyblock.island.Islands;
+import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.Collections;
 import java.util.List;
 
 public class IsCreateCommand extends Command{
+
+    private final IslandsController islandsController = Main.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
 
     public IsCreateCommand() {
         super(Collections.singletonList("create"), "Stworz wyspe", "TcSb.basic", true);
@@ -20,7 +25,7 @@ public class IsCreateCommand extends Command{
     public void execute(CommandSender sender, String[] args) {
         if( sender instanceof Player) {
             Player player = (Player) sender;
-            if (Islands.isPlayerOwner(player.getName())) {
+            if (islandsController.isPlayerOwner(player.getName())) {
                 sender.sendMessage(ChatUtils.fixColor("&cPosiadasz juz wyspe!"));
             } else {
                 sender.sendMessage(ChatUtils.fixColor("&aTworze wyspe..."));
