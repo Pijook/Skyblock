@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import scala.annotation.meta.field;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +18,13 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     public List<Command> commands = new ArrayList<>();
 
-    public CommandManager(String command) {
-        Main.getInstance().getCommand(command).setExecutor(this);
+    public CommandManager(String command){
+        try {
+            Main.getInstance().getCommand(command).setExecutor(this);
+        } catch ( NullPointerException e){
+            e.printStackTrace();
+            Debug.sendError("Blad przy rejestracji " + command);
+        }
     }
 
     public void registerCommands() {

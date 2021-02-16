@@ -14,7 +14,7 @@ import java.util.List;
 public class IsDeleteCommand extends Command{
 
     public IsDeleteCommand() {
-        super(Collections.singletonList("create"), "Stworz wyspe", "TcSb.basic", true);
+        super(Collections.singletonList("delete"), "Usun wyspe", "TcSb.basic", true);
     }
 
     @Override

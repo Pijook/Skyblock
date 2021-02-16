@@ -82,7 +82,7 @@ public class Main extends JavaPlugin {
 
         commands = persist.load(Commands.class);
 
-        commandManager = new CommandManager("test");
+        commandManager = new CommandManager("bisland");
         commandManager.registerCommands();
     }
     public void saveCommands() {

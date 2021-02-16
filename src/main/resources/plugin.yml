@@ -13,3 +13,6 @@ commands:
     usage: /island
   debug:
     usage: /debug
+  bisland:
+    usage: /bisland
+    aliases: [ "is", "bungeeisland" ]
