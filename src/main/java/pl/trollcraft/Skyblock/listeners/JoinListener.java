@@ -22,7 +22,7 @@ public class JoinListener implements Listener {
 
         RedisSupport.loadPlayer(player);
 
-        /*ChatUtils.sendMessage(player, "&cLoading islands stats...");
+        ChatUtils.sendMessage(player, "&cLoading islands stats...");
         new BukkitRunnable(){
 
             @Override
@@ -45,7 +45,7 @@ public class JoinListener implements Listener {
 
                 ChatUtils.sendSyncMessage(player, "&aLoaded island!");
             }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 40L);*/
+        }.runTaskLaterAsynchronously(Main.getInstance(), 60L);
 
 
     }
