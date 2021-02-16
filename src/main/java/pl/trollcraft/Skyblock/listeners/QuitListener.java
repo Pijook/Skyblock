@@ -18,9 +18,9 @@ public class QuitListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(player.getName());
 
-        String islandID = skyblockPlayer.getIslandOrCoop();
 
-        if(islandID != null){
+        if(skyblockPlayer.hasIslandOrCoop()){
+            String islandID = skyblockPlayer.getIslandOrCoop();
             if(!Islands.hasIslandOnlineMembers(islandID)){
                 if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
                     RedisSupport.saveIsland(islandID);

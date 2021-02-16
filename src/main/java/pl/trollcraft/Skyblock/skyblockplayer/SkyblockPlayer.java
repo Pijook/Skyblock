@@ -67,4 +67,15 @@ public class SkyblockPlayer {
 
         return null;
     }
+
+    public boolean hasIslandOrCoop(){
+        if(islandID != null){
+            return true;
+        }
+        if(coopIslandID != null){
+            return true;
+        }
+
+        return false;
+    }
 }

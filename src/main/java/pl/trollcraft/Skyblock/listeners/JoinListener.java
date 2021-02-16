@@ -20,7 +20,11 @@ public class JoinListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = SkyblockPlayers.getPlayer(player.getName());
 
-        String islandID = skyblockPlayer.getIslandOrCoop();
+        String islandID = null;
+
+        if(skyblockPlayer.hasIslandOrCoop()){
+            islandID = skyblockPlayer.getIslandOrCoop();
+        }
 
         if(islandID != null){
             if(!Islands.isIslandLoaded(islandID)){
