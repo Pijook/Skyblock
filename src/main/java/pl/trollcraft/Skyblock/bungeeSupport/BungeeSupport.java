@@ -47,14 +47,15 @@ public class BungeeSupport {
         if(commands.length == 2){
             if(commands[0].equalsIgnoreCase("generateIsland")){
                 Player player = Bukkit.getPlayer(commands[1]);
-
-                CreateIsland.createNew(player);
+                Debug.log("Received message to generate island!");
+                //CreateIsland.createNew(player);
             }
         }
     }
 
     public static void sendGenerateIslandCommand(Player player){
         String command = "generateIsland:" + player.getName();
+        Debug.log("Sending message to generate island!");
         sendMessage(command);
     }
 
