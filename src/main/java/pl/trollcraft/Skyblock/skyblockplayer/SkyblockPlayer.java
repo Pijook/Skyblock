@@ -1,15 +1,16 @@
 package pl.trollcraft.Skyblock.skyblockplayer;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class SkyblockPlayer {
 
-    private String islandID;
-    private String coopIslandID;
+    private UUID islandID;
+    private UUID coopIslandID;
     private ArrayList<String> invites;
     private int placedBlocks;
 
-    public SkyblockPlayer(String islandID, String coopIslandID, ArrayList<String> invites, int placedBlocks){
+    public SkyblockPlayer(UUID islandID, UUID coopIslandID, ArrayList<String> invites, int placedBlocks){
         this.islandID = islandID;
         this.coopIslandID = coopIslandID;
         this.invites = invites;
@@ -17,19 +18,19 @@ public class SkyblockPlayer {
 
     }
 
-    public String getIslandID() {
+    public UUID getIslandID(){
         return islandID;
     }
 
-    public void setIslandID(String islandID) {
+    public void setIslandID(UUID islandID){
         this.islandID = islandID;
     }
 
-    public String getCoopIslandID() {
+    public UUID getCoopIslandID(){
         return coopIslandID;
     }
 
-    public void setCoopIslandID(String coopIslandID) {
+    public void setCoopIslandID(UUID coopIslandID){
         this.coopIslandID = coopIslandID;
     }
 
@@ -57,7 +58,7 @@ public class SkyblockPlayer {
         this.placedBlocks = placedBlocks;
     }
 
-    public String getIslandOrCoop(){
+    public UUID getIslandOrCoop(){
         if(islandID != null){
             return islandID;
         }

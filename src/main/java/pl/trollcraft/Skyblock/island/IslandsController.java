@@ -16,27 +16,27 @@ public class IslandsController {
 
     private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
 
-    private HashMap<String, Island> islands = new HashMap<>();
+    private HashMap<UUID, Island> islands = new HashMap<>();
 
     /**
      * Adds island to list of list
      * @param island Island to add
      */
-    public void addIsland(String owner, Island island){
-        islands.put(owner, island);
+    public void addIsland(UUID islandID, Island island){
+        islands.put(islandID, island);
     }
 
     /**
      * Returns island with given id
-     * @param owner Id of island
+     * @param islandID Id of island
      * @return Island to return
      */
-    public Island getIslandById(String owner){
-        if(!islands.containsKey(owner)){
+    public Island getIslandById(UUID islandID){
+        if(!islands.containsKey(islandID)){
             return null;
         }
 
-        return islands.get(owner);
+        return islands.get(islandID);
     }
 
     /**
@@ -51,11 +51,11 @@ public class IslandsController {
         return null;
     }
 
-    public HashMap<String, Island> getIslands(){
+    public HashMap<UUID, Island> getIslands(){
         return islands;
     }
 
-    public void loadIsland(String playerName){
+    /*public void loadIsland(String playerName){
         YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
         //////Better option
 
@@ -99,24 +99,8 @@ public class IslandsController {
 //
 //            islands.put(owner, new Island(owner, members, islandCenter, islandSpawn, islandLevel));
 //        }
-    }
+    }*/
 
-
-
-
-
-
-    public void checkIslands(String playerName){
-        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(playerName);
-
-        if(skyblockPlayer.getIslandID() != null){
-            if(!islands.containsKey(playerName)){
-//
-            }
-        }
-
-
-    }
 
     public boolean isPlayerOnHisIsland(Player player){
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
@@ -155,8 +139,17 @@ public class IslandsController {
         return true;
     }
 
-    public boolean isPlayerOwner( String owner ){
-        if(islands.containsKey(owner) ){
+    public boolean isPlayerOwner(String owner){
+
+        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(owner);
+
+        UUID islandID = skyblockPlayer.getIslandOrCoop();
+
+        if(islandID == null){
+            return false;
+        }
+
+        if(islands.containsKey(islandID)){
             return true;
         }
         else{
@@ -167,8 +160,8 @@ public class IslandsController {
         }
     }
     public boolean isPlayerMember( String member ){
-        for(String key : islands.keySet()){
-            if(islands.get(key).getMembers().contains(member)){
+        for(UUID islandID : islands.keySet()){
+            if(islands.get(islandID).getMembers().contains(member)){
                 return true;
             }
         }
@@ -176,32 +169,26 @@ public class IslandsController {
         return false;
     }
 
-    public void addMember( String owner, String member ){
-        List<String> mbrs = islands.get(owner).getMembers();
-        mbrs.add(member);
-        islands.get(owner).setMembers(mbrs);
-    }
-    public void remMember( String owner, String member ){
-        List<String> mbrs = islands.get(owner).getMembers();
-        mbrs.remove(member);
-        islands.get(owner).setMembers(mbrs);
+    public void addMember(String owner, String member ){
+        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(owner);
+
+        getIslandById(skyblockPlayer.getIslandOrCoop()).addMember(member);
     }
 
-    public boolean isIslandLoaded(String islandID){
+    public void remMember( String owner, String member ){
+        SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(owner);
+
+        getIslandById(skyblockPlayer.getIslandOrCoop()).removeMember(member);
+    }
+
+    public boolean isIslandLoaded(UUID islandID){
         if(islands.containsKey(islandID)){
             return true;
-        }
-        else{
-            for(String key : islands.keySet()){
-                if(islands.get(key).getMembers().contains(islandID)){
-                    return true;
-                }
-            }
         }
         return false;
     }
 
-    public boolean hasIslandOnlineMembers(String islandID){
+    public boolean hasIslandOnlineMembers(UUID islandID){
 
         Island island = getIslandById(islandID);
 

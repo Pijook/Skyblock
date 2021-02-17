@@ -11,6 +11,7 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.generator.DeleteIsland;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.List;
@@ -43,7 +44,8 @@ public class IslandCommand implements CommandExecutor {
             }
             else if( args[0].equalsIgnoreCase("delete")){
                 if(islandsController.isPlayerOwner(player.getName())) {
-                    DeleteIsland.deleteIs(islandsController.getIslandById(player.getName()) );
+                    SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
+                    DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandID()));
                     sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
                 }
                 else{
@@ -87,8 +89,9 @@ public class IslandCommand implements CommandExecutor {
                                 }
                                 else {
                                     if( skyblockPlayerController.hasInvite(owner, player.getName()) ){
+                                        SkyblockPlayer sbowner = skyblockPlayerController.getPlayer(owner);
                                         skyblockPlayerController.clearInvites(player.getName());
-                                        skyblockPlayerController.getPlayer(player.getName()).setIslandID(owner);
+                                        skyblockPlayerController.getPlayer(player.getName()).setIslandID(sbowner.getIslandOrCoop());
                                         islandsController.addMember(owner, player.getName());
 
                                         sender.sendMessage(ChatUtils.fixColor("&aPomyslnie dolaczono do wyspy " + owner ));
@@ -111,7 +114,8 @@ public class IslandCommand implements CommandExecutor {
                     if (islandsController.isPlayerOwner(player.getName())) { //If player is owner of island
                         String member = args[1];
                         if (skyblockPlayerController.getPlayer(member).hasIsland()) {  //If argument has island/is member of island
-                            if (skyblockPlayerController.getPlayer(member).getIslandID().equalsIgnoreCase(player.getName()) ){
+                            SkyblockPlayer SBmember = skyblockPlayerController.getPlayer(member);
+                            if (islandsController.getIslandById(SBmember.getIslandOrCoop()).getOwner().equalsIgnoreCase(member)){
                                 skyblockPlayerController.getPlayer(member).setIslandID(null);
                                 islandsController.remMember(player.getName(), member);
                                 sender.sendMessage(ChatUtils.fixColor("&cUsunieto " + member + " z wyspy"));
@@ -122,7 +126,8 @@ public class IslandCommand implements CommandExecutor {
                         }
                         else{
                             sender.sendMessage(ChatUtils.fixColor("&c" + member + " nie jest czlonkiem Twojej wyspy. Upewnij sie czy wpisales poprawny nick( Wielkosc liter ma znaczenie )"));
-                            List<String> members = islandsController.getIslandById(player.getName()).getMembers();
+                            SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
+                            List<String> members = islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()).getMembers();
                             sender.sendMessage(ChatUtils.fixColor("&cCzlonkowie Twojej wyspy: "));
                             for( String mbr : members ){
                                 sender.sendMessage(ChatUtils.fixColor("&3" + mbr));

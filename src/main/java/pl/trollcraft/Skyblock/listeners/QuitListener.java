@@ -11,6 +11,8 @@ import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
+import java.util.UUID;
+
 public class QuitListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
@@ -24,7 +26,7 @@ public class QuitListener implements Listener {
 
 
         if(skyblockPlayer.hasIslandOrCoop()){
-            String islandID = skyblockPlayer.getIslandOrCoop();
+            UUID islandID = skyblockPlayer.getIslandOrCoop();
             if(!islandsController.hasIslandOnlineMembers(islandID)){
                 if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
                     RedisSupport.saveIsland(islandID);

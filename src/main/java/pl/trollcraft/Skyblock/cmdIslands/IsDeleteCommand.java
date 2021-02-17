@@ -8,6 +8,8 @@ import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.generator.DeleteIsland;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 public class IsDeleteCommand extends Command{
 
     private final IslandsController islandsController = Main.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
 
     public IsDeleteCommand() {
         super(Collections.singletonList("delete"), "Usun wyspe", "TcSb.basic", true);
@@ -24,8 +27,9 @@ public class IsDeleteCommand extends Command{
     public void execute(CommandSender sender, String[] args) {
         if( sender instanceof Player) {
             Player player = (Player) sender;
+            SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
             if(islandsController.isPlayerOwner(player.getName())) {
-                DeleteIsland.deleteIs(islandsController.getIslandById(player.getName()) ); //TODO Poprawic na BungeeSupport
+                DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop())); //TODO Poprawic na BungeeSupport
                 sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
             }
             else{

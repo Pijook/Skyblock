@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class SkyblockPlayerController {
 
-    private HashMap<String, SkyblockPlayer> skyblockPlayers = new HashMap<>();
+    private final HashMap<String, SkyblockPlayer> skyblockPlayers = new HashMap<>();
 
     public SkyblockPlayer getPlayer(String nickname){
         return skyblockPlayers.get(nickname);
@@ -47,10 +47,10 @@ public class SkyblockPlayerController {
         YamlConfiguration configuration = ConfigUtils.load("players.yml", Main.getInstance());
 
         if(skyblockPlayer.getIslandID() != null){
-            configuration.set("players." + playerName + ".island", skyblockPlayer.getIslandID());
+            configuration.set("players." + playerName + ".island", skyblockPlayer.getIslandID().toString());
         }
         if(skyblockPlayer.getCoopIslandID() != null){
-            configuration.set("players." + playerName + ".coopIsland", skyblockPlayer.getCoopIslandID());
+            configuration.set("players." + playerName + ".coopIsland", skyblockPlayer.getCoopIslandID().toString());
         }
 
         removePlayer(playerName);

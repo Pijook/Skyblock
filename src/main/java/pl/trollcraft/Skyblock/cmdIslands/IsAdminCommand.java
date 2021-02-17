@@ -6,14 +6,19 @@ import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class IsAdminCommand extends Command{
 
-    public static ArrayList<String> currentlyUsedIslands = new ArrayList<String>();
+    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+
+    public static ArrayList<UUID> currentlyUsedIslands = new ArrayList<>();
 
     public IsAdminCommand() {
         super(Collections.singletonList("admin"), "Komenda symulujaca wybrana wyspe jako Twoja", "TcSb.command.admin", true);
@@ -30,7 +35,8 @@ public class IsAdminCommand extends Command{
             if( island != null) {
 
                 String owner = island.getOwner();
-                currentlyUsedIslands.add(owner);
+                SkyblockPlayer SBowner = skyblockPlayerController.getPlayer(owner);
+                currentlyUsedIslands.add(SBowner.getIslandOrCoop());
 
                 if (args.length == 2) {
                     sender.sendMessage("Otwieram GUI wyspy gracza " + island.getOwner());

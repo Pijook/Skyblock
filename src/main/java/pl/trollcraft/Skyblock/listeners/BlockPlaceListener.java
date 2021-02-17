@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -22,9 +23,14 @@ public class BlockPlaceListener implements Listener {
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
         if(!islandsController.isPlayerOnHisIsland(player)){
-            event.setCancelled(true);
-            ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-            return;
+
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+
+            }
         }
 
         skyblockPlayer.setPlacedBlocks(skyblockPlayer.getPlacedBlocks() + 1);

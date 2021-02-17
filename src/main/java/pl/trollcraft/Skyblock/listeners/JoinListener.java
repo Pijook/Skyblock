@@ -13,6 +13,8 @@ import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
+import java.util.UUID;
+
 public class JoinListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
@@ -30,7 +32,7 @@ public class JoinListener implements Listener {
             @Override
             public void run() {
                 SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
-                String islandID = null;
+                UUID islandID = null;
 
 
                 if(skyblockPlayer.hasIslandOrCoop()){

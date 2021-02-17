@@ -80,4 +80,12 @@ public class Island {
     public void setPoint1(Location point1) {
         this.point1 = point1;
     }
+
+    public void addMember(String nickname){
+        members.add(nickname);
+    }
+
+    public void removeMember(String nickname){
+        members.remove(nickname);
+    }
 }

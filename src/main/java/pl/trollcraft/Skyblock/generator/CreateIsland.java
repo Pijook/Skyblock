@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CreateIsland {
 
@@ -190,6 +191,8 @@ public class CreateIsland {
 
         YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
 
+        UUID islandID = UUID.randomUUID();
+
         //Wklejanie vvvvvvvvvvvvvvvv
         pasteIsland(format, schem);
         //Wklejanie ^^^^^^^^^^^^^^^^
@@ -220,7 +223,7 @@ public class CreateIsland {
         ConfigUtils.save(configuration, "islands.yml");
 
 
-        islandsController.addIsland( owner, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
+        islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
     }
 
     public static void pasteIsland(ClipboardFormat format, File schemat){

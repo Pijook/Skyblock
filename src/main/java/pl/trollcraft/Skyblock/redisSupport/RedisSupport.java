@@ -12,6 +12,8 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
+import java.util.UUID;
+
 public class RedisSupport {
 
     private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
@@ -56,40 +58,39 @@ public class RedisSupport {
         Main.getJedis().hset(code, "player", playerJSON);
     }
 
-    public static void loadIsland(String islandID){
+    public static void loadIsland(UUID islandID){
         Debug.log("Loading island " + islandID + "...");
         new BukkitRunnable(){
 
             @Override
             public void run(){
 
-                String redisCode = getIslandCode(islandID);
+                String redisCode = getIslandCode(islandID.toString());
 
                 String islandJSON = Main.getJedis().hget(redisCode, "island");
 
                 Island island = stringToIsland(islandJSON);
 
-                islandsController.addIsland(island.getOwner(), island);
+                islandsController.addIsland(islandID, island);
                 Debug.log("Loaded island" + islandID + "!");
             }
 
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
     }
 
-    public static void saveIsland(String islandID){
+    public static void saveIsland(UUID islandID){
         Debug.log("Saving island " + islandID + "...");
 
         Island island = islandsController.getIslandById(islandID);
 
         String islandJSON = islandToString(island);
 
-        Main.getJedis().hset(getIslandCode(islandID), "island", islandJSON);
+        Main.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
     }
 
     public static String playerToString(SkyblockPlayer player){
         Gson gson = Main.getGson();
         return gson.toJson(player);
-
     }
 
     public static SkyblockPlayer stringToPlayer(String json){

@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
@@ -19,9 +20,13 @@ public class BlockBreakListener implements Listener {
         Player player = event.getPlayer();
 
         if(!islandsController.isPlayerOnHisIsland(player)){
-            event.setCancelled(true);
-            ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-            return;
+
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+
         }
     }
 }
