@@ -15,7 +15,6 @@ public class SkyblockPlayer {
         this.coopIslandID = coopIslandID;
         this.invites = invites;
         this.placedBlocks = placedBlocks;
-
     }
 
     public UUID getIslandID(){
