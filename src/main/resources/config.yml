@@ -1,0 +1,6 @@
+teleportToSpawn: false
+spawn:
+  x: 0
+  y: 80
+  z: 0
+  world: Islands

@@ -71,18 +71,22 @@ public class Main extends JavaPlugin {
      */
     public void loadStuff(){
 
+        Debug.log("&aLoading settings...");
+        Settings.load();
+        Debug.log("&aDone!");
+
         Debug.log("&aLoading generator settings...");
         CreateIsland.getNextIsland();
-        Debug.log("&aLoaded generator settings!");
+        Debug.log("&aDone!");
 
         Debug.log("&aLoading bungee configuration...");
         BungeeSupport.loadConfiguration();
-        Debug.log("&aLoaded bungee configuration!");
+        Debug.log("&aDone!");
 
         Debug.log("&aLoading commands...");
         loadCommands();
         saveCommands();
-        Debug.log("&aCommands set!");
+        Debug.log("&aDone!");
     }
 
 

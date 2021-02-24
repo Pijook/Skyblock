@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Settings;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -25,6 +27,15 @@ public class JoinListener implements Listener {
         Player player = event.getPlayer();
 
         RedisSupport.loadPlayer(player);
+
+        if(Settings.spawnOnJoin){
+            Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    player.teleport(Storage.spawn);
+                }
+            });
+        }
 
         ChatUtils.sendMessage(player, "&cLoading islands stats...");
         new BukkitRunnable(){
