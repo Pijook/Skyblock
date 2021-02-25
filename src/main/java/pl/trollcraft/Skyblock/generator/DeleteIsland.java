@@ -11,6 +11,10 @@ public class DeleteIsland {
 
     private static final IslandsController islandsController = Main.getIslandsController();
 
+    /**
+     * Deletes island
+     * @param island Island to delete
+     */
     public static void deleteIs(Island island){
         String owner = island.getOwner();
 

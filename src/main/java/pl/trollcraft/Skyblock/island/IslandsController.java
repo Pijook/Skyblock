@@ -40,68 +40,52 @@ public class IslandsController {
     }
 
     /**
-     * To do
-     * Not finished
-     * @param location
-     * @return
+     * Returns island that contains location
+     * @param location Location to check
+     * @return Island if location is inside island or null if it doesn't
      */
     public Island getIslandByLocation(Location location){
-        //To do
+        double[] dim = new double[2];
+
+        for(UUID uuid : islands.keySet()){
+            Island island = islands.get(uuid);
+
+            dim[1] = island.getPoint1().getX();
+            dim[2] = island.getPoint2().getX();
+            Arrays.sort(dim);
+
+            if(location.getX() > dim[1] || location.getX() < dim[0]){
+                continue;
+            }
+
+            dim[0] = island.getPoint1().getZ();
+            dim[1] = island.getPoint2().getZ();
+            Arrays.sort(dim);
+
+            if(location.getZ() > dim[1] || location.getZ() < dim[0]){
+                continue;
+            }
+
+            return island;
+        }
 
         return null;
     }
 
+    /**
+     *
+     * @return List of islands
+     */
     public HashMap<UUID, Island> getIslands(){
         return islands;
     }
 
-    /*public void loadIsland(String playerName){
-        YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
-        //////Better option
 
-        for( String owner : configuration.getConfigurationSection("islands").getKeys(false)){
-            List<String> members = new ArrayList<>();
-            if( configuration.getList("islands." + owner + ".members") != null){
-                members = configuration.getStringList("islands." + owner + ".members");
-            }
-            if( owner.equalsIgnoreCase(playerName) || members.contains(playerName) ) {
-                Location islandSpawn = ConfigUtils.getLocationFromConfig(configuration, "islands." + owner + ".spawn");
-                Location islandCenter = ConfigUtils.getLocationFromConfig(configuration, "islands." + owner + ".center");
-                Location point1 = ConfigUtils.getLocationFromConfig(configuration, "islands." + owner + ".point1");
-                Location point2 = ConfigUtils.getLocationFromConfig(configuration, "islands." + owner + ".point2");
-                int islandLevel = configuration.getInt("islands." + owner + "level");
-                addIsland(owner, new Island(owner, members, islandCenter, islandSpawn, islandLevel, point1, point2));
-                return;
-            }
-        }
-
-//        for( String owner : configuration.getConfigurationSection("islands").getKeys(false)){
-//            ArrayList<String> members = new ArrayList<>();
-//            if( configuration.getStringList("islands." + owner + ".members") != null){
-//                members = (ArrayList<String>) configuration.getStringList("islands." + owner + ".members");
-//            }
-//            double spawnX = configuration.getLong("islands." + owner + ".spawn.x");
-//            double spawnY = configuration.getLong("islands." + owner + ".spawn.y");
-//            double spawnZ = configuration.getLong("islands." + owner + ".spawn.z");
-//            World spawnWorld = Bukkit.getWorld(Objects.requireNonNull(configuration.getString("islands." + owner + ".spawn.world")));
-//            Location islandSpawn;
-//            islandSpawn = new Location(spawnWorld, spawnX, spawnY, spawnZ);
-//
-//            double centerX = configuration.getLong("islands." + owner + ".spawn.x");
-//            double centerY = configuration.getLong("islands." + owner + ".spawn.y");
-//            double centerZ = configuration.getLong("islands." + owner + ".spawn.z");
-//            World centerWorld = Bukkit.getWorld(Objects.requireNonNull(configuration.getString("islands." + owner + ".center.world")));
-//            Location islandCenter = null;
-//            islandCenter = new Location(centerWorld, centerX, centerY, centerZ);
-//
-//            int islandLevel = 1;
-//            islandLevel = configuration.getInt("islands." + owner + "level");
-//
-//            islands.put(owner, new Island(owner, members, islandCenter, islandSpawn, islandLevel));
-//        }
-    }*/
-
-
+    /**
+     * Checks does player is on his or coop island
+     * @param player Player to check
+     * @return true if player is on his island
+     */
     public boolean isPlayerOnHisIsland(Player player){
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
@@ -139,6 +123,11 @@ public class IslandsController {
         return true;
     }
 
+    /**
+     * Checks is player owner of island
+     * @param owner Nickname of player to check
+     * @return true if player has island or coop
+     */
     public boolean isPlayerOwner(String owner){
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(owner);
@@ -159,6 +148,12 @@ public class IslandsController {
             return false;
         }
     }
+
+    /**
+     * Checks if player is member of island
+     * @param member Nickname of player to check
+     * @return true if player is member
+     */
     public boolean isPlayerMember( String member ){
         for(UUID islandID : islands.keySet()){
             if(islands.get(islandID).getMembers().contains(member)){
@@ -169,18 +164,33 @@ public class IslandsController {
         return false;
     }
 
+    /**
+     * Adds member to island
+     * @param owner Nickname of owner of island
+     * @param member Nickname of member to add
+     */
     public void addMember(String owner, String member ){
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(owner);
 
         getIslandById(skyblockPlayer.getIslandOrCoop()).addMember(member);
     }
 
+    /**
+     * Removes member from island
+     * @param owner Nickname of owner of island
+     * @param member Nickname of member to remove
+     */
     public void remMember( String owner, String member ){
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(owner);
 
         getIslandById(skyblockPlayer.getIslandOrCoop()).removeMember(member);
     }
 
+    /**
+     * Checks if island is loaded to server memore
+     * @param islandID ID of island to check
+     * @return true if island is loaded
+     */
     public boolean isIslandLoaded(UUID islandID){
         if(islands.containsKey(islandID)){
             return true;
@@ -188,6 +198,11 @@ public class IslandsController {
         return false;
     }
 
+    /**
+     * Checks if island has any online members
+     * @param islandID ID of island to check
+     * @return true if island has at least one online member
+     */
     public boolean hasIslandOnlineMembers(UUID islandID){
 
         Island island = getIslandById(islandID);

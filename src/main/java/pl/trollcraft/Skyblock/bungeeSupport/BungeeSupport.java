@@ -16,6 +16,10 @@ import java.util.UUID;
 
 public class BungeeSupport {
 
+    /**
+     * Sends message via bungee
+     * @param message Message to send
+     */
     public static void sendMessage(String message){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(stream);
@@ -31,6 +35,9 @@ public class BungeeSupport {
         Debug.log("Sent message to bungee!");
     }
 
+    /**
+     * Loads configuration to communicate from bungeeconfig.yml
+     */
     public static void loadConfiguration(){
 
         YamlConfiguration configuration = ConfigUtils.load("bungeeconfig.yml", Main.getInstance());
@@ -40,6 +47,10 @@ public class BungeeSupport {
 
     }
 
+    /**
+     * Matches signal from bungee to specified task
+     * @param command Command to match
+     */
     public static void matchBungeeCommand(String command){
 
         String[] commands = command.split(":");
@@ -48,17 +59,25 @@ public class BungeeSupport {
             if(commands[0].equalsIgnoreCase("generateIsland")){
                 Player player = Bukkit.getPlayer(commands[1]);
                 Debug.log("Received message to generate island!");
-                //CreateIsland.createNew(player);
+                CreateIsland.createNew(player);
             }
         }
     }
 
+    /**
+     * Sends signal to generate island
+     * @param player Owner of new island
+     */
     public static void sendGenerateIslandCommand(Player player){
         String command = "generateIsland:" + player.getName();
         Debug.log("Sending message to generate island!");
         sendMessage(command);
     }
 
+    /**
+     * Sends signal to delete island
+     * @param islandID ID of island to delete
+     */
     public static void sendDeleteIslandCommand(String islandID){
         String command = "deleteIsland:" + islandID;
         sendMessage(command);

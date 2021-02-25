@@ -90,6 +90,9 @@ public class Main extends JavaPlugin {
     }
 
 
+    /**
+     * Loads commands
+     */
     public void loadCommands(){
 
         commands = persist.load(Commands.class);
@@ -97,6 +100,10 @@ public class Main extends JavaPlugin {
         commandManager = new CommandManager("bisland");
         commandManager.registerCommands();
     }
+
+    /**
+     * Saves commands
+     */
     public void saveCommands() {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             if (commands != null) persist.save(commands);
@@ -104,9 +111,6 @@ public class Main extends JavaPlugin {
     }
 
     //Command Load/save
-
-
-
 
 
     public static Gson getGson() {

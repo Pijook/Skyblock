@@ -19,6 +19,10 @@ public class RedisSupport {
     private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
     private static final IslandsController islandsController = Main.getIslandsController();
 
+    /**
+     * Loads skyblockPlayer from redis base
+     * @param player Player to load
+     */
     public static void loadPlayer(Player player){
 
         ChatUtils.sendMessage(player, "&f&lLoading stats...");
@@ -45,6 +49,10 @@ public class RedisSupport {
 
     }
 
+    /**
+     * Saves skyblockPlayer to redis
+     * @param player Player to save
+     */
     public static void savePlayer(Player player){
         String nickname = player.getName();
 
@@ -58,6 +66,10 @@ public class RedisSupport {
         Main.getJedis().hset(code, "player", playerJSON);
     }
 
+    /**
+     * Loads island from redis
+     * @param islandID ID of island to load
+     */
     public static void loadIsland(UUID islandID){
         Debug.log("Loading island " + islandID + "...");
         new BukkitRunnable(){
@@ -78,6 +90,10 @@ public class RedisSupport {
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
     }
 
+    /**
+     * Saves island to redis
+     * @param islandID ID of island to save
+     */
     public static void saveIsland(UUID islandID){
         Debug.log("Saving island " + islandID + "...");
 
@@ -88,11 +104,21 @@ public class RedisSupport {
         Main.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
     }
 
+    /**
+     * Converts player to string
+     * @param player Skyblockplayer to convert
+     * @return Ready string
+     */
     public static String playerToString(SkyblockPlayer player){
         Gson gson = Main.getGson();
         return gson.toJson(player);
     }
 
+    /**
+     * Converts string to player
+     * @param json String to convert
+     * @return Ready skyblockPlayer
+     */
     public static SkyblockPlayer stringToPlayer(String json){
         Gson gson = Main.getGson();
         return gson.fromJson(json, SkyblockPlayer.class);
@@ -119,6 +145,11 @@ public class RedisSupport {
         return gson.fromJson(json, Island.class);
     }
 
+    /**
+     * Sends delayed synced messaged to player
+     * @param player Receiver
+     * @param message Message to send
+     */
     private static void sendMessage(Player player, String message){
         Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
             @Override
@@ -128,12 +159,22 @@ public class RedisSupport {
         });
     }
 
+    /**
+     * Returns ready code to player in redis
+     * @param nickname Nickname of player to insert into code
+     * @return Ready to use redis code
+     */
     public static String getCode(String nickname){
         String code = Storage.redisCode;
         code = code.replace("%player%", nickname);
         return code;
     }
 
+    /**
+     * Returns ready code to island in redis
+     * @param islandID ID of island to insert into code
+     * @return Ready to use redis code
+     */
     public static String getIslandCode(String islandID){
         String code = Storage.islandCode;
         code = code.replace("%id%", islandID);

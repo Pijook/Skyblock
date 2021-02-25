@@ -16,12 +16,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +34,7 @@ import java.util.UUID;
 public class CreateIsland {
 
     private static final IslandsController islandsController = Main.getIslandsController();
+    private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
 
     private static String schemFile = "island.schem";
     private static String world;
@@ -55,6 +58,9 @@ public class CreateIsland {
     public static ClipboardFormat format = ClipboardFormats.findByFile(schem);
 
 
+    /**
+     * Loads position of next island from config nextisland.yml
+     */
     public static void getNextIsland(){
         YamlConfiguration configuration = ConfigUtils.load("nextisland.yml", Main.getInstance());
 
@@ -78,6 +84,9 @@ public class CreateIsland {
         isAv = configuration.getBoolean("nextIsland.isAv");
     }
 
+    /**
+     * Sets next island position to nextisland.yml config
+     */
     private static void setNextIsland(){
         YamlConfiguration configuration = ConfigUtils.load("nextisland.yml", Main.getInstance());
 
@@ -101,8 +110,10 @@ public class CreateIsland {
         ConfigUtils.save(configuration, "nextisland.yml");
     }
 
-
-
+    /**
+     * Creates new island
+     * @param player Owner of island
+     */
     public static void createNew(Player player) {
         owner = player.getName();
 
@@ -110,10 +121,10 @@ public class CreateIsland {
 
         boolean create = true;
 
-        if( freePosistions.getConfigurationSection("free.1") != null ){
+        if(freePosistions.getConfigurationSection("free.1") != null ){
 
             int freeInt = 0;
-            for( String free : freePosistions.getConfigurationSection("free").getKeys(false) ){
+            for(String free : freePosistions.getConfigurationSection("free").getKeys(false) ){
                 freeInt = Integer.parseInt(free);
             }
 
@@ -124,11 +135,11 @@ public class CreateIsland {
 
             freePosistions.set("free." + freeInt, null);
             ConfigUtils.save(freePosistions, "freeislands.yml");
-            addIsland();
+            addIsland(owner);
             create = false;
         }
 
-        if( create) {
+        if(create) {
             getNextIsland();
             if (last == 4) {
                 if (check == goNext) {
@@ -137,7 +148,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveUp();
+                moveUp(owner);
             } else if (last == 1) {
                 if (check == goNext) {
                     last = 2;
@@ -146,7 +157,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveLeft();
+                moveLeft(owner);
             } else if (last == 2) {
                 if (check == goNext) {
                     last = 3;
@@ -154,7 +165,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveDown();
+                moveDown(owner);
             } else if (last == 3) {
                 if (check == goNext) {
                     last = 4;
@@ -163,69 +174,84 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveRight();
+                moveRight(owner);
             }
             setNextIsland();
         }
     }
 
-    public static void moveUp(){
-        addIsland();
+    /**
+     * ?
+     * @param owner
+     */
+    public static void moveUp(String owner){
+        addIsland(owner);
         z += maxSize + distance + 1;
     }
-    public static void moveLeft(){
-        addIsland();
+
+    /**
+     * ?
+     * @param owner
+     */
+    public static void moveLeft(String owner){
+        addIsland(owner);
         x += maxSize + distance + 1;
     }
-    public static void moveDown(){
-        addIsland();
+
+    /**
+     * ?
+     * @param owner
+     */
+    public static void moveDown(String owner){
+        addIsland(owner);
         z -= maxSize + distance + 1;
     }
-    public static void moveRight(){
-        addIsland();
+
+    /**
+     * ?
+     * @param owner
+     */
+    public static void moveRight(String owner){
+        addIsland(owner);
         x -= maxSize + distance + 1;
     }
 
 
-    public static void addIsland(){
-
-        YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
+    /**
+     * Adds new island to memory and sets owner of island
+     * @param owner Nickname of owner
+     */
+    public static void addIsland(String owner){
 
         UUID islandID = UUID.randomUUID();
 
         //Wklejanie vvvvvvvvvvvvvvvv
         pasteIsland(format, schem);
-        //Wklejanie ^^^^^^^^^^^^^^^^
 
-//        Bukkit.getWorld("" + world).getPlayers().forEach(p -> p.sendMessage(ChatUtils.fixColor("&a&lStworzylem wyspe na koordach: " + x + ", " +  y + ", " +  z)));
-//
         Location newLoc = new Location(Bukkit.getWorld("" + world), x, y, z);
         Bukkit.getPlayer(owner).teleport(newLoc);
-        configuration.set("islands." + owner + ".owner", owner);
-        configuration.set("islands." + owner + ".members", members);
-        configuration.set("islands." + owner + ".level", level);
-        ConfigUtils.saveLocationToConfig(configuration, "islands." + owner + ".spawn", newLoc);
-//        configuration.set("islands." + owner + ".spawn.x", x);
-//        configuration.set("islands." + owner + ".spawn.y", y);
-//        configuration.set("islands." + owner + ".spawn.z", z);
-//        configuration.set("islands." + owner + ".spawn.world", world);
-        ConfigUtils.saveLocationToConfig(configuration, "islands." + owner + ".center", newLoc);
-//        configuration.set("islands." + owner + ".center.x", x);
-//        configuration.set("islands." + owner + ".center.y", y);
-//        configuration.set("islands." + owner + ".center.z", z);
-//        configuration.set("islands." + owner + ".center.world", world);
+
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                skyblockPlayerController.getPlayer(owner).setIslandID(islandID);
+            }
+        }.runTaskLaterAsynchronously(Main.getInstance(), 40L);
+
 
         Location point1 = new Location(Bukkit.getWorld(world) , x - ((double)maxSize/2), 0, z - ((double)maxSize/2));
         Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
-        ConfigUtils.saveLocationToConfig(configuration, "islands." + owner + ".point1", point1);
-        ConfigUtils.saveLocationToConfig(configuration, "islands." + owner + ".point2", point2);
-
-        ConfigUtils.save(configuration, "islands.yml");
 
 
         islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
     }
 
+    /**
+     * Pastes island
+     * @param format Format
+     * @param schemat Schematic file
+     */
     public static void pasteIsland(ClipboardFormat format, File schemat){
         ClipboardReader reader;
         Clipboard clipboard;
@@ -242,23 +268,20 @@ public class CreateIsland {
             e.printStackTrace();
             return;
         }
-        try { //Pasting Operation
-            // We need to adapt our world into a format that worldedit accepts. This looks like this:
-            // Ensure it is using com.sk89q... otherwise we'll just be adapting a world into the same world.
-                com.sk89q.worldedit.world.World adaptedWorld = BukkitAdapter.adapt(Bukkit.getWorld("" + world));
+        try {
+            com.sk89q.worldedit.world.World adaptedWorld = BukkitAdapter.adapt(Bukkit.getWorld("" + world));
 
             EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(adaptedWorld,
                     -1);
 
-// Saves our operation and builds the paste - ready to be completed.
             Operation operation = new ClipboardHolder(clipboard).createPaste(editSession)
                     .to(BlockVector3.at(x, y, z)).ignoreAirBlocks(true).build();
 
-            try { // This simply completes our paste and then cleans up.
+            try {
                 Operations.complete(operation);
                 editSession.flushSession();
 
-            } catch (WorldEditException e) { // If worldedit generated an exception it will go here
+            } catch (WorldEditException e) {
                 Debug.log(ChatUtils.fixColor("" + "Sth gone wrong"));
                 e.printStackTrace();
             }
@@ -266,12 +289,4 @@ public class CreateIsland {
             error.printStackTrace();
         }
     }
-//Testowe dodawanie memberow
-//    public static void addMember(String ownr, String mbr){
-//        YamlConfiguration configuration = ConfigUtils.load("islands.yml", Main.getInstance());
-//        ArrayList<String> membr = (ArrayList<String>) configuration.getStringList("islands." + ownr + ".members");
-//        membr.add(mbr);
-//        configuration.set("islands." + ownr + ".members", membr);
-//        ConfigUtils.save(configuration, "islands.yml");
-//    }
 }

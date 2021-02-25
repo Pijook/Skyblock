@@ -7,6 +7,9 @@ public class Settings {
 
     public static boolean spawnOnJoin;
 
+    /**
+     * Loads basic settings for plugin from config.yml
+     */
     public static void load(){
 
         YamlConfiguration configuration = ConfigUtils.load("config.yml", Main.getInstance());
