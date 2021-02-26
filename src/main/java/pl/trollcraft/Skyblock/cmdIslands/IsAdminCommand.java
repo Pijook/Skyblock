@@ -70,7 +70,7 @@ public class IsAdminCommand extends Command{
             }
         }
         else{
-            sender.sendMessage("/is admin <nick> <argument>");
+            sender.sendMessage(ChatUtils.fixColor("&c/is " + aliases.get(0) + " " + "<nick> <argument>" ));
         }
     }
 

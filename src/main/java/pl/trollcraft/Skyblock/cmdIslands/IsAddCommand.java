@@ -50,7 +50,16 @@ public class IsAddCommand extends Command{
                         sender.sendMessage(ChatUtils.fixColor("&cTen grasz nie jest online"));
                     }
                 }
+                else{
+                    sender.sendMessage(ChatUtils.fixColor("&cNie znaleziono gracza"));
+                }
             }
+            else{
+                sender.sendMessage(ChatUtils.fixColor("&cNie jestes wlascicielem wyspy"));
+            }
+        }
+        else{
+            sender.sendMessage(ChatUtils.fixColor("&c/is " + aliases.get(0) + " " + "<nick>" ));
         }
 
     }

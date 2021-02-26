@@ -40,25 +40,34 @@ public class IsJoinCommand extends Command{
                             sender.sendMessage(ChatUtils.fixColor("&Nie mozesz uzyc tej komendy poniewaz posiadasz juz wyspe"));
                         }
                         else {
-                            if( skyblockPlayerController.hasInvite(owner, player.getName()) ){
+                            if (skyblockPlayerController.hasInvite(owner, player.getName())) {
                                 SkyblockPlayer sbowner = skyblockPlayerController.getPlayer(owner);
                                 skyblockPlayerController.clearInvites(player.getName());
                                 skyblockPlayerController.getPlayer(player.getName()).setIslandID(sbowner.getIslandOrCoop());
                                 islandsController.addMember(owner, player.getName());
 
-                                sender.sendMessage(ChatUtils.fixColor("&aPomyslnie dolaczono do wyspy " + owner ));
+                                sender.sendMessage(ChatUtils.fixColor("&aPomyslnie dolaczono do wyspy " + owner));
                                 Bukkit.getPlayer(owner).sendMessage(ChatUtils.fixColor("&aTwoja wyspa zyskala nowego czlonka - " + player.getName()));
                             }
-                            else{
+                            else {
                                 sender.sendMessage(ChatUtils.fixColor("&aNie posiadasz zaproszenia na wyspe " + owner));
                             }
                         }
                     }
-                    else{
-                        sender.sendMessage(ChatUtils.fixColor("&cTen grasz nie jest online"));
+                    else {
+                        sender.sendMessage(ChatUtils.fixColor("&cTen grasz nie jest wlascicielem wyspy"));
                     }
                 }
+                else{
+                    sender.sendMessage(ChatUtils.fixColor("&cTen grasz nie jest online"));
+                }
             }
+            else{
+                sender.sendMessage(ChatUtils.fixColor("&cNie znaleziono gracza"));
+            }
+        }
+        else{
+            sender.sendMessage(ChatUtils.fixColor("&c/is " + aliases.get(0) + " " + "<nick>" ));
         }
     }
 
