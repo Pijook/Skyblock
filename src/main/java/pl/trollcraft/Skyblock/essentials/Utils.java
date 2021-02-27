@@ -1,6 +1,7 @@
 package pl.trollcraft.Skyblock.essentials;
 
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -146,6 +147,10 @@ public class Utils {
 
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
+    }
+
+    public static String locationToString(Location location){
+        return "World: " + location.getWorld().getName() + " x: " + location.getX() + " y: " + location.getY() + " z: " + location.getZ();
     }
 
 }

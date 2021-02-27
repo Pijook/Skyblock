@@ -81,4 +81,10 @@ public class BungeeSupport {
         String command = "deleteIsland:" + islandID;
         sendMessage(command);
     }
+
+    public static void sendIslancSyncCommand(String islandID){
+        Debug.log("Sending command to sync island");
+        String command = "syncIsland:" + islandID;
+        sendMessage(command);
+    }
 }

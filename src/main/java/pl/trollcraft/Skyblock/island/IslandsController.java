@@ -2,15 +2,18 @@ package pl.trollcraft.Skyblock.island;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
-import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class IslandsController {
 
@@ -24,6 +27,7 @@ public class IslandsController {
      */
     public void addIsland(UUID islandID, Island island){
         islands.put(islandID, island);
+        RedisSupport.saveIsland(islandID);
     }
 
     /**
@@ -50,8 +54,8 @@ public class IslandsController {
         for(UUID uuid : islands.keySet()){
             Island island = islands.get(uuid);
 
-            dim[1] = island.getPoint1().getX();
-            dim[2] = island.getPoint2().getX();
+            dim[0] = island.getPoint1().getX();
+            dim[1] = island.getPoint2().getX();
             Arrays.sort(dim);
 
             if(location.getX() > dim[1] || location.getX() < dim[0]){
@@ -67,6 +71,34 @@ public class IslandsController {
             }
 
             return island;
+        }
+
+        return null;
+    }
+
+    public UUID getIslandIDByLocation(Location location){
+        double[] dim = new double[2];
+
+        for(UUID uuid : islands.keySet()){
+            Island island = islands.get(uuid);
+
+            dim[0] = island.getPoint1().getX();
+            dim[1] = island.getPoint2().getX();
+            Arrays.sort(dim);
+
+            if(location.getX() > dim[1] || location.getX() < dim[0]){
+                continue;
+            }
+
+            dim[0] = island.getPoint1().getZ();
+            dim[1] = island.getPoint2().getZ();
+            Arrays.sort(dim);
+
+            if(location.getZ() > dim[1] || location.getZ() < dim[0]){
+                continue;
+            }
+
+            return uuid;
         }
 
         return null;
@@ -203,24 +235,108 @@ public class IslandsController {
      * @param islandID ID of island to check
      * @return true if island has at least one online member
      */
-    public boolean hasIslandOnlineMembers(UUID islandID){
-
+    public boolean hasIslandOnlineMembers(UUID islandID, String toIgnore){
+        Debug.log("&aChecking does island has online members");
         Island island = getIslandById(islandID);
 
         Player player = Bukkit.getServer().getPlayer(island.getOwner());
 
-        if(player != null && player.isOnline()){
-            return true;
+        if(!player.getName().equalsIgnoreCase(toIgnore)){
+            if(player != null && player.isOnline()){
+                Debug.log("&cOwner is online");
+                return true;
+            }
         }
 
         for(String nickname : island.getMembers()){
             player = Bukkit.getServer().getPlayer(nickname);
 
+            if(nickname.equalsIgnoreCase(toIgnore)){
+                continue;
+            }
+
             if(player != null && player.isOnline()){
+                Debug.log("&cMember " + nickname + " is online");
                 return true;
             }
         }
 
+        Debug.log("&cAll members are offline");
         return false;
+    }
+
+    public BungeeIsland convertIslandToBungeeIsland(Island island){
+        Location center = island.getCenter();
+        Location home = island.getHome();
+        Location point1 = island.getPoint1();
+        Location point2 = island.getPoint2();
+        BungeeIsland bungeeIsland = new BungeeIsland(
+                island.getOwner(),
+                island.getMembers(),
+                new pl.trollcraft.Skyblock.island.bungeeIsland.Location(center.getWorld().getName(), center.getX(), center.getY(), center.getZ()),
+                new pl.trollcraft.Skyblock.island.bungeeIsland.Location(home.getWorld().getName(), home.getX(), home.getY(), home.getZ()),
+                island.getIslandLevel()
+        );
+
+        bungeeIsland.setPoint1(new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point1.getWorld().getName(),point1.getX(), point1.getY(), point1.getZ()));
+        bungeeIsland.setPoint2(new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point2.getWorld().getName(),point2.getX(), point2.getY(), point2.getZ()));
+
+        return bungeeIsland;
+    }
+
+    public Island convertBungeeIslandToIsland(BungeeIsland bungeeIsland){
+        pl.trollcraft.Skyblock.island.bungeeIsland.Location center = bungeeIsland.getCenter();
+        pl.trollcraft.Skyblock.island.bungeeIsland.Location home = bungeeIsland.getHome();
+        pl.trollcraft.Skyblock.island.bungeeIsland.Location point1 = bungeeIsland.getPoint1();
+        pl.trollcraft.Skyblock.island.bungeeIsland.Location point2 = bungeeIsland.getPoint2();
+
+        Island island = new Island(
+                bungeeIsland.getOwner(),
+                bungeeIsland.getMembers(),
+                new Location(Bukkit.getWorld(center.getWorld()), center.getX(), center.getY(), center.getZ()),
+                new Location(Bukkit.getWorld(home.getWorld()), home.getX(), home.getY(), home.getZ()),
+                bungeeIsland.getIslandLevel(),
+                new Location(
+                        Bukkit.getWorld(point1.getWorld()),
+                        point1.getX(),
+                        point1.getY(),
+                        point1.getZ()),
+                new Location(Bukkit.getWorld(point2.getWorld()), point2.getX(), point2.getY(), point2.getZ())
+        );
+
+        return island;
+    }
+
+
+    public void initTimer(){
+        Main.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                syncIslands();
+            }
+        }, 60L, 12000L);
+    }
+
+    public void syncIslands(){
+        Debug.log("&aSyncing islands...");
+        ArrayList<UUID> toRemove = new ArrayList<>();
+
+        for(UUID uuid : islands.keySet()){
+
+            RedisSupport.saveIsland(uuid);
+
+            if(!hasIslandOnlineMembers(uuid, null)){
+                toRemove.add(uuid);
+            }
+
+        }
+
+        for(UUID uuid : toRemove){
+            Debug.log("&cRemoving from memory island " + uuid + "...");
+            islands.remove(uuid);
+        }
+
+        Debug.log("&aFinished!");
+
     }
 }

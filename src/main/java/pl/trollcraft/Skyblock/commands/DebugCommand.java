@@ -8,8 +8,11 @@ import org.jetbrains.annotations.NotNull;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.essentials.Utils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class DebugCommand implements CommandExecutor {
@@ -54,13 +57,33 @@ public class DebugCommand implements CommandExecutor {
                 ChatUtils.sendMessage(player, "X:" + island.getHome().getX());
                 ChatUtils.sendMessage(player, "Y:" + island.getHome().getY());
                 ChatUtils.sendMessage(player, "Z:" + island.getHome().getZ());
+                ChatUtils.sendMessage(player, "&f&lPoint 1: " + Utils.locationToString(island.getPoint1()));
+                ChatUtils.sendMessage(player, "&f&lPoint 2: " + Utils.locationToString(island.getPoint2()));
+                return true;
+            }
+            if(args[0].equalsIgnoreCase("islandjson")){
+                Island island = islandsController.getIslandByLocation(player.getLocation());
 
+                if(island == null){
+                    ChatUtils.sendMessage(player, "&cNie znajdujesz sie na wyspie!");
+                    return true;
+                }
+
+                BungeeIsland bungeeIsland = islandsController.convertIslandToBungeeIsland(island);
+                String islandString = RedisSupport.bungeeIslandToString(bungeeIsland);
+                ChatUtils.sendMessage(player, islandString);
+                return true;
+            }
+            if(args[0].equalsIgnoreCase("sync")){
+                islandsController.syncIslands();
             }
         }
 
 
         ChatUtils.sendMessage(player, "&7/" + label + " stats");
         ChatUtils.sendMessage(player, "&7/" + label + " island");
+        ChatUtils.sendMessage(player, "&7/" + label + " islandjson");
+        ChatUtils.sendMessage(player, "&7/" + label + " sync");
         return true;
     }
 }

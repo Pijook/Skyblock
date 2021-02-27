@@ -5,7 +5,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -24,16 +26,21 @@ public class QuitListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
-
         if(skyblockPlayer.hasIslandOrCoop()){
             UUID islandID = skyblockPlayer.getIslandOrCoop();
-            if(!islandsController.hasIslandOnlineMembers(islandID)){
+            Debug.log("Player has island " + islandID);
+            if(!islandsController.hasIslandOnlineMembers(islandID, player.getName())){
                 if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
                     RedisSupport.saveIsland(islandID);
+
                 }
             }
         }
+        else{
+            Debug.log("&cPlayer dont have island!");
+        }
 
         RedisSupport.savePlayer(player);
+
     }
 }

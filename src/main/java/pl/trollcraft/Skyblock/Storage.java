@@ -1,6 +1,5 @@
 package pl.trollcraft.Skyblock;
 
-import com.sk89q.worldedit.extension.platform.Locatable;
 import org.bukkit.Location;
 
 public class Storage {
@@ -11,4 +10,7 @@ public class Storage {
     public static String islandCode = "skyblockisland:%id%";
 
     public static Location spawn;
+
+
+
 }

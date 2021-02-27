@@ -59,6 +59,8 @@ public class Main extends JavaPlugin {
         getCommand("debug").setExecutor(new DebugCommand());
 
         loadStuff();
+
+        islandsController.initTimer();
     }
 
     @Override

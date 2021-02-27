@@ -5,10 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -81,7 +83,8 @@ public class RedisSupport {
 
                 String islandJSON = Main.getJedis().hget(redisCode, "island");
 
-                Island island = stringToIsland(islandJSON);
+                BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
+                Island island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
 
                 islandsController.addIsland(islandID, island);
                 Debug.log("Loaded island" + islandID + "!");
@@ -98,10 +101,15 @@ public class RedisSupport {
         Debug.log("Saving island " + islandID + "...");
 
         Island island = islandsController.getIslandById(islandID);
+        BungeeIsland bungeeIsland = islandsController.convertIslandToBungeeIsland(island);
 
-        String islandJSON = islandToString(island);
+        String islandJSON = bungeeIslandToString(bungeeIsland);
+
+        Debug.log(islandJSON);
 
         Main.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
+
+        BungeeSupport.sendIslancSyncCommand(islandID.toString());
     }
 
     /**
@@ -143,6 +151,16 @@ public class RedisSupport {
     public static Island stringToIsland(String json){
         Gson gson = Main.getGson();
         return gson.fromJson(json, Island.class);
+    }
+
+    public static String bungeeIslandToString(BungeeIsland bungeeIsland){
+        Gson gson = Main.getGson();
+        return gson.toJson(bungeeIsland);
+    }
+
+    public static BungeeIsland stringToBungeeIsland(String json){
+        Gson gson = Main.getGson();
+        return gson.fromJson(json, BungeeIsland.class);
     }
 
     /**
