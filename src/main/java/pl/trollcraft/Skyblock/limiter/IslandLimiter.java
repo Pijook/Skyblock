@@ -149,5 +149,12 @@ public class IslandLimiter {
         }
     }
 
+    public void createNewLimiter(UUID uuid){
+        HashMap<EntityType, Integer> entities = new HashMap<>();
+        HashMap<Material, Integer> blocks = new HashMap<>();
+
+        islandsLimiters.put(uuid, new Limiter(entities, blocks));
+    }
+
 
 }

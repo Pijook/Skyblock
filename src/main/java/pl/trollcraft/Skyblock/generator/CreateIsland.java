@@ -236,17 +236,16 @@ public class CreateIsland {
             @Override
             public void run() {
                 skyblockPlayerController.getPlayer(owner).setIslandID(islandID);
-                Location point1 = new Location(Bukkit.getWorld(world) , x - ((double)maxSize/2), 0, z - ((double)maxSize/2));
-                Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
-
-
-                islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
                 Debug.log("&aFinished creating island!");
             }
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
 
+        Location point1 = new Location(Bukkit.getWorld(world) , x - ((double)maxSize/2), 0, z - ((double)maxSize/2));
+        Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
 
 
+        islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
+        Main.getIslandLimiter().createNewLimiter(islandID);
     }
 
     /**
