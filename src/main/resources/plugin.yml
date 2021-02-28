@@ -9,10 +9,8 @@ depend:
   - Multiverse-Core
 name: Skyblock
 commands:
-  island:
-    usage: /island
   debug:
     usage: /debug
   bisland:
     usage: /bisland
-    aliases: [ "is", "bungeeisland" ]
+    aliases: [ "is", "island", "bungeeisland" ]

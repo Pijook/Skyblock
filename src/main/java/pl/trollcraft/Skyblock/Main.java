@@ -58,7 +58,7 @@ public class Main extends JavaPlugin {
         getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeListener());
 
         //Commands
-        getCommand("island").setExecutor(new IslandCommand());
+//        getCommand("island").setExecutor(new IslandCommand()); // OLD
         getCommand("debug").setExecutor(new DebugCommand());
 
         loadStuff();

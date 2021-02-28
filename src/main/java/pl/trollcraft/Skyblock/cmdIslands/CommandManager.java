@@ -6,6 +6,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import scala.annotation.meta.field;
 
@@ -52,17 +53,18 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String s, String[] args) {
-        if ( !(cs.hasPermission("test.komenda"))){
-            cs.sendMessage("Brak perimsji");
-            return false;
+        if ( !(cs.hasPermission("TcSB.basic"))){
+            cs.sendMessage(ChatUtils.fixColor("&cBrak uprawnien"
+                    .replace("%prefix%", "TcSB")));
+            return true;
         }
         if (args.length != 0) {
             for (Command command : commands) {
                 if (command.aliases.contains(args[0]) && command.enabled) {
                     if (command.player && !(cs instanceof Player)) {
                         // Must be a player
-                        cs.sendMessage("%prefix% Musisz byc graczem"
-                                .replace("%prefix%", "TcSB"));
+                        cs.sendMessage(ChatUtils.fixColor("%prefix% Musisz byc graczem"
+                                .replace("%prefix%", "TcSB")));
                         return true;
                     }
                     if ((cs.hasPermission(command.permission) || command.permission
@@ -71,8 +73,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                         command.execute(cs, args);
                     } else {
                         // No permission
-                        cs.sendMessage("%prefix% Brak uprawnien"
-                                .replace("%prefix%", "TcSB"));
+                        cs.sendMessage(ChatUtils.fixColor("%prefix% Brak uprawnien"
+                                .replace("%prefix%", "TcSB")));
                     }
                     return true;
                 }
@@ -80,8 +82,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             Debug.log("&aSprawdzilem wszystkie komendy");
         }
         else {
-            cs.sendMessage("%prefix% Podaj argument"
-                    .replace("%prefix%", "TcS"));
+            cs.sendMessage(ChatUtils.fixColor("%prefix% Podaj argument"
+                    .replace("%prefix%", "TcS")));
             return true;
         }
         return true;
