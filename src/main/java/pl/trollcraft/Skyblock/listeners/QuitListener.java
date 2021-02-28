@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import pl.trollcraft.Skyblock.Main;
-import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -34,6 +33,7 @@ public class QuitListener implements Listener {
                     RedisSupport.saveIsland(islandID);
 
                 }
+                Main.getIslandLimiter().saveIsland(islandID);
             }
         }
         else{

@@ -55,6 +55,7 @@ public class JoinListener implements Listener {
                         if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)) {
                             RedisSupport.loadIsland(islandID);
                         }
+                        Main.getIslandLimiter().loadIsland(islandID);
                     }
                 }
 

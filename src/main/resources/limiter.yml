@@ -1,0 +1,5 @@
+blocks:
+  STONE: 999
+  DIRT: 666
+entities:
+  SHEEP: 15

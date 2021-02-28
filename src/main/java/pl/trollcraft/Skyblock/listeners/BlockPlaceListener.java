@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,6 +9,7 @@ import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -15,12 +17,15 @@ public class BlockPlaceListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
     private final IslandsController islandsController = Main.getIslandsController();
+    private final IslandLimiter islandLimiter = Main.getIslandLimiter();
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event){
         Player player = event.getPlayer();
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
+
+        Block block = event.getBlock();
 
         if(!islandsController.isPlayerOnHisIsland(player)){
 
@@ -32,6 +37,14 @@ public class BlockPlaceListener implements Listener {
 
             }
         }
+        else{
+            if(islandLimiter.isBlockLimited(block.getType())){
+                if(islandLimiter.isBlockAboveLimit(block)){
+                    event.setCancelled(true);
+                }
+            }
+        }
+
 
         skyblockPlayer.setPlacedBlocks(skyblockPlayer.getPlacedBlocks() + 1);
     }

@@ -13,6 +13,7 @@ import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.listeners.BlockBreakListener;
 import pl.trollcraft.Skyblock.listeners.BlockPlaceListener;
 import pl.trollcraft.Skyblock.listeners.JoinListener;
@@ -28,6 +29,7 @@ public class Main extends JavaPlugin {
 
     private static SkyblockPlayerController skyblockPlayerController;
     private static IslandsController islandsController;
+    private static IslandLimiter islandLimiter;
 
     //Commands
     private Commands commands;
@@ -42,6 +44,7 @@ public class Main extends JavaPlugin {
 
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
+        islandLimiter = new IslandLimiter();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -61,6 +64,7 @@ public class Main extends JavaPlugin {
         loadStuff();
 
         islandsController.initTimer();
+        islandLimiter.loadDefault();
     }
 
     @Override
@@ -141,6 +145,10 @@ public class Main extends JavaPlugin {
 
     public static IslandsController getIslandsController() {
         return islandsController;
+    }
+
+    public static IslandLimiter getIslandLimiter() {
+        return islandLimiter;
     }
 
 }
