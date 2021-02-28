@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.commands.IslandCommand;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.generator.DeleteIsland;
@@ -29,8 +30,14 @@ public class IsDeleteCommand extends Command{
             Player player = (Player) sender;
             SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
             if(islandsController.isPlayerOwner(player.getName())) {
-                DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop())); //TODO Poprawic na BungeeSupport
-                sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
+                if( islandsController.getIslandByLocation(player.getLocation()).getOwner().equalsIgnoreCase(player.getName())) {
+                    BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()));
+                    DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
+                    sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
+                }
+                else{
+                    player.sendMessage(ChatUtils.fixColor("&cMusisz znajdowac sie na swojej wyspie"));
+                }
             }
             else{
                 sender.sendMessage(ChatUtils.fixColor("&cNie jestes walscicielem wyspy"));
@@ -44,7 +51,8 @@ public class IsDeleteCommand extends Command{
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
         String owner = island.getOwner();
-        DeleteIsland.deleteIs( island ); //To zadziala cnie? xD
+        BungeeSupport.sendDeleteIslandCommand( islandsController.getIslandIdByOwnerOrMember( owner ) );
+        DeleteIsland.deleteIs( islandsController.getIslandByOwnerOrMember( owner) );
         sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe gracza " + owner));
     }
 

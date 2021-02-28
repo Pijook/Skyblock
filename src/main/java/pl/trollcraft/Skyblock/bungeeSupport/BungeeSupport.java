@@ -12,6 +12,7 @@ import pl.trollcraft.Skyblock.generator.CreateIsland;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 public class BungeeSupport {
 
@@ -77,7 +78,7 @@ public class BungeeSupport {
      * Sends signal to delete island
      * @param islandID ID of island to delete
      */
-    public static void sendDeleteIslandCommand(String islandID){
+    public static void sendDeleteIslandCommand(UUID islandID){
         String command = "deleteIsland:" + islandID;
         sendMessage(command);
     }

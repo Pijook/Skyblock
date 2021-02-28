@@ -1,8 +1,12 @@
 package pl.trollcraft.Skyblock.generator;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -17,6 +21,7 @@ public class DeleteIsland {
      */
     public static void deleteIs(Island island){
         String owner = island.getOwner();
+
 
         Location center = island.getCenter();
 
@@ -45,6 +50,15 @@ public class DeleteIsland {
         freePosistions.set("free." + freeIsId + ".world", world);
 
         ConfigUtils.save(freePosistions, "freeislands.yml");
-        islandsController.getIslands().remove(owner);
+
+        for(Player player : Bukkit.getOnlinePlayers()){
+            if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
+                player.teleport(Storage.spawn);
+                player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
+            }
+        }
+
+        islandsController.getIslands().remove( islandsController.getIslandIdByOwnerOrMember(owner) );
+
     }
 }

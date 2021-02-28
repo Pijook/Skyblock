@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
@@ -41,6 +42,55 @@ public class IslandsController {
         }
 
         return islands.get(islandID);
+    }
+
+    /**
+     * Returns island of given playerName
+     * @param pName name of player who we searching
+     * @return Island to return
+     */
+    public Island getIslandByOwnerOrMember( String pName ){
+        for( UUID islandID : islands.keySet() ){
+            if( islands.get(islandID).getOwner().equalsIgnoreCase(pName) ){
+                return islands.get(islandID);
+            }
+            if( islands.get(islandID).getMembers().contains(pName) ){
+                return islands.get(islandID);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns islandID of given playerName
+     * @param pName name of player who we searching
+     * @return IslandID to return
+     */
+    public UUID getIslandIdByOwnerOrMember( String pName ){
+        for( UUID islandID : islands.keySet() ){
+            if( islands.get(islandID).getOwner().equalsIgnoreCase(pName) ){
+                return islandID;
+            }
+            if( islands.get(islandID).getMembers().contains(pName) ){
+                return islandID;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Teleports player to island
+     * @param player player who we need to teleport
+     * @param islandID id of island where we want to teleport player
+     * @return boolean depending on the result
+     */
+    public boolean tpToIsland( Player player, UUID islandID ){
+        if( islands.containsKey(islandID) && player.isOnline() ) {
+            Location islandHome = islands.get(islandID).getHome();
+            player.teleport(islandHome);
+            return true;
+        }
+        return false;
     }
 
     /**
