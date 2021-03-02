@@ -66,6 +66,8 @@ public class RedisSupport {
         String playerJSON = playerToString(skyblockPlayer);
         Debug.log("JSON:" + playerJSON);
         Main.getJedis().hset(code, "player", playerJSON);
+
+        skyblockPlayerController.removePlayer(nickname);
     }
 
     /**

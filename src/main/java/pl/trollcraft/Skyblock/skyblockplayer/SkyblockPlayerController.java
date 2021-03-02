@@ -4,7 +4,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
-import sun.security.krb5.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ public class SkyblockPlayerController {
         skyblockPlayers.put(nickname, skyblockPlayer);
     }
 
-    private void removePlayer(String nickname){
+    public void removePlayer(String nickname){
         skyblockPlayers.remove(nickname);
     }
 
