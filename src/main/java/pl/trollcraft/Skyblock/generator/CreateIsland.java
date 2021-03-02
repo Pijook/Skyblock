@@ -229,13 +229,21 @@ public class CreateIsland {
         pasteIsland(format, schem);
 
         Location newLoc = new Location(Bukkit.getWorld("" + world), x, y, z);
-        Bukkit.getPlayer(owner).teleport(newLoc);
+        //Bukkit.getPlayer(owner).teleport(newLoc);
 
         new BukkitRunnable(){
 
             @Override
             public void run() {
                 skyblockPlayerController.getPlayer(owner).setIslandID(islandID);
+
+                Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        Bukkit.getPlayer(owner).teleport(newLoc);
+                    }
+                });
+
                 Debug.log("&aFinished creating island!");
             }
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
