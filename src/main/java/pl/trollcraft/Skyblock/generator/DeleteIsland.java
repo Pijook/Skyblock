@@ -10,10 +10,13 @@ import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class DeleteIsland {
 
     private static final IslandsController islandsController = Main.getIslandsController();
+    private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
 
     /**
      * Deletes island
@@ -55,6 +58,16 @@ public class DeleteIsland {
             if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
                 player.teleport(Storage.spawn);
                 player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
+            }
+        }
+
+        for(Player player : Bukkit.getOnlinePlayers()){
+            SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
+            if(player.getName().equalsIgnoreCase(owner)){
+                skyblockPlayer.setIslandID(null);
+            }
+            else{
+                skyblockPlayer.setCoopIslandID(null);
             }
         }
 

@@ -80,14 +80,18 @@ public class IslandLimiter {
         Limiter limiter = islandsLimiters.get(uuid);
 
         configuration.set(uuidString, null);
-
-        for(Material material : limiter.getCurrentBlocks().keySet()){
-            configuration.set(uuidString + "." + material.getData().getName(), limiter.getBlocksAmount(material));
+        if(limiter.getCurrentBlocks() != null){
+            for(Material material : limiter.getCurrentBlocks().keySet()){
+                configuration.set(uuidString + "." + material.getData().getName(), limiter.getBlocksAmount(material));
+            }
         }
 
-        for(EntityType entityType : limiter.getCurrentEntities().keySet()){
-            configuration.set(uuidString + "." + entityType.getName(), limiter.getEntitiesAmount(entityType));
+        if(limiter.getCurrentEntities() != null){
+            for(EntityType entityType : limiter.getCurrentEntities().keySet()){
+                configuration.set(uuidString + "." + entityType.getName(), limiter.getEntitiesAmount(entityType));
+            }
         }
+
 
         ConfigUtils.save(configuration, "islandLimits.yml");
     }
