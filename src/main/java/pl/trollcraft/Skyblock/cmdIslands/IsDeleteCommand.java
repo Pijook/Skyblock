@@ -40,7 +40,7 @@ public class IsDeleteCommand extends Command{
                 }
             }
             else{
-                sender.sendMessage(ChatUtils.fixColor("&cNie jestes walscicielem wyspy"));
+                sender.sendMessage(ChatUtils.fixColor("&cNie jestes wlascicielem wyspy"));
             }
         }
         else{

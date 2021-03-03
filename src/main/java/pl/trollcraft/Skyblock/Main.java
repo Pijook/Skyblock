@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
 
         commands = persist.load(Commands.class);
 
-        commandManager = new CommandManager("bisland");
+        commandManager = new CommandManager("island");
         commandManager.registerCommands();
     }
 

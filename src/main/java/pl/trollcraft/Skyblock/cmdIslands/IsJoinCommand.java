@@ -37,7 +37,7 @@ public class IsJoinCommand extends Command{
                     String owner = Bukkit.getPlayer(args[1]).getName();
                     if (islandsController.isPlayerOwner(owner)) { //If player is owner of island
                         if (skyblockPlayerController.getPlayer(player.getName()).hasIsland()) {  //If player has island/is member of island
-                            sender.sendMessage(ChatUtils.fixColor("&Nie mozesz uzyc tej komendy poniewaz posiadasz juz wyspe"));
+                            sender.sendMessage(ChatUtils.fixColor("&cNie mozesz uzyc tej komendy poniewaz posiadasz juz wyspe"));
                         }
                         else {
                             if (skyblockPlayerController.hasInvite(owner, player.getName())) {

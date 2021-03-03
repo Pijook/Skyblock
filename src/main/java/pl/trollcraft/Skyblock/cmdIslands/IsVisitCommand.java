@@ -19,7 +19,7 @@ public class IsVisitCommand extends Command{
     private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
 
     public IsVisitCommand() {
-        super(Collections.singletonList("home"), "Teleportuj sie na swoja wyspe", "TcSb.basic", true);
+        super(Collections.singletonList("visit"), "Teleportuj sie na wyspe wybranego gracza", "TcSb.basic", true);
     }
 
     @Override
