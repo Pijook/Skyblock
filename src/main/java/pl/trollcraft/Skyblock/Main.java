@@ -13,10 +13,7 @@ import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
-import pl.trollcraft.Skyblock.listeners.BlockBreakListener;
-import pl.trollcraft.Skyblock.listeners.BlockPlaceListener;
-import pl.trollcraft.Skyblock.listeners.JoinListener;
-import pl.trollcraft.Skyblock.listeners.QuitListener;
+import pl.trollcraft.Skyblock.listeners.*;
 import pl.trollcraft.Skyblock.listeners.customListeners.IslandLoadListener;
 import pl.trollcraft.Skyblock.listeners.customListeners.IslandSaveListener;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
@@ -56,6 +53,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new CommandListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
