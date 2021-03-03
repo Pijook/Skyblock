@@ -86,4 +86,8 @@ public class SkyblockPlayerController {
             Debug.log("Has island: " + skyblockPlayer.hasIslandOrCoop());
         }
     }
+
+    public boolean isPlayerLoaded(String nickname){
+        return skyblockPlayers.containsKey(nickname);
+    }
 }

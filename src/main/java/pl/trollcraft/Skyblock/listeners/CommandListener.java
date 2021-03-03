@@ -18,12 +18,20 @@ public class CommandListener implements Listener {
     @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event){
         Player player = event.getPlayer();
+
+        if(!skyblockPlayerController.isPlayerLoaded(player.getName())){
+            ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
+            event.setCancelled(true);
+            return;
+        }
+
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
         if(skyblockPlayer.hasIslandOrCoop()){
             if(!islandsController.isIslandLoaded(skyblockPlayer.getIslandOrCoop())){
                 ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
                 event.setCancelled(true);
+                return;
             }
         }
     }
