@@ -1,11 +1,14 @@
 package pl.trollcraft.Skyblock.redisSupport;
 
 import com.google.gson.Gson;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
+import pl.trollcraft.Skyblock.customEvents.PlayerLoadEvent;
+import pl.trollcraft.Skyblock.customEvents.PlayerSaveEvent;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
@@ -41,11 +44,19 @@ public class RedisSupport {
 
                 String playerJSON = Main.getJedis().hget(code, "player");
 
-                skyblockPlayerController.addPlayer(nickname, stringToPlayer(playerJSON));
+                SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
+
+                skyblockPlayerController.addPlayer(nickname, skyblockPlayer);
 
                 sendMessage(player, "&a&lLoaded stats!");
                 skyblockPlayerController.debugPlayers();
-
+                Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        PlayerLoadEvent playerLoadEvent = new PlayerLoadEvent(player, skyblockPlayer);
+                        Bukkit.getPluginManager().callEvent(playerLoadEvent);
+                    }
+                });
             }
         }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
 
@@ -68,6 +79,8 @@ public class RedisSupport {
         Main.getJedis().hset(code, "player", playerJSON);
 
         skyblockPlayerController.removePlayer(nickname);
+        PlayerSaveEvent playerSaveEvent = new PlayerSaveEvent(player, skyblockPlayer);
+        Bukkit.getPluginManager().callEvent(playerSaveEvent);
     }
 
     /**

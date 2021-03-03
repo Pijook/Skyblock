@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
-import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
@@ -186,8 +185,8 @@ public class IslandsController {
 
         double[] dim = new double[2];
 
-        dim[1] = island.getPoint1().getX();
-        dim[2] = island.getPoint2().getX();
+        dim[0] = island.getPoint1().getX();
+        dim[1] = island.getPoint2().getX();
         Arrays.sort(dim);
 
         if(player.getLocation().getX() > dim[1] || player.getLocation().getX() < dim[0]){
@@ -325,7 +324,10 @@ public class IslandsController {
                 island.getMembers(),
                 new pl.trollcraft.Skyblock.island.bungeeIsland.Location(center.getWorld().getName(), center.getX(), center.getY(), center.getZ()),
                 new pl.trollcraft.Skyblock.island.bungeeIsland.Location(home.getWorld().getName(), home.getX(), home.getY(), home.getZ()),
-                island.getIslandLevel()
+                island.getIslandLevel(),
+                new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point1.getWorld().getName(),point1.getX(), point1.getY(), point1.getZ()),
+                new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point2.getWorld().getName(),point2.getX(), point2.getY(), point2.getZ()),
+                island.getServer()
         );
 
         bungeeIsland.setPoint1(new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point1.getWorld().getName(),point1.getX(), point1.getY(), point1.getZ()));
@@ -351,7 +353,8 @@ public class IslandsController {
                         point1.getX(),
                         point1.getY(),
                         point1.getZ()),
-                new Location(Bukkit.getWorld(point2.getWorld()), point2.getX(), point2.getY(), point2.getZ())
+                new Location(Bukkit.getWorld(point2.getWorld()), point2.getX(), point2.getY(), point2.getZ()),
+                bungeeIsland.getServer()
         );
 
         return island;

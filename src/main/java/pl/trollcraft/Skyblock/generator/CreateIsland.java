@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -252,7 +253,7 @@ public class CreateIsland {
         Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
 
 
-        islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2 ));
+        islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2, Storage.serverName));
         Main.getIslandLimiter().createNewLimiter(islandID);
     }
 

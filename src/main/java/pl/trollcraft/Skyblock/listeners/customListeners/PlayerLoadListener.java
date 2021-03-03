@@ -1,26 +1,34 @@
-package pl.trollcraft.Skyblock.listeners;
+package pl.trollcraft.Skyblock.listeners.customListeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Settings;
+import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
+import pl.trollcraft.Skyblock.customEvents.PlayerLoadEvent;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
-public class JoinListener implements Listener {
+import java.util.UUID;
+
+public class PlayerLoadListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
     private final IslandsController islandsController = Main.getIslandsController();
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
+    public void onPlayerLoad(PlayerLoadEvent event){
         Player player = event.getPlayer();
+        Debug.log("[Custom event]&aLoaded player " + player.getName());
 
-        RedisSupport.loadPlayer(player);
-
-        /*if(Settings.spawnOnJoin){
+        if(Settings.spawnOnJoin){
             Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
                 @Override
                 public void run() {
@@ -47,14 +55,11 @@ public class JoinListener implements Listener {
                         if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)) {
                             RedisSupport.loadIsland(islandID);
                         }
-                        Main.getIslandLimiter().loadIsland(islandID);
                     }
                 }
 
                 ChatUtils.sendSyncMessage(player, "&aLoaded island!");
             }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 60L);*/
-
-
+        }.runTaskLaterAsynchronously(Main.getInstance(), 60L);
     }
 }

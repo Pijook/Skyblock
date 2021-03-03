@@ -33,7 +33,6 @@ public class QuitListener implements Listener {
                     RedisSupport.saveIsland(islandID);
 
                 }
-                Main.getIslandLimiter().saveIsland(islandID);
             }
         }
         else{

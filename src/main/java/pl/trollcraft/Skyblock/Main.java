@@ -8,7 +8,6 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.CommandManager;
 import pl.trollcraft.Skyblock.cmdIslands.Commands;
 import pl.trollcraft.Skyblock.commands.DebugCommand;
-import pl.trollcraft.Skyblock.commands.IslandCommand;
 import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
@@ -18,6 +17,10 @@ import pl.trollcraft.Skyblock.listeners.BlockBreakListener;
 import pl.trollcraft.Skyblock.listeners.BlockPlaceListener;
 import pl.trollcraft.Skyblock.listeners.JoinListener;
 import pl.trollcraft.Skyblock.listeners.QuitListener;
+import pl.trollcraft.Skyblock.listeners.customListeners.IslandLoadListener;
+import pl.trollcraft.Skyblock.listeners.customListeners.IslandSaveListener;
+import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
+import pl.trollcraft.Skyblock.listeners.customListeners.PlayerSaveListener;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import redis.clients.jedis.Jedis;
 
@@ -53,6 +56,11 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        //Custom Events
+        getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
+        getServer().getPluginManager().registerEvents(new IslandLoadListener(), this);
+        getServer().getPluginManager().registerEvents(new IslandSaveListener(), this);
         //BungeeEvents
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeListener());

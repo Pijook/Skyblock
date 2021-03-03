@@ -2,7 +2,6 @@ package pl.trollcraft.Skyblock.island;
 
 import org.bukkit.Location;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Island {
@@ -14,8 +13,9 @@ public class Island {
     private int islandLevel;
     private Location point1;
     private Location point2;
+    private String server;
 
-    public Island(String owner, List<String> members, Location center, Location spawn, int islandLevel, Location point1, Location point2){
+    public Island(String owner, List<String> members, Location center, Location spawn, int islandLevel, Location point1, Location point2, String server){
         this.owner = owner;
         this.members = members;
         this.center = center;
@@ -23,6 +23,7 @@ public class Island {
         this.islandLevel = islandLevel;
         this.point1 = point1;
         this.point2 = point2;
+        this.server = server;
     }
 
     public String getOwner() {
@@ -87,5 +88,13 @@ public class Island {
 
     public void removeMember(String nickname){
         members.remove(nickname);
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
     }
 }
