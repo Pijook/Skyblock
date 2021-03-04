@@ -20,7 +20,8 @@ public class CommandListener implements Listener {
         Player player = event.getPlayer();
 
         if(!skyblockPlayerController.isPlayerLoaded(player.getName())){
-            ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
+            player.sendMessage(ChatUtils.fixColor("&cCos poszlo nie tak! Sprobuj ponownie za pare sekund..."));
+//            ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
             event.setCancelled(true);
             return;
         }
@@ -29,7 +30,8 @@ public class CommandListener implements Listener {
 
         if(skyblockPlayer.hasIslandOrCoop()){
             if(!islandsController.isIslandLoaded(skyblockPlayer.getIslandOrCoop())){
-                ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
+                player.sendMessage(ChatUtils.fixColor("&cCos poszlo nie tak! Sprobuj ponownie za pare sekund..."));
+//                ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
                 event.setCancelled(true);
                 return;
             }
