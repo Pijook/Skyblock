@@ -89,23 +89,15 @@ public class RedisSupport {
      */
     public static void loadIsland(UUID islandID){
         Debug.log("Loading island " + islandID + "...");
-        new BukkitRunnable(){
+        String redisCode = getIslandCode(islandID.toString());
 
-            @Override
-            public void run(){
+        String islandJSON = Main.getJedis().hget(redisCode, "island");
 
-                String redisCode = getIslandCode(islandID.toString());
+        BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
+        Island island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
 
-                String islandJSON = Main.getJedis().hget(redisCode, "island");
-
-                BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
-                Island island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
-
-                islandsController.addIsland(islandID, island);
-                Debug.log("Loaded island" + islandID + "!");
-            }
-
-        }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
+        islandsController.addIsland(islandID, island);
+        Debug.log("Loaded island" + islandID + "!");
     }
 
     /**

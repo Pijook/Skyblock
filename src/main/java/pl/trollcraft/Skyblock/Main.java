@@ -1,6 +1,7 @@
 package pl.trollcraft.Skyblock;
 
 import com.google.gson.Gson;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeListener;
@@ -42,6 +43,21 @@ public class Main extends JavaPlugin {
         jedis = new Jedis();
         gson = new Gson();
 
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            /*
+             * We register the EventListener here, when PlaceholderAPI is installed.
+             * Since all events are in the main class (this class), we simply use "this"
+             */
+        } else {
+            /*
+             * We inform about the fact that PlaceholderAPI isn't installed and then
+             * disable this plugin to prevent issues.
+             */
+            //getLogger().warn("Could not find PlaceholderAPI! This plugin is required.");
+            Debug.sendError("Could not find PlaceholderAPI! This plugin is required.");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
         islandLimiter = new IslandLimiter();
@@ -54,6 +70,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new CommandListener(), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
@@ -62,6 +79,8 @@ public class Main extends JavaPlugin {
         //BungeeEvents
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeListener());
+        //Placeholders
+        PlaceholderAPI.registerPlaceholderHook(this, new Placeholders());
 
         //Commands
 //        getCommand("island").setExecutor(new IslandCommand()); // OLD

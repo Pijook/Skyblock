@@ -60,6 +60,6 @@ public class PlayerLoadListener implements Listener {
 
                 ChatUtils.sendSyncMessage(player, "&aLoaded island!");
             }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 60L);
+        }.runTaskLaterAsynchronously(Main.getInstance(), 10L);
     }
 }
