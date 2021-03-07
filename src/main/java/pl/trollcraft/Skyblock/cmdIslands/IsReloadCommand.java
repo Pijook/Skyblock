@@ -2,7 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 
@@ -17,7 +17,7 @@ public class IsReloadCommand extends Command{
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Main.getInstance().loadCommands();
+        Skyblock.getInstance().loadCommands();
         sender.sendMessage(ChatUtils.fixColor("&aKonfiguracja przeladowana"));
     }
 

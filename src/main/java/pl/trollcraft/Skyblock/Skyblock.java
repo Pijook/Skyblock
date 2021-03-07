@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock;
 import com.google.gson.Gson;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeListener;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
@@ -22,9 +23,11 @@ import pl.trollcraft.Skyblock.listeners.customListeners.PlayerSaveListener;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import redis.clients.jedis.Jedis;
 
-public class Main extends JavaPlugin {
+public class Skyblock extends JavaPlugin {
 
-    private static Main instance;
+    private static Skyblock instance;
+
+    public static Plugin plugin;
     private static Jedis jedis;
     private static Gson gson;
 
@@ -39,6 +42,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        plugin = this;
         instance = this;
         jedis = new Jedis();
         gson = new Gson();
@@ -150,7 +154,7 @@ public class Main extends JavaPlugin {
         return gson;
     }
 
-    public static Main getInstance() {
+    public static Skyblock getInstance() {
         return instance;
     }
 

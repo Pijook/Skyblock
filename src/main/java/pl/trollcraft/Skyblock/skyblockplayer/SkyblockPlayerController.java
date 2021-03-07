@@ -2,7 +2,7 @@ package pl.trollcraft.Skyblock.skyblockplayer;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -46,7 +46,7 @@ public class SkyblockPlayerController {
     public void savePlayer(String playerName){
         SkyblockPlayer skyblockPlayer = getPlayer(playerName);
 
-        YamlConfiguration configuration = ConfigUtils.load("players.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("players.yml", Skyblock.getInstance());
 
         if(skyblockPlayer.getIslandID() != null){
             configuration.set("players." + playerName + ".island", skyblockPlayer.getIslandID().toString());
@@ -107,9 +107,9 @@ public class SkyblockPlayerController {
     }
 
     public void initCheckingPlayers(){
-        final IslandsController islandsController = Main.getIslandsController();
+        final IslandsController islandsController = Skyblock.getIslandsController();
         ArrayList<Player> toRemove = new ArrayList<>();
-        Main.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Skyblock.getInstance(), new Runnable() {
             @Override
             public void run() {
                 if(uncheckedPlayers.size() == 0){

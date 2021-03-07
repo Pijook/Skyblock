@@ -3,7 +3,7 @@ package pl.trollcraft.Skyblock.island;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class IslandsController {
 
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     private HashMap<UUID, Island> islands = new HashMap<>();
 
@@ -362,7 +362,7 @@ public class IslandsController {
 
 
     public void initTimer(){
-        Main.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Skyblock.getInstance(), new Runnable() {
             @Override
             public void run() {
                 syncIslands();

@@ -2,7 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -14,8 +14,8 @@ import java.util.List;
 
 public class IsCreateCommand extends Command{
 
-    private final IslandsController islandsController = Main.getIslandsController();
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsCreateCommand() {
         super(Collections.singletonList("create"), "Stworz wyspe", "TcSb.basic", true);

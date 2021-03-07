@@ -8,8 +8,8 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class Placeholders extends PlaceholderHook {
 
-    SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
-    IslandsController islandsController = Main.getIslandsController();
+    SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+    IslandsController islandsController = Skyblock.getIslandsController();
 
     @Override
     public String onPlaceholderRequest(Player player, String params) {

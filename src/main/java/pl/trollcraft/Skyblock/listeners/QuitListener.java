@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -16,8 +16,8 @@ import java.util.UUID;
 
 public class QuitListener implements Listener {
 
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
-    private final IslandsController islandsController = Main.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){

@@ -3,7 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class IsAdminCommand extends Command{
 
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public static ArrayList<UUID> currentlyUsedIslands = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class IsAdminCommand extends Command{
                     //TODO Otwieranie GUI
                 }
                 else {
-                    for (Command command : Main.getInstance().getCommandManager().commands) {
+                    for (Command command : Skyblock.getInstance().getCommandManager().commands) {
                         if (command.aliases.contains(args[2]) && command.enabled) {
 
                             command.admin(sender, args, island);
@@ -55,7 +55,7 @@ public class IsAdminCommand extends Command{
             }
             else{
                 boolean sth = false;
-                for (Command command : Main.getInstance().getCommandManager().commands) {
+                for (Command command : Skyblock.getInstance().getCommandManager().commands) {
                     if (command.aliases.contains(args[2]) && command.enabled) {
                         if ((Bukkit.getPlayer(memberOf) != null) && (Bukkit.getPlayer(memberOf).isOnline())) {
                             Player p = Bukkit.getPlayer(memberOf);

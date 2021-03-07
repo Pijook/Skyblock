@@ -4,15 +4,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class JoinListener implements Listener {
 
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
-    private final IslandsController islandsController = Main.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){

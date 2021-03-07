@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 
 import java.util.Random;
 
@@ -98,7 +98,7 @@ public class Utils {
         /*File file = new File(Main.getInstance().getDataFolder(), config_name);
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);*/
 
-        YamlConfiguration configuration = ConfigUtils.load(config_name, Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load(config_name, Skyblock.getInstance());
 
         for(String key : configuration.getKeys(false)){
             configuration.set(key, null);

@@ -7,7 +7,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class ConfigUtils {
      */
     public static void save(YamlConfiguration c, String file) {
         try {
-            c.save(new File(Main.getInstance().getDataFolder(), file));
+            c.save(new File(Skyblock.getInstance().getDataFolder(), file));
         } catch (IOException e) {
             e.printStackTrace();
         }

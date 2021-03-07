@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.customEvents.PlayerLoadEvent;
@@ -21,8 +21,8 @@ import java.util.UUID;
 
 public class RedisSupport {
 
-    private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
-    private static final IslandsController islandsController = Main.getIslandsController();
+    private static final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+    private static final IslandsController islandsController = Skyblock.getIslandsController();
 
     /**
      * Loads skyblockPlayer from redis base
@@ -42,7 +42,7 @@ public class RedisSupport {
                 String code = Storage.redisCode;
                 code = code.replace("%player%", nickname);
 
-                String playerJSON = Main.getJedis().hget(code, "player");
+                String playerJSON = Skyblock.getJedis().hget(code, "player");
 
                 SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
 
@@ -54,7 +54,7 @@ public class RedisSupport {
 
                 sendMessage(player, "&a&lLoaded stats!");
                 skyblockPlayerController.debugPlayers();
-                Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+                Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                     @Override
                     public void run() {
                         PlayerLoadEvent playerLoadEvent = new PlayerLoadEvent(player, skyblockPlayer);
@@ -62,7 +62,7 @@ public class RedisSupport {
                     }
                 });
             }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
+        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);
 
     }
 
@@ -80,7 +80,7 @@ public class RedisSupport {
 
         String playerJSON = playerToString(skyblockPlayer);
         Debug.log("JSON:" + playerJSON);
-        Main.getJedis().hset(code, "player", playerJSON);
+        Skyblock.getJedis().hset(code, "player", playerJSON);
 
         skyblockPlayerController.removePlayer(nickname);
         PlayerSaveEvent playerSaveEvent = new PlayerSaveEvent(player, skyblockPlayer);
@@ -95,7 +95,7 @@ public class RedisSupport {
         Debug.log("Loading island " + islandID + "...");
         String redisCode = getIslandCode(islandID.toString());
 
-        String islandJSON = Main.getJedis().hget(redisCode, "island");
+        String islandJSON = Skyblock.getJedis().hget(redisCode, "island");
 
         BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
         Island island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
@@ -118,7 +118,7 @@ public class RedisSupport {
 
         Debug.log(islandJSON);
 
-        Main.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
+        Skyblock.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
 
         BungeeSupport.sendIslancSyncCommand(islandID.toString());
     }
@@ -129,7 +129,7 @@ public class RedisSupport {
      * @return Ready string
      */
     public static String playerToString(SkyblockPlayer player){
-        Gson gson = Main.getGson();
+        Gson gson = Skyblock.getGson();
         return gson.toJson(player);
     }
 
@@ -139,7 +139,7 @@ public class RedisSupport {
      * @return Ready skyblockPlayer
      */
     public static SkyblockPlayer stringToPlayer(String json){
-        Gson gson = Main.getGson();
+        Gson gson = Skyblock.getGson();
         return gson.fromJson(json, SkyblockPlayer.class);
     }
 
@@ -149,7 +149,7 @@ public class RedisSupport {
      * @return Converted object to string
      */
     public static String islandToString(Island island){
-        Gson gson = Main.getGson();
+        Gson gson = Skyblock.getGson();
         return gson.toJson(island);
 
     }
@@ -160,17 +160,17 @@ public class RedisSupport {
      * @return Converted string to object
      */
     public static Island stringToIsland(String json){
-        Gson gson = Main.getGson();
+        Gson gson = Skyblock.getGson();
         return gson.fromJson(json, Island.class);
     }
 
     public static String bungeeIslandToString(BungeeIsland bungeeIsland){
-        Gson gson = Main.getGson();
+        Gson gson = Skyblock.getGson();
         return gson.toJson(bungeeIsland);
     }
 
     public static BungeeIsland stringToBungeeIsland(String json){
-        Gson gson = Main.getGson();
+        Gson gson = Skyblock.getGson();
         return gson.fromJson(json, BungeeIsland.class);
     }
 
@@ -180,7 +180,7 @@ public class RedisSupport {
      * @param message Message to send
      */
     private static void sendMessage(Player player, String message){
-        Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
             @Override
             public void run() {
                 ChatUtils.sendMessage(player, message);

@@ -12,7 +12,7 @@ public class Settings {
      */
     public static void load(){
 
-        YamlConfiguration configuration = ConfigUtils.load("config.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("config.yml", Skyblock.getInstance());
 
         spawnOnJoin = configuration.getBoolean("teleportToSpawn");
         Storage.spawn = ConfigUtils.getLocationFromConfig(configuration, "spawn");

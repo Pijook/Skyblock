@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.bukkit.Bukkit;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class Persist {
     // ------------------------------------------------------------ //
 
     public File getFile(String name) {
-        return new File(Main.getInstance().getDataFolder(), name + persistType.getExtension());
+        return new File(Skyblock.getInstance().getDataFolder(), name + persistType.getExtension());
     }
 
     public File getFile(Class<?> clazz) {
@@ -67,8 +67,8 @@ public class Persist {
         try {
             objectMapper.writeValue(file, instance);
         } catch (IOException e) {
-            Main.getInstance().getLogger().severe("Failed to save " + file.toString() + ": " + e.getMessage());
-            Bukkit.getPluginManager().disablePlugin(Main.getInstance());
+            Skyblock.getInstance().getLogger().severe("Failed to save " + file.toString() + ": " + e.getMessage());
+            Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
         }
     }
 
@@ -76,8 +76,8 @@ public class Persist {
         try {
             return objectMapper.writeValueAsString(instance);
         } catch (IOException e) {
-            Main.getInstance().getLogger().severe("Failed to save " + instance.toString() + ": " + e.getMessage());
-            Bukkit.getPluginManager().disablePlugin(Main.getInstance());
+            Skyblock.getInstance().getLogger().severe("Failed to save " + instance.toString() + ": " + e.getMessage());
+            Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
         }
         return "";
     }
@@ -94,8 +94,8 @@ public class Persist {
             try {
                 return objectMapper.readValue(file, clazz);
             } catch (IOException e) {
-                Main.getInstance().getLogger().severe("Failed to parse " + file.toString() + ": " + e.getMessage());
-                Bukkit.getPluginManager().disablePlugin(Main.getInstance());
+                Skyblock.getInstance().getLogger().severe("Failed to parse " + file.toString() + ": " + e.getMessage());
+                Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
             }
         }
         try {
@@ -110,7 +110,7 @@ public class Persist {
         try {
             return objectMapper.readValue(content, clazz);
         } catch (IOException e) {
-            Bukkit.getPluginManager().disablePlugin(Main.getInstance());
+            Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
         }
 
         return null;

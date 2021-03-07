@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
@@ -15,8 +15,8 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class DeleteIsland {
 
-    private static final IslandsController islandsController = Main.getIslandsController();
-    private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private static final IslandsController islandsController = Skyblock.getIslandsController();
+    private static final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     /**
      * Deletes island
@@ -37,7 +37,7 @@ public class DeleteIsland {
         double z = center.getZ();
         String world = center.getWorld().getName();
 
-        YamlConfiguration freePosistions = ConfigUtils.load("freeislands.yml", Main.getInstance());
+        YamlConfiguration freePosistions = ConfigUtils.load("freeislands.yml", Skyblock.getInstance());
 
         int freeIsId = 0;
         if( freePosistions.getConfigurationSection("free") != null ){

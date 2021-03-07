@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Settings;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
@@ -20,8 +20,8 @@ import java.util.UUID;
 
 public class PlayerLoadListener implements Listener {
 
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
-    private final IslandsController islandsController = Main.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
 
     @EventHandler
     public void onPlayerLoad(PlayerLoadEvent event){
@@ -29,7 +29,7 @@ public class PlayerLoadListener implements Listener {
         Debug.log("[Custom event]&aLoaded player " + player.getName());
 
         if(Settings.spawnOnJoin){
-            Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+            Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                 @Override
                 public void run() {
                     player.teleport(Storage.spawn);
@@ -60,6 +60,6 @@ public class PlayerLoadListener implements Listener {
 
                 ChatUtils.sendSyncMessage(player, "&aLoaded island!");
             }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 10L);
+        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 10L);
     }
 }

@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.essentials.Utils;
@@ -17,8 +17,8 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 public class DebugCommand implements CommandExecutor {
 
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
-    private final IslandsController islandsController = Main.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {

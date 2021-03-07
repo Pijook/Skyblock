@@ -3,7 +3,7 @@ package pl.trollcraft.Skyblock.bungeeSupport;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -30,7 +30,7 @@ public class BungeeSupport {
             e.printStackTrace();
         }
 
-        Main.getInstance().getServer().sendPluginMessage(Main.getInstance(), "BungeeCord", stream.toByteArray());
+        Skyblock.getInstance().getServer().sendPluginMessage(Skyblock.getInstance(), "BungeeCord", stream.toByteArray());
 
         Debug.log("Sent message to bungee!");
     }
@@ -40,7 +40,7 @@ public class BungeeSupport {
      */
     public static void loadConfiguration(){
 
-        YamlConfiguration configuration = ConfigUtils.load("bungeeconfig.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("bungeeconfig.yml", Skyblock.getInstance());
 
         Storage.serverName = configuration.getString("serverName");
         Storage.channel = configuration.getString("channel");

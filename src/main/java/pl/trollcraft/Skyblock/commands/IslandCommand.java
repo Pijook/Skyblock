@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.generator.DeleteIsland;
@@ -18,8 +18,8 @@ import java.util.List;
 
 public class IslandCommand implements CommandExecutor {
 
-    private final IslandsController islandsController = Main.getIslandsController();
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {

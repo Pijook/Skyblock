@@ -2,7 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -14,8 +14,8 @@ import java.util.List;
 
 public class IsRemoveCommand extends Command{
 
-    private final IslandsController islandsController = Main.getIslandsController();
-    private final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private final IslandsController islandsController = Skyblock.getIslandsController();
+    private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsRemoveCommand() {
         super(Collections.singletonList("remove"), "Usun czlonka swojej wyspy", "TcSb.basic", true);

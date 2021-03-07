@@ -5,7 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.essentials.Utils;
@@ -19,7 +19,7 @@ public class IslandLimiter {
     private Limiter highestValues;
 
     public void loadDefault(){
-        YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Skyblock.getInstance());
 
         HashMap<Material, Integer> blocks = new HashMap<>();
         HashMap<EntityType, Integer> entities = new HashMap<>();
@@ -54,7 +54,7 @@ public class IslandLimiter {
 
     public void loadIsland(UUID uuid){
 
-        YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Skyblock.getInstance());
 
         HashMap<Material, Integer> blocks = new HashMap<>();
         HashMap<EntityType, Integer> entities = new HashMap<>();
@@ -73,7 +73,7 @@ public class IslandLimiter {
     }
 
     public void saveIsland(UUID uuid){
-        YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Skyblock.getInstance());
 
         String uuidString = uuid.toString();
 
@@ -98,7 +98,7 @@ public class IslandLimiter {
 
     public boolean isEntityAboveLimit(Entity entity){
 
-        UUID uuid = Main.getIslandsController().getIslandIDByLocation(entity.getLocation());
+        UUID uuid = Skyblock.getIslandsController().getIslandIDByLocation(entity.getLocation());
 
         Limiter limiter = islandsLimiters.get(uuid);
 
@@ -115,7 +115,7 @@ public class IslandLimiter {
 
     public boolean isBlockAboveLimit(Block block){
 
-        UUID uuid = Main.getIslandsController().getIslandIDByLocation(block.getLocation());
+        UUID uuid = Skyblock.getIslandsController().getIslandIDByLocation(block.getLocation());
 
         Limiter limiter = islandsLimiters.get(uuid);
 
@@ -141,14 +141,14 @@ public class IslandLimiter {
 
     public void removeBlock(Block block){
         if(highestValues.getCurrentBlocks().containsKey(block.getType())){
-            Limiter limiter = islandsLimiters.get(Main.getIslandsController().getIslandIDByLocation(block.getLocation()));
+            Limiter limiter = islandsLimiters.get(Skyblock.getIslandsController().getIslandIDByLocation(block.getLocation()));
             limiter.removeMaterial(block.getType());
         }
     }
 
     public void removeEntity(Entity entity){
         if(highestValues.getCurrentEntities().containsKey(entity.getType())){
-            Limiter limiter = islandsLimiters.get(Main.getIslandsController().getIslandIDByLocation(entity.getLocation()));
+            Limiter limiter = islandsLimiters.get(Skyblock.getIslandsController().getIslandIDByLocation(entity.getLocation()));
             limiter.removeEntity(entity.getType());
         }
     }

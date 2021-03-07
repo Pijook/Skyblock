@@ -2,7 +2,7 @@ package pl.trollcraft.Skyblock.essentials;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 
 public class ChatUtils {
 
@@ -36,7 +36,7 @@ public class ChatUtils {
     }
 
     public static void sendSyncMessage(Player player, String message){
-        Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
             @Override
             public void run() {
                 player.sendMessage(fixColor(message));

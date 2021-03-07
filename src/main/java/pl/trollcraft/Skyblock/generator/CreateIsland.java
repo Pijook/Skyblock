@@ -17,7 +17,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import pl.trollcraft.Skyblock.Main;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
@@ -34,8 +34,8 @@ import java.util.UUID;
 
 public class CreateIsland {
 
-    private static final IslandsController islandsController = Main.getIslandsController();
-    private static final SkyblockPlayerController skyblockPlayerController = Main.getSkyblockPlayerController();
+    private static final IslandsController islandsController = Skyblock.getIslandsController();
+    private static final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     private static String schemFile = "island.schem";
     private static String world;
@@ -55,7 +55,7 @@ public class CreateIsland {
     private static int level = 1;
 /////////////////////////////////
 
-    public static File schem = new File(Main.getInstance().getDataFolder() + File.separator + schemFile);
+    public static File schem = new File(Skyblock.getInstance().getDataFolder() + File.separator + schemFile);
     public static ClipboardFormat format = ClipboardFormats.findByFile(schem);
 
 
@@ -63,7 +63,7 @@ public class CreateIsland {
      * Loads position of next island from config nextisland.yml
      */
     public static void getNextIsland(){
-        YamlConfiguration configuration = ConfigUtils.load("nextisland.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("nextisland.yml", Skyblock.getInstance());
 
         assert configuration != null;
 
@@ -89,7 +89,7 @@ public class CreateIsland {
      * Sets next island position to nextisland.yml config
      */
     private static void setNextIsland(){
-        YamlConfiguration configuration = ConfigUtils.load("nextisland.yml", Main.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("nextisland.yml", Skyblock.getInstance());
 
         assert configuration != null;
 
@@ -118,7 +118,7 @@ public class CreateIsland {
     public static void createNew(Player player) {
         owner = player.getName();
 
-        YamlConfiguration freePosistions = ConfigUtils.load("freeislands.yml", Main.getInstance());
+        YamlConfiguration freePosistions = ConfigUtils.load("freeislands.yml", Skyblock.getInstance());
 
         boolean create = true;
 
@@ -238,7 +238,7 @@ public class CreateIsland {
             public void run() {
                 skyblockPlayerController.getPlayer(owner).setIslandID(islandID);
 
-                Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+                Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                     @Override
                     public void run() {
                         Bukkit.getPlayer(owner).teleport(newLoc);
@@ -247,14 +247,14 @@ public class CreateIsland {
 
                 Debug.log("&aFinished creating island!");
             }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 20L);
+        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);
 
         Location point1 = new Location(Bukkit.getWorld(world) , x - ((double)maxSize/2), 0, z - ((double)maxSize/2));
         Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
 
 
         islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2, Storage.serverName));
-        Main.getIslandLimiter().createNewLimiter(islandID);
+        Skyblock.getIslandLimiter().createNewLimiter(islandID);
     }
 
     /**
