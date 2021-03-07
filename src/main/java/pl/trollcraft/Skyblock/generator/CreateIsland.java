@@ -50,7 +50,6 @@ public class CreateIsland {
     private static boolean isAv;
 //////////////////////////////////
 
-    private static String owner = "";
     private static ArrayList<String> members = new ArrayList<>();
     private static int level = 1;
 /////////////////////////////////
@@ -116,7 +115,7 @@ public class CreateIsland {
      * @param player Owner of island
      */
     public static void createNew(Player player) {
-        owner = player.getName();
+        String owner = player.getName();
 
         YamlConfiguration freePosistions = ConfigUtils.load("freeislands.yml", Skyblock.getInstance());
 
