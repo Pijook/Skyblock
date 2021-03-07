@@ -1,15 +1,18 @@
 package pl.trollcraft.Skyblock.skyblockplayer;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.island.IslandsController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkyblockPlayerController {
 
+    private final ArrayList<Player> uncheckedPlayers = new ArrayList<>();
     private final HashMap<String, SkyblockPlayer> skyblockPlayers = new HashMap<>();
 
     public SkyblockPlayer getPlayer(String nickname){
@@ -89,5 +92,43 @@ public class SkyblockPlayerController {
 
     public boolean isPlayerLoaded(String nickname){
         return skyblockPlayers.containsKey(nickname);
+    }
+
+    public void addUncheckedPlayer(Player player){
+        uncheckedPlayers.add(player);
+    }
+
+    public void removeUncheckedPlayer(Player player){
+        uncheckedPlayers.remove(player);
+    }
+
+    public boolean isCurrentlyChecked(Player player){
+        return uncheckedPlayers.contains(player);
+    }
+
+    public void initCheckingPlayers(){
+        final IslandsController islandsController = Main.getIslandsController();
+        ArrayList<Player> toRemove = new ArrayList<>();
+        Main.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                if(uncheckedPlayers.size() == 0){
+                    return;
+                }
+
+                for(Player player : uncheckedPlayers){
+                    if(islandsController.isPlayerOnHisIsland(player)) {
+                        getPlayer(player.getName()).setOnIsland(true);
+                        toRemove.add(player);
+                    }
+                }
+
+                for(Player player : toRemove){
+                    uncheckedPlayers.remove(player);
+                }
+
+                toRemove.clear();
+            }
+        }, 20L, 60L);
     }
 }

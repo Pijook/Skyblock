@@ -9,12 +9,14 @@ public class SkyblockPlayer {
     private UUID coopIslandID;
     private ArrayList<String> invites;
     private int placedBlocks;
+    private boolean isOnIsland;
 
     public SkyblockPlayer(UUID islandID, UUID coopIslandID, ArrayList<String> invites, int placedBlocks){
         this.islandID = islandID;
         this.coopIslandID = coopIslandID;
         this.invites = invites;
         this.placedBlocks = placedBlocks;
+        this.isOnIsland = false;
     }
 
     public UUID getIslandID(){
@@ -77,5 +79,13 @@ public class SkyblockPlayer {
         }
 
         return false;
+    }
+
+    public boolean isOnIsland() {
+        return isOnIsland;
+    }
+
+    public void setOnIsland(boolean onIsland) {
+        isOnIsland = onIsland;
     }
 }

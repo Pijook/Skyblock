@@ -27,7 +27,7 @@ public class BlockPlaceListener implements Listener {
 
         Block block = event.getBlock();
 
-        if(!islandsController.isPlayerOnHisIsland(player)){
+        if(!skyblockPlayer.isOnIsland()){
 
             if(!player.hasPermission(PermissionStorage.islandBuild)){
 

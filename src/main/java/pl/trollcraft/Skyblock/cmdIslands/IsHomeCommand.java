@@ -7,7 +7,6 @@ import pl.trollcraft.Skyblock.Main;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
-import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.Collections;
@@ -29,6 +28,7 @@ public class IsHomeCommand extends Command{
             if( islandsController.getIslandByOwnerOrMember(player.getName()) != null ) {
                 Location islandHome = islandsController.getIslandByOwnerOrMember(player.getName()).getHome();
                 player.teleport(islandHome);
+                skyblockPlayerController.getPlayer(player.getName()).setOnIsland(true);
                 player.sendMessage(ChatUtils.fixColor("&aTeleportowano na wyspe"));
             }
             else{

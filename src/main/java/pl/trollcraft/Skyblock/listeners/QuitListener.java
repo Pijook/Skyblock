@@ -25,6 +25,10 @@ public class QuitListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
+        if(skyblockPlayerController.isCurrentlyChecked(player)){
+            skyblockPlayerController.removeUncheckedPlayer(player);
+        }
+
         if(skyblockPlayer.hasIslandOrCoop()){
             UUID islandID = skyblockPlayer.getIslandOrCoop();
             Debug.log("Player has island " + islandID);

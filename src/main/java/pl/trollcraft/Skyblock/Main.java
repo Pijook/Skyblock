@@ -71,6 +71,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new CommandListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new RespawnListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
@@ -90,6 +91,7 @@ public class Main extends JavaPlugin {
 
         islandsController.initTimer();
         islandLimiter.loadDefault();
+        skyblockPlayerController.initCheckingPlayers();
     }
 
     @Override

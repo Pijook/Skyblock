@@ -46,6 +46,10 @@ public class RedisSupport {
 
                 SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
 
+                if(skyblockPlayer.hasIslandOrCoop()){
+                    skyblockPlayerController.addUncheckedPlayer(player);
+                }
+
                 skyblockPlayerController.addPlayer(nickname, skyblockPlayer);
 
                 sendMessage(player, "&a&lLoaded stats!");
