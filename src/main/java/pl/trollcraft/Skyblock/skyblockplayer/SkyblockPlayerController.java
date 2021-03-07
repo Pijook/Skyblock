@@ -119,8 +119,8 @@ public class SkyblockPlayerController {
                 for(Player player : uncheckedPlayers){
                     if(islandsController.isPlayerOnHisIsland(player)) {
                         getPlayer(player.getName()).setOnIsland(true);
-                        toRemove.add(player);
                     }
+                    toRemove.add(player);
                 }
 
                 for(Player player : toRemove){
