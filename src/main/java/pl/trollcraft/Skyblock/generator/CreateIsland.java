@@ -228,7 +228,7 @@ public class CreateIsland {
         //Wklejanie vvvvvvvvvvvvvvvv
         pasteIsland(format, schem);
 
-        Location newLoc = new Location(Bukkit.getWorld("" + world), x, y, z);
+        Location islandCenter = new Location(Bukkit.getWorld("" + world), x, y + 2, z);
         //Bukkit.getPlayer(owner).teleport(newLoc);
 
         new BukkitRunnable(){
@@ -240,7 +240,7 @@ public class CreateIsland {
                 Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                     @Override
                     public void run() {
-                        Bukkit.getPlayer(owner).teleport(newLoc);
+                        Bukkit.getPlayer(owner).teleport(islandCenter);
                     }
                 });
 
@@ -252,7 +252,7 @@ public class CreateIsland {
         Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
 
 
-        islandsController.addIsland(islandID, new Island( owner, members, newLoc, newLoc, level, point1, point2, Storage.serverName));
+        islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName));
         Skyblock.getIslandLimiter().createNewLimiter(islandID);
     }
 
