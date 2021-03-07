@@ -290,12 +290,15 @@ public class IslandsController {
 
         Player player = Bukkit.getServer().getPlayer(island.getOwner());
 
-        if(!player.getName().equalsIgnoreCase(toIgnore)){
-            if(player != null && player.isOnline()){
-                Debug.log("&cOwner is online");
-                return true;
+        if(player != null){
+            if(!player.getName().equalsIgnoreCase(toIgnore)){
+                if(player.isOnline()){
+                    Debug.log("&cOwner is online");
+                    return true;
+                }
             }
         }
+
 
         for(String nickname : island.getMembers()){
             player = Bukkit.getServer().getPlayer(nickname);
