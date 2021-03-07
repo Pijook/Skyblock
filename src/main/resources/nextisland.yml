@@ -4,7 +4,7 @@ nextIsland:
   x: 0                          #Don't edit!
   z: 0                          #Don't edit!
   y: 150                        #Editable
-  world: TcIslands              #Editable
+  world: Islands                #Editable
   distance: 3                   #Editable
   maxSize: 10                   #Editable
   goNext: 1                     #Don't edit!
