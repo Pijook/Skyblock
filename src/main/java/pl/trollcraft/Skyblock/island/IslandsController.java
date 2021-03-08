@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class IslandsController {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
+
+    private long islandCooldown = -1;
 
     private HashMap<UUID, Island> islands = new HashMap<>();
 
@@ -394,5 +397,20 @@ public class IslandsController {
 
         Debug.log("&aFinished!");
 
+    }
+
+    public void setGeneratorOnCooldown(){
+        this.islandCooldown = System.currentTimeMillis();
+    }
+
+    public boolean isGeneratorOnCooldown(){
+        if(islandCooldown == -1){
+            return false;
+        }
+
+        if(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) - TimeUnit.MILLISECONDS.toSeconds(islandCooldown) >= 5){
+            return false;
+        }
+        return true;
     }
 }

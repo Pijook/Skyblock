@@ -28,9 +28,16 @@ public class IsCreateCommand extends Command{
             if (islandsController.isPlayerOwner(player.getName())) {
                 sender.sendMessage(ChatUtils.fixColor("&cPosiadasz juz wyspe!"));
             } else {
-                sender.sendMessage(ChatUtils.fixColor("&aTworze wyspe..."));
-                //CreateIsland.createNew(player);
-                BungeeSupport.sendGenerateIslandCommand(player);
+                if(!islandsController.isGeneratorOnCooldown()){
+                    sender.sendMessage(ChatUtils.fixColor("&aTworze wyspe..."));
+                    //CreateIsland.createNew(player);
+                    islandsController.setGeneratorOnCooldown();
+                    BungeeSupport.sendGenerateIslandCommand(player);
+                }
+                else {
+                    sender.sendMessage(ChatUtils.fixColor("&cSprobuj ponownie za pare sekund..."));
+                }
+
             }
         }
         else{
