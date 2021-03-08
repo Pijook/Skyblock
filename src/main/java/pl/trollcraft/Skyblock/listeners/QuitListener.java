@@ -29,19 +29,22 @@ public class QuitListener implements Listener {
             skyblockPlayerController.removeUncheckedPlayer(player);
         }
 
-        if(skyblockPlayer.hasIslandOrCoop()){
-            UUID islandID = skyblockPlayer.getIslandOrCoop();
-            Debug.log("Player has island " + islandID);
-            if(!islandsController.hasIslandOnlineMembers(islandID, player.getName())){
-                if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
-                    RedisSupport.saveIsland(islandID);
+        if(skyblockPlayerController.isPlayerLoaded(player.getName())){
+            if(skyblockPlayer.hasIslandOrCoop()){
+                UUID islandID = skyblockPlayer.getIslandOrCoop();
+                Debug.log("Player has island " + islandID);
+                if(!islandsController.hasIslandOnlineMembers(islandID, player.getName())){
+                    if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
+                        RedisSupport.saveIsland(islandID);
 
+                    }
                 }
             }
+            else{
+                Debug.log("&cPlayer dont have island!");
+            }
         }
-        else{
-            Debug.log("&cPlayer dont have island!");
-        }
+
 
         RedisSupport.savePlayer(player);
 
