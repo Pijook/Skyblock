@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.cmdIslands.IsAdminCommand;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -35,8 +36,11 @@ public class QuitListener implements Listener {
                 Debug.log("Player has island " + islandID);
                 if(!islandsController.hasIslandOnlineMembers(islandID, player.getName())){
                     if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
-                        RedisSupport.saveIsland(islandID);
-
+                        if(islandsController.isIslandLoaded(islandID)){
+                            if(islandsController.getIslandById(islandID).getServer().equalsIgnoreCase(Storage.serverName)){
+                                RedisSupport.saveIsland(islandID);
+                            }
+                        }
                     }
                 }
             }
