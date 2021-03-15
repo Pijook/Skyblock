@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,16 +12,19 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.WorkerController;
 
 public class BlockBreakListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final IslandLimiter islandLimiter = Skyblock.getIslandLimiter();
+    private final WorkerController workerController = Skyblock.getWorkerController();
 
     @EventHandler
     public void onBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
+        Block block = event.getBlock();
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
@@ -31,8 +35,16 @@ public class BlockBreakListener implements Listener {
                 return;
             }
         }
-        else{
-            islandLimiter.removeBlock(event.getBlock());
+
+        islandLimiter.removeBlock(block);
+
+        if(workerController.isBlockToMine(block.getType())){
+            workerController.getWorkerByName(player.getName()).increaseMinedStone(1);
         }
+        if(workerController.isWoodToChop(block.getType())){
+            workerController.getWorkerByName(player.getName()).increaseChoppedWood(1);
+        }
+
+
     }
 }

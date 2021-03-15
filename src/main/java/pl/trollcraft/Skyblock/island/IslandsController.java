@@ -28,9 +28,9 @@ public class IslandsController {
      * Adds island to list of list
      * @param island Island to add
      */
-    public void addIsland(UUID islandID, Island island){
+    public void addIsland(UUID islandID, Island island, Player player){
         islands.put(islandID, island);
-        RedisSupport.saveIsland(islandID);
+        RedisSupport.saveIsland(player, islandID);
     }
 
     /**
@@ -126,6 +126,28 @@ public class IslandsController {
         }
 
         return null;
+    }
+
+    public boolean isPlayerOnIsland(Player player, Island island){
+        Location location = player.getLocation();
+        double[] dim = new double[2];
+        dim[0] = island.getPoint1().getX();
+        dim[1] = island.getPoint2().getX();
+        Arrays.sort(dim);
+
+        if(location.getX() > dim[1] || location.getX() < dim[0]){
+            return false;
+        }
+
+        dim[0] = island.getPoint1().getZ();
+        dim[1] = island.getPoint2().getZ();
+        Arrays.sort(dim);
+
+        if(location.getZ() > dim[1] || location.getZ() < dim[0]){
+            return false;
+        }
+
+        return true;
     }
 
     public UUID getIslandIDByLocation(Location location){
@@ -380,20 +402,32 @@ public class IslandsController {
         Debug.log("&aSyncing islands...");
         ArrayList<UUID> toRemove = new ArrayList<>();
 
-        for(UUID uuid : islands.keySet()){
 
-            RedisSupport.saveIsland(uuid);
+        if(Bukkit.getOnlinePlayers().size() > 0){
 
-            if(!hasIslandOnlineMembers(uuid, null)){
-                toRemove.add(uuid);
+            Player player = null;
+
+            for(Player t : Bukkit.getOnlinePlayers()){
+                player = t;
+                break;
             }
 
+            for(UUID uuid : islands.keySet()){
+
+                RedisSupport.saveIsland(player, uuid);
+
+                if(!hasIslandOnlineMembers(uuid, null)){
+                    toRemove.add(uuid);
+                }
+
+            }
+
+            for(UUID uuid : toRemove){
+                Debug.log("&cRemoving from memory island " + uuid + "...");
+                islands.remove(uuid);
+            }
         }
 
-        for(UUID uuid : toRemove){
-            Debug.log("&cRemoving from memory island " + uuid + "...");
-            islands.remove(uuid);
-        }
 
         Debug.log("&aFinished!");
 

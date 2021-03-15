@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import com.sk89q.worldedit.function.mask.MaskIntersection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,6 +9,7 @@ import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.WorkerController;
 
 public class JoinListener implements Listener {
 
@@ -18,8 +20,14 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
-        RedisSupport.loadPlayer(player);
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                RedisSupport.loadPlayer(player);
+            }
+        }, 1L);
 
+        //Skyblock.getWorkerController().loadPlayer(player);
         /*if(Settings.spawnOnJoin){
             Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
                 @Override

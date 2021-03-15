@@ -55,13 +55,6 @@ public class DeleteIsland {
         ConfigUtils.save(freePosistions, "freeislands.yml");
 
         for(Player player : Bukkit.getOnlinePlayers()){
-            if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
-                player.teleport(Storage.spawn);
-                player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
-            }
-        }
-
-        for(Player player : Bukkit.getOnlinePlayers()){
             SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
             if(player.getName().equalsIgnoreCase(owner)){
                 skyblockPlayer.setIslandID(null);
@@ -70,6 +63,14 @@ public class DeleteIsland {
                 skyblockPlayer.setCoopIslandID(null);
             }
         }
+
+        for(Player player : Bukkit.getOnlinePlayers()){
+            if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
+                player.teleport(Storage.spawn);
+                player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
+            }
+        }
+
 
         islandsController.getIslands().remove( islandsController.getIslandIdByOwnerOrMember(owner) );
 

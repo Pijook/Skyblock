@@ -16,6 +16,7 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.Worker;
 
 import java.util.UUID;
 
@@ -30,13 +31,13 @@ public class RedisSupport {
      */
     public static void loadPlayer(Player player){
 
-        ChatUtils.sendMessage(player, "&f&lLoading stats...");
+        Debug.log("&aLOADING PLAYER FROM REDIS:  " + player.getName());
+        ChatUtils.sendMessage(player, "&f&lLoading " + player.getName() + " stats...");
 
-        new BukkitRunnable(){
+        /*new BukkitRunnable(){
 
             @Override
             public void run() {
-
                 String nickname = player.getName();
 
                 String code = Storage.redisCode;
@@ -54,15 +55,33 @@ public class RedisSupport {
 
                 sendMessage(player, "&a&lLoaded stats!");
                 skyblockPlayerController.debugPlayers();
-                Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
-                    @Override
-                    public void run() {
-                        PlayerLoadEvent playerLoadEvent = new PlayerLoadEvent(player, skyblockPlayer);
-                        Bukkit.getPluginManager().callEvent(playerLoadEvent);
-                    }
-                });
+                PlayerLoadEvent playerLoadEvent = new PlayerLoadEvent(player, skyblockPlayer);
+                Bukkit.getPluginManager().callEvent(playerLoadEvent);
+
             }
-        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);
+        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);*/
+
+        String nickname = player.getName();
+
+        String code = Storage.redisCode;
+        code = code.replace("%player%", nickname);
+
+        String playerJSON = Skyblock.getJedis().hget(code, "player");
+
+        Debug.log("&aJSON: " + playerJSON);
+
+        SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
+
+        if(skyblockPlayer.hasIslandOrCoop()){
+            skyblockPlayerController.addUncheckedPlayer(player);
+        }
+
+        skyblockPlayerController.addPlayer(nickname, skyblockPlayer);
+
+        sendMessage(player, "&a&lLoaded " + player.getName() + " stats!");
+        skyblockPlayerController.debugPlayers();
+        PlayerLoadEvent playerLoadEvent = new PlayerLoadEvent(player, skyblockPlayer);
+        Bukkit.getPluginManager().callEvent(playerLoadEvent);
 
     }
 
@@ -80,7 +99,13 @@ public class RedisSupport {
 
         String playerJSON = playerToString(skyblockPlayer);
         Debug.log("JSON:" + playerJSON);
-        Skyblock.getJedis().hset(code, "player", playerJSON);
+        if(playerJSON != null){
+            Skyblock.getJedis().hset(code, "player", playerJSON);
+        }
+        else{
+            Debug.log("playerJSON is NULL! Skipping...");
+        }
+
 
         skyblockPlayerController.removePlayer(nickname);
         PlayerSaveEvent playerSaveEvent = new PlayerSaveEvent(player, skyblockPlayer);
@@ -91,7 +116,7 @@ public class RedisSupport {
      * Loads island from redis
      * @param islandID ID of island to load
      */
-    public static void loadIsland(UUID islandID){
+    public static void loadIsland(UUID islandID, Player player){
         Debug.log("Loading island " + islandID + "...");
         String redisCode = getIslandCode(islandID.toString());
 
@@ -100,7 +125,7 @@ public class RedisSupport {
         BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
         Island island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
 
-        islandsController.addIsland(islandID, island);
+        islandsController.addIsland(islandID, island, player);
         Debug.log("Loaded island" + islandID + "!");
     }
 
@@ -108,7 +133,7 @@ public class RedisSupport {
      * Saves island to redis
      * @param islandID ID of island to save
      */
-    public static void saveIsland(UUID islandID){
+    public static void saveIsland(Player player, UUID islandID){
         Debug.log("Saving island " + islandID + "...");
 
         Island island = islandsController.getIslandById(islandID);
@@ -120,7 +145,7 @@ public class RedisSupport {
 
         Skyblock.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
 
-        BungeeSupport.sendIslancSyncCommand(islandID.toString());
+        BungeeSupport.sendIslancSyncCommand(islandID.toString(), player);
     }
 
     /**
@@ -172,6 +197,16 @@ public class RedisSupport {
     public static BungeeIsland stringToBungeeIsland(String json){
         Gson gson = Skyblock.getGson();
         return gson.fromJson(json, BungeeIsland.class);
+    }
+
+    public static String workerToString(Worker worker){
+        Gson gson = Skyblock.getGson();
+        return gson.toJson(worker);
+    }
+
+    public static Worker stringToWorker(String string){
+        Gson gson = Skyblock.getGson();
+        return gson.fromJson(string, Worker.class);
     }
 
     /**

@@ -24,8 +24,10 @@ import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
+import javax.activation.MailcapCommandMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -133,14 +135,22 @@ public class CreateIsland {
             z = freePosistions.getDouble("free." + freeInt + ".z");
             world = freePosistions.getString("free." + freeInt + ".world");
 
+            Location islandLocation = new Location(Bukkit.getWorld(world), x, y, z);
+
             freePosistions.set("free." + freeInt, null);
             ConfigUtils.save(freePosistions, "freeislands.yml");
-            addIsland(owner);
+            Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    addIsland(owner, islandLocation);
+                }
+            },5L);
             create = false;
         }
 
         if(create) {
             getNextIsland();
+            Location islandLocation = new Location(Bukkit.getWorld(world), x, y, z);
             if (last == 4) {
                 if (check == goNext) {
                     last = 1;
@@ -148,7 +158,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveUp(owner);
+                moveUp(owner, islandLocation);
             } else if (last == 1) {
                 if (check == goNext) {
                     last = 2;
@@ -157,7 +167,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveLeft(owner);
+                moveLeft(owner, islandLocation);
             } else if (last == 2) {
                 if (check == goNext) {
                     last = 3;
@@ -165,7 +175,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveDown(owner);
+                moveDown(owner, islandLocation);
             } else if (last == 3) {
                 if (check == goNext) {
                     last = 4;
@@ -174,7 +184,7 @@ public class CreateIsland {
                 } else {
                     check++;
                 }
-                moveRight(owner);
+                moveRight(owner, islandLocation);
             }
             setNextIsland();
         }
@@ -184,8 +194,8 @@ public class CreateIsland {
      * ?
      * @param owner
      */
-    public static void moveUp(String owner){
-        addIsland(owner);
+    public static void moveUp(String owner, Location location){
+        addIsland(owner, location);
         z += maxSize + distance + 1;
     }
 
@@ -193,8 +203,8 @@ public class CreateIsland {
      * ?
      * @param owner
      */
-    public static void moveLeft(String owner){
-        addIsland(owner);
+    public static void moveLeft(String owner, Location location){
+        addIsland(owner, location);
         x += maxSize + distance + 1;
     }
 
@@ -202,8 +212,8 @@ public class CreateIsland {
      * ?
      * @param owner
      */
-    public static void moveDown(String owner){
-        addIsland(owner);
+    public static void moveDown(String owner, Location location){
+        addIsland(owner, location);
         z -= maxSize + distance + 1;
     }
 
@@ -211,8 +221,8 @@ public class CreateIsland {
      * ?
      * @param owner
      */
-    public static void moveRight(String owner){
-        addIsland(owner);
+    public static void moveRight(String owner, Location location){
+        addIsland(owner, location);
         x -= maxSize + distance + 1;
     }
 
@@ -221,16 +231,16 @@ public class CreateIsland {
      * Adds new island to memory and sets owner of island
      * @param owner Nickname of owner
      */
-    public static void addIsland(String owner){
-
+    public static void addIsland(String owner, Location location){
+        Debug.log("Setting island!");
         UUID islandID = UUID.randomUUID();
 
         //Wklejanie vvvvvvvvvvvvvvvv
-        pasteIsland(format, schem);
+        pasteIsland(format, schem, location);
 
-        Location islandCenter = new Location(Bukkit.getWorld("" + world), x, y + 2, z);
+        Location islandCenter = new Location(location.getWorld(), location.getX(), location.getY() + 2, location.getZ());
         //Bukkit.getPlayer(owner).teleport(newLoc);
-
+        /*
         new BukkitRunnable(){
 
             @Override
@@ -246,13 +256,33 @@ public class CreateIsland {
 
                 Debug.log("&aFinished creating island!");
             }
-        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);
+        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);*/
 
-        Location point1 = new Location(Bukkit.getWorld(world) , x - ((double)maxSize/2), 0, z - ((double)maxSize/2));
-        Location point2 = new Location(Bukkit.getWorld(world) , x + ((double)maxSize/2), 255, z + ((double)maxSize/2));
+        Player test = Bukkit.getPlayer(owner);
+
+        if(test == null || !test.isOnline()){
+            Debug.sendError("&cGRACZ JEST OFFLINE");
+        }
+
+        skyblockPlayerController.getPlayer(owner).setIslandID(islandID);
+        Debug.log(skyblockPlayerController.getPlayer(owner).getIslandOrCoop());
+
+        /*Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                Bukkit.getPlayer(owner).teleport(islandCenter);
+            }
+        });*/
+
+        Bukkit.getPlayer(owner).teleport(islandCenter);
+
+        Debug.log("&aFinished creating island!");
+
+        Location point1 = new Location(location.getWorld() , location.getX() - ((double)maxSize/2), 0, location.getZ() - ((double)maxSize/2));
+        Location point2 = new Location(location.getWorld() , location.getX() + ((double)maxSize/2), 255, location.getZ() + ((double)maxSize/2));
 
 
-        islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName));
+        islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName), Bukkit.getPlayer(owner));
         Skyblock.getIslandLimiter().createNewLimiter(islandID);
     }
 
@@ -261,7 +291,7 @@ public class CreateIsland {
      * @param format Format
      * @param schemat Schematic file
      */
-    public static void pasteIsland(ClipboardFormat format, File schemat){
+    public static void pasteIsland(ClipboardFormat format, File schemat, Location location){
         ClipboardReader reader;
         Clipboard clipboard;
         try {
@@ -278,13 +308,13 @@ public class CreateIsland {
             return;
         }
         try {
-            com.sk89q.worldedit.world.World adaptedWorld = BukkitAdapter.adapt(Bukkit.getWorld("" + world));
+            com.sk89q.worldedit.world.World adaptedWorld = BukkitAdapter.adapt(location.getWorld());
 
             EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(adaptedWorld,
                     -1);
 
             Operation operation = new ClipboardHolder(clipboard).createPaste(editSession)
-                    .to(BlockVector3.at(x, y, z)).ignoreAirBlocks(true).build();
+                    .to(BlockVector3.at(location.getX(), location.getY(), location.getZ())).ignoreAirBlocks(true).build();
 
             try {
                 Operations.complete(operation);

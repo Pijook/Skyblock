@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -30,7 +31,7 @@ public class IsDeleteCommand extends Command{
             SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
             if(islandsController.isPlayerOwner(player.getName())) {
                 if( islandsController.getIslandByLocation(player.getLocation()).getOwner().equalsIgnoreCase(player.getName())) {
-                    BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()));
+                    BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()), player);
                     DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
                     sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
                 }
@@ -50,7 +51,7 @@ public class IsDeleteCommand extends Command{
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
         String owner = island.getOwner();
-        BungeeSupport.sendDeleteIslandCommand( islandsController.getIslandIdByOwnerOrMember( owner ) );
+        BungeeSupport.sendDeleteIslandCommand( islandsController.getIslandIdByOwnerOrMember( owner ), Bukkit.getPlayer(owner));
         DeleteIsland.deleteIs( islandsController.getIslandByOwnerOrMember( owner) );
         sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe gracza " + owner));
     }

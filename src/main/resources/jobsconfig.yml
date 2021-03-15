@@ -1,0 +1,38 @@
+animalsToHunt:
+  - CREEPER
+  - COW
+  - PIG
+  - CHICKEN
+  - SPIDER
+  - ZOMBIE
+blocksToMine:
+  - STONE
+  - IRON_ORE
+  - GOLD_ORE
+  - DIAMOND_ORE
+  - COBBLESTONE
+woodToChop:
+  - OAK_LOG
+  - SPRUCE_LOG
+
+hunter:
+  1:
+    score: 0
+  2:
+    score: 50
+  3:
+    score: 100
+miner:
+  1:
+    score: 0
+  2:
+    score: 100
+  3:
+    score: 200
+lumberjack:
+  1:
+    score: 0
+  2:
+    score: 75
+  3:
+    score: 150

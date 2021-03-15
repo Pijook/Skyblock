@@ -10,6 +10,7 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.CommandManager;
 import pl.trollcraft.Skyblock.cmdIslands.Commands;
 import pl.trollcraft.Skyblock.commands.DebugCommand;
+import pl.trollcraft.Skyblock.commands.TestIslandCommand;
 import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
@@ -21,6 +22,7 @@ import pl.trollcraft.Skyblock.listeners.customListeners.IslandSaveListener;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerSaveListener;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.WorkerController;
 import redis.clients.jedis.Jedis;
 
 public class Skyblock extends JavaPlugin {
@@ -34,6 +36,7 @@ public class Skyblock extends JavaPlugin {
     private static SkyblockPlayerController skyblockPlayerController;
     private static IslandsController islandsController;
     private static IslandLimiter islandLimiter;
+    private static WorkerController workerController;
 
     //Commands
     private Commands commands;
@@ -46,6 +49,7 @@ public class Skyblock extends JavaPlugin {
         instance = this;
         jedis = new Jedis();
         gson = new Gson();
+        workerController = new WorkerController();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             /*
@@ -72,7 +76,7 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        //getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new CommandListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new RespawnListener(), this);
@@ -90,11 +94,12 @@ public class Skyblock extends JavaPlugin {
         //Commands
 //        getCommand("island").setExecutor(new IslandCommand()); // OLD
         getCommand("debug").setExecutor(new DebugCommand());
+        getCommand("testisland").setExecutor(new TestIslandCommand());
 
         loadStuff();
 
         islandsController.initTimer();
-        islandLimiter.loadDefault();
+        //islandLimiter.loadDefault();
         skyblockPlayerController.initCheckingPlayers();
     }
 
@@ -124,6 +129,12 @@ public class Skyblock extends JavaPlugin {
         loadCommands();
         saveCommands();
         Debug.log("&aDone!");
+
+        Debug.log("&aLoading worker settings...");
+        workerController.loadSettings();
+        Debug.log("&aDone!");
+
+        Debug.log("&aFinished loading Skyblock v1.0!");
     }
 
 
@@ -180,6 +191,10 @@ public class Skyblock extends JavaPlugin {
 
     public static IslandLimiter getIslandLimiter() {
         return islandLimiter;
+    }
+
+    public static WorkerController getWorkerController() {
+        return workerController;
     }
 
 }

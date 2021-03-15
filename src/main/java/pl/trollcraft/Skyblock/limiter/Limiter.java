@@ -9,10 +9,12 @@ public class Limiter {
 
     private HashMap<EntityType, Integer> currentEntities;
     private HashMap<Material, Integer> currentBlocks;
+    private int limiterLevel;
 
-    public Limiter(HashMap<EntityType, Integer> currentEntities, HashMap<Material, Integer> currentBlocks){
+    public Limiter(HashMap<EntityType, Integer> currentEntities, HashMap<Material, Integer> currentBlocks, int limiterLevel){
         this.currentEntities = currentEntities;
         this.currentBlocks = currentBlocks;
+        this.limiterLevel = limiterLevel;
     }
 
     public HashMap<EntityType, Integer> getCurrentEntities() {
@@ -81,5 +83,13 @@ public class Limiter {
         }
 
         return 0;
+    }
+
+    public int getLimiterLevel() {
+        return limiterLevel;
+    }
+
+    public void setLimiterLevel(int limiterLevel) {
+        this.limiterLevel = limiterLevel;
     }
 }

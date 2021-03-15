@@ -1,5 +1,13 @@
-blocks:
-  STONE: 999
-  DIRT: 666
-entities:
-  SHEEP: 15
+limiter:
+  1:
+    blocks:
+      STONE: 999
+      DIRT: 666
+    entities:
+      SHEEP: 15
+  2:
+    blocks:
+      STONE: 9991
+      DIRT: 777
+    entities:
+      SHEEP: 20

@@ -38,7 +38,7 @@ public class QuitListener implements Listener {
                     if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
                         if(islandsController.isIslandLoaded(islandID)){
                             if(islandsController.getIslandById(islandID).getServer().equalsIgnoreCase(Storage.serverName)){
-                                RedisSupport.saveIsland(islandID);
+                                RedisSupport.saveIsland(player, islandID);
                             }
                         }
                     }
@@ -51,6 +51,6 @@ public class QuitListener implements Listener {
 
 
         RedisSupport.savePlayer(player);
-
+        //Skyblock.getWorkerController().savePlayer(player);
     }
 }
