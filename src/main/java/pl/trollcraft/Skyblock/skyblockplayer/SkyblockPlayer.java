@@ -88,4 +88,31 @@ public class SkyblockPlayer {
     public void setOnIsland(boolean onIsland) {
         isOnIsland = onIsland;
     }
+
+    public void addInvite(String owner){
+        if(invites == null){
+            invites = new ArrayList<>();
+        }
+        invites.add(owner);
+    }
+
+    public void removeInvite(String owner){
+        if(invites == null){
+            return;
+        }
+        if(invites.contains(owner)){
+            invites.remove(owner);
+        }
+    }
+
+    public void clearInvites(){
+        invites.clear();
+    }
+
+    public boolean hasInvite(String owner){
+        if(invites == null){
+            return false;
+        }
+        return invites.contains(owner);
+    }
 }

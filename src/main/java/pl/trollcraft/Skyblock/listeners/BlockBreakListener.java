@@ -28,7 +28,16 @@ public class BlockBreakListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
+        /*
         if(!skyblockPlayer.isOnIsland()){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }*/
+
+        if(!skyblockPlayer.hasIslandOrCoop()){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
@@ -36,6 +45,16 @@ public class BlockBreakListener implements Listener {
             }
         }
 
+        if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
+
+        /*
+        //Uncomment when limits will work
         islandLimiter.removeBlock(block);
 
         if(workerController.isBlockToMine(block.getType())){
@@ -43,7 +62,7 @@ public class BlockBreakListener implements Listener {
         }
         if(workerController.isWoodToChop(block.getType())){
             workerController.getWorkerByName(player.getName()).increaseChoppedWood(1);
-        }
+        }*/
 
 
     }

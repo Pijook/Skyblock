@@ -25,6 +25,7 @@ import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import javax.activation.MailcapCommandMap;
@@ -265,6 +266,7 @@ public class CreateIsland {
         }
 
         skyblockPlayerController.getPlayer(owner).setIslandID(islandID);
+        skyblockPlayerController.getPlayer(owner).setOnIsland(true);
         Debug.log(skyblockPlayerController.getPlayer(owner).getIslandOrCoop());
 
         /*Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
@@ -274,10 +276,10 @@ public class CreateIsland {
             }
         });*/
 
-        Bukkit.getPlayer(owner).teleport(islandCenter);
+        test.teleport(islandCenter);
 
         Debug.log("&aFinished creating island!");
-
+        RedisSupport.saveIsland(test, islandID);
         Location point1 = new Location(location.getWorld() , location.getX() - ((double)maxSize/2), 0, location.getZ() - ((double)maxSize/2));
         Location point2 = new Location(location.getWorld() , location.getX() + ((double)maxSize/2), 255, location.getZ() + ((double)maxSize/2));
 

@@ -1,8 +1,12 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
+import net.milkbowl.vault.chat.Chat;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -32,11 +36,54 @@ public class IsRemoveCommand extends Command{
 
         if( args.length > 1 ) {
             if (islandsController.isPlayerOwner(player.getName())) { //If player is owner of island
+
+                if(!islandsController.isPlayerOnHisIsland(player)){
+                    ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
+                    return;
+                }
+
+                String memberNickname = args[1];
+
+                Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+
+                if(island.getMembers() == null){
+                    ChatUtils.sendMessage(player, "&cGracz" + memberNickname + " nie nalezy do twojej wyspy!");
+                    return;
+                }
+                if(!island.getMembers().contains(memberNickname)){
+                    ChatUtils.sendMessage(player, "&cGracz" + memberNickname + " nie nalezy do twojej wyspy!");
+                    return;
+                }
+
+                island.removeMember(memberNickname);
+
+                Player member = Bukkit.getPlayer(memberNickname);
+
+                //When member is online on same server as owner
+                if(member != null && member.isOnline()){
+                    SkyblockPlayer skyblockMember = skyblockPlayerController.getPlayer(memberNickname);
+                    skyblockMember.setOnIsland(false);
+                    skyblockMember.setIslandID(null);
+
+                    ChatUtils.sendMessage(member, "&cZostales usuniety z wyspy");
+                    ChatUtils.sendMessage(player, "&cGracz " + memberNickname + " zostal usuniety z wyspy");
+                    member.teleport(Storage.spawn);
+                    return;
+                }//When member is on different server
+                else{
+                    BungeeSupport.sendRemoveMemberCommand(memberNickname, player);
+                    ChatUtils.sendMessage(player, "&cGracz " + memberNickname + " zostal usuniety z wyspy");
+                    return;
+                }
+
+
+                /*
                 String member = args[1];
                 if (skyblockPlayerController.getPlayer(member).hasIsland()) {  //If argument has island/is member of island
                     SkyblockPlayer SBmember = skyblockPlayerController.getPlayer(member);
                     if (islandsController.getIslandById(SBmember.getIslandOrCoop()).getOwner().equalsIgnoreCase(member)){
                         skyblockPlayerController.getPlayer(member).setIslandID(null);
+                        skyblockPlayerController.getPlayer(member).setOnIsland(false);
                         islandsController.remMember(player.getName(), member);
                         sender.sendMessage(ChatUtils.fixColor("&cUsunieto " + member + " z wyspy"));
                     }
@@ -52,7 +99,7 @@ public class IsRemoveCommand extends Command{
                     for( String mbr : members ){
                         sender.sendMessage(ChatUtils.fixColor("&3" + mbr));
                     }
-                }
+                }*/
             }
             else{
                 sender.sendMessage(ChatUtils.fixColor("&cNie jestes wlascicielem wyspy"));

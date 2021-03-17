@@ -1,5 +1,7 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
+import net.milkbowl.vault.chat.Chat;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -7,6 +9,8 @@ import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.Collections;
@@ -25,6 +29,7 @@ public class IsVisitCommand extends Command{
     @Override
     public void execute(CommandSender sender, String[] args) {
         if( sender instanceof Player) {
+            /*
             Player player = (Player) sender;
             UUID islandID = islandsController.getIslandIdByOwnerOrMember(args[1]);
             if( islandID != null ){
@@ -34,6 +39,53 @@ public class IsVisitCommand extends Command{
             }
             else{
                 player.sendMessage(ChatUtils.fixColor("&c" + args[1] + " nie posiada wyspy"));
+            }*/
+
+            String ownerToFind = args[1];
+            Player player = (Player) sender;
+            Player target = Bukkit.getPlayer(ownerToFind);
+
+            //If Player is on same sector
+            if(target != null && target.isOnline()){
+                SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(ownerToFind);
+
+                if(skyblockPlayer.hasIslandOrCoop()){
+                    player.teleport(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()).getHome());
+                    ChatUtils.sendMessage(player, "&aTeleportowano na wyspe!");
+                    return;
+                }
+                else{
+                    ChatUtils.sendMessage(player, "&cTen gracz nie ma wyspy!");
+                    return;
+                }
+            }
+            //If player is on different sector
+            else{
+                SkyblockPlayer skyblockPlayer = RedisSupport.getSkyblockPlayer(ownerToFind);
+
+                if(skyblockPlayer == null){
+                    ChatUtils.sendMessage(player, "&cTen gracz jest offline!");
+                    return;
+                }
+
+                if(!skyblockPlayer.hasIslandOrCoop()){
+                    ChatUtils.sendMessage(player, "&cTen gracz nie ma wyspy!");
+                    return;
+                }
+
+                Island island = RedisSupport.getIsland(skyblockPlayer.getIslandOrCoop());
+
+                if(island == null){
+                    ChatUtils.sendMessage(player, "&cWyspa tego gracza nie istnieje!");
+                    return;
+                }
+                else{
+                    skyblockPlayerController.getPlayer(player.getName()).setOnIsland(false);
+                    player.teleport(island.getHome());
+                    ChatUtils.sendMessage(player, "&aTeleportowano na wyspe!");
+                    return;
+                }
+
             }
         }
         else{

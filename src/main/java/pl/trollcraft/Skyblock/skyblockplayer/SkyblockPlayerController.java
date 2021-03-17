@@ -61,23 +61,24 @@ public class SkyblockPlayerController {
     }
 
     public boolean hasInvite(String owner, String member){
+        if(skyblockPlayers.get(member).getInvites() == null){
+            return false;
+        }
         return skyblockPlayers.get(member).getInvites().contains(owner);
     }
 
     public void addInvite(String owner, String member){
-        ArrayList<String> invites = skyblockPlayers.get(member).getInvites();
-        invites.add(owner);
-        skyblockPlayers.get(member).setInvites(invites);
+        SkyblockPlayer skyblockPlayer = getPlayer(member);
+        skyblockPlayer.addInvite(owner);
     }
 
     public void remInvite(String owner, String member){
-        ArrayList<String> invites = skyblockPlayers.get(member).getInvites();
-        invites.remove(owner);
-        skyblockPlayers.get(member).setInvites(invites);
+        SkyblockPlayer skyblockPlayer = getPlayer(member);
+        skyblockPlayer.removeInvite(owner);
     }
 
     public void clearInvites(String member){
-        skyblockPlayers.get(member).setInvites(null);
+        skyblockPlayers.get(member).clearInvites();
     }
 
     public void debugPlayers(){

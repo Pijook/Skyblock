@@ -1,10 +1,12 @@
 package pl.trollcraft.Skyblock.bungeeSupport;
 
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
@@ -75,6 +77,11 @@ public class BungeeSupport {
                 }
 
             }
+            if(commands[0].equalsIgnoreCase("removeMember")){
+                String memberNickname = commands[1];
+                Skyblock.getSkyblockPlayerController().getPlayer(memberNickname).setIslandID(null);
+                ChatUtils.sendMessage(Bukkit.getPlayer(memberNickname), "&cZostales usuniety z wyspy");
+            }
         }
     }
 
@@ -94,6 +101,11 @@ public class BungeeSupport {
      */
     public static void sendDeleteIslandCommand(UUID islandID, Player player){
         String command = "deleteIsland:" + islandID;
+        sendMessage(command, player);
+    }
+
+    public static void sendRemoveMemberCommand(String memberNickname, Player player){
+        String command = "removeMember:" + memberNickname;
         sendMessage(command, player);
     }
 

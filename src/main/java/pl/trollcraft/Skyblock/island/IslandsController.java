@@ -229,6 +229,30 @@ public class IslandsController {
         return true;
     }
 
+    public boolean isLocationOnIsland(Location location, UUID islandID){
+        Island island = getIslandById(islandID);
+
+        double[] dim = new double[2];
+
+        dim[0] = island.getPoint1().getX();
+        dim[1] = island.getPoint2().getX();
+        Arrays.sort(dim);
+
+        if(location.getX() > dim[1] || location.getX() < dim[0]){
+            return false;
+        }
+
+        dim[0] = island.getPoint1().getZ();
+        dim[1] = island.getPoint2().getZ();
+        Arrays.sort(dim);
+
+        if(location.getZ() > dim[1] || location.getZ() < dim[0]){
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Checks is player owner of island
      * @param owner Nickname of player to check

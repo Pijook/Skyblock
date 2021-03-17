@@ -27,23 +27,33 @@ public class BlockPlaceListener implements Listener {
 
         Block block = event.getBlock();
 
-        if(!skyblockPlayer.isOnIsland()){
-
+        if(!skyblockPlayer.hasIslandOrCoop()){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
 
+
+        if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())) {
+            if (!player.hasPermission(PermissionStorage.islandBuild)) {
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
 
             }
         }
+
+        /*
+        //Uncomment when limits will work
         else{
             if(islandLimiter.isBlockLimited(block.getType())){
                 if(islandLimiter.isBlockAboveLimit(block)){
                     event.setCancelled(true);
                 }
             }
-        }
+        }*/
 
 
         skyblockPlayer.setPlacedBlocks(skyblockPlayer.getPlacedBlocks() + 1);

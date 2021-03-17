@@ -12,6 +12,8 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.Worker;
+import pl.trollcraft.Skyblock.worker.WorkerController;
 
 import java.util.UUID;
 
@@ -19,9 +21,11 @@ public class QuitListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
+    private final WorkerController workerController = Skyblock.getWorkerController();
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
+
         Player player = event.getPlayer();
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
@@ -51,6 +55,7 @@ public class QuitListener implements Listener {
 
 
         RedisSupport.savePlayer(player);
+        //workerController.savePlayer(player);
         //Skyblock.getWorkerController().savePlayer(player);
     }
 }

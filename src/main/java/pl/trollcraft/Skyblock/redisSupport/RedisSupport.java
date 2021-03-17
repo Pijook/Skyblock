@@ -18,6 +18,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.Worker;
 
+import javax.activation.MailcapCommandMap;
 import java.util.UUID;
 
 public class RedisSupport {
@@ -85,6 +86,20 @@ public class RedisSupport {
 
     }
 
+    public static SkyblockPlayer getSkyblockPlayer(String nickname){
+        String code = RedisSupport.getCode(nickname);
+
+        if(!Skyblock.getJedis().hexists(code, "player")){
+            return null;
+        }
+        else{
+
+            String playerJSON = Skyblock.getJedis().hget(code, "player");
+            return stringToPlayer(playerJSON);
+
+        }
+    }
+
     /**
      * Saves skyblockPlayer to redis
      * @param player Player to save
@@ -127,6 +142,20 @@ public class RedisSupport {
 
         islandsController.addIsland(islandID, island, player);
         Debug.log("Loaded island" + islandID + "!");
+    }
+
+    public static Island getIsland(UUID islandID){
+        String redisCode = getIslandCode(islandID.toString());
+
+        if(!Skyblock.getJedis().hexists(redisCode, "island")){
+            return null;
+        }
+
+        String islandJSON = Skyblock.getJedis().hget(redisCode, "island");
+
+        BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
+
+        return islandsController.convertBungeeIslandToIsland(bungeeIsland);
     }
 
     /**

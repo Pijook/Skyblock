@@ -12,10 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
-import pl.trollcraft.Skyblock.essentials.ChatUtils;
-import pl.trollcraft.Skyblock.essentials.ConfigUtils;
-import pl.trollcraft.Skyblock.essentials.Debug;
-import pl.trollcraft.Skyblock.essentials.Utils;
+import pl.trollcraft.Skyblock.essentials.*;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import scala.Int;
 
@@ -124,6 +121,8 @@ public class WorkerController {
 
                 String workerJSON = Skyblock.getJedis().hget(code, "worker");
 
+                Debug.log("Worker JSON: " + workerJSON);
+
                 Worker worker = RedisSupport.stringToWorker(workerJSON);
 
                 addWorker(player.getName(), worker);
@@ -131,7 +130,7 @@ public class WorkerController {
                 ChatUtils.sendSyncMessage(player, "&aLoaded work!");
 
             }
-        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);
+        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 3L);
     }
 
     /**
@@ -196,10 +195,35 @@ public class WorkerController {
             event.setCancelled(true);
         });
 
+        ArrayList<String> itemLore = new ArrayList<>();
+        itemLore.add("&7Poziom: " + worker.getJobLevel("miner"));
+        itemLore.add("&7Wynik: " + worker.getJobScore("miner"));
+        ItemStack minerIcon = BuildItem.buildItem("&7Gornik", Material.IRON_PICKAXE, 1, itemLore);
+
+        itemLore = new ArrayList<>();
+        itemLore.add("&7Poziom: " + worker.getJobScore("lumberjack"));
+        itemLore.add("&7Wynik: " + worker.getJobScore("lumberjack"));
+        ItemStack lumberjackIcon = BuildItem.buildItem("&eDrwal", Material.STONE_AXE, 1, itemLore);
+
+        itemLore = new ArrayList<>();
+        itemLore.add("&7Poziom: " + worker.getJobScore("farmer"));
+        itemLore.add("&7Wynik: " + worker.getJobScore("farmer"));
+        ItemStack farmerIcon = BuildItem.buildItem("&dFarmer", Material.PIG_SPAWN_EGG, 1, itemLore);
+
+        itemLore = new ArrayList<>();
+        itemLore.add("&7Poziom: " + worker.getJobScore("hunter"));
+        itemLore.add("&7Wynik: " + worker.getJobScore("hunter"));
+        ItemStack hunterIcon = BuildItem.buildItem("&cLowca", Material.BOW, 1, itemLore);
+
+        GuiItem miner = ItemBuilder.from(minerIcon).asGuiItem();
+        GuiItem lumberJack = ItemBuilder.from(lumberjackIcon).asGuiItem();
+        GuiItem farmer = ItemBuilder.from(farmerIcon).asGuiItem();
+        GuiItem hunter = ItemBuilder.from(hunterIcon).asGuiItem();
+
         GuiItem filler = ItemBuilder.from(Material.GRAY_STAINED_GLASS).asGuiItem();
-        GuiItem miner = ItemBuilder.from(Material.IRON_PICKAXE).
+        /*GuiItem miner = ItemBuilder.from(Material.IRON_PICKAXE).
                 setName(ChatUtils.fixColor("&7Gornik")).
-                setLore("&7Poziom: " + worker.getJobLevel("miner"), "&7Wynik: " + worker.getJobScore("miner")).asGuiItem();
+                setLore("&7Poziom: " + worker.getJobLevel("miner"), ).asGuiItem();
         GuiItem lumberJack = ItemBuilder.from(Material.STONE_AXE).
                 setName(ChatUtils.fixColor("&eDrwal")).
                 setLore("&7Poziom: " + worker.getJobScore("lumberjack"), "&7Wynik: " + worker.getJobScore("lumberjack")).asGuiItem();
@@ -208,7 +232,7 @@ public class WorkerController {
                 setLore("&7Poziom: " + worker.getJobScore("farmer"), "&7Wynik: " + worker.getJobScore("farmer")).asGuiItem();
         GuiItem hunter = ItemBuilder.from(Material.BOW).
                 setName(ChatUtils.fixColor("&cLowca")).
-                setLore("&7Poziom: " + worker.getJobScore("hunter"), "&7Wynik: " + worker.getJobScore("hunter")).asGuiItem();
+                setLore("&7Poziom: " + worker.getJobScore("hunter"), "&7Wynik: " + worker.getJobScore("hunter")).asGuiItem();*/
 
         gui.getFiller().fill(filler);
         gui.setItem(11, miner);
@@ -217,5 +241,10 @@ public class WorkerController {
         gui.setItem(15, hunter);
 
         gui.open(player);
+    }
+
+    public void debugWorker(String nickname){
+        Worker worker = getWorkerByName(nickname);
+        Debug.log(Skyblock.getGson().toJson(worker));
     }
 }

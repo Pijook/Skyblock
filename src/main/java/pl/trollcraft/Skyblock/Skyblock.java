@@ -10,7 +10,9 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.CommandManager;
 import pl.trollcraft.Skyblock.cmdIslands.Commands;
 import pl.trollcraft.Skyblock.commands.DebugCommand;
+import pl.trollcraft.Skyblock.commands.SpawnCommand;
 import pl.trollcraft.Skyblock.commands.TestIslandCommand;
+import pl.trollcraft.Skyblock.commands.WorkCommand;
 import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
@@ -45,11 +47,12 @@ public class Skyblock extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         plugin = this;
         instance = this;
         jedis = new Jedis();
         gson = new Gson();
-        workerController = new WorkerController();
+
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             /*
@@ -69,6 +72,7 @@ public class Skyblock extends JavaPlugin {
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
         islandLimiter = new IslandLimiter();
+        workerController = new WorkerController();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -76,7 +80,7 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
-        //getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new CommandListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new RespawnListener(), this);
@@ -95,6 +99,8 @@ public class Skyblock extends JavaPlugin {
 //        getCommand("island").setExecutor(new IslandCommand()); // OLD
         getCommand("debug").setExecutor(new DebugCommand());
         getCommand("testisland").setExecutor(new TestIslandCommand());
+        getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("worker").setExecutor(new WorkCommand());
 
         loadStuff();
 

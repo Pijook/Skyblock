@@ -17,9 +17,9 @@ public class EntityDeathListener implements Listener {
         if(event.getEntity().getKiller() != null){
             Player player = event.getEntity().getKiller();
 
-            if(workerController.isMobToHunt(event.getEntityType())){
+            /*if(workerController.isMobToHunt(event.getEntityType())){
                 workerController.getWorkerByName(player.getName()).increaseHuntedAnimals(1);
-            }
+            }*/
         }
 
     }

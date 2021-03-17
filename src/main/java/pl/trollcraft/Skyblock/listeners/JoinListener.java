@@ -15,6 +15,7 @@ public class JoinListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
+    private final WorkerController workerController = Skyblock.getWorkerController();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
@@ -24,44 +25,10 @@ public class JoinListener implements Listener {
             @Override
             public void run() {
                 RedisSupport.loadPlayer(player);
+                //workerController.loadPlayer(player);
             }
         }, 1L);
 
-        //Skyblock.getWorkerController().loadPlayer(player);
-        /*if(Settings.spawnOnJoin){
-            Main.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    player.teleport(Storage.spawn);
-                }
-            });
-        }
-
-        ChatUtils.sendMessage(player, "&cLoading islands stats...");
-        new BukkitRunnable(){
-
-            @Override
-            public void run() {
-                SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
-                UUID islandID = null;
-
-
-                if(skyblockPlayer.hasIslandOrCoop()){
-                    islandID = skyblockPlayer.getIslandOrCoop();
-                }
-
-                if(islandID != null){
-                    if(!islandsController.isIslandLoaded(islandID)){
-                        if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)) {
-                            RedisSupport.loadIsland(islandID);
-                        }
-                        Main.getIslandLimiter().loadIsland(islandID);
-                    }
-                }
-
-                ChatUtils.sendSyncMessage(player, "&aLoaded island!");
-            }
-        }.runTaskLaterAsynchronously(Main.getInstance(), 60L);*/
 
 
     }

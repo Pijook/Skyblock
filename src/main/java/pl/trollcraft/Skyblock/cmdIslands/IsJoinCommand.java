@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,6 +33,46 @@ public class IsJoinCommand extends Command{
 
 
         if( args.length > 1 ) {
+
+            String ownerNickname = args[1];
+
+            SkyblockPlayer skyblockMember = skyblockPlayerController.getPlayer(player.getName());
+
+            if(!skyblockMember.hasInvite(ownerNickname)){
+                ChatUtils.sendMessage(player, "&cNie posiadasz zaproszenia od tego gracza!");
+                return;
+            }
+
+            Player owner = Bukkit.getPlayer(ownerNickname);
+
+            if(owner == null || !owner.isOnline()){
+                ChatUtils.sendMessage(player, "&cWlasciciel wyspy jest offline! Sprobuj ponownie pozniej...");
+                return;
+            }
+
+
+            SkyblockPlayer skyblockOwner = skyblockPlayerController.getPlayer(ownerNickname);
+
+            if(!skyblockOwner.hasIslandOrCoop()){
+                ChatUtils.sendMessage(player, "&cTen gracz nie jest wlascicielem wyspy!");
+                return;
+            }
+
+            if(skyblockMember.hasIslandOrCoop()){
+                ChatUtils.sendMessage(player, "&cJuz posiadasz wyspe!");
+                return;
+            }
+
+            skyblockMember.clearInvites();
+            skyblockMember.setIslandID(skyblockOwner.getIslandID());
+            skyblockMember.setOnIsland(true);
+            islandsController.addMember(ownerNickname, player.getName());
+
+            ChatUtils.sendMessage(player, "&aDolaczono na wyspe gracza " + ownerNickname);
+            ChatUtils.sendMessage(owner, "&aGracz " + player.getName() + " dolaczyl do twojej wyspy!");
+            return;
+
+            /*
             if (Bukkit.getPlayer(args[1]) != null) { //If argument is player
                 if (Bukkit.getPlayer(args[1]).isOnline()) { //If argument is online
                     String owner = Bukkit.getPlayer(args[1]).getName();
@@ -44,6 +85,7 @@ public class IsJoinCommand extends Command{
                                 SkyblockPlayer sbowner = skyblockPlayerController.getPlayer(owner);
                                 skyblockPlayerController.clearInvites(player.getName());
                                 skyblockPlayerController.getPlayer(player.getName()).setIslandID(sbowner.getIslandOrCoop());
+                                skyblockPlayerController.getPlayer(player.getName()).setOnIsland(true);
                                 islandsController.addMember(owner, player.getName());
 
                                 sender.sendMessage(ChatUtils.fixColor("&aPomyslnie dolaczono do wyspy " + owner));
@@ -65,6 +107,7 @@ public class IsJoinCommand extends Command{
             else{
                 sender.sendMessage(ChatUtils.fixColor("&cNie znaleziono gracza"));
             }
+            */
         }
         else{
             sender.sendMessage(ChatUtils.fixColor("&c/is " + aliases.get(0) + " " + "<nick>" ));

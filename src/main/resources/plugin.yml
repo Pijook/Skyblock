@@ -18,3 +18,7 @@ commands:
   testisland:
     usage: /testisland
     aliases: ["tis"]
+  spawn:
+    usage: /spawn
+  worker:
+    usage: /worker
