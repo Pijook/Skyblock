@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.generator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -68,6 +69,52 @@ public class DeleteIsland {
             if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
                 player.teleport(Storage.spawn);
                 player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
+            }
+        }
+
+        //Clearing island
+        for( int h = 0 ; h <= 256 ; h++){
+            if( island.getPoint1().getX() <= island.getPoint2().getX() ){
+                for( double clearX = island.getPoint1().getX() ; clearX <= island.getPoint2().getX() ; clearX++ ){
+
+                    if( island.getPoint1().getY() <= island.getPoint2().getY() ) {
+                        for (double clearY = island.getPoint1().getY(); clearY <= island.getPoint2().getY(); clearY++) {
+                            Location clearLocation = new Location(island.getCenter().getWorld(), clearX, h, clearY);
+                            if( !(clearLocation.getBlock().getType().isAir()) ){
+                                clearLocation.getBlock().setType(Material.AIR);
+                            }
+                        }
+                    }
+                    else{
+                        for (double clearY = island.getPoint1().getY(); clearY >= island.getPoint2().getY(); clearY--) {
+                            Location clearLocation = new Location(island.getCenter().getWorld(), clearX, h, clearY);
+                            if( !(clearLocation.getBlock().getType().isAir()) ){
+                                clearLocation.getBlock().setType(Material.AIR);
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                for( double clearX = island.getPoint1().getX() ; clearX >= island.getPoint2().getX() ; clearX-- ){
+
+                    if( island.getPoint1().getY() <= island.getPoint2().getY() ) {
+                        for (double clearY = island.getPoint1().getY(); clearY <= island.getPoint2().getY(); clearY++) {
+                            Location clearLocation = new Location(island.getCenter().getWorld(), clearX, h, clearY);
+                            if( !(clearLocation.getBlock().getType().isAir()) ){
+                                clearLocation.getBlock().setType(Material.AIR);
+                            }
+                        }
+                    }
+                    else{
+                        for (double clearY = island.getPoint1().getY(); clearY >= island.getPoint2().getY(); clearY--) {
+                            Location clearLocation = new Location(island.getCenter().getWorld(), clearX, h, clearY);
+                            if( !(clearLocation.getBlock().getType().isAir()) ){
+                                clearLocation.getBlock().setType(Material.AIR);
+                            }
+                        }
+                    }
+                }
             }
         }
 

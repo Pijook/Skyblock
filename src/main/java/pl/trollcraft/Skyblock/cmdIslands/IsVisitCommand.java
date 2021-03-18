@@ -28,17 +28,19 @@ public class IsVisitCommand extends Command{
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+
         if( sender instanceof Player) {
             /*
             Player player = (Player) sender;
-            UUID islandID = islandsController.getIslandIdByOwnerOrMember(args[1]);
-            if( islandID != null ){
-                Location islandHome = islandsController.getIslandById(islandID).getHome();
-                player.teleport(islandHome);
-                player.sendMessage(ChatUtils.fixColor( "&aTeleportowano na wyspe gracza " + islandsController.getIslandById(islandID).getOwner() ));
-            }
-            else{
-                player.sendMessage(ChatUtils.fixColor("&c" + args[1] + " nie posiada wyspy"));
+            if( args.length > 1 ) {
+                UUID islandID = islandsController.getIslandIdByOwnerOrMember(args[1]);
+                if (islandID != null) {
+                    Location islandHome = islandsController.getIslandById(islandID).getHome();
+                    player.teleport(islandHome);
+                    player.sendMessage(ChatUtils.fixColor("&aTeleportowano na wyspe gracza " + islandsController.getIslandById(islandID).getOwner()));
+                } else {
+                    player.sendMessage(ChatUtils.fixColor("&c" + args[1] + " nie posiada wyspy"));
+                }
             }*/
 
             String ownerToFind = args[1];

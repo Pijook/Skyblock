@@ -239,7 +239,7 @@ public class CreateIsland {
         //Wklejanie vvvvvvvvvvvvvvvv
         pasteIsland(format, schem, location);
 
-        Location islandCenter = new Location(location.getWorld(), location.getX(), location.getY() + 2, location.getZ());
+        Location islandCenter = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
         //Bukkit.getPlayer(owner).teleport(newLoc);
         /*
         new BukkitRunnable(){
@@ -316,7 +316,7 @@ public class CreateIsland {
                     -1);
 
             Operation operation = new ClipboardHolder(clipboard).createPaste(editSession)
-                    .to(BlockVector3.at(location.getX(), location.getY(), location.getZ())).ignoreAirBlocks(true).build();
+                    .to(BlockVector3.at(location.getX(), location.getY() -2, location.getZ())).ignoreAirBlocks(true).build();
 
             try {
                 Operations.complete(operation);
