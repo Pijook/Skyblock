@@ -19,6 +19,8 @@ public class IslandSizeUpgrade {
 
         int level = island.getIslandLevel();
         Location location = island.getCenter();
+        Location oldPoint1 = island.getPoint1();
+        Location oldPoint2 = island.getPoint2();
 
         if( level == 1){
             Debug.log("&4=====================");
@@ -44,8 +46,18 @@ public class IslandSizeUpgrade {
         Location point1 = new Location(location.getWorld() , location.getX() - ((double)size/2), 0, location.getZ() - ((double)size/2));
         Location point2 = new Location(location.getWorld() , location.getX() + ((double)size/2), 255, location.getZ() + ((double)size/2));
 
+
         island.setPoint1(point1);
         island.setPoint2(point2);
+
+        if( oldPoint1.equals(point1) || oldPoint2.equals(point2)){
+            Debug.log("&4=====================");
+            Debug.log("&4Brak zmian");
+            Debug.log("&4islandID: " + islandID);
+            Debug.log("&4Wlasciciel: " + island.getOwner());
+            Debug.log("&4=====================");
+            return false;
+        }
 
         return true;
     }
