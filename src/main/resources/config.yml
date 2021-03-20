@@ -4,3 +4,9 @@ spawn:
   y: 80
   z: 0
   world: Islands
+island:
+  startSize: 70
+  maxSize: 150
+  distance: 10
+  height: 80.0
+  world: Islands

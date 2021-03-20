@@ -17,5 +17,13 @@ public class Settings {
         spawnOnJoin = configuration.getBoolean("teleportToSpawn");
         Storage.spawn = ConfigUtils.getLocationFromConfig(configuration, "spawn");
 
+
+        Storage.startSize = configuration.getInt("island.startSize");
+        Storage.maxSize = configuration.getInt("island.maxSize");;
+        Storage.distance = configuration.getInt("island.distance");;
+        Storage.height = configuration.getDouble("island.height");;
+        Storage.world = configuration.getString("island.world");;
+
+
     }
 }

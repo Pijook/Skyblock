@@ -1,0 +1,10 @@
+sizeUpgrade:
+  #level:
+    #size: size
+    #cost: cost
+  0:
+    size: 70
+    cost: 500
+  1:
+    size: 80
+    cost: 1400

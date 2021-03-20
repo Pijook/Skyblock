@@ -1,12 +1,8 @@
 nextIsland:
   schemat: "island.schem"       #Not working :(
   id: 1                         #Don't edit!
-  x: 0                          #Don't edit!
-  z: 0                          #Don't edit!
-  y: 150                        #Editable
-  world: Islands                #Editable
-  distance: 3                   #Editable
-  maxSize: 10                   #Editable
+  x: 0.0                          #Don't edit!
+  z: 0.0                          #Don't edit!
   goNext: 1                     #Don't edit!
   last: 4                       #Don't edit!
   check: 1                      #Don't edit!

@@ -47,6 +47,7 @@ public class CreateIsland {
     private static double y;
     private static double z;
     private static int distance;
+    private static int startSize;
     private static int maxSize;
     private static int goNext;
     private static int last;
@@ -73,13 +74,14 @@ public class CreateIsland {
         schemFile = configuration.getString("nextIsland.schemat");
 
 
-        world = configuration.getString("nextIsland.world");
+        world = Storage.world;
         x = configuration.getDouble("nextIsland.x");
-        y = configuration.getDouble("nextIsland.y");
+        y = Storage.height;
         z = configuration.getDouble("nextIsland.z");
 
-        distance = configuration.getInt("nextIsland.distance");
-        maxSize = configuration.getInt("nextIsland.maxSize");
+        distance = Storage.distance;
+        startSize = Storage.startSize;
+        maxSize = Storage.maxSize;
 
         goNext = configuration.getInt("nextIsland.goNext");
         last = configuration.getInt("nextIsland.last");
@@ -97,13 +99,14 @@ public class CreateIsland {
         assert configuration != null;
 
 
-        configuration.set("nextIsland.world", world);
+        Storage.world = world;
         configuration.set("nextIsland.x", x);
-        configuration.set("nextIsland.y", y);
+        Storage.height = y;
         configuration.set("nextIsland.z", z);
 
-        configuration.set("nextIsland.distance", distance);
-        configuration.set("nextIsland.maxSize", maxSize);
+        Storage.distance = distance;
+        Storage.startSize = startSize;
+        Storage.maxSize = maxSize;
 
         configuration.set("nextIsland.goNext", goNext);
         configuration.set("nextIsland.last", last);
@@ -282,8 +285,8 @@ public class CreateIsland {
         Debug.log("&aFinished creating island!");
         //RedisSupport.saveIsland(test, islandID);
 
-        Location point1 = new Location(location.getWorld() , location.getX() - ((double)maxSize/2), 0, location.getZ() - ((double)maxSize/2));
-        Location point2 = new Location(location.getWorld() , location.getX() + ((double)maxSize/2), 255, location.getZ() + ((double)maxSize/2));
+        Location point1 = new Location(location.getWorld() , location.getX() - ((double)startSize/2), 0, location.getZ() - ((double)startSize/2));
+        Location point2 = new Location(location.getWorld() , location.getX() + ((double)startSize/2), 255, location.getZ() + ((double)startSize/2));
 
         point1.getBlock().setType(Material.RED_WOOL);
         point2.getBlock().setType(Material.RED_WOOL);

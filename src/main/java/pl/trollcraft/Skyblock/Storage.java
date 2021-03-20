@@ -13,5 +13,11 @@ public class Storage {
     public static Location spawn;
 
 
+    public static int startSize = 70;
+    public static int maxSize = 70;
+    public static int distance = 70;
+    public static double height = 70;
+    public static String world = "Islands";
+
 
 }
