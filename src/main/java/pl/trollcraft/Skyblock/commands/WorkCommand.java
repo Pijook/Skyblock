@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.worker.Worker;
@@ -13,7 +14,7 @@ import pl.trollcraft.Skyblock.worker.WorkerController;
 
 public class WorkCommand implements CommandExecutor {
 
-    private final WorkerController workerController = new WorkerController();
+    private final WorkerController workerController = Skyblock.getWorkerController();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {

@@ -90,6 +90,7 @@ public class WorkerController {
             return workers.get(nickname);
         }
 
+        Debug.sendError("Worker doesn't exist!");
         return null;
     }
 
@@ -98,6 +99,7 @@ public class WorkerController {
     }
 
     public void removeWorker(String nickname){
+        Debug.log("&4Removing worker!");
         if(workers.containsKey(nickname)){
             workers.remove(nickname);
         }
@@ -128,6 +130,9 @@ public class WorkerController {
                 addWorker(player.getName(), worker);
 
                 ChatUtils.sendSyncMessage(player, "&aLoaded work!");
+
+                Debug.log("Worker " + player.getName());
+                getWorkerByName(player.getName()).debugWorker();
 
             }
         }.runTaskLaterAsynchronously(Skyblock.getInstance(), 3L);
@@ -187,7 +192,10 @@ public class WorkerController {
     }
 
     public void showGUIToPlayer(Player player){
+        Debug.log("Workers: " + workers.size());
         Worker worker = getWorkerByName(player.getName());
+
+        worker.debugWorker();
 
         Gui gui = new Gui(3, "Prace");
 
@@ -195,48 +203,56 @@ public class WorkerController {
             event.setCancelled(true);
         });
 
+        /*
+        Dodac do opisu ile jeszcze potrzebuje - Done
+        Dodac w gui srednia leveli - Done
+         */
+
         ArrayList<String> itemLore = new ArrayList<>();
+        int toNextLevel = 60;
+
+        //toNextLevel = getNextLevelRequirement(player, "miner") - worker.getJobScore("miner");
         itemLore.add("&7Poziom: " + worker.getJobLevel("miner"));
         itemLore.add("&7Wynik: " + worker.getJobScore("miner"));
-        ItemStack minerIcon = BuildItem.buildItem("&7Gornik", Material.IRON_PICKAXE, 1, itemLore);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        ItemStack minerIcon = BuildItem.buildItem("&7&lGornik", Material.IRON_PICKAXE, 1, itemLore);
 
         itemLore = new ArrayList<>();
+        //toNextLevel = getNextLevelRequirement(player, "lumberjack") - worker.getJobScore("lumberjack");
         itemLore.add("&7Poziom: " + worker.getJobScore("lumberjack"));
         itemLore.add("&7Wynik: " + worker.getJobScore("lumberjack"));
-        ItemStack lumberjackIcon = BuildItem.buildItem("&eDrwal", Material.STONE_AXE, 1, itemLore);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        ItemStack lumberjackIcon = BuildItem.buildItem("&e&lDrwal", Material.STONE_AXE, 1, itemLore);
 
         itemLore = new ArrayList<>();
+        //toNextLevel = getNextLevelRequirement(player, "farmer") - worker.getJobScore("farmer");
         itemLore.add("&7Poziom: " + worker.getJobScore("farmer"));
         itemLore.add("&7Wynik: " + worker.getJobScore("farmer"));
-        ItemStack farmerIcon = BuildItem.buildItem("&dFarmer", Material.PIG_SPAWN_EGG, 1, itemLore);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        ItemStack farmerIcon = BuildItem.buildItem("&d&lFarmer", Material.PIG_SPAWN_EGG, 1, itemLore);
 
         itemLore = new ArrayList<>();
+        //toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
         itemLore.add("&7Poziom: " + worker.getJobScore("hunter"));
         itemLore.add("&7Wynik: " + worker.getJobScore("hunter"));
-        ItemStack hunterIcon = BuildItem.buildItem("&cLowca", Material.BOW, 1, itemLore);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        ItemStack hunterIcon = BuildItem.buildItem("&c&lLowca", Material.BOW, 1, itemLore);
+
+        int averageLevel = worker.getAverageLevel();
+        ItemStack averageIcon = BuildItem.buildItem("&6&lSrednia: &7" + averageLevel, Material.NETHER_STAR, 1);
 
         GuiItem miner = ItemBuilder.from(minerIcon).asGuiItem();
         GuiItem lumberJack = ItemBuilder.from(lumberjackIcon).asGuiItem();
         GuiItem farmer = ItemBuilder.from(farmerIcon).asGuiItem();
         GuiItem hunter = ItemBuilder.from(hunterIcon).asGuiItem();
+        GuiItem average = ItemBuilder.from(averageIcon).asGuiItem();
 
-        GuiItem filler = ItemBuilder.from(Material.GRAY_STAINED_GLASS).asGuiItem();
-        /*GuiItem miner = ItemBuilder.from(Material.IRON_PICKAXE).
-                setName(ChatUtils.fixColor("&7Gornik")).
-                setLore("&7Poziom: " + worker.getJobLevel("miner"), ).asGuiItem();
-        GuiItem lumberJack = ItemBuilder.from(Material.STONE_AXE).
-                setName(ChatUtils.fixColor("&eDrwal")).
-                setLore("&7Poziom: " + worker.getJobScore("lumberjack"), "&7Wynik: " + worker.getJobScore("lumberjack")).asGuiItem();
-        GuiItem farmer = ItemBuilder.from(Material.PIG_SPAWN_EGG).
-                setName(ChatUtils.fixColor("&dFarmer")).
-                setLore("&7Poziom: " + worker.getJobScore("farmer"), "&7Wynik: " + worker.getJobScore("farmer")).asGuiItem();
-        GuiItem hunter = ItemBuilder.from(Material.BOW).
-                setName(ChatUtils.fixColor("&cLowca")).
-                setLore("&7Poziom: " + worker.getJobScore("hunter"), "&7Wynik: " + worker.getJobScore("hunter")).asGuiItem();*/
+        GuiItem filler = ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE).asGuiItem();
 
         gui.getFiller().fill(filler);
         gui.setItem(11, miner);
         gui.setItem(12, lumberJack);
+        gui.setItem(13, average);
         gui.setItem(14, farmer);
         gui.setItem(15, hunter);
 

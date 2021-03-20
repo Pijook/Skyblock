@@ -1,5 +1,7 @@
 package pl.trollcraft.Skyblock.worker;
 
+import pl.trollcraft.Skyblock.essentials.Debug;
+
 import java.util.HashMap;
 
 public class Worker {
@@ -16,7 +18,7 @@ public class Worker {
     private int farmerLevel;
     private int hunterLevel;*/
 
-    private HashMap<String, Job> jobs = new HashMap<>();
+    private HashMap<String, Job> jobs;
 
     public Worker(HashMap<String, Job> jobs){
         this.jobs = jobs;
@@ -54,6 +56,10 @@ public class Worker {
     //Getters and Setters
 
     public int getJobScore(String workName) {
+        if(!jobs.containsKey(workName)){
+            Debug.sendError("&cWrong workName! (getJobScore)");
+            return -1;
+        }
         return jobs.get(workName).getScore();
     }
 
@@ -62,6 +68,10 @@ public class Worker {
     }
 
     public int getJobLevel(String workName){
+        if(!jobs.containsKey(workName)){
+            Debug.sendError("&cWrong workName! (getJobLevel)");
+            return -1;
+        }
         return jobs.get(workName).getLevel();
     }
 
@@ -71,5 +81,14 @@ public class Worker {
 
     public void increaseJobLevel(String jobName, int amount){
         jobs.get(jobName).setLevel(jobs.get(jobName).getLevel() + amount);
+    }
+
+    public void debugWorker(){
+        for(String jobName : jobs.keySet()){
+            Job job = jobs.get(jobName);
+            Debug.log("Job name: " + jobName);
+            Debug.log("Level: " + job.getLevel());
+            Debug.log("Score: " + job.getScore());
+        }
     }
 }

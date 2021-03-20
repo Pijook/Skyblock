@@ -25,7 +25,7 @@ public class JoinListener implements Listener {
             @Override
             public void run() {
                 RedisSupport.loadPlayer(player);
-                //workerController.loadPlayer(player);
+                workerController.loadPlayer(player);
             }
         }, 1L);
 

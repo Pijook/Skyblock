@@ -14,6 +14,7 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -280,8 +281,12 @@ public class CreateIsland {
 
         Debug.log("&aFinished creating island!");
         RedisSupport.saveIsland(test, islandID);
+
         Location point1 = new Location(location.getWorld() , location.getX() - ((double)maxSize/2), 0, location.getZ() - ((double)maxSize/2));
         Location point2 = new Location(location.getWorld() , location.getX() + ((double)maxSize/2), 255, location.getZ() + ((double)maxSize/2));
+
+        point1.getBlock().setType(Material.RED_WOOL);
+        point2.getBlock().setType(Material.RED_WOOL);
 
 
         islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName), Bukkit.getPlayer(owner));

@@ -55,7 +55,7 @@ public class QuitListener implements Listener {
 
 
         RedisSupport.savePlayer(player);
-        //workerController.savePlayer(player);
+        workerController.savePlayer(player);
         //Skyblock.getWorkerController().savePlayer(player);
     }
 }
