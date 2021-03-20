@@ -280,7 +280,7 @@ public class CreateIsland {
         test.teleport(islandCenter);
 
         Debug.log("&aFinished creating island!");
-        RedisSupport.saveIsland(test, islandID);
+        //RedisSupport.saveIsland(test, islandID);
 
         Location point1 = new Location(location.getWorld() , location.getX() - ((double)maxSize/2), 0, location.getZ() - ((double)maxSize/2));
         Location point2 = new Location(location.getWorld() , location.getX() + ((double)maxSize/2), 255, location.getZ() + ((double)maxSize/2));

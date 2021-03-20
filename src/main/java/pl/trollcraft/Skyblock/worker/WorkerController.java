@@ -233,7 +233,7 @@ public class WorkerController {
 
         itemLore = new ArrayList<>();
         //toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
-        itemLore.add("&7Poziom: " + worker.getJobScore("hunter"));
+        itemLore.add("&7Poziom: " + worker.getJobLevel("hunter"));
         itemLore.add("&7Wynik: " + worker.getJobScore("hunter"));
         itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
         ItemStack hunterIcon = BuildItem.buildItem("&c&lLowca", Material.BOW, 1, itemLore);
