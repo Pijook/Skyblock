@@ -2,13 +2,16 @@ package pl.trollcraft.Skyblock.island;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.Worker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,10 +22,38 @@ import java.util.concurrent.TimeUnit;
 public class IslandsController {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
-
+    private HashMap<Integer, Double> levelsCosts = new HashMap<>();
     private long islandCooldown = -1;
-
     private HashMap<UUID, Island> islands = new HashMap<>();
+
+    public void loadLevelsCosts(){
+
+        YamlConfiguration configuration = ConfigUtils.load("upgradesCost.yml", Skyblock.getInstance());
+
+        for(String islandLevel : configuration.getConfigurationSection("upgrade").getKeys(false)){
+
+            double cost = configuration.getDouble("upgrade." + islandLevel + ".requiredLevel");
+            levelsCosts.put(Integer.parseInt(islandLevel), cost);
+
+        }
+
+    }
+
+    public boolean canUpgrade(Island island, Worker worker){
+
+        if(!levelsCosts.containsKey(island.getIslandLevel() + 1)){
+            return false;
+        }
+
+        double averageLevel = worker.getAverageLevel();
+
+        if(levelsCosts.get(island.getIslandLevel() + 1) <= averageLevel){
+            return true;
+        }
+
+        return false;
+
+    }
 
     /**
      * Adds island to list of list

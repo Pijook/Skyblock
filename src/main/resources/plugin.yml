@@ -22,3 +22,5 @@ commands:
     usage: /spawn
   worker:
     usage: /worker
+  aworker:
+    usage: /aworker

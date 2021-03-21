@@ -48,9 +48,6 @@ public class IslandSizes {
 
             }
 
-
-
-
             checkLevel++;
         }
         return true;

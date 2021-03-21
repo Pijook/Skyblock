@@ -78,9 +78,16 @@ public class WorkerController {
             lumberJackLevels.put(Integer.parseInt(levelString), score);
         }
 
+        HashMap<Integer, Integer> farmerLevels = new HashMap<>();
+        for(String levelString : configuration.getConfigurationSection("farmer").getKeys(false)){
+            score = configuration.getInt("farmer." + levelString + ".score");
+            farmerLevels.put(Integer.parseInt(levelString), score);
+        }
+
         worksLevels.put("hunter", hunterLevels);
         worksLevels.put("miner", minerLevels);
         worksLevels.put("lumberjack", lumberJackLevels);
+        worksLevels.put("farmer", farmerLevels);
 
     }
 
@@ -92,6 +99,26 @@ public class WorkerController {
 
         Debug.sendError("Worker doesn't exist!");
         return null;
+    }
+
+    public boolean canLevelUp(Worker worker, String workName){
+        int currentLevel = worker.getJobLevel(workName);
+
+        if(!worksLevels.get(workName).containsKey(currentLevel + 1)){
+            return false;
+        }
+
+        int currentScore = worker.getJobScore(workName);
+
+        if(currentScore >= worksLevels.get(workName).get(currentLevel + 1)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public void levelUpJob(Worker worker, String workName){
+        worker.increaseJobLevel(workName, 1);
     }
 
     public void addWorker(String nickname, Worker worker){
@@ -192,10 +219,10 @@ public class WorkerController {
     }
 
     public void showGUIToPlayer(Player player){
-        Debug.log("Workers: " + workers.size());
+        //Debug.log("Workers: " + workers.size());
         Worker worker = getWorkerByName(player.getName());
 
-        worker.debugWorker();
+        //worker.debugWorker();
 
         Gui gui = new Gui(3, "Prace");
 
@@ -211,34 +238,34 @@ public class WorkerController {
         ArrayList<String> itemLore = new ArrayList<>();
         int toNextLevel = 60;
 
-        //toNextLevel = getNextLevelRequirement(player, "miner") - worker.getJobScore("miner");
+        toNextLevel = getNextLevelRequirement(player, "miner") - worker.getJobScore("miner");
         itemLore.add("&7Poziom: " + worker.getJobLevel("miner"));
         itemLore.add("&7Wynik: " + worker.getJobScore("miner"));
         itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
         ItemStack minerIcon = BuildItem.buildItem("&7&lGornik", Material.IRON_PICKAXE, 1, itemLore);
 
         itemLore = new ArrayList<>();
-        //toNextLevel = getNextLevelRequirement(player, "lumberjack") - worker.getJobScore("lumberjack");
-        itemLore.add("&7Poziom: " + worker.getJobScore("lumberjack"));
+        toNextLevel = getNextLevelRequirement(player, "lumberjack") - worker.getJobScore("lumberjack");
+        itemLore.add("&7Poziom: " + worker.getJobLevel("lumberjack"));
         itemLore.add("&7Wynik: " + worker.getJobScore("lumberjack"));
         itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
         ItemStack lumberjackIcon = BuildItem.buildItem("&e&lDrwal", Material.STONE_AXE, 1, itemLore);
 
         itemLore = new ArrayList<>();
-        //toNextLevel = getNextLevelRequirement(player, "farmer") - worker.getJobScore("farmer");
-        itemLore.add("&7Poziom: " + worker.getJobScore("farmer"));
+        toNextLevel = getNextLevelRequirement(player, "farmer") - worker.getJobScore("farmer");
+        itemLore.add("&7Poziom: " + worker.getJobLevel("farmer"));
         itemLore.add("&7Wynik: " + worker.getJobScore("farmer"));
         itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
         ItemStack farmerIcon = BuildItem.buildItem("&d&lFarmer", Material.PIG_SPAWN_EGG, 1, itemLore);
 
         itemLore = new ArrayList<>();
-        //toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
+        toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
         itemLore.add("&7Poziom: " + worker.getJobLevel("hunter"));
         itemLore.add("&7Wynik: " + worker.getJobScore("hunter"));
         itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
         ItemStack hunterIcon = BuildItem.buildItem("&c&lLowca", Material.BOW, 1, itemLore);
 
-        int averageLevel = worker.getAverageLevel();
+        double averageLevel = worker.getAverageLevel();
         ItemStack averageIcon = BuildItem.buildItem("&6&lSrednia: &7" + averageLevel, Material.NETHER_STAR, 1);
 
         GuiItem miner = ItemBuilder.from(minerIcon).asGuiItem();

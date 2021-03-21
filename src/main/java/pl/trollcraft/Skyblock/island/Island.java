@@ -97,4 +97,8 @@ public class Island {
     public void setServer(String server) {
         this.server = server;
     }
+
+    public void upgradeIsland(){
+        this.islandLevel++;
+    }
 }

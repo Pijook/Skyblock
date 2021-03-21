@@ -1,0 +1,9 @@
+upgrade:
+  1:
+    requiredLevel: 0.0
+  2:
+    requiredLevel: 4.0
+  3:
+    requiredLevel: 8.0
+  4:
+    requiredLevel: 12.0

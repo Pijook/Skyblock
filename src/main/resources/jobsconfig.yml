@@ -36,3 +36,10 @@ lumberjack:
     score: 75
   3:
     score: 150
+farmer:
+  1:
+    score: 0
+  2:
+    score: 15
+  3:
+    score: 40

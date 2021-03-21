@@ -9,10 +9,7 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeListener;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.CommandManager;
 import pl.trollcraft.Skyblock.cmdIslands.Commands;
-import pl.trollcraft.Skyblock.commands.DebugCommand;
-import pl.trollcraft.Skyblock.commands.SpawnCommand;
-import pl.trollcraft.Skyblock.commands.TestIslandCommand;
-import pl.trollcraft.Skyblock.commands.WorkCommand;
+import pl.trollcraft.Skyblock.commands.*;
 import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
@@ -101,6 +98,7 @@ public class Skyblock extends JavaPlugin {
         getCommand("testisland").setExecutor(new TestIslandCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("worker").setExecutor(new WorkCommand());
+        getCommand("aworker").setExecutor(new AdminWorkCommand());
 
         loadStuff();
 
@@ -138,6 +136,10 @@ public class Skyblock extends JavaPlugin {
 
         Debug.log("&aLoading worker settings...");
         workerController.loadSettings();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading island upgrades costs");
+        islandsController.loadLevelsCosts();
         Debug.log("&aDone!");
 
         Debug.log("&aFinished loading Skyblock v1.0!");

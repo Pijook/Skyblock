@@ -27,7 +27,7 @@ public class Worker {
 
     //Increasing functions
 
-    public int getAverageLevel(){
+    public double getAverageLevel(){
         int amount = 0;
         int sum = 0;
         for(String jobName : jobs.keySet()){
@@ -61,6 +61,10 @@ public class Worker {
             return -1;
         }
         return jobs.get(workName).getScore();
+    }
+
+    public boolean doesJobExist(String workName){
+        return jobs.containsKey(workName);
     }
 
     public void setJobScore(String workName, int score){

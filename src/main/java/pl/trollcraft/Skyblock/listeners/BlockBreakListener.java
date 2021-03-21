@@ -12,6 +12,7 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.Worker;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 
 public class BlockBreakListener implements Listener {
@@ -53,16 +54,26 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        /*
+
         //Uncomment when limits will work
-        islandLimiter.removeBlock(block);
+        //islandLimiter.removeBlock(block);
+
+        Worker worker = workerController.getWorkerByName(player.getName());
 
         if(workerController.isBlockToMine(block.getType())){
-            workerController.getWorkerByName(player.getName()).increaseMinedStone(1);
+            worker.increaseMinedStone(1);
+            if(workerController.canLevelUp(worker,  "miner")){
+                workerController.levelUpJob(worker, "miner");
+                ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+            }
         }
         if(workerController.isWoodToChop(block.getType())){
-            workerController.getWorkerByName(player.getName()).increaseChoppedWood(1);
-        }*/
+            worker.increaseChoppedWood(1);
+            if(workerController.canLevelUp(worker,  "lumberjack")){
+                workerController.levelUpJob(worker, "lumberjack");
+                ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+            }
+        }
 
 
     }
