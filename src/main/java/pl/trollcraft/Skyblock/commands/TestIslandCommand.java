@@ -51,7 +51,7 @@ public class TestIslandCommand implements CommandExecutor {
                     return true;
                 }
 
-                if(islandsController.isPlayerOnHisIsland(player)){
+                if(!islandsController.isPlayerOnHisIsland(player)){
                     ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
                     return true;
                 }
@@ -86,7 +86,7 @@ public class TestIslandCommand implements CommandExecutor {
                     return true;
                 }
 
-                if(islandsController.isPlayerOnHisIsland(player)){
+                if(!islandsController.isPlayerOnHisIsland(player)){
                     ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
                     return true;
                 }

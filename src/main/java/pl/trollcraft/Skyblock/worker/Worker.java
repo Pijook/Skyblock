@@ -28,8 +28,8 @@ public class Worker {
     //Increasing functions
 
     public double getAverageLevel(){
-        int amount = 0;
-        int sum = 0;
+        double amount = 0;
+        double sum = 0;
         for(String jobName : jobs.keySet()){
             sum = sum + jobs.get(jobName).getLevel();
             amount++;

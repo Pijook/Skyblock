@@ -173,7 +173,7 @@ public class WorkerController {
 
         String nickname = player.getName();
         String code = Storage.redisWorkerCode;
-        code = code.replace("%placer%", nickname);
+        code = code.replace("%player%", nickname);
 
         String workerJSON = RedisSupport.workerToString(getWorkerByName(nickname));
 
@@ -215,6 +215,11 @@ public class WorkerController {
     public int getNextLevelRequirement(Player player, String job){
         Worker worker = getWorkerByName(player.getName());
         int currentLevel = worker.getJobLevel(job);
+
+        if(!worksLevels.get(job).containsKey(currentLevel + 1)){
+            return 0;
+        }
+
         return worksLevels.get(job).get(currentLevel + 1);
     }
 
