@@ -1,16 +1,18 @@
-package pl.trollcraft.Skyblock.commandsold;
+package pl.trollcraft.Skyblock.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.worker.WorkerController;
 
-public class SpawnCommand implements CommandExecutor {
+public class WorkCommand implements CommandExecutor {
 
+    private final WorkerController workerController = Skyblock.getWorkerController();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -23,8 +25,10 @@ public class SpawnCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if(args.length == 0){
-            ChatUtils.sendMessage(player, "&aTeleportuje na spawn...");
-            player.teleport(Storage.spawn);
+
+            //Worker worker = workerController.getWorkerByName(player.getName());
+
+            workerController.showGUIToPlayer(player);
             return true;
         }
 

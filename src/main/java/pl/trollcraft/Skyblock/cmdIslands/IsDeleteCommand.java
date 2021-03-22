@@ -33,14 +33,14 @@ public class IsDeleteCommand extends Command {
                 if( islandsController.getIslandByLocation(player.getLocation()).getOwner().equalsIgnoreCase(player.getName())) {
                     BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()), player);
                     DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
-                    sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe"));
+                    ChatUtils.sendMessage(player, "&aUsunieto wyspe");
                 }
                 else{
-                    player.sendMessage(ChatUtils.fixColor("&cMusisz znajdowac sie na swojej wyspie"));
+                    ChatUtils.sendMessage(player, "&cMusisz znajdowac sie na swojej wyspie");
                 }
             }
             else{
-                sender.sendMessage(ChatUtils.fixColor("&cNie jestes wlascicielem wyspy"));
+                ChatUtils.sendMessage(player, "&cNie jestes wlascicielem wyspy");
             }
         }
         else{
@@ -53,7 +53,7 @@ public class IsDeleteCommand extends Command {
         String owner = island.getOwner();
         BungeeSupport.sendDeleteIslandCommand( islandsController.getIslandIdByOwnerOrMember( owner ), Bukkit.getPlayer(owner));
         DeleteIsland.deleteIs( islandsController.getIslandByOwnerOrMember( owner) );
-        sender.sendMessage(ChatUtils.fixColor("&aUsunieto wyspe gracza " + owner));
+        ChatUtils.sendMessage((Player) sender, ChatUtils.fixColor("&aUsunieto wyspe gracza " + owner));
     }
 
     @Override

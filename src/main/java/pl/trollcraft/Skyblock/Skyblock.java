@@ -9,7 +9,7 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeListener;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.cmdIslands.CommandManager;
 import pl.trollcraft.Skyblock.cmdIslands.Commands;
-import pl.trollcraft.Skyblock.commandsold.*;
+import pl.trollcraft.Skyblock.commands.*;
 import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;

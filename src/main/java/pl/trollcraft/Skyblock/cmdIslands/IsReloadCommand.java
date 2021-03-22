@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -18,7 +19,7 @@ public class IsReloadCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         Skyblock.getInstance().loadCommands();
-        sender.sendMessage(ChatUtils.fixColor("&aKonfiguracja przeladowana"));
+        ChatUtils.sendMessage((Player) sender, "&aKonfiguracja przeladowana");
     }
 
     @Override

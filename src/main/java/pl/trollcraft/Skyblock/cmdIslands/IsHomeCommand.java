@@ -30,7 +30,7 @@ public class IsHomeCommand extends Command {
                 player.teleport(island.getHome().add(0, 2, 0));
             }
             else{
-                player.sendMessage(ChatUtils.fixColor("&cNie posiadasz wyspy"));
+                ChatUtils.sendMessage(player, "&cNie posiadasz wyspy");
             }
         }
         else{
@@ -44,8 +44,9 @@ public class IsHomeCommand extends Command {
         if( islandsController.getIslandByOwnerOrMember(player[0].getName()) != null ) {
             Location islandHome = islandsController.getIslandByOwnerOrMember(player[0].getName()).getHome();
             player[0].teleport(islandHome);
-            player[0].sendMessage(ChatUtils.fixColor("&aTeleportowano na wyspe"));
-            sender.sendMessage(ChatUtils.fixColor("&aTeleportowano " + player[0].getName() + " na jego wyspe"));
+
+            ChatUtils.sendMessage(player[0], "&aTeleportowano na wyspe");
+            ChatUtils.sendMessage((Player) sender, "&aTeleportowano " + player[0].getName() + " na jego wyspe");
         }
         else{
             sender.sendMessage(ChatUtils.fixColor("&c" + player[0].getName() + " nie posiada wyspy"));

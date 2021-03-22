@@ -77,7 +77,7 @@ public class IsRemoveCommand extends Command {
 
             }
             else{
-                sender.sendMessage(ChatUtils.fixColor("&cNie jestes wlascicielem wyspy"));
+                ChatUtils.sendMessage((Player) sender, "&cNie jestes wlascicielem wyspy");
             }
         }
         else{

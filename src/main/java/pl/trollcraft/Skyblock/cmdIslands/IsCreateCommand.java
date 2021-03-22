@@ -26,16 +26,16 @@ public class IsCreateCommand extends Command {
         if( sender instanceof Player) {
             Player player = (Player) sender;
             if (islandsController.isPlayerOwner(player.getName())) {
-                sender.sendMessage(ChatUtils.fixColor("&cPosiadasz juz wyspe!"));
+                ChatUtils.sendMessage(player, "&cPosiadasz juz wyspe!");
             } else {
                 if(!islandsController.isGeneratorOnCooldown()){
-                    sender.sendMessage(ChatUtils.fixColor("&aTworze wyspe..."));
+                    ChatUtils.sendMessage(player, "&aTworze wyspe...");
                     //CreateIsland.createNew(player);
                     islandsController.setGeneratorOnCooldown();
                     BungeeSupport.sendGenerateIslandCommand(player);
                 }
                 else {
-                    sender.sendMessage(ChatUtils.fixColor("&cSprobuj ponownie za pare sekund..."));
+                    ChatUtils.sendMessage(player, "&cSprobuj ponownie za pare sekund...");
                 }
 
             }
@@ -49,10 +49,10 @@ public class IsCreateCommand extends Command {
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
         if( player.length > 0 ){
             execute(player[0], args);
-            sender.sendMessage(ChatUtils.fixColor("&aStworzono wyspe jako " + player[0]));
+            ChatUtils.sendMessage((Player) sender, "&aStworzono wyspe jako " + player[0]);
         }
         else {
-            sender.sendMessage(ChatUtils.fixColor("&cBlad. Nie znaleziono gracza"));
+            ChatUtils.sendMessage((Player) sender, "&cBlad. Nie znaleziono gracza");
         }
     }
 
