@@ -1,4 +1,4 @@
-package pl.trollcraft.Skyblock.commands;
+package pl.trollcraft.Skyblock.commandsold;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import pl.trollcraft.Skyblock.Skyblock;
-import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;

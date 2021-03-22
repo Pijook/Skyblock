@@ -1,10 +1,8 @@
 package pl.trollcraft.Skyblock.listeners.customListeners;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Settings;
 import pl.trollcraft.Skyblock.Storage;
@@ -18,9 +16,7 @@ import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class PlayerLoadListener implements Listener {

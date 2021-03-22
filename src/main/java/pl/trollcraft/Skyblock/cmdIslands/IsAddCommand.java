@@ -1,6 +1,5 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
-import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +13,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import java.util.Collections;
 import java.util.List;
 
-public class IsAddCommand extends Command{
+public class IsAddCommand extends Command {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();

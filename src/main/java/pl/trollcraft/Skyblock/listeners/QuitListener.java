@@ -12,7 +12,6 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
-import pl.trollcraft.Skyblock.worker.Worker;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 
 import java.util.UUID;

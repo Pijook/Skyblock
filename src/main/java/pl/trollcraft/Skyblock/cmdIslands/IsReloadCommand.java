@@ -9,7 +9,7 @@ import pl.trollcraft.Skyblock.island.Island;
 import java.util.Collections;
 import java.util.List;
 
-public class IsReloadCommand extends Command{
+public class IsReloadCommand extends Command {
 
     public IsReloadCommand() {
         super(Collections.singletonList("reload"), "Przeladuj plugin", "TcSb.command.reload", true);

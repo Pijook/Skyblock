@@ -1,6 +1,5 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
-import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,7 +15,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import java.util.Collections;
 import java.util.List;
 
-public class IsRemoveCommand extends Command{
+public class IsRemoveCommand extends Command {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
@@ -76,30 +75,6 @@ public class IsRemoveCommand extends Command{
                     return;
                 }
 
-
-                /*
-                String member = args[1];
-                if (skyblockPlayerController.getPlayer(member).hasIsland()) {  //If argument has island/is member of island
-                    SkyblockPlayer SBmember = skyblockPlayerController.getPlayer(member);
-                    if (islandsController.getIslandById(SBmember.getIslandOrCoop()).getOwner().equalsIgnoreCase(member)){
-                        skyblockPlayerController.getPlayer(member).setIslandID(null);
-                        skyblockPlayerController.getPlayer(member).setOnIsland(false);
-                        islandsController.remMember(player.getName(), member);
-                        sender.sendMessage(ChatUtils.fixColor("&cUsunieto " + member + " z wyspy"));
-                    }
-                    else{
-                        sender.sendMessage(ChatUtils.fixColor("&c" + member + " nie jest czlonkiem Twojej wyspy"));
-                    }
-                }
-                else{
-                    sender.sendMessage(ChatUtils.fixColor("&c" + member + " nie jest czlonkiem Twojej wyspy. Upewnij sie czy wpisales poprawny nick( Wielkosc liter ma znaczenie )"));
-                    SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
-                    List<String> members = islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()).getMembers();
-                    sender.sendMessage(ChatUtils.fixColor("&cCzlonkowie Twojej wyspy: "));
-                    for( String mbr : members ){
-                        sender.sendMessage(ChatUtils.fixColor("&3" + mbr));
-                    }
-                }*/
             }
             else{
                 sender.sendMessage(ChatUtils.fixColor("&cNie jestes wlascicielem wyspy"));

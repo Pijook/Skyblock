@@ -12,7 +12,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import java.util.Collections;
 import java.util.List;
 
-public class IsCancelInviteCommand extends Command{
+public class IsCancelInviteCommand extends Command {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();

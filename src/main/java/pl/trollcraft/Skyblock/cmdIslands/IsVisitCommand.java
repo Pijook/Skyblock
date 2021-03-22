@@ -1,8 +1,6 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
-import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -15,9 +13,8 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
-public class IsVisitCommand extends Command{
+public class IsVisitCommand extends Command {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
@@ -30,19 +27,6 @@ public class IsVisitCommand extends Command{
     public void execute(CommandSender sender, String[] args) {
 
         if( sender instanceof Player) {
-            /*
-            Player player = (Player) sender;
-            if( args.length > 1 ) {
-                UUID islandID = islandsController.getIslandIdByOwnerOrMember(args[1]);
-                if (islandID != null) {
-                    Location islandHome = islandsController.getIslandById(islandID).getHome();
-                    player.teleport(islandHome);
-                    player.sendMessage(ChatUtils.fixColor("&aTeleportowano na wyspe gracza " + islandsController.getIslandById(islandID).getOwner()));
-                } else {
-                    player.sendMessage(ChatUtils.fixColor("&c" + args[1] + " nie posiada wyspy"));
-                }
-            }*/
-
             String ownerToFind = args[1];
             Player player = (Player) sender;
             Player target = Bukkit.getPlayer(ownerToFind);

@@ -12,7 +12,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import java.util.Collections;
 import java.util.List;
 
-public class IsHomeCommand extends Command{
+public class IsHomeCommand extends Command {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
@@ -25,13 +25,6 @@ public class IsHomeCommand extends Command{
     public void execute(CommandSender sender, String[] args) {
         if( sender instanceof Player) {
             Player player = (Player) sender;
-            /*if( islandsController.getIslandByOwnerOrMember(player.getName()) != null ) {
-                Location islandHome = islandsController.getIslandByOwnerOrMember(player.getName()).getHome();
-                player.teleport(islandHome);
-                skyblockPlayerController.getPlayer(player.getName()).setOnIsland(true);
-                player.sendMessage(ChatUtils.fixColor("&aTeleportowano na wyspe"));
-            }*/
-
             if(skyblockPlayerController.getPlayer(player.getName()).hasIslandOrCoop()){
                 Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
                 player.teleport(island.getHome().add(0, 2, 0));

@@ -1,6 +1,5 @@
-package pl.trollcraft.Skyblock.commands;
+package pl.trollcraft.Skyblock.commandsold;
 
-import net.milkbowl.vault.chat.Chat;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
-import pl.trollcraft.Skyblock.worker.Worker;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 
 public class WorkCommand implements CommandExecutor {

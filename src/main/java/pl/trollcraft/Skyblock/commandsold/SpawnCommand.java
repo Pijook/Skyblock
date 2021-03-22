@@ -1,4 +1,4 @@
-package pl.trollcraft.Skyblock.commands;
+package pl.trollcraft.Skyblock.commandsold;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

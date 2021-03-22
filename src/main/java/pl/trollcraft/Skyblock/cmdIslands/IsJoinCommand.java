@@ -1,6 +1,5 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
-import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +13,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import java.util.Collections;
 import java.util.List;
 
-public class IsJoinCommand extends Command{
+public class IsJoinCommand extends Command {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
@@ -72,42 +71,6 @@ public class IsJoinCommand extends Command{
             ChatUtils.sendMessage(owner, "&aGracz " + player.getName() + " dolaczyl do twojej wyspy!");
             return;
 
-            /*
-            if (Bukkit.getPlayer(args[1]) != null) { //If argument is player
-                if (Bukkit.getPlayer(args[1]).isOnline()) { //If argument is online
-                    String owner = Bukkit.getPlayer(args[1]).getName();
-                    if (islandsController.isPlayerOwner(owner)) { //If player is owner of island
-                        if (skyblockPlayerController.getPlayer(player.getName()).hasIsland()) {  //If player has island/is member of island
-                            sender.sendMessage(ChatUtils.fixColor("&cNie mozesz uzyc tej komendy poniewaz posiadasz juz wyspe"));
-                        }
-                        else {
-                            if (skyblockPlayerController.hasInvite(owner, player.getName())) {
-                                SkyblockPlayer sbowner = skyblockPlayerController.getPlayer(owner);
-                                skyblockPlayerController.clearInvites(player.getName());
-                                skyblockPlayerController.getPlayer(player.getName()).setIslandID(sbowner.getIslandOrCoop());
-                                skyblockPlayerController.getPlayer(player.getName()).setOnIsland(true);
-                                islandsController.addMember(owner, player.getName());
-
-                                sender.sendMessage(ChatUtils.fixColor("&aPomyslnie dolaczono do wyspy " + owner));
-                                Bukkit.getPlayer(owner).sendMessage(ChatUtils.fixColor("&aTwoja wyspa zyskala nowego czlonka - " + player.getName()));
-                            }
-                            else {
-                                sender.sendMessage(ChatUtils.fixColor("&aNie posiadasz zaproszenia na wyspe " + owner));
-                            }
-                        }
-                    }
-                    else {
-                        sender.sendMessage(ChatUtils.fixColor("&cTen grasz nie jest wlascicielem wyspy"));
-                    }
-                }
-                else{
-                    sender.sendMessage(ChatUtils.fixColor("&cTen grasz nie jest online"));
-                }
-            }
-            else{
-                sender.sendMessage(ChatUtils.fixColor("&cNie znaleziono gracza"));
-            }
-            */
         }
         else{
             sender.sendMessage(ChatUtils.fixColor("&c/is " + aliases.get(0) + " " + "<nick>" ));
