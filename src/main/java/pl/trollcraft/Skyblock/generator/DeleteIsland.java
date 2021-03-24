@@ -1,5 +1,17 @@
 package pl.trollcraft.Skyblock.generator;
 
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.WorldEditException;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.extent.clipboard.Clipboard;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
+import com.sk89q.worldedit.function.operation.Operation;
+import com.sk89q.worldedit.function.operation.Operations;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.session.ClipboardHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,10 +21,15 @@ import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class DeleteIsland {
 
@@ -73,6 +90,14 @@ public class DeleteIsland {
         }
 
         //Clearing island
+        String schemFile = "clearIsland.schem";
+        File schem = new File(Skyblock.getInstance().getDataFolder() + File.separator + schemFile);
+        ClipboardFormat format = ClipboardFormats.findByFile(schem);
+        clearIsland(format, schem, island.getCenter());
+
+
+
+        /**
         for( int h = 0 ; h <= 256 ; h++){
             if( island.getPoint1().getX() <= island.getPoint2().getX() ){
                 for( double clearX = island.getPoint1().getX() ; clearX <= island.getPoint2().getX() ; clearX++ ){
@@ -117,9 +142,54 @@ public class DeleteIsland {
                 }
             }
         }
+         **/
 
 
         islandsController.getIslands().remove( islandsController.getIslandIdByOwnerOrMember(owner) );
 
+    }
+
+
+    /**
+     * Paste clear arena
+     * @param format Format
+     * @param schemat Schematic file
+     */
+    public static void clearIsland(ClipboardFormat format, File schemat, Location location){
+        ClipboardReader reader;
+        Clipboard clipboard;
+        try {
+            reader = format.getReader(new FileInputStream(schemat));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+            clipboard = reader.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        try {
+            com.sk89q.worldedit.world.World adaptedWorld = BukkitAdapter.adapt(location.getWorld());
+
+            EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(adaptedWorld,
+                    -1);
+
+            Operation operation = new ClipboardHolder(clipboard).createPaste(editSession)
+                    .to(BlockVector3.at( location.getX(), 0 , location.getZ() )).ignoreAirBlocks(false).build();
+
+            try {
+                Operations.complete(operation);
+                editSession.flushSession();
+
+            } catch (WorldEditException e) {
+                Debug.log(ChatUtils.fixColor("" + "Sth gone wrong"));
+                e.printStackTrace();
+            }
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
     }
 }
