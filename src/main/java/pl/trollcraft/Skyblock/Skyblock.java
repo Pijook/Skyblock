@@ -103,10 +103,6 @@ public class Skyblock extends JavaPlugin {
         getCommand("aworker").setExecutor(new AdminWorkCommand());
 
         loadStuff();
-
-        islandsController.initTimer();
-        //islandLimiter.loadDefault();
-        skyblockPlayerController.initCheckingPlayers();
     }
 
     @Override
@@ -140,13 +136,25 @@ public class Skyblock extends JavaPlugin {
         workerController.loadSettings();
         Debug.log("&aDone!");
 
-        Debug.log("&aLoading island upgrades costs");
+        Debug.log("&aLoading island upgrades costs...");
         islandsController.loadLevelsCosts();
         Debug.log("&aDone!");
 
-        Debug.log("&aFinished loading Skyblock v1.0!");
-    }
+        Debug.log("&aLoading limits...");
+        islandLimiter.loadSettings();
+        Debug.log("&aDone!");
 
+        Debug.log("&aStarting island timer...");
+        islandsController.initTimer();
+        Debug.log("&aDone!");
+
+        Debug.log("&aStarting skyblockPlayers timer...");
+        skyblockPlayerController.initCheckingPlayers();
+        Debug.log("&aDone!");
+
+        Debug.log("&aFinished loading Skyblock v1.0!");
+
+    }
 
     /**
      * Loads commands

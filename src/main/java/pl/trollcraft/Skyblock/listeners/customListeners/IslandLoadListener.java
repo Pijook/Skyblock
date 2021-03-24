@@ -14,7 +14,7 @@ public class IslandLoadListener implements Listener {
         Debug.log("[Custom event]&aLoaded island " + event.getIslandID().toString());
 
         if(event.getIsland().getServer().equalsIgnoreCase(Storage.serverName)){
-            Skyblock.getIslandLimiter().loadIsland(event.getIslandID());
+            Skyblock.getIslandLimiter().loadLimiter(event.getIslandID());
         }
     }
 }

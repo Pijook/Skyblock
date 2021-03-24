@@ -7,82 +7,61 @@ import java.util.HashMap;
 
 public class Limiter {
 
-    private HashMap<EntityType, Integer> currentEntities;
-    private HashMap<Material, Integer> currentBlocks;
     private int limiterLevel;
+    private HashMap<Material, Integer> blocks;
+    private HashMap<EntityType, Integer> entities;
 
-    public Limiter(HashMap<EntityType, Integer> currentEntities, HashMap<Material, Integer> currentBlocks, int limiterLevel){
-        this.currentEntities = currentEntities;
-        this.currentBlocks = currentBlocks;
+    public Limiter(int limiterLevel, HashMap<Material, Integer> blocks, HashMap<EntityType, Integer> entities){
         this.limiterLevel = limiterLevel;
-    }
-
-    public HashMap<EntityType, Integer> getCurrentEntities() {
-        return currentEntities;
-    }
-
-    public void setCurrentEntities(HashMap<EntityType, Integer> currentEntities) {
-        this.currentEntities = currentEntities;
-    }
-
-    public HashMap<Material, Integer> getCurrentBlocks() {
-        return currentBlocks;
-    }
-
-    public void setCurrentBlocks(HashMap<Material, Integer> currentBlocks) {
-        this.currentBlocks = currentBlocks;
-    }
-
-    public void addEntity(EntityType entityType){
-        if(currentEntities.containsKey(entityType)){
-            currentEntities.put(entityType, currentEntities.get(entityType) + 1);
-        }
-        else{
-            currentEntities.put(entityType, 1);
-        }
-    }
-
-    public void removeEntity(EntityType entityType){
-        if(currentEntities.containsKey(entityType)){
-            int amount = currentEntities.get(entityType);
-            if(amount > 0){
-                currentEntities.put(entityType, amount - 1);
-            }
-        }
-    }
-
-    public void addBlock(Material material){
-        if(currentBlocks.containsKey(material)){
-            currentBlocks.put(material, currentBlocks.get(material) + 1);
-        }
-        else{
-            currentBlocks.put(material, 1);
-        }
-    }
-
-    public void removeMaterial(Material material){
-        if(currentBlocks.containsKey(material)){
-            int amount = currentBlocks.get(material);
-            if(amount > 0){
-                currentBlocks.put(material, amount - 1);
-            }
-        }
-    }
-
-    public int getEntitiesAmount(EntityType entityType){
-        if(currentEntities.containsKey(entityType)){
-            return currentEntities.get(entityType);
-        }
-
-        return 0;
+        this.blocks = blocks;
+        this.entities = entities;
     }
 
     public int getBlocksAmount(Material material){
-        if(currentBlocks.containsKey(material)){
-            return currentBlocks.get(material);
+        if(blocks.containsKey(material)){
+            return blocks.get(material);
+        }
+        return -1;
+    }
+
+    public int getEntitiesAmount(EntityType entityType){
+        if(entities.containsKey(entityType)){
+            return entities.get(entityType);
+        }
+        return -1;
+    }
+
+    public void increaseBlocks(Material material, int amount){
+        if(!blocks.containsKey(material)){
+            blocks.put(material, amount);
+        }
+        else{
+            blocks.put(material, blocks.get(material) + amount);
         }
 
-        return 0;
+    }
+
+    public void increaseEntities(EntityType entityType, int amount){
+        if(!entities.containsKey(entityType)){
+            entities.put(entityType, amount);
+        }
+        else{
+            entities.put(entityType, entities.get(entityType) + amount);
+        }
+    }
+
+    public void decreaseBlocks(Material material, int amount){
+        if(!blocks.containsKey(material)){
+            return;
+        }
+        blocks.put(material, blocks.get(material) -  amount);
+    }
+
+    public void decreaseEntities(EntityType entityType, int amount){
+        if(!entities.containsKey(entityType)){
+            return;
+        }
+        entities.put(entityType, entities.get(entityType) - amount);
     }
 
     public int getLimiterLevel() {
@@ -91,5 +70,21 @@ public class Limiter {
 
     public void setLimiterLevel(int limiterLevel) {
         this.limiterLevel = limiterLevel;
+    }
+
+    public HashMap<Material, Integer> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(HashMap<Material, Integer> blocks) {
+        this.blocks = blocks;
+    }
+
+    public HashMap<EntityType, Integer> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(HashMap<EntityType, Integer> entities) {
+        this.entities = entities;
     }
 }

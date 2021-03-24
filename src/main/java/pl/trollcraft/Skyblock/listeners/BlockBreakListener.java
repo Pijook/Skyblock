@@ -58,6 +58,10 @@ public class BlockBreakListener implements Listener {
         //Uncomment when limits will work
         //islandLimiter.removeBlock(block);
 
+        if(islandLimiter.isBlockLimited(block.getType())){
+            islandLimiter.removeBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
+        }
+
         Worker worker = workerController.getWorkerByName(player.getName());
 
         if(workerController.isBlockToMine(block.getType())){

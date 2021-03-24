@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,6 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -43,6 +45,21 @@ public class BlockPlaceListener implements Listener {
                 return;
 
             }
+        }
+        else{
+            if(islandLimiter.isBlockLimited(block.getType())){
+
+                if(islandLimiter.isBlockAboveLimit(skyblockPlayer.getIslandOrCoop(), block.getType())){
+                    ChatUtils.sendMessage(player, "&cOsiagnales limit blokow tego typu!");
+                    event.setCancelled(true);
+                }
+                else{
+                    islandLimiter.addBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
+                }
+
+            }
+
+
         }
 
         /*
