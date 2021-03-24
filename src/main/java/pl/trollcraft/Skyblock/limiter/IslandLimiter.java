@@ -30,7 +30,10 @@ public class IslandLimiter {
 
     private IslandsController islandsController = Skyblock.getIslandsController();
 
-
+    /**
+     * Loads default settings from config limiter.yml
+     * Things like highest amount of mobs or blocks for specified limiter level
+     */
     public void loadSettings(){
 
         YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Skyblock.getInstance());
@@ -81,6 +84,10 @@ public class IslandLimiter {
         }
     }
 
+    /**
+     * Loads island limiter from islandLimits.yml
+     * @param islandID ID of island to load
+     */
     public void loadLimiter(UUID islandID){
 
         YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Skyblock.getInstance());
@@ -120,6 +127,10 @@ public class IslandLimiter {
 
     }
 
+    /**
+     * Saves limiter for specified island and removes it from memory
+     * @param islandID ID of island to save
+     */
     public void saveLimiter(UUID islandID){
 
         YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Skyblock.getInstance());
@@ -143,6 +154,10 @@ public class IslandLimiter {
         ConfigUtils.save(configuration, "islandLimits.yml");
     }
 
+    /**
+     * @param islandID ID of island of limiter
+     * @return Returns limiter or null if limiter doesn't exist
+     */
     public Limiter getLimiter(UUID islandID){
         if(islandsLimiters.containsKey(islandID)){
             return islandsLimiters.get(islandID);
@@ -150,6 +165,12 @@ public class IslandLimiter {
         return null;
     }
 
+    /**
+     * Checks does block is above specified limit
+     * @param islandID ID of island
+     * @param material Material to check
+     * @return Returns true if block is above limit
+     */
     public boolean isBlockAboveLimit(UUID islandID, Material material){
 
         Limiter limiter = islandsLimiters.get(islandID);
@@ -161,6 +182,12 @@ public class IslandLimiter {
         return limiter.getBlocksAmount(material) + 1 > highestValues.get(limiter.getLimiterLevel()).getBlocksAmount(material);
     }
 
+    /**
+     * Checks does entity is above specified limit
+     * @param islandID ID of island
+     * @param entityType Entity to check
+     * @return Returns true if entity is above limit
+     */
     public boolean isEntityAboveLimit(UUID islandID, EntityType entityType){
 
         Limiter limiter = islandsLimiters.get(islandID);
@@ -172,28 +199,66 @@ public class IslandLimiter {
         return limiter.getEntitiesAmount(entityType) + 1 > highestValues.get(limiter.getLimiterLevel()).getEntitiesAmount(entityType);
     }
 
+    /**
+     * Checks does entity is limited
+     * @param entityType EntityType to check
+     * @return Returns true if entity is limited
+     */
     public boolean isEntityLimited(EntityType entityType){
         return limitedEntities.contains(entityType);
     }
 
+    /**
+     * Checks does material is limited
+     * @param material Material to check
+     * @return Returns true if material is limited
+     */
     public boolean isBlockLimited(Material material){
         return limitedBlocks.contains(material);
     }
 
+    /**
+     * Adds block to island limiter
+     * @param islandID ID of island
+     * @param material Material to add
+     */
     public void addBlock(UUID islandID, Material material){
         islandsLimiters.get(islandID).increaseBlocks(material, 1);
     }
 
+    /**
+     * Removes block from island limiter
+     * @param islandID ID of island
+     * @param material Material to remove
+     */
     public void removeBlock(UUID islandID, Material material){
         islandsLimiters.get(islandID).decreaseBlocks(material, 1);
     }
 
+    /**
+     * Adds entity to island limiter
+     * @param islandID ID of island
+     * @param entityType EntityType to add
+     */
     public void addEntity(UUID islandID, EntityType entityType){
         islandsLimiters.get(islandID).increaseEntities(entityType, 1);
     }
 
+    /**
+     * Removes entity from island limiter
+     * @param islandID ID of island
+     * @param entityType EntityType to remove
+     */
     public void removeEntity(UUID islandID, EntityType entityType){
         islandsLimiters.get(islandID).decreaseEntities(entityType, 1);
+    }
+
+    /**
+     * Creates new empty limiter for new island
+     * @param islandID ID of island
+     */
+    public void createNewLimiter(UUID islandID){
+        islandsLimiters.put(islandID, new Limiter(1, new HashMap<>(), new HashMap<>()));
     }
 
 
