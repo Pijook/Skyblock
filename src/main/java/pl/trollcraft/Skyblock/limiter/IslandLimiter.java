@@ -1,19 +1,17 @@
 package pl.trollcraft.Skyblock.limiter;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.essentials.Utils;
-import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.worker.Worker;
 
-import javax.activation.MailcapCommandMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -30,6 +28,8 @@ public class IslandLimiter {
 
     private IslandsController islandsController = Skyblock.getIslandsController();
 
+    private HashMap<Integer, Cost> upgradesCosts = new HashMap<>();
+
     /**
      * Loads default settings from config limiter.yml
      * Things like highest amount of mobs or blocks for specified limiter level
@@ -39,6 +39,12 @@ public class IslandLimiter {
         YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Skyblock.getInstance());
 
         for(String limiterLevel : configuration.getConfigurationSection("limiter").getKeys(false)){
+
+            upgradesCosts.put(Integer.parseInt(limiterLevel),
+                    new Cost(
+                    configuration.getDouble("limiter." + limiterLevel + ".cost.level"),
+                    configuration.getDouble("limiter." + limiterLevel + ".cost.money")
+            ));
 
             HashMap<Material, Integer> blocks = new HashMap<>();
             HashMap<EntityType, Integer> entities = new HashMap<>();
@@ -259,6 +265,27 @@ public class IslandLimiter {
      */
     public void createNewLimiter(UUID islandID){
         islandsLimiters.put(islandID, new Limiter(1, new HashMap<>(), new HashMap<>()));
+    }
+
+    public boolean canUpgrade(Player player, UUID islandID){
+
+        Worker worker = Skyblock.getWorkerController().getWorkerByName(player.getName());
+        Limiter limiter = islandsLimiters.get(islandID);
+
+        if(!upgradesCosts.containsKey(limiter.getLimiterLevel() + 1)){
+            return false;
+        }
+
+        if(worker.getAverageLevel() >= upgradesCosts.get(limiter.getLimiterLevel() + 1).getPlayerLevel()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void upgradeLimiter(UUID islandID){
+        islandsLimiters.get(islandID).setLimiterLevel(islandsLimiters.get(islandID).getLimiterLevel() + 1);
     }
 
 

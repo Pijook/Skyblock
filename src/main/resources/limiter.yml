@@ -1,11 +1,17 @@
 limiter:
   1:
+    cost:
+      level: 2.0
+      money: 0.0
     blocks:
       STONE: 999
       DIRT: 666
     entities:
       SHEEP: 15
   2:
+    cost:
+      level: 4.0
+      money: 0.0
     blocks:
       STONE: 9991
       DIRT: 777
