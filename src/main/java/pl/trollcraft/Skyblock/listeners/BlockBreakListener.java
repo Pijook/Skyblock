@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -60,11 +61,12 @@ public class BlockBreakListener implements Listener {
 
         Worker worker = workerController.getWorkerByName(player.getName());
 
-        if(dropManager.countsAsDrop(block.getType())){
-            event.setDropItems(false);
-            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel())));
+        if(player.getGameMode().equals(GameMode.SURVIVAL)){
+            if(dropManager.countsAsDrop(block.getType())){
+                event.setDropItems(false);
+                block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel())));
+            }
         }
-
 
         //Uncomment when limits will work
         //islandLimiter.removeBlock(block);
