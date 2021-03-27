@@ -11,6 +11,7 @@ import pl.trollcraft.Skyblock.cmdIslands.CommandManager;
 import pl.trollcraft.Skyblock.cmdIslands.Commands;
 import pl.trollcraft.Skyblock.commands.*;
 import pl.trollcraft.Skyblock.configs.Persist;
+import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -36,6 +37,7 @@ public class Skyblock extends JavaPlugin {
     private static IslandsController islandsController;
     private static IslandLimiter islandLimiter;
     private static WorkerController workerController;
+    private static DropManager dropManager;
 
     //Commands
     private Commands commands;
@@ -70,6 +72,7 @@ public class Skyblock extends JavaPlugin {
         islandsController = new IslandsController();
         islandLimiter = new IslandLimiter();
         workerController = new WorkerController();
+        dropManager = new DropManager();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -152,6 +155,10 @@ public class Skyblock extends JavaPlugin {
         skyblockPlayerController.initCheckingPlayers();
         Debug.log("&aDone!");
 
+        Debug.log("&aLoading dropManager...");
+        dropManager.setupGenerator();
+        Debug.log("&aDone!");
+
         Debug.log("&aFinished loading Skyblock v1.0!");
 
     }
@@ -213,6 +220,10 @@ public class Skyblock extends JavaPlugin {
 
     public static WorkerController getWorkerController() {
         return workerController;
+    }
+
+    public static DropManager getDropManager(){
+        return dropManager;
     }
 
 }

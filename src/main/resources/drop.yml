@@ -1,0 +1,16 @@
+range: 100
+drops:
+  1:
+    DIAMOND: 1
+    EMERALD: 2
+    IRON_INGOT: 7
+    GOLD_INGOT: 12
+    COAL: 20
+    COBBLESTONE: 100
+  2:
+    DIAMOND: 2
+    EMERALD: 3
+    IRON_INGOT: 8
+    GOLD_INGOT: 13
+    COAL: 21
+    COBBLESTONE: 100

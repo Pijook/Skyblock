@@ -1,0 +1,30 @@
+kits:
+  gracz:
+    1:
+      items:
+        jablko:
+          material: APPLE
+          name: "Jablko"
+          amount: 16
+        miecz:
+          material: STONE_SWORD
+          name: "Mieczyk"
+          amount: 1
+        kilof:
+          material: STONE_PICKAXE
+          name: "Kilofik"
+          amount: 1
+    2:
+      items:
+        jablko:
+          material: APPLE
+          name: "Jablko"
+          amount: 32
+        miecz:
+          material: IRON_SWORD
+          name: "Mieczyk"
+          amount: 1
+        kilof:
+          material: IRON_PICKAXE
+          name: "Kilofik"
+          amount: 1

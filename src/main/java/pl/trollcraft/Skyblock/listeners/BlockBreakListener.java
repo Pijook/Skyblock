@@ -1,12 +1,15 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
+import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
@@ -21,6 +24,7 @@ public class BlockBreakListener implements Listener {
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final IslandLimiter islandLimiter = Skyblock.getIslandLimiter();
     private final WorkerController workerController = Skyblock.getWorkerController();
+    private final DropManager dropManager = Skyblock.getDropManager();
 
     @EventHandler
     public void onBreak(BlockBreakEvent event){
@@ -54,6 +58,13 @@ public class BlockBreakListener implements Listener {
             }
         }
 
+        Worker worker = workerController.getWorkerByName(player.getName());
+
+        if(block.getType().equals(Material.STONE)){
+            event.setDropItems(false);
+            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel())));
+        }
+
 
         //Uncomment when limits will work
         //islandLimiter.removeBlock(block);
@@ -61,8 +72,6 @@ public class BlockBreakListener implements Listener {
         if(islandLimiter.isBlockLimited(block.getType())){
             islandLimiter.removeBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
         }
-
-        Worker worker = workerController.getWorkerByName(player.getName());
 
         if(workerController.isBlockToMine(block.getType())){
             worker.increaseMinedStone(1);
