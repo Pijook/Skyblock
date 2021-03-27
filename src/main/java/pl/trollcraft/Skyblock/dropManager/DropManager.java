@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class DropManager {
 
+    private ArrayList<Material> toCheck = new ArrayList<>();
     private HashMap<Integer, ArrayList<String>> drops = new HashMap<>();
     private int range;
     private Random random;
@@ -20,6 +21,10 @@ public class DropManager {
         YamlConfiguration configuration = ConfigUtils.load("drops.yml", Skyblock.getInstance());
 
         range = configuration.getInt("range");
+
+        for(String key : configuration.getStringList("toCheck")){
+            toCheck.add(Material.valueOf(key));
+        }
 
         for(String playerLevel : configuration.getConfigurationSection("drops").getKeys(false)){
 
@@ -42,5 +47,9 @@ public class DropManager {
 
     public Material generateMaterial(int playerLevel){
         return Material.valueOf(drops.get(playerLevel).get(random.nextInt(range)));
+    }
+
+    public boolean countsAsDrop(Material material){
+        return toCheck.contains(material);
     }
 }

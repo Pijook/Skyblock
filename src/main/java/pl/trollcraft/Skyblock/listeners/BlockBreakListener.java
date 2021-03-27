@@ -60,7 +60,7 @@ public class BlockBreakListener implements Listener {
 
         Worker worker = workerController.getWorkerByName(player.getName());
 
-        if(block.getType().equals(Material.STONE)){
+        if(dropManager.countsAsDrop(block.getType())){
             event.setDropItems(false);
             block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel())));
         }

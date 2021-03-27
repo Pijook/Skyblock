@@ -1,4 +1,7 @@
 range: 100
+toCheck:
+  - STONE
+  - COBBLESTONE
 drops:
   1:
     DIAMOND: 1
