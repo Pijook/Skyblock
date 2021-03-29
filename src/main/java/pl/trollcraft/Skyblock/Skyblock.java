@@ -14,6 +14,9 @@ import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
+import pl.trollcraft.Skyblock.gui.KitGui;
+import pl.trollcraft.Skyblock.gui.MainGui;
+import pl.trollcraft.Skyblock.gui.islandGui.IslandGui;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.listeners.*;
@@ -104,6 +107,7 @@ public class Skyblock extends JavaPlugin {
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("worker").setExecutor(new WorkCommand());
         getCommand("aworker").setExecutor(new AdminWorkCommand());
+        getCommand("menu").setExecutor(new GuiCommand());
 
         loadStuff();
     }
@@ -159,7 +163,27 @@ public class Skyblock extends JavaPlugin {
         dropManager.setupGenerator();
         Debug.log("&aDone!");
 
+        Debug.log("&aLoading guis...");
+        loadGui();
+        Debug.log("&aDone!");
+
         Debug.log("&aFinished loading Skyblock v1.0!");
+
+    }
+
+    public void loadGui(){
+
+        Debug.log("&aLoading Main gui...");
+        MainGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading Island gui...");
+        IslandGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading Kit gui...");
+        KitGui.load();
+        Debug.log("&aDone!");
 
     }
 

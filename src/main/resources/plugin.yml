@@ -24,3 +24,5 @@ commands:
     usage: /worker
   aworker:
     usage: /aworker
+  menu:
+    usage: /menu

@@ -40,6 +40,24 @@ public class ConfigUtils {
         return config;
     }
 
+    public static YamlConfiguration load(String configName, String folder, Plugin plugin){
+        YamlConfiguration config;
+        File file = new File(plugin.getDataFolder() + File.separator + folder + File.separator + configName);
+        if (!file.exists())
+            plugin.saveResource(folder + File.separator + configName, false);
+        config = new YamlConfiguration();
+        try {
+            config.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return config;
+    }
+
     /**
      * Saves given config file
      * @param c Yaml file
@@ -48,6 +66,14 @@ public class ConfigUtils {
     public static void save(YamlConfiguration c, String file) {
         try {
             c.save(new File(Skyblock.getInstance().getDataFolder(), file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void save(YamlConfiguration c, String folder, String file){
+        try {
+            c.save(new File(Skyblock.getInstance().getDataFolder() + File.separator + folder, file));
         } catch (IOException e) {
             e.printStackTrace();
         }

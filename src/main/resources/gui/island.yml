@@ -1,0 +1,42 @@
+title: "Wyspa"
+rows: 6
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+buttons:
+  bioms:
+    slot: 21
+    icon:
+      material: GRASS_BLOCK
+      amount: 1
+      name: "&e&lBiomy"
+  border:
+    slot: 23
+    icon:
+      material: BEACON
+      amount: 1
+      name: "&1&lGranica"
+  upgrades:
+    slot: 29
+    icon:
+      material: DIAMOND
+      amount: 1
+      name: "&9&lUlepszenia"
+  weather:
+    slot: 31
+    icon:
+      material: GHAST_TEAR
+      amount: 1
+      name: "&d&lPogoda"
+  members:
+    slot: 33
+    icon:
+      material: DISPENSER
+      amount: 1
+      name: "&95lCzlonkowie"
+  back:
+    slot: 49
+    icon:
+      material: REDSTONE
+      amount: 1
+      name: "&c&lPowrot"

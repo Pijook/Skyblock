@@ -18,7 +18,7 @@ public class DropManager {
     private Random random;
 
     public void setupGenerator(){
-        YamlConfiguration configuration = ConfigUtils.load("drops.yml", Skyblock.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("drop.yml", Skyblock.getInstance());
 
         range = configuration.getInt("range");
 

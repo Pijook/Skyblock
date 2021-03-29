@@ -1,0 +1,26 @@
+title: "Menu"
+rows: 6
+fillItem:
+  material: GLASS
+  amount: 1
+  name: ""
+buttons:
+  kit:
+    slot: 1
+    icon:
+      material: IRON_CHESTPLATE
+      amount: 1
+      name: "&cKity"
+  tutorial:
+    slot: 2
+    icon:
+      material: DIRT
+      amount: 1
+      name: "Tutorial"
+  island:
+    slot: 3
+    icon:
+      material: GRASS
+      amount: 1
+      name: "&aWyspa"
+
