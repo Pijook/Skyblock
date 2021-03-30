@@ -23,4 +23,22 @@ buttons:
       material: GRASS
       amount: 1
       name: "&aWyspa"
+  jobs:
+    slot: 4
+    icon:
+      material: IRON_PICKAXE
+      amount: 1
+      name: "&eProfesje"
+  statue:
+    slot: 5
+    icon:
+      material: BOOK
+      amount: 1
+      name: "&c&lRegulamin"
+  communicators:
+    slot: 6
+    icon:
+      material: LEVER
+      amount: 1
+      name: "&eKomunikatory"
 

@@ -55,7 +55,7 @@ public class IslandGui {
 
         //Czlonkowie
         islandGui.setItem(configuration.getInt("buttons.members.slot"), ItemBuilder.from(ConfigUtils.getItemstack(configuration, "buttons.members.icon")).asGuiItem(event -> {
-            //TODO
+            MembersGui.openGui((Player) event.getWhoClicked());
         }));
 
         //Powrot
