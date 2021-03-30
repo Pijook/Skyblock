@@ -163,9 +163,9 @@ public class Skyblock extends JavaPlugin {
         dropManager.setupGenerator();
         Debug.log("&aDone!");
 
-        Debug.log("&aLoading guis...");
-        loadGui();
-        Debug.log("&aDone!");
+        Debug.log("&aLoading guis..");
+//        loadGui();
+        Debug.log("&cOFF!");
 
         Debug.log("&aFinished loading Skyblock v1.0!");
 
