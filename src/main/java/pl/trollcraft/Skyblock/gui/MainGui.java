@@ -18,6 +18,8 @@ public class MainGui {
 
     private static Gui mainGui;
 
+    private static final ButtonController buttonController = Skyblock.getButtonController();
+
     public static void load(){
         YamlConfiguration configuration = ConfigUtils.load("main.yml", "gui", Skyblock.getInstance());
 
@@ -41,15 +43,16 @@ public class MainGui {
             ----- ----- -----
         */
 
-        ItemStack kitIcon = ConfigUtils.getItemstack(configuration, "buttons.kit.icon");
-        int kitSlot = configuration.getInt("buttons.kit.slot");
+        /*ItemStack kitIcon = ConfigUtils.getItemstack(configuration, "buttons.kit.icon");
+        int kitSlot = configuration.getInt("buttons.kit.slot");*/
+        Button kitButton = buttonController.loadButton(configuration, "buttons.kit");
 
-        GuiItem kitItem = ItemBuilder.from(kitIcon).asGuiItem(event -> {
+        GuiItem kitItem = ItemBuilder.from(kitButton.getIcon()).asGuiItem(event -> {
             //Open kit gui
             KitGui.openGui((Player) event.getWhoClicked());
         });
 
-        mainGui.setItem(kitSlot, kitItem);
+        mainGui.setItem(kitButton.getSlot(), kitItem);
 
          /*
             ----- ----- -----
@@ -57,15 +60,16 @@ public class MainGui {
             ----- ----- -----
         */
 
-        ItemStack tutorialIcon = ConfigUtils.getItemstack(configuration, "buttons.tutorial.icon");
-        int tutorialSlot = configuration.getInt("buttons.tutorial.slot");
+        /*ItemStack tutorialIcon = ConfigUtils.getItemstack(configuration, "buttons.tutorial.icon");
+        int tutorialSlot = configuration.getInt("buttons.tutorial.slot");*/
+        Button tutorialButton = buttonController.loadButton(configuration, "buttons.tutorial");
 
-        GuiItem tutorialItem = ItemBuilder.from(tutorialIcon).asGuiItem(event -> {
+        GuiItem tutorialItem = ItemBuilder.from(tutorialButton.getIcon()).asGuiItem(event -> {
             //Teleport on tutorial
             event.getWhoClicked().teleport(new Location(Bukkit.getWorld("Islands"), 0, 80, 0));
         });
 
-        mainGui.setItem(tutorialSlot, tutorialItem);
+        mainGui.setItem(tutorialButton.getSlot(), tutorialItem);
 
         /*
             ----- ----- -----
@@ -73,10 +77,13 @@ public class MainGui {
             ----- ----- -----
         */
 
+        /*
         ItemStack islandIcon = ConfigUtils.getItemstack(configuration, "buttons.island.icon");
-        int islandSlot = configuration.getInt("buttons.island.slot");
+        int islandSlot = configuration.getInt("buttons.island.slot");*/
 
-        GuiItem islandItem = ItemBuilder.from(islandIcon).asGuiItem(event -> {
+        Button islandButton = buttonController.loadButton(configuration, "buttons.island");
+
+        GuiItem islandItem = ItemBuilder.from(islandButton.getIcon()).asGuiItem(event -> {
             //Open island gui
             Player player = (Player) event.getWhoClicked();
             SkyblockPlayer skyblockPlayer = Skyblock.getSkyblockPlayerController().getPlayer(player.getName());
@@ -90,7 +97,7 @@ public class MainGui {
             IslandGui.openGui((Player) event.getWhoClicked());
         });
 
-        mainGui.setItem(islandSlot, islandItem);
+        mainGui.setItem(islandButton.getSlot(), islandItem);
 
         /*
             ----- ----- -----
@@ -98,14 +105,15 @@ public class MainGui {
             ----- ----- -----
         */
 
-        ItemStack jobsIcon = ConfigUtils.getItemstack(configuration, "buttons.jobs.icon");
-        int jobsSlot = configuration.getInt("buttons.jobs.slot");
+        /*ItemStack jobsIcon = ConfigUtils.getItemstack(configuration, "buttons.jobs.icon");
+        int jobsSlot = configuration.getInt("buttons.jobs.slot");*/
+        Button jobsButton = buttonController.loadButton(configuration, "buttons.jobs");
 
-        GuiItem jobsItem = ItemBuilder.from(jobsIcon).asGuiItem(event -> {
+        GuiItem jobsItem = ItemBuilder.from(jobsButton.getIcon()).asGuiItem(event -> {
             Skyblock.getWorkerController().showGUIToPlayer((Player) event.getWhoClicked());
         });
 
-        mainGui.setItem(jobsSlot, jobsItem);
+        mainGui.setItem(jobsButton.getSlot(), jobsItem);
 
         /*
             ----- ----- -----
@@ -113,15 +121,16 @@ public class MainGui {
             ----- ----- -----
         */
 
-        ItemStack statueIcon = ConfigUtils.getItemstack(configuration, "buttons.statue.icon");
-        int statueSlot = configuration.getInt("buttons.statue.slot");
+        /*ItemStack statueIcon = ConfigUtils.getItemstack(configuration, "buttons.statue.icon");
+        int statueSlot = configuration.getInt("buttons.statue.slot");*/
+        Button statueButton = buttonController.loadButton(configuration, "buttons.statue");
 
-        GuiItem statueItem = ItemBuilder.from(statueIcon).asGuiItem(event -> {
+        GuiItem statueItem = ItemBuilder.from(statueButton.getIcon()).asGuiItem(event -> {
             //Send on chat or teleport to warp?
             ChatUtils.sendMessage((Player) event.getWhoClicked(), "&c&lFinish code!");
         });
 
-        mainGui.setItem(statueSlot, statueItem);
+        mainGui.setItem(statueButton.getSlot(), statueItem);
 
         /*
             ----- ----- -----
@@ -129,15 +138,16 @@ public class MainGui {
             ----- ----- -----
         */
 
-        ItemStack communicatorsIcon = ConfigUtils.getItemstack(configuration, "buttons.communicators.icon");
-        int communicatorsSlot = configuration.getInt("buttons.communicators.slot");
+        /*ItemStack communicatorsIcon = ConfigUtils.getItemstack(configuration, "buttons.communicators.icon");
+        int communicatorsSlot = configuration.getInt("buttons.communicators.slot");*/
+        Button communicatorsButton = buttonController.loadButton(configuration, "buttons.communicators");
 
-        GuiItem communicatorsItem = ItemBuilder.from(communicatorsIcon).asGuiItem(event -> {
+        GuiItem communicatorsItem = ItemBuilder.from(communicatorsButton.getIcon()).asGuiItem(event -> {
             //Send on chat?
             ChatUtils.sendMessage((Player) event.getWhoClicked(), "&c&lFinish code!");
         });
 
-        mainGui.setItem(communicatorsSlot, communicatorsItem);
+        mainGui.setItem(communicatorsButton.getSlot(), communicatorsItem);
 
         /*
             ----- ----- -----
