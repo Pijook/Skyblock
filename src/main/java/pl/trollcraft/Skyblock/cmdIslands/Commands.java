@@ -13,4 +13,5 @@ public class Commands {
     public IsReloadCommand isReloadCommand = new IsReloadCommand();
     public IsRemoveCommand isRemoveCommand = new IsRemoveCommand();
     public IsVisitCommand isVisitCommand = new IsVisitCommand();
+    public IsUpgradeCommand isUpgradeCommand = new IsUpgradeCommand();
 }

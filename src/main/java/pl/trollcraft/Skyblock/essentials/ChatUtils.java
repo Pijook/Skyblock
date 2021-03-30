@@ -1,12 +1,13 @@
 package pl.trollcraft.Skyblock.essentials;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
 
 public class ChatUtils {
 
-    private static String prefix = "&f&l[&a&lSky&2&lblock&f&l]";
+    private static String prefix = "&f&l[&a&lSky&2&lBlock&f&l]";
 
     /**
      * Changes & to minecraft colors
@@ -34,6 +35,15 @@ public class ChatUtils {
      * @param message Message to send
      */
     public static void sendMessage(Player player, String message){
+        player.sendMessage(fixColor(prefix + message));
+    }
+
+    /**
+     * Sends colored message to CommandSender
+     * @param player CommandSender that receives message
+     * @param message Message to send
+     */
+    public static void sendMessage(CommandSender player, String message){
         player.sendMessage(fixColor(prefix + message));
     }
 
