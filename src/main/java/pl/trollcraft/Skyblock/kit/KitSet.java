@@ -39,4 +39,12 @@ public class KitSet {
     public void setKits(HashMap<Integer, Kit> kits) {
         this.kits = kits;
     }
+
+    public long getCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(long cooldown) {
+        this.cooldown = cooldown;
+    }
 }

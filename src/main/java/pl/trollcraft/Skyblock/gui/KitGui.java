@@ -8,11 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.kit.KitManager;
 
 public class KitGui {
 
     private static Gui kitGui;
     private static ButtonController buttonController = Skyblock.getButtonController();
+    private static KitManager kitManager = Skyblock.getKitManager();
 
     public static void load(){
         YamlConfiguration configuration = ConfigUtils.load("kits.yml", "gui", Skyblock.getInstance());
@@ -25,31 +27,28 @@ public class KitGui {
         //Kit Wyspiarza
         Button islandButton = buttonController.loadButton(configuration, "buttons.island");
         kitGui.setItem(islandButton.getSlot(), ItemBuilder.from(islandButton.getIcon()).asGuiItem(event -> {
-            //TODO give kit
+            kitManager.giveKit((Player) event.getWhoClicked(), "wyspiarz");
 
         }));
 
         //Kit Vip'a
         Button vipButton = buttonController.loadButton(configuration, "buttons.vip");
         kitGui.setItem(vipButton.getSlot(), ItemBuilder.from(vipButton.getIcon()).asGuiItem(event -> {
-
-            //TODO give kit
+            kitManager.giveKit((Player) event.getWhoClicked(), "vip");
 
         }));
 
         //Kit Svip'a
         Button svipButton = buttonController.loadButton(configuration, "buttons.svip");
         kitGui.setItem(svipButton.getSlot(), ItemBuilder.from(svipButton.getIcon()).asGuiItem(event -> {
-
-            //TODO give kit
+            kitManager.giveKit((Player) event.getWhoClicked(), "svip");
 
         }));
 
         //Kit gracza
         Button playerButton = buttonController.loadButton(configuration, "buttons.player");
         kitGui.setItem(playerButton.getSlot(), ItemBuilder.from(playerButton.getIcon()).asGuiItem(event -> {
-
-            //TODO give kit
+            kitManager.giveKit((Player) event.getWhoClicked(), "gracz");
 
         }));
 

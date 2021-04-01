@@ -19,6 +19,7 @@ import pl.trollcraft.Skyblock.gui.KitGui;
 import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.gui.islandGui.IslandGui;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.kit.KitManager;
 import pl.trollcraft.Skyblock.limiter.IslandLimiter;
 import pl.trollcraft.Skyblock.listeners.*;
 import pl.trollcraft.Skyblock.listeners.customListeners.IslandLoadListener;
@@ -43,6 +44,7 @@ public class Skyblock extends JavaPlugin {
     private static WorkerController workerController;
     private static DropManager dropManager;
     private static ButtonController buttonController;
+    private static KitManager kitManager;
 
     //Commands
     private Commands commands;
@@ -79,6 +81,7 @@ public class Skyblock extends JavaPlugin {
         workerController = new WorkerController();
         dropManager = new DropManager();
         buttonController = new ButtonController();
+        kitManager = new KitManager();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -170,6 +173,10 @@ public class Skyblock extends JavaPlugin {
         loadGui();
         Debug.log("&aDone!");
 
+        Debug.log("&aLoading kits...");
+        kitManager.loadKits();
+        Debug.log("&aDone!");
+
         Debug.log("&aFinished loading Skyblock v1.0!");
 
     }
@@ -255,6 +262,10 @@ public class Skyblock extends JavaPlugin {
 
     public static ButtonController getButtonController() {
         return buttonController;
+    }
+
+    public static KitManager getKitManager(){
+        return kitManager;
     }
 
 }
