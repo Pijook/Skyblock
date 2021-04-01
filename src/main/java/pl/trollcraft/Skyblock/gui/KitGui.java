@@ -3,53 +3,63 @@ package pl.trollcraft.Skyblock.gui;
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.Gui;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 
 public class KitGui {
 
     private static Gui kitGui;
+    private static ButtonController buttonController = Skyblock.getButtonController();
 
     public static void load(){
+        YamlConfiguration configuration = ConfigUtils.load("kits.yml", "gui", Skyblock.getInstance());
+        kitGui = new Gui(configuration.getInt("rows"), configuration.getString("title"));
 
-        kitGui = new Gui(5, "Kity");
         kitGui.setDefaultClickAction(event -> {
             event.setCancelled(true);
         });
 
         //Kit Wyspiarza
-        kitGui.setItem(13, ItemBuilder.from(Material.TURTLE_HELMET).setName("&7Kit &dWyspiarza").asGuiItem(event -> {
-
+        Button islandButton = buttonController.loadButton(configuration, "buttons.island");
+        kitGui.setItem(islandButton.getSlot(), ItemBuilder.from(islandButton.getIcon()).asGuiItem(event -> {
             //TODO give kit
 
         }));
 
         //Kit Vip'a
-        kitGui.setItem(21, ItemBuilder.from(Material.TURTLE_HELMET).setName("&7Kit &eVIP'a").asGuiItem(event -> {
+        Button vipButton = buttonController.loadButton(configuration, "buttons.vip");
+        kitGui.setItem(vipButton.getSlot(), ItemBuilder.from(vipButton.getIcon()).asGuiItem(event -> {
 
             //TODO give kit
 
         }));
 
         //Kit Svip'a
-        kitGui.setItem(23, ItemBuilder.from(Material.TURTLE_HELMET).setName("&7Kit &6SVIP'a").asGuiItem(event -> {
+        Button svipButton = buttonController.loadButton(configuration, "buttons.svip");
+        kitGui.setItem(svipButton.getSlot(), ItemBuilder.from(svipButton.getIcon()).asGuiItem(event -> {
 
             //TODO give kit
 
         }));
 
         //Kit gracza
-        kitGui.setItem(31, ItemBuilder.from(Material.TURTLE_HELMET).setName("&7Kit gracza").asGuiItem(event -> {
+        Button playerButton = buttonController.loadButton(configuration, "buttons.player");
+        kitGui.setItem(playerButton.getSlot(), ItemBuilder.from(playerButton.getIcon()).asGuiItem(event -> {
 
             //TODO give kit
 
         }));
 
         //Powrot
-        kitGui.setItem(40, ItemBuilder.from(Material.REDSTONE).setName("&c&lPowrot").asGuiItem(event -> {
+        Button returnButton = buttonController.loadButton(configuration, "buttons.back");
+        kitGui.setItem(returnButton.getSlot(), ItemBuilder.from(returnButton.getIcon()).asGuiItem(event -> {
             MainGui.openGui((Player) event.getWhoClicked());
         }));
 
-        kitGui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE).asGuiItem());
+        kitGui.getFiller().fill(ItemBuilder.from(ConfigUtils.getItemstack(configuration, "fillItem")).asGuiItem());
     }
 
     public static void openGui(Player player){

@@ -1,7 +1,7 @@
 title: "Menu"
 rows: 6
 fillItem:
-  material: GLASS
+  material: GRAY_STAINED_GLASS_PANE
   amount: 1
   name: ""
 buttons:

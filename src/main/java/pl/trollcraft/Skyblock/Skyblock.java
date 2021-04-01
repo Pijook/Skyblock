@@ -167,8 +167,8 @@ public class Skyblock extends JavaPlugin {
         Debug.log("&aDone!");
 
         Debug.log("&aLoading guis..");
-//        loadGui();
-        Debug.log("&cOFF!");
+        loadGui();
+        Debug.log("&aDone!");
 
         Debug.log("&aFinished loading Skyblock v1.0!");
 

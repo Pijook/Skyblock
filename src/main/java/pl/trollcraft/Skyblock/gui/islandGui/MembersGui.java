@@ -24,7 +24,7 @@ public class MembersGui {
     private static ItemStack fillItem;
 
     public static void load(){
-        YamlConfiguration configuration = ConfigUtils.load("members.yml", Skyblock.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("members.yml", "gui", Skyblock.getInstance());
 
         rows = configuration.getInt("rows");
         title = configuration.getString("title");

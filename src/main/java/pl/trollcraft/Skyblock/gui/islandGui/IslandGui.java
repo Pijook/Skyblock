@@ -18,7 +18,7 @@ public class IslandGui {
     private static Gui islandGui;
 
     public static void load(){
-        YamlConfiguration configuration = ConfigUtils.load("island.yml", Skyblock.getInstance());
+        YamlConfiguration configuration = ConfigUtils.load("island.yml", "gui", Skyblock.getInstance());
 
         islandGui = new Gui(configuration.getInt("rows"), configuration.getString("title"));
         islandGui.setDefaultClickAction(event -> {
@@ -26,7 +26,7 @@ public class IslandGui {
         });
 
         //Teleportowanie na wyspe
-        islandGui.setItem(13, ItemBuilder.from(Material.WHITE_BED).setName("&b&lTeleportacja na wyspe").asGuiItem(event -> {
+        islandGui.setItem(13, ItemBuilder.from(Material.WHITE_BED).setName(ChatUtils.fixColor("&b&lTeleportacja na wyspe")).asGuiItem(event -> {
             SkyblockPlayer skyblockPlayer = Skyblock.getSkyblockPlayerController().getPlayer(event.getWhoClicked().getName());
             event.getWhoClicked().teleport(Skyblock.getIslandsController().getIslandById(skyblockPlayer.getIslandOrCoop()).getHome());
             ChatUtils.sendMessage((Player) event.getWhoClicked(), "&aTeleportowanie na wyspe...");

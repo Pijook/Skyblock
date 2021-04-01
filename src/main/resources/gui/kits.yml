@@ -1,0 +1,36 @@
+title: Kity
+rows: 5
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+buttons:
+  island:
+    slot: 1
+    icon:
+      material: TURTLE_HELMET
+      name: "&aKit Wyspiarz"
+      amount: 1
+  vip:
+    slot: 2
+    icon:
+      material: IRON_HELMET
+      name: "&aKit VIP"
+      amount: 1
+  svip:
+    slot: 3
+    icon:
+      material: DIAMOND_HELMET
+      name: "&aKit SVIP"
+      amount: 1
+  player:
+    slot: 4
+    icon:
+      material: STONE_SWORD
+      name: "&aKit gracz"
+      amount: 1
+  back:
+    slot: 5
+    icon:
+      material: REDSTONE
+      name: "&c&lPowrot"
+      amount: 1
