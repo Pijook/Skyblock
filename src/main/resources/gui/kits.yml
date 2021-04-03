@@ -5,31 +5,31 @@ fillItem:
   amount: 1
 buttons:
   island:
-    slot: 1
+    slot: 13
     icon:
       material: TURTLE_HELMET
       name: "&aKit Wyspiarz"
       amount: 1
   vip:
-    slot: 2
+    slot: 21
     icon:
       material: IRON_HELMET
       name: "&aKit VIP"
       amount: 1
   svip:
-    slot: 3
+    slot: 23
     icon:
       material: DIAMOND_HELMET
       name: "&aKit SVIP"
       amount: 1
   player:
-    slot: 4
+    slot: 31
     icon:
       material: STONE_SWORD
       name: "&aKit gracz"
       amount: 1
   back:
-    slot: 5
+    slot: 40
     icon:
       material: REDSTONE
       name: "&c&lPowrot"

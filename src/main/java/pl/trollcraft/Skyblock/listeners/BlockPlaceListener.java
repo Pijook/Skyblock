@@ -1,6 +1,5 @@
 package pl.trollcraft.Skyblock.listeners;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,9 +8,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
-import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
-import pl.trollcraft.Skyblock.limiter.IslandLimiter;
+import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -19,7 +17,7 @@ public class BlockPlaceListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
-    private final IslandLimiter islandLimiter = Skyblock.getIslandLimiter();
+    private final LimitController limitController = Skyblock.getLimitController();
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event){
@@ -47,6 +45,7 @@ public class BlockPlaceListener implements Listener {
             }
         }
         else{
+            /*
             if(islandLimiter.isBlockLimited(block.getType())){
 
                 if(islandLimiter.isBlockAboveLimit(skyblockPlayer.getIslandOrCoop(), block.getType())){
@@ -55,6 +54,18 @@ public class BlockPlaceListener implements Listener {
                 }
                 else{
                     islandLimiter.addBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
+                }
+
+            }*/
+            String type = block.getType().name();
+            if(limitController.isTypeLimited(type)){
+
+                if(limitController.isAboveLimit(type, skyblockPlayer.getIslandOrCoop())){
+                    ChatUtils.sendMessage(player, "&cOsiagnales limit blokow tego typu!");
+                    event.setCancelled(true);
+                }
+                else{
+                    limitController.increaseType(type, skyblockPlayer.getIslandOrCoop());
                 }
 
             }

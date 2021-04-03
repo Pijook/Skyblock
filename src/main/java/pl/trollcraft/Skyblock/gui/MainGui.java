@@ -43,8 +43,6 @@ public class MainGui {
             ----- ----- -----
         */
 
-        /*ItemStack kitIcon = ConfigUtils.getItemstack(configuration, "buttons.kit.icon");
-        int kitSlot = configuration.getInt("buttons.kit.slot");*/
         Button kitButton = buttonController.loadButton(configuration, "buttons.kit");
 
         GuiItem kitItem = ItemBuilder.from(kitButton.getIcon()).asGuiItem(event -> {
@@ -60,8 +58,6 @@ public class MainGui {
             ----- ----- -----
         */
 
-        /*ItemStack tutorialIcon = ConfigUtils.getItemstack(configuration, "buttons.tutorial.icon");
-        int tutorialSlot = configuration.getInt("buttons.tutorial.slot");*/
         Button tutorialButton = buttonController.loadButton(configuration, "buttons.tutorial");
 
         GuiItem tutorialItem = ItemBuilder.from(tutorialButton.getIcon()).asGuiItem(event -> {
@@ -76,10 +72,6 @@ public class MainGui {
                 Island
             ----- ----- -----
         */
-
-        /*
-        ItemStack islandIcon = ConfigUtils.getItemstack(configuration, "buttons.island.icon");
-        int islandSlot = configuration.getInt("buttons.island.slot");*/
 
         Button islandButton = buttonController.loadButton(configuration, "buttons.island");
 
@@ -105,8 +97,6 @@ public class MainGui {
             ----- ----- -----
         */
 
-        /*ItemStack jobsIcon = ConfigUtils.getItemstack(configuration, "buttons.jobs.icon");
-        int jobsSlot = configuration.getInt("buttons.jobs.slot");*/
         Button jobsButton = buttonController.loadButton(configuration, "buttons.jobs");
 
         GuiItem jobsItem = ItemBuilder.from(jobsButton.getIcon()).asGuiItem(event -> {
@@ -121,8 +111,6 @@ public class MainGui {
             ----- ----- -----
         */
 
-        /*ItemStack statueIcon = ConfigUtils.getItemstack(configuration, "buttons.statue.icon");
-        int statueSlot = configuration.getInt("buttons.statue.slot");*/
         Button statueButton = buttonController.loadButton(configuration, "buttons.statue");
 
         GuiItem statueItem = ItemBuilder.from(statueButton.getIcon()).asGuiItem(event -> {
@@ -138,8 +126,6 @@ public class MainGui {
             ----- ----- -----
         */
 
-        /*ItemStack communicatorsIcon = ConfigUtils.getItemstack(configuration, "buttons.communicators.icon");
-        int communicatorsSlot = configuration.getInt("buttons.communicators.slot");*/
         Button communicatorsButton = buttonController.loadButton(configuration, "buttons.communicators");
 
         GuiItem communicatorsItem = ItemBuilder.from(communicatorsButton.getIcon()).asGuiItem(event -> {
@@ -154,6 +140,19 @@ public class MainGui {
                 Warps
             ----- ----- -----
         */
+
+        /*
+            ----- ----- -----
+                Close
+            ----- ----- -----
+        */
+
+        Button closeButton = buttonController.loadButton(configuration, "buttons.close");
+        GuiItem closeItem = ItemBuilder.from(closeButton.getIcon()).asGuiItem(event -> {
+           mainGui.close(event.getWhoClicked());
+        });
+
+        mainGui.setItem(closeButton.getSlot(), closeItem);
 
         //Filling gui
         mainGui.getFiller().fill(filler);

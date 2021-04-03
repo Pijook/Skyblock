@@ -1,7 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +12,7 @@ import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
-import pl.trollcraft.Skyblock.limiter.IslandLimiter;
+import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.Worker;
@@ -23,7 +22,7 @@ public class BlockBreakListener implements Listener {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
-    private final IslandLimiter islandLimiter = Skyblock.getIslandLimiter();
+    private final LimitController limitController = Skyblock.getLimitController();
     private final WorkerController workerController = Skyblock.getWorkerController();
     private final DropManager dropManager = Skyblock.getDropManager();
 
@@ -71,8 +70,12 @@ public class BlockBreakListener implements Listener {
         //Uncomment when limits will work
         //islandLimiter.removeBlock(block);
 
-        if(islandLimiter.isBlockLimited(block.getType())){
+        /*if(islandLimiter.isBlockLimited(block.getType())){
             islandLimiter.removeBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
+        }*/
+
+        if(limitController.isTypeLimited(block.getType().name())){
+            limitController.decreaseType(block.getType().name(), skyblockPlayer.getIslandOrCoop());
         }
 
         if(workerController.isBlockToMine(block.getType())){

@@ -14,7 +14,7 @@ public class IslandSaveListener implements Listener {
         Debug.log("[Custom event]&aSaved island " + event.getIslandID().toString());
 
         if(event.getIsland().getServer().equalsIgnoreCase(Storage.serverName)){
-            Skyblock.getIslandLimiter().saveLimiter(event.getIslandID());
+            Skyblock.getLimitController().saveLimiter(event.getIslandID());
         }
     }
 }

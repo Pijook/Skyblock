@@ -1,8 +1,9 @@
-title: "Wyspa"
+title: "Limity"
 rows: 6
 fillItem:
   material: GRAY_STAINED_GLASS_PANE
   amount: 1
+  name: ""
 slots:
   - 1
   - 2

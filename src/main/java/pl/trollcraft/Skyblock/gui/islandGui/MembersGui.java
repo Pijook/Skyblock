@@ -9,6 +9,9 @@ import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.gui.Button;
+import pl.trollcraft.Skyblock.gui.ButtonController;
+import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -22,6 +25,10 @@ public class MembersGui {
     private static String title;
     private static int rows;
     private static ItemStack fillItem;
+    private static List<Integer> slots;
+    private static Button backButton;
+
+    private static ButtonController buttonController = Skyblock.getButtonController();
 
     public static void load(){
         YamlConfiguration configuration = ConfigUtils.load("members.yml", "gui", Skyblock.getInstance());
@@ -29,6 +36,9 @@ public class MembersGui {
         rows = configuration.getInt("rows");
         title = configuration.getString("title");
         fillItem = ConfigUtils.getItemstack(configuration, "fillItem");
+        slots = configuration.getIntegerList("slots");
+        backButton = buttonController.loadButton(configuration, "buttons.back");
+
 
     }
 
@@ -42,11 +52,15 @@ public class MembersGui {
         SkyblockPlayer skyblockPlayer = Skyblock.getSkyblockPlayerController().getPlayer(player.getName());
         List<String> members = Skyblock.getIslandsController().getIslandById(skyblockPlayer.getIslandOrCoop()).getMembers();
 
-        int slot = 0;
+        int index = 0;
         for(String nickname : members){
-            membersGui.setItem(slot, ItemBuilder.from(Material.PLAYER_HEAD).setName(ChatUtils.fixColor("&e&l"+ nickname)).asGuiItem());
-            slot++;
+            membersGui.setItem(slots.get(index), ItemBuilder.from(Material.PLAYER_HEAD).setName(ChatUtils.fixColor("&e&l"+ nickname)).asGuiItem());
+            index++;
         }
+
+        membersGui.setItem(backButton.getSlot(), ItemBuilder.from(backButton.getIcon()).asGuiItem(event -> {
+            MainGui.openGui((Player) event.getWhoClicked());
+        }));
 
         membersGui.getFiller().fill(ItemBuilder.from(fillItem).asGuiItem());
 

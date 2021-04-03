@@ -4,6 +4,12 @@ fillItem:
   material: GRAY_STAINED_GLASS_PANE
   amount: 1
 buttons:
+  home:
+    slot: 13
+    icon:
+      material: WHITE_BED
+      amount: 1
+      name: "&b&lTeleportacja na wyspe"
   bioms:
     slot: 21
     icon:

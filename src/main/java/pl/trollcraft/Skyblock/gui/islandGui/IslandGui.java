@@ -2,20 +2,22 @@ package pl.trollcraft.Skyblock.gui.islandGui;
 
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.Gui;
-import me.mattstudios.mfgui.gui.guis.GuiItem;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.gui.Button;
+import pl.trollcraft.Skyblock.gui.ButtonController;
 import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 
 public class IslandGui {
 
     private static Gui islandGui;
+
+    private static ButtonController buttonController = Skyblock.getButtonController();
 
     public static void load(){
         YamlConfiguration configuration = ConfigUtils.load("island.yml", "gui", Skyblock.getInstance());
@@ -26,7 +28,9 @@ public class IslandGui {
         });
 
         //Teleportowanie na wyspe
-        islandGui.setItem(13, ItemBuilder.from(Material.WHITE_BED).setName(ChatUtils.fixColor("&b&lTeleportacja na wyspe")).asGuiItem(event -> {
+        Button homeButton = buttonController.loadButton(configuration, "buttons.home");
+
+        islandGui.setItem(homeButton.getSlot(), ItemBuilder.from(homeButton.getIcon()).asGuiItem(event -> {
             SkyblockPlayer skyblockPlayer = Skyblock.getSkyblockPlayerController().getPlayer(event.getWhoClicked().getName());
             event.getWhoClicked().teleport(Skyblock.getIslandsController().getIslandById(skyblockPlayer.getIslandOrCoop()).getHome());
             ChatUtils.sendMessage((Player) event.getWhoClicked(), "&aTeleportowanie na wyspe...");

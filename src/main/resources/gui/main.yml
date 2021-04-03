@@ -6,39 +6,45 @@ fillItem:
   name: ""
 buttons:
   kit:
-    slot: 1
+    slot: 31
     icon:
       material: IRON_CHESTPLATE
       amount: 1
       name: "&cKity"
   tutorial:
-    slot: 2
+    slot: 32
     icon:
       material: DIRT
       amount: 1
       name: "Tutorial"
   island:
-    slot: 3
+    slot: 30
     icon:
       material: GRASS
       amount: 1
       name: "&aWyspa"
   jobs:
-    slot: 4
+    slot: 40
     icon:
       material: IRON_PICKAXE
       amount: 1
       name: "&eProfesje"
   statue:
-    slot: 5
+    slot: 13
     icon:
       material: BOOK
       amount: 1
       name: "&c&lRegulamin"
   communicators:
-    slot: 6
+    slot: 15
     icon:
       material: LEVER
       amount: 1
       name: "&eKomunikatory"
+  close:
+    slot: 49
+    icon:
+      material: REDSTONE
+      amount: 1
+      name: "&c&lZamknij"
 

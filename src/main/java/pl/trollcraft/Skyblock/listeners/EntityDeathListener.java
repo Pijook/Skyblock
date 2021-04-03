@@ -8,7 +8,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
-import pl.trollcraft.Skyblock.limiter.IslandLimiter;
+import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.worker.Worker;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 
@@ -17,7 +17,7 @@ import java.util.UUID;
 public class EntityDeathListener implements Listener {
 
     private final WorkerController workerController = Skyblock.getWorkerController();
-    private final IslandLimiter islandLimiter = Skyblock.getIslandLimiter();
+    private final LimitController limitController = Skyblock.getLimitController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
 
     @EventHandler
@@ -39,12 +39,20 @@ public class EntityDeathListener implements Listener {
             }
         }
 
-        if(islandLimiter.isEntityLimited(entity.getType())){
+        /*if(islandLimiter.isEntityLimited(entity.getType())){
             UUID islandID = islandsController.getIslandIDByLocation(entity.getLocation());
             if(islandID == null){
                 return;
             }
             islandLimiter.removeEntity(islandID, entity.getType());
+        }*/
+        String type = event.getEntityType().name();
+        if(limitController.isTypeLimited(entity.getType().name())){
+            UUID islandID = islandsController.getIslandIDByLocation(entity.getLocation());
+            if(islandID == null){
+                return;
+            }
+            limitController.decreaseType(type, islandID);
         }
 
     }

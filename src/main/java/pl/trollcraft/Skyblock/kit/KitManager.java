@@ -60,14 +60,18 @@ public class KitManager {
             playerCooldowns.put(nickname, cooldowns);
         }
 
-        Long currentCooldown = playerCooldowns.get(nickname).get(kitName);
+        if(playerCooldowns.get(nickname).containsKey(kitName)){
+            System.out.println(playerCooldowns.get(nickname).get(kitName));
+            Long currentCooldown = playerCooldowns.get(nickname).get(kitName);
 
-        long restTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - currentCooldown);
+            long restTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - currentCooldown);
 
-        if(restTime < availableKits.get(kitName).getCooldown()){
-            ChatUtils.sendMessage(player, "&cMozesz odebrac ten kit za " + restTime);
-            return;
+            if(restTime > availableKits.get(kitName).getCooldown()){
+                ChatUtils.sendMessage(player, "&cMozesz odebrac ten kit za " + restTime);
+                return;
+            }
         }
+
 
         Kit kit = availableKits.get(kitName).getKit((int) Skyblock.getWorkerController().getWorkerByName(player.getName()).getAverageLevel());
         kit.giveItems(player);

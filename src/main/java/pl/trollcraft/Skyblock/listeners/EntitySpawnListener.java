@@ -6,15 +6,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import pl.trollcraft.Skyblock.Skyblock;
-import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
-import pl.trollcraft.Skyblock.limiter.IslandLimiter;
+import pl.trollcraft.Skyblock.limiter.LimitController;
 
 import java.util.UUID;
 
 public class EntitySpawnListener implements Listener {
 
-    private final IslandLimiter islandLimiter = Skyblock.getIslandLimiter();
+    private final LimitController limitController = Skyblock.getLimitController();
     private final IslandsController islandsController = Skyblock.getIslandsController();
 
     @EventHandler
@@ -22,7 +21,7 @@ public class EntitySpawnListener implements Listener {
 
         Entity entity = event.getEntity();
 
-        if(islandLimiter.isEntityLimited(entity.getType())){
+        /*if(islandLimiter.isEntityLimited(entity.getType())){
 
             Location location = entity.getLocation();
 
@@ -37,6 +36,24 @@ public class EntitySpawnListener implements Listener {
             }
             else{
                 islandLimiter.addEntity(islandID, entity.getType());
+            }
+        }*/
+
+        String type = entity.getType().name();
+        if(limitController.isTypeLimited(type)){
+            Location location = entity.getLocation();
+
+            UUID islandID = islandsController.getIslandIDByLocation(location);
+
+            if(islandID == null){
+                return;
+            }
+
+            if(limitController.isAboveLimit(type, islandID)){
+                event.setCancelled(true);
+            }
+            else{
+                limitController.increaseType(type, islandID);
             }
         }
     }

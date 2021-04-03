@@ -293,7 +293,7 @@ public class CreateIsland {
 
 
         islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName), Bukkit.getPlayer(owner));
-        Skyblock.getIslandLimiter().createNewLimiter(islandID);
+        Skyblock.getLimitController().createNewLimiter(islandID);
     }
 
     /**

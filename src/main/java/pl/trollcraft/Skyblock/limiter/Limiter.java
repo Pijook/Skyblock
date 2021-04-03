@@ -1,90 +1,44 @@
 package pl.trollcraft.Skyblock.limiter;
 
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-
-import java.util.HashMap;
-
 public class Limiter {
 
-    private int limiterLevel;
-    private HashMap<Material, Integer> blocks;
-    private HashMap<EntityType, Integer> entities;
+    private int level;
+    private int currentAmount;
 
-    public Limiter(int limiterLevel, HashMap<Material, Integer> blocks, HashMap<EntityType, Integer> entities){
-        this.limiterLevel = limiterLevel;
-        this.blocks = blocks;
-        this.entities = entities;
+    public Limiter(int level, int currentAmount){
+        this.level = level;
+        this.currentAmount = currentAmount;
     }
 
-    public int getBlocksAmount(Material material){
-        if(blocks.containsKey(material)){
-            return blocks.get(material);
-        }
-        return -1;
+    public int getLevel() {
+        return level;
     }
 
-    public int getEntitiesAmount(EntityType entityType){
-        if(entities.containsKey(entityType)){
-            return entities.get(entityType);
-        }
-        return -1;
+    public void setLevel(int level) {
+        this.level = level;
     }
 
-    public void increaseBlocks(Material material, int amount){
-        if(!blocks.containsKey(material)){
-            blocks.put(material, amount);
-        }
-        else{
-            blocks.put(material, blocks.get(material) + amount);
-        }
-
+    public int getCurrentAmount() {
+        return currentAmount;
     }
 
-    public void increaseEntities(EntityType entityType, int amount){
-        if(!entities.containsKey(entityType)){
-            entities.put(entityType, amount);
-        }
-        else{
-            entities.put(entityType, entities.get(entityType) + amount);
-        }
+    public void setCurrentAmount(int currentAmount) {
+        this.currentAmount = currentAmount;
     }
 
-    public void decreaseBlocks(Material material, int amount){
-        if(!blocks.containsKey(material)){
-            return;
-        }
-        blocks.put(material, blocks.get(material) -  amount);
+    public void increaseLevel(int amount){
+        level = level + amount;
     }
 
-    public void decreaseEntities(EntityType entityType, int amount){
-        if(!entities.containsKey(entityType)){
-            return;
-        }
-        entities.put(entityType, entities.get(entityType) - amount);
+    public void increaseAmount(int amount){
+        currentAmount = currentAmount + amount;
     }
 
-    public int getLimiterLevel() {
-        return limiterLevel;
+    public void decreaseLevel(int amount){
+        level = level - amount;
     }
 
-    public void setLimiterLevel(int limiterLevel) {
-        this.limiterLevel = limiterLevel;
-    }
-
-    public HashMap<Material, Integer> getBlocks() {
-        return blocks;
-    }
-
-    public void setBlocks(HashMap<Material, Integer> blocks) {
-        this.blocks = blocks;
-    }
-
-    public HashMap<EntityType, Integer> getEntities() {
-        return entities;
-    }
-
-    public void setEntities(HashMap<EntityType, Integer> entities) {
-        this.entities = entities;
+    public void decreaseAmount(int amount){
+        currentAmount = currentAmount - amount;
     }
 }

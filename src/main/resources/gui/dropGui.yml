@@ -1,0 +1,6 @@
+title: "Drop"
+rows: 6
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+  name: ""

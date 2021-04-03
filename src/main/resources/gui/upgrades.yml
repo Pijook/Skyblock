@@ -1,0 +1,25 @@
+title: "Ulepszenia"
+rows: 6
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+  name: ""
+buttons:
+  limits:
+    slot: 1
+    icon:
+      material: BARRIER
+      amount: 1
+      name: "&cLimity"
+  border:
+    slot: 2
+    icon:
+      material: BEACON
+      amount: 1
+      name: "&aGranica"
+  drop:
+    slot: 3
+    icon:
+      material: STONE
+      amount: 1
+      name: "&7Drop"

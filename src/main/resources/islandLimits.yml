@@ -1,7 +1,5 @@
 islands:
-  abc123owo:
-    level: 1
-    blocks:
-      STONE: 1
-    entities:
-      SHEEP: 1
+  458t3t485:
+    STONE:
+      level: 1
+      amount: 0

@@ -18,9 +18,13 @@ import pl.trollcraft.Skyblock.gui.ButtonController;
 import pl.trollcraft.Skyblock.gui.KitGui;
 import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.gui.islandGui.IslandGui;
+import pl.trollcraft.Skyblock.gui.islandGui.MembersGui;
+import pl.trollcraft.Skyblock.gui.upgradesGui.DropGui;
+import pl.trollcraft.Skyblock.gui.upgradesGui.LimitsGui;
+import pl.trollcraft.Skyblock.gui.upgradesGui.UpgradesGui;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.kit.KitManager;
-import pl.trollcraft.Skyblock.limiter.IslandLimiter;
+import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.listeners.*;
 import pl.trollcraft.Skyblock.listeners.customListeners.IslandLoadListener;
 import pl.trollcraft.Skyblock.listeners.customListeners.IslandSaveListener;
@@ -40,7 +44,7 @@ public class Skyblock extends JavaPlugin {
 
     private static SkyblockPlayerController skyblockPlayerController;
     private static IslandsController islandsController;
-    private static IslandLimiter islandLimiter;
+    private static LimitController limitController;
     private static WorkerController workerController;
     private static DropManager dropManager;
     private static ButtonController buttonController;
@@ -77,7 +81,7 @@ public class Skyblock extends JavaPlugin {
 
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
-        islandLimiter = new IslandLimiter();
+        limitController = new LimitController();
         workerController = new WorkerController();
         dropManager = new DropManager();
         buttonController = new ButtonController();
@@ -154,7 +158,7 @@ public class Skyblock extends JavaPlugin {
         Debug.log("&aDone!");
 
         Debug.log("&aLoading limits...");
-        islandLimiter.loadSettings();
+        limitController.loadSettings();
         Debug.log("&aDone!");
 
         Debug.log("&aStarting island timer...");
@@ -191,8 +195,24 @@ public class Skyblock extends JavaPlugin {
         IslandGui.load();
         Debug.log("&aDone!");
 
+        Debug.log("&aLoading Members gui...");
+        MembersGui.load();
+        Debug.log("&aDone!");
+
         Debug.log("&aLoading Kit gui...");
         KitGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading Limits gui...");
+        LimitsGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading Drop gui...");
+        DropGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading Upgrades gui...");
+        UpgradesGui.load();
         Debug.log("&aDone!");
 
     }
@@ -248,8 +268,8 @@ public class Skyblock extends JavaPlugin {
         return islandsController;
     }
 
-    public static IslandLimiter getIslandLimiter() {
-        return islandLimiter;
+    public static LimitController getLimitController(){
+        return limitController;
     }
 
     public static WorkerController getWorkerController() {
