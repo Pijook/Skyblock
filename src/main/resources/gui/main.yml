@@ -41,6 +41,18 @@ buttons:
       material: LEVER
       amount: 1
       name: "&eKomunikatory"
+  shop:
+    slot: 22
+    icon:
+      material: EMERALD
+      amount: 1
+      name: "&2&lSklep"
+  warps:
+    slot: 23
+    icon:
+      material: ENCHANTING_TABLE
+      amount: 1
+      name: "&5&lWarpy"
   close:
     slot: 49
     icon:

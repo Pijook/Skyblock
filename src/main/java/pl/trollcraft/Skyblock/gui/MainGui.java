@@ -5,6 +5,7 @@ import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -140,6 +141,26 @@ public class MainGui {
                 Warps
             ----- ----- -----
         */
+
+        Button warpsButton = buttonController.loadButton(configuration, "buttons.warps");
+        GuiItem warpsItem = ItemBuilder.from(warpsButton.getIcon()).asGuiItem(event -> {
+            WarpGui.openGui((Player) event.getWhoClicked());
+        });
+
+        mainGui.setItem(warpsButton.getSlot(), warpsItem);
+        /*
+            ----- ----- -----
+                Shop
+            ----- ----- -----
+        */
+
+        Button shopButton = buttonController.loadButton(configuration, "buttons.shop");
+        GuiItem shopItem = ItemBuilder.from(shopButton.getIcon()).asGuiItem(event -> {
+           Player player = (Player) event.getWhoClicked();
+           player.performCommand("shop");
+        });
+
+        mainGui.setItem(shopButton.getSlot(), shopItem);
 
         /*
             ----- ----- -----

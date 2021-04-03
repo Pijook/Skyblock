@@ -32,35 +32,8 @@ public class RedisSupport {
      */
     public static void loadPlayer(Player player){
 
-        Debug.log("&aLOADING PLAYER FROM REDIS:  " + player.getName());
+        //Debug.log("&aLOADING PLAYER FROM REDIS:  " + player.getName());
         ChatUtils.sendMessage(player, "&f&lLoading " + player.getName() + " stats...");
-
-        /*new BukkitRunnable(){
-
-            @Override
-            public void run() {
-                String nickname = player.getName();
-
-                String code = Storage.redisCode;
-                code = code.replace("%player%", nickname);
-
-                String playerJSON = Skyblock.getJedis().hget(code, "player");
-
-                SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
-
-                if(skyblockPlayer.hasIslandOrCoop()){
-                    skyblockPlayerController.addUncheckedPlayer(player);
-                }
-
-                skyblockPlayerController.addPlayer(nickname, skyblockPlayer);
-
-                sendMessage(player, "&a&lLoaded stats!");
-                skyblockPlayerController.debugPlayers();
-                PlayerLoadEvent playerLoadEvent = new PlayerLoadEvent(player, skyblockPlayer);
-                Bukkit.getPluginManager().callEvent(playerLoadEvent);
-
-            }
-        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 20L);*/
 
         String nickname = player.getName();
 
@@ -69,7 +42,7 @@ public class RedisSupport {
 
         String playerJSON = Skyblock.getJedis().hget(code, "player");
 
-        Debug.log("&aJSON: " + playerJSON);
+        //Debug.log("&aJSON: " + playerJSON);
 
         SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
 

@@ -1,0 +1,14 @@
+title: "Warpy"
+rows: 6
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+  name: ""
+warps:
+  spawn:
+    slot: 1
+    icon:
+      material: DIRT
+      amount: 1
+      name: "Spawn"
+    command: "spawn"
