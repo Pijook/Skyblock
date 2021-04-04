@@ -1,7 +1,15 @@
+enable: true
 range: 100
 toCheck:
   - STONE
   - COBBLESTONE
+fortune:
+  percentRange: 100
+  amountRange: 3
+  level:
+    1: 30
+    2: 50
+    3: 70
 drops:
   1:
     DIAMOND: 1
@@ -9,11 +17,9 @@ drops:
     IRON_INGOT: 7
     GOLD_INGOT: 12
     COAL: 20
-    COBBLESTONE: 100
   2:
     DIAMOND: 2
     EMERALD: 3
     IRON_INGOT: 8
     GOLD_INGOT: 13
     COAL: 21
-    COBBLESTONE: 100

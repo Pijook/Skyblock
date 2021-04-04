@@ -1,7 +1,9 @@
 package pl.trollcraft.Skyblock.listeners;
 
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,8 +11,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -60,11 +64,35 @@ public class BlockBreakListener implements Listener {
 
         Worker worker = workerController.getWorkerByName(player.getName());
 
-        if(player.getGameMode().equals(GameMode.SURVIVAL)){
-            if(dropManager.countsAsDrop(block.getType())){
-                event.setDropItems(false);
-                block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel())));
+        if(Storage.dropEnable) {
+            Debug.log("=========================================");
+            Debug.log("Skopano: " + event.getBlock().getType().toString());
+            if (player.getGameMode().equals(GameMode.SURVIVAL)) {
+                Debug.log("Gamemode survival");
+                if( !(player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH))){
+                    Debug.log("Nie ma silk toucha");
+                    if (dropManager.countsAsDrop(block.getType())) {
+                        Debug.log("Wykopany blok to cobble lub stone");
+                        ItemStack dropItem = new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel()));
+                        Debug.log("&aWylosowano: " + dropItem.getType().toString());
+                        if( !(dropItem.getType().equals(Material.COBBLESTONE))){
+                            Debug.log("Wylosowany item nie jest cobblem");
+                            if( player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.LOOT_BONUS_BLOCKS) ) {
+                                Debug.log("Kilof posiada fortune");
+                                int fortuneLevel = player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+                                Debug.log("level fortunki wynosi: " + fortuneLevel);
+                                int amountOfItems = dropManager.amountByFortune(fortuneLevel);
+                                Debug.log("Dropie " + amountOfItems + " itemow");
+                                dropItem.setAmount(amountOfItems);
+                            }
+                        }
+                        event.setDropItems(false);
+                        Debug.log("Dropie item");
+                        block.getWorld().dropItemNaturally(block.getLocation(), dropItem);
+                    }
+                }
             }
+            Debug.log("=========================================");
         }
 
         //Uncomment when limits will work

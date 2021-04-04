@@ -24,6 +24,8 @@ public class Settings {
         Storage.height = configuration.getDouble("island.height");;
         Storage.world = configuration.getString("island.world");;
 
+        Storage.dropEnable = ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable");
+
 
     }
 }

@@ -19,5 +19,7 @@ public class Storage {
     public static double height = 70;
     public static String world = "Islands";
 
+    public static boolean dropEnable = true;
+
 
 }
