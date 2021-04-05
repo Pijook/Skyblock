@@ -1,8 +1,11 @@
 package pl.trollcraft.Skyblock.limiter;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.worker.Worker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ public class LimitController {
 
     private HashMap<UUID, IslandLimiter> loadedLimiters = new HashMap<>();
     private HashMap<String, HashMap<Integer, Limiter>> defaultLimits = new HashMap<>();
+    private HashMap<String, HashMap<Integer, Cost>> upgradesCosts = new HashMap<>();
 
     public void loadSettings(){
         YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Skyblock.getInstance());
@@ -21,13 +25,29 @@ public class LimitController {
             HashMap<Integer, Limiter> tempLimit = new HashMap<>();
 
             for(String level : configuration.getConfigurationSection("limiter." + type).getKeys(false)){
-                int cost = configuration.getInt("limiter." + type + "." + level + ".cost");
                 int amount = configuration.getInt("limiter." + type + "." + level + ".amount");
 
-                tempLimit.put(Integer.parseInt(level), new Limiter(cost, amount));
+                tempLimit.put(Integer.parseInt(level), new Limiter(0, amount));
             }
 
             defaultLimits.put(type, tempLimit);
+
+        }
+
+        for(String type : configuration.getConfigurationSection("upgrades").getKeys(false)){
+
+            HashMap<Integer, Cost> tempValue = new HashMap<>();
+
+            for(String upgradeLevel : configuration.getConfigurationSection("upgrades." + type).getKeys(false)){
+
+                double playerLevel = configuration.getDouble("upgrades." + type + "." + upgradeLevel + ".level");
+                double money = configuration.getDouble("upgrades." + type + "." + upgradeLevel + ".money");
+
+                tempValue.put(Integer.parseInt(upgradeLevel), new Cost(playerLevel, money));
+
+            }
+
+            upgradesCosts.put(type, tempValue);
 
         }
     }
@@ -103,5 +123,33 @@ public class LimitController {
 
     public Limiter getDefaultValues(String type, int level){
         return defaultLimits.get(type).get(level);
+    }
+
+    public boolean canUpgrade(UUID islandID, String type, Player player){
+        Limiter limiter = loadedLimiters.get(islandID).getLimiter(type);
+
+        if(!upgradesCosts.get(type).containsKey(limiter.getLevel() + 1)){
+            return false;
+        }
+
+        Cost upgradeCost = upgradesCosts.get(type).get(limiter.getLevel() + 1);
+
+        Worker worker = Skyblock.getWorkerController().getWorkerByName(player.getName());
+
+        if(worker.getAverageLevel() < upgradeCost.getPlayerLevel()){
+            return false;
+        }
+
+        //TODO Add money cost
+
+        return true;
+
+    }
+
+    public void upgradeLimiter(UUID islandID, String type, Player player){
+
+        increaseType(type, islandID);
+
+        //TODO Remove money from account
     }
 }

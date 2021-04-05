@@ -73,7 +73,7 @@ public class BlockBreakListener implements Listener {
                     Debug.log("Nie ma silk toucha");
                     if (dropManager.countsAsDrop(block.getType())) {
                         Debug.log("Wykopany blok to cobble lub stone");
-                        ItemStack dropItem = new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel()));
+                        ItemStack dropItem = new ItemStack(dropManager.generateMaterial(skyblockPlayer.getDropLevel()));
                         Debug.log("&aWylosowano: " + dropItem.getType().toString());
                         if( !(dropItem.getType().equals(Material.COBBLESTONE))){
                             Debug.log("Wylosowany item nie jest cobblem");

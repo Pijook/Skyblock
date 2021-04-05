@@ -1,11 +1,24 @@
 limiter:
   STONE:
     1:
-      cost: 50
       amount: 50
     2:
-      cost: 50
       amount: 100
     3:
-      cost: 50
       amount: 150
+  COBBLESTONE:
+    1:
+      amount: 50
+    2:
+      amount: 250
+    3:
+      amount: 450
+upgrades:
+  STONE:
+    1:
+      level: 1.0
+      money: 0.0
+    2:
+      level: 3.0
+      money: 50.0
+

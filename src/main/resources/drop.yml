@@ -10,6 +10,13 @@ fortune:
     1: 30
     2: 50
     3: 70
+upgrades:
+  1:
+    level: 1.0
+    money: 0.0
+  2:
+    level: 5.0
+    money: 100.0
 drops:
   1:
     DIAMOND: 1
@@ -23,3 +30,4 @@ drops:
     IRON_INGOT: 8
     GOLD_INGOT: 13
     COAL: 21
+

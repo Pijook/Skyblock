@@ -71,11 +71,6 @@ public class Skyblock extends JavaPlugin {
              * Since all events are in the main class (this class), we simply use "this"
              */
         } else {
-            /*
-             * We inform about the fact that PlaceholderAPI isn't installed and then
-             * disable this plugin to prevent issues.
-             */
-            //getLogger().warn("Could not find PlaceholderAPI! This plugin is required.");
             Debug.sendError("Could not find PlaceholderAPI! This plugin is required.");
             Bukkit.getPluginManager().disablePlugin(this);
         }

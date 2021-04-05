@@ -10,13 +10,15 @@ public class SkyblockPlayer {
     private ArrayList<String> invites;
     private int placedBlocks;
     private boolean isOnIsland;
+    private int dropLevel;
 
-    public SkyblockPlayer(UUID islandID, UUID coopIslandID, ArrayList<String> invites, int placedBlocks){
+    public SkyblockPlayer(UUID islandID, UUID coopIslandID, ArrayList<String> invites, int placedBlocks, int dropLevel){
         this.islandID = islandID;
         this.coopIslandID = coopIslandID;
         this.invites = invites;
         this.placedBlocks = placedBlocks;
         this.isOnIsland = false;
+        this.dropLevel = dropLevel;
     }
 
     public UUID getIslandID(){
@@ -114,5 +116,13 @@ public class SkyblockPlayer {
             return false;
         }
         return invites.contains(owner);
+    }
+
+    public int getDropLevel() {
+        return dropLevel;
+    }
+
+    public void setDropLevel(int dropLevel) {
+        this.dropLevel = dropLevel;
     }
 }
