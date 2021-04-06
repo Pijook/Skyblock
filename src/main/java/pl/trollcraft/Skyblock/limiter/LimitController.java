@@ -111,6 +111,11 @@ public class LimitController {
     public void createNewLimiter(UUID islandID){
         HashMap<String, Limiter> limiters = new HashMap<>();
         IslandLimiter islandLimiter = new IslandLimiter(limiters);
+
+        for(String type : defaultLimits.keySet()){
+            limiters.put(type, new Limiter(1, 0));
+        }
+
         loadedLimiters.put(islandID, islandLimiter);
     }
 
@@ -154,6 +159,9 @@ public class LimitController {
     }
 
     public Cost getLimiterCost(int level, String type){
+        if(!upgradesCosts.containsKey(type)){
+            return null;
+        }
         if(upgradesCosts.get(type).containsKey(level)){
             upgradesCosts.get(type).get(level);
         }
