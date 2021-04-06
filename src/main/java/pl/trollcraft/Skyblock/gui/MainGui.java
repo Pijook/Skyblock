@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.gui.islandGui.IslandGui;
@@ -157,6 +158,7 @@ public class MainGui {
         Button shopButton = buttonController.loadButton(configuration, "buttons.shop");
         GuiItem shopItem = ItemBuilder.from(shopButton.getIcon()).asGuiItem(event -> {
            Player player = (Player) event.getWhoClicked();
+
            player.performCommand("shop");
         });
 

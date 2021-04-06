@@ -152,4 +152,11 @@ public class LimitController {
 
         //TODO Remove money from account
     }
+
+    public Cost getLimiterCost(int level, String type){
+        if(upgradesCosts.get(type).containsKey(level)){
+            upgradesCosts.get(type).get(level);
+        }
+        return null;
+    }
 }

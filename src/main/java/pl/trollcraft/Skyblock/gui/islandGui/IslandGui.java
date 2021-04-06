@@ -11,6 +11,7 @@ import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.gui.Button;
 import pl.trollcraft.Skyblock.gui.ButtonController;
 import pl.trollcraft.Skyblock.gui.MainGui;
+import pl.trollcraft.Skyblock.gui.upgradesGui.UpgradesGui;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 
 public class IslandGui {
@@ -49,7 +50,7 @@ public class IslandGui {
 
         //Ulepszenia
         islandGui.setItem(configuration.getInt("buttons.upgrades.slot"), ItemBuilder.from(ConfigUtils.getItemstack(configuration, "buttons.upgrades.icon")).asGuiItem(event -> {
-            //TODO
+            UpgradesGui.openGui((Player) event.getWhoClicked());
         }));
 
         //Pogoda

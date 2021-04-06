@@ -19,6 +19,9 @@ public class UpgradesGui {
         YamlConfiguration configuration = ConfigUtils.load("upgrades.yml", "gui", Skyblock.getInstance());
 
         upgradesGui = new Gui(configuration.getInt("rows"), configuration.getString("title"));
+        upgradesGui.setDefaultClickAction(event -> {
+            event.setCancelled(true);
+        });
 
         //Limits
         Button limitsButton = buttonController.loadButton(configuration, "buttons.limits");
