@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.customEvents.RemoveIslandFromMemoryEvent;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
@@ -368,7 +369,9 @@ public class IslandsController {
         Debug.log("&aChecking does island has online members");
         Island island = getIslandById(islandID);
 
-        Player player = Bukkit.getServer().getPlayer(island.getOwner());
+        String owner = island.getOwner();
+
+        Player player = Bukkit.getServer().getPlayer(owner);
 
         if(player != null){
             if(!player.getName().equalsIgnoreCase(toIgnore)){
@@ -479,6 +482,8 @@ public class IslandsController {
 
             for(UUID uuid : toRemove){
                 Debug.log("&cRemoving from memory island " + uuid + "...");
+                RemoveIslandFromMemoryEvent removeIslandFromMemoryEvent = new RemoveIslandFromMemoryEvent(uuid, getIslandById(uuid));
+                Bukkit.getPluginManager().callEvent(removeIslandFromMemoryEvent);
                 islands.remove(uuid);
             }
         }

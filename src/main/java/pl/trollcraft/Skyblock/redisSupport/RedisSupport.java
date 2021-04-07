@@ -7,6 +7,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
+import pl.trollcraft.Skyblock.customEvents.IslandLoadEvent;
+import pl.trollcraft.Skyblock.customEvents.IslandSaveEvent;
 import pl.trollcraft.Skyblock.customEvents.PlayerLoadEvent;
 import pl.trollcraft.Skyblock.customEvents.PlayerSaveEvent;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
@@ -115,6 +117,8 @@ public class RedisSupport {
 
         islandsController.addIsland(islandID, island, player);
         Debug.log("Loaded island" + islandID + "!");
+        IslandLoadEvent islandLoadEvent = new IslandLoadEvent(islandID, island);
+        Bukkit.getPluginManager().callEvent(islandLoadEvent);
     }
 
     public static Island getIsland(UUID islandID){
@@ -148,6 +152,9 @@ public class RedisSupport {
         Skyblock.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
 
         BungeeSupport.sendIslancSyncCommand(islandID.toString(), player);
+
+        IslandSaveEvent islandSaveEvent = new IslandSaveEvent(islandID, island);
+        Bukkit.getPluginManager().callEvent(islandSaveEvent);
     }
 
     /**

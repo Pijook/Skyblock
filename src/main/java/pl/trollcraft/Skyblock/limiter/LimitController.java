@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.worker.Worker;
 
 import java.util.ArrayList;
@@ -53,14 +54,15 @@ public class LimitController {
     }
 
     public void loadLimiter(UUID islandID){
-
+        Debug.log("&a&lLoading limiter " + islandID.toString());
         YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Skyblock.getInstance());
         String ID = islandID.toString();
 
         HashMap<String, Limiter> islandLimiter = new HashMap<>();
 
         if(!configuration.contains("islands." + ID)){
-            loadedLimiters.put(islandID, new IslandLimiter(islandLimiter));
+            //loadedLimiters.put(islandID, new IslandLimiter(islandLimiter));
+            createNewLimiter(islandID);
             return;
         }
 
@@ -74,7 +76,7 @@ public class LimitController {
     public void saveLimiter(UUID islandID){
         YamlConfiguration configuration = ConfigUtils.load("islandLimits.yml", Skyblock.getInstance());
         String ID = islandID.toString();
-
+        Debug.log("&aSaving limiter " + islandID.toString());
         IslandLimiter islandLimiter = loadedLimiters.get(islandID);
 
         for(String type : islandLimiter.getIslandLimiters().keySet()){

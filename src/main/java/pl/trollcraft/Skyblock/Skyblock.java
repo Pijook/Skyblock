@@ -27,10 +27,7 @@ import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.kit.KitManager;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.listeners.*;
-import pl.trollcraft.Skyblock.listeners.customListeners.IslandLoadListener;
-import pl.trollcraft.Skyblock.listeners.customListeners.IslandSaveListener;
-import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
-import pl.trollcraft.Skyblock.listeners.customListeners.PlayerSaveListener;
+import pl.trollcraft.Skyblock.listeners.customListeners.*;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 import redis.clients.jedis.Jedis;
@@ -100,6 +97,7 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
         getServer().getPluginManager().registerEvents(new IslandLoadListener(), this);
         getServer().getPluginManager().registerEvents(new IslandSaveListener(), this);
+        getServer().getPluginManager().registerEvents(new RemoveIslandFromMemoryListener(), this);
         //BungeeEvents
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeListener());
