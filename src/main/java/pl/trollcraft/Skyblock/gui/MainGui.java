@@ -88,6 +88,12 @@ public class MainGui {
                 return;
             }
 
+            if(!Skyblock.getIslandsController().isPlayerOnHisIsland(player)){
+                mainGui.close(player);
+                ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
+                return;
+            }
+
             IslandGui.openGui((Player) event.getWhoClicked());
         });
 
