@@ -21,6 +21,7 @@ import pl.trollcraft.Skyblock.gui.WarpGui;
 import pl.trollcraft.Skyblock.gui.islandGui.IslandGui;
 import pl.trollcraft.Skyblock.gui.islandGui.MembersGui;
 import pl.trollcraft.Skyblock.gui.upgradesGui.DropGui;
+import pl.trollcraft.Skyblock.gui.upgradesGui.IslandSizeGui;
 import pl.trollcraft.Skyblock.gui.upgradesGui.LimitsGui;
 import pl.trollcraft.Skyblock.gui.upgradesGui.UpgradesGui;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -213,6 +214,10 @@ public class Skyblock extends JavaPlugin {
 
         Debug.log("&aLoading Warps gui...");
         WarpGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading Size gui...");
+        IslandSizeGui.load();
         Debug.log("&aDone!");
     }
 

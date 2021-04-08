@@ -28,6 +28,10 @@ public class EntityDamageListener implements Listener {
                 event.setCancelled(true);
                 SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
+                if(skyblockPlayer == null){
+                    return;
+                }
+
                 if(!skyblockPlayer.hasIslandOrCoop()){
                     player.teleport(Storage.spawn);
                     return;

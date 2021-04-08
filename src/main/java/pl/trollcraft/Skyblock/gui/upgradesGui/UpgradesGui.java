@@ -32,7 +32,7 @@ public class UpgradesGui {
         //Island border
         Button borderButton = buttonController.loadButton(configuration, "buttons.border");
         upgradesGui.setItem(borderButton.getSlot(), ItemBuilder.from(borderButton.getIcon()).asGuiItem(event -> {
-            //TODO
+            IslandSizeGui.openGui((Player) event.getWhoClicked());
         }));
 
         //Drop from stone

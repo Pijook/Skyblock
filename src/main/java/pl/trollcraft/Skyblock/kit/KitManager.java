@@ -67,7 +67,7 @@ public class KitManager {
             long restTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - currentCooldown);
 
             if(restTime > availableKits.get(kitName).getCooldown()){
-                ChatUtils.sendMessage(player, "&cMozesz odebrac ten kit za " + restTime);
+                ChatUtils.sendMessage(player, "&cMozesz odebrac ten kit za " + (availableKits.get(kitName).getCooldown() - restTime));
                 return;
             }
         }

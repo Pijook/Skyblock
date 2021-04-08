@@ -1,0 +1,18 @@
+title: "Wyspa"
+rows: 4
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+buttons:
+  upgrade:
+    slot: 13
+    icon:
+      material: GRASS_BLOCK
+      amount: 1
+      name: "&aRozmiar wyspy"
+  return:
+    slot: 31
+    icon:
+      material: REDSTONE
+      amount: 1
+      name: "&c&lPowrot"
