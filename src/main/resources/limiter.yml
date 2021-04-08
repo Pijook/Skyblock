@@ -21,5 +21,12 @@ upgrades:
     2:
       level: 3.0
       money: 50.0
+  COBBLESTONE:
+    1:
+      level: 1.0
+      money: 0.0
+    2:
+      level: 2.0
+      money: 50.0
 
 

@@ -115,19 +115,19 @@ public class LimitsGui {
 
         List<String> lore = new ArrayList<>();
         lore.add("");
-        lore.add("&7Obecny poziom: &e" + limiter.getLevel());
-        lore.add("&7Obecna ilosc: &e" + limiter.getCurrentAmount());
+        lore.add(ChatUtils.fixColor("&7Obecny poziom: &e" + limiter.getLevel()));
+        lore.add(ChatUtils.fixColor("&7Obecna ilosc: &e" + limiter.getCurrentAmount()));
         lore.add("");
-        lore.add("&7Maksymalna ilosc: &e" + defaultValues.getCurrentAmount());
+        lore.add(ChatUtils.fixColor("&7Maksymalna ilosc: &e" + defaultValues.getCurrentAmount()));
 
         Cost cost = limitController.getLimiterCost(limiter.getLevel() + 1, type);
         if(cost != null){
             lore.add("");
-            lore.add("&7Level do ulepszenia: &e" + cost.getPlayerLevel());
+            lore.add(ChatUtils.fixColor("&7Level do ulepszenia: &e" + cost.getPlayerLevel()));
         }
 
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setLore(lore);;
+        meta.setLore(lore);
         itemStack.setItemMeta(meta);
         return itemStack;
 

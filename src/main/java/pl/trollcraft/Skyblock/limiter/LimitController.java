@@ -106,7 +106,7 @@ public class LimitController {
 
     public void increaseType(String type, UUID islandID){
         if(loadedLimiters.containsKey(islandID)){
-            loadedLimiters.get(islandID).decreaseAmount(type, 1);
+            loadedLimiters.get(islandID).increaseAmount(type, 1);
         }
     }
 
@@ -134,6 +134,10 @@ public class LimitController {
 
     public boolean canUpgrade(UUID islandID, String type, Player player){
         Limiter limiter = loadedLimiters.get(islandID).getLimiter(type);
+
+        if(!upgradesCosts.containsKey(type)){
+            return false;
+        }
 
         if(!upgradesCosts.get(type).containsKey(limiter.getLevel() + 1)){
             return false;
