@@ -108,17 +108,36 @@ public class RedisSupport {
      */
     public static void loadIsland(UUID islandID, Player player){
         Debug.log("Loading island " + islandID + "...");
-        String redisCode = getIslandCode(islandID.toString());
 
-        String islandJSON = Skyblock.getJedis().hget(redisCode, "island");
+        Island island;
 
-        BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
-        Island island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
+        if(player == null || !player.isOnline()){
+            return;
+        }
 
-        islandsController.addIsland(islandID, island, player);
-        Debug.log("Loaded island" + islandID + "!");
-        IslandLoadEvent islandLoadEvent = new IslandLoadEvent(islandID, island);
-        Bukkit.getPluginManager().callEvent(islandLoadEvent);
+        try{
+            String redisCode = getIslandCode(islandID.toString());
+
+            String islandJSON = Skyblock.getJedis().hget(redisCode, "island");
+
+            BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
+
+            island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
+
+            islandsController.addIsland(islandID, island, player);
+            Debug.log("Loaded island" + islandID + "!");
+            IslandLoadEvent islandLoadEvent = new IslandLoadEvent(islandID, island);
+            Bukkit.getPluginManager().callEvent(islandLoadEvent);
+        }
+        catch (NullPointerException exception){
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    loadIsland(islandID, player);
+                }
+            }, 20L);
+        }
+
     }
 
     public static Island getIsland(UUID islandID){
@@ -141,6 +160,10 @@ public class RedisSupport {
      */
     public static void saveIsland(Player player, UUID islandID){
         Debug.log("Saving island " + islandID + "...");
+
+        if(player == null || !player.isOnline()){
+            return;
+        }
 
         Island island = islandsController.getIslandById(islandID);
         BungeeIsland bungeeIsland = islandsController.convertIslandToBungeeIsland(island);

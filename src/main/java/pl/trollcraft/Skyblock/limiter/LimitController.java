@@ -80,13 +80,28 @@ public class LimitController {
         IslandLimiter islandLimiter = loadedLimiters.get(islandID);
 
         for(String type : islandLimiter.getIslandLimiters().keySet()){
-            configuration.set("islands." + ID + "." + type + ".level", islandLimiter.getLimiter(type).getLevel());
-            configuration.set("islands." + ID + "." + type + ".amount", islandLimiter.getLimiter(type).getCurrentAmount());
+
+            Limiter limiter = islandLimiter.getLimiter(type);
+
+            Debug.log("Type: " + type);
+            limiter.debug();
+
+            configuration.set("islands." + ID + "." + type + ".level", limiter.getLevel());
+            configuration.set("islands." + ID + "." + type + ".amount", limiter.getCurrentAmount());
         }
 
         loadedLimiters.remove(islandID);
         ConfigUtils.save(configuration, "islandLimits.yml");
     }
+
+    public void saveAllLimiters(){
+
+        for(UUID limiterID : loadedLimiters.keySet()){
+            saveLimiter(limiterID);
+        }
+
+    }
+
 
     public boolean isAboveLimit(String type, UUID islandID){
         IslandLimiter islandLimiter = loadedLimiters.get(islandID);
@@ -173,4 +188,6 @@ public class LimitController {
         }
         return null;
     }
+
+
 }

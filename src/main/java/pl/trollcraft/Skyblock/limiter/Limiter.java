@@ -1,5 +1,7 @@
 package pl.trollcraft.Skyblock.limiter;
 
+import pl.trollcraft.Skyblock.essentials.Debug;
+
 public class Limiter {
 
     private int level;
@@ -40,5 +42,10 @@ public class Limiter {
 
     public void decreaseAmount(int amount){
         currentAmount = currentAmount - amount;
+    }
+
+    public void debug(){
+        Debug.log("Level: " + level);
+        Debug.log("Amount: " + currentAmount);
     }
 }

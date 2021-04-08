@@ -47,30 +47,6 @@ public class PlayerLoadListener implements Listener {
         }
 
         ChatUtils.sendMessage(player, "&cLoading islands stats...");
-        /*
-        new BukkitRunnable(){
-
-            @Override
-            public void run() {
-                SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
-                UUID islandID = null;
-
-
-                if(skyblockPlayer.hasIslandOrCoop()){
-                    islandID = skyblockPlayer.getIslandOrCoop();
-                }
-
-                if(islandID != null){
-                    if(!islandsController.isIslandLoaded(islandID)){
-                        if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)) {
-                            RedisSupport.loadIsland(islandID, player);
-                        }
-                    }
-                }
-
-                ChatUtils.sendSyncMessage(player, "&aLoaded island!");
-            }
-        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 10L);*/
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
         UUID islandID = null;

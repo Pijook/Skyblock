@@ -119,6 +119,8 @@ public class Skyblock extends JavaPlugin {
     @Override
     public void onDisable() {
 
+        limitController.saveAllLimiters();
+
     }
 
     /**
