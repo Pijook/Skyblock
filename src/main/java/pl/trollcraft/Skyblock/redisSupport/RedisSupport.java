@@ -115,6 +115,10 @@ public class RedisSupport {
             return;
         }
 
+        if(islandsController.isIslandLoaded(islandID)){
+            return;
+        }
+
         try{
             String redisCode = getIslandCode(islandID.toString());
 
