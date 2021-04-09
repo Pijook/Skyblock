@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.gui.upgradesGui;
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
+import me.mattstudios.mfgui.gui.guis.PaginatedGui;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -32,9 +33,13 @@ public class LimitsGui {
 
     private static String title;
     private static int rows;
-    private static ItemStack fillItem;
-    private static List<Integer> slots;
+
+    private static GuiItem fillItem;
+    private static List<Integer> fillSlots;
+
     private static Button backButton;
+    private static Button nextPageButton;
+    private static Button previousPageButton;
 
     private static ButtonController buttonController = Skyblock.getButtonController();
 
@@ -48,17 +53,20 @@ public class LimitsGui {
 
         title = configuration.getString("title");
         rows = configuration.getInt("rows");
-        fillItem = ConfigUtils.getItemstack(configuration, "fillItem");
+        fillItem = ItemBuilder.from(ConfigUtils.getItemstack(configuration, "fillItem")).asGuiItem();
 
-        slots = configuration.getIntegerList("slots");
+        fillSlots = configuration.getIntegerList("filledSlots");
 
         backButton = buttonController.loadButton(configuration, "buttons.back");
+        nextPageButton = buttonController.loadButton(configuration, "nextPage");
+        previousPageButton = buttonController.loadButton(configuration, "previousPage");
 
     }
 
     public static void open(Player player){
 
-        Gui gui = new Gui(rows, title);
+        //Gui gui = new Gui(rows, title);
+        PaginatedGui gui = new PaginatedGui(rows, title);
 
         gui.setDefaultClickAction(event -> {
             event.setCancelled(true);
@@ -66,7 +74,10 @@ public class LimitsGui {
 
         IslandLimiter islandLimiter = Skyblock.getLimitController().getLimiter(Skyblock.getSkyblockPlayerController().getPlayer(player.getName()).getIslandOrCoop());
 
-        int index = 0;
+        for(int slot : fillSlots){
+            gui.setItem(slot, fillItem);
+        }
+
         for(String type : islandLimiter.getIslandLimiters().keySet()){
             GuiItem guiItem = ItemBuilder.from(createIcon(type, islandLimiter.getLimiter(type))).asGuiItem(event -> {
 
@@ -90,15 +101,14 @@ public class LimitsGui {
 
             });
 
-            gui.setItem(slots.get(index), guiItem);
-            index++;
+            gui.addItem(guiItem);
         }
 
         gui.setItem(backButton.getSlot(), ItemBuilder.from(backButton.getIcon()).asGuiItem(event -> {
             MainGui.openGui((Player) event.getWhoClicked());
         }));
 
-        gui.getFiller().fill(ItemBuilder.from(fillItem).asGuiItem());
+        gui.getFiller().fill(fillItem);
         gui.open(player);
     }
 
