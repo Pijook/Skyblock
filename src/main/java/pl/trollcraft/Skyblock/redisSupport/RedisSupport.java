@@ -134,6 +134,7 @@ public class RedisSupport {
             Bukkit.getPluginManager().callEvent(islandLoadEvent);
         }
         catch (NullPointerException exception){
+            exception.printStackTrace();
             Bukkit.getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                 @Override
                 public void run() {

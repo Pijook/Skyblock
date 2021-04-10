@@ -78,6 +78,18 @@ public class LimitsGui {
             gui.setItem(slot, fillItem);
         }
 
+        gui.setItem(backButton.getSlot(), ItemBuilder.from(backButton.getIcon()).asGuiItem(event -> {
+            MainGui.openGui((Player) event.getWhoClicked());
+        }));
+
+        gui.setItem(nextPageButton.getSlot(), ItemBuilder.from(nextPageButton.getIcon()).asGuiItem(event -> {
+            gui.next();
+        }));
+
+        gui.setItem(previousPageButton.getSlot(), ItemBuilder.from(previousPageButton.getIcon()).asGuiItem(event -> {
+            gui.previous();
+        }));
+
         for(String type : islandLimiter.getIslandLimiters().keySet()){
             GuiItem guiItem = ItemBuilder.from(createIcon(type, islandLimiter.getLimiter(type))).asGuiItem(event -> {
 
@@ -104,11 +116,9 @@ public class LimitsGui {
             gui.addItem(guiItem);
         }
 
-        gui.setItem(backButton.getSlot(), ItemBuilder.from(backButton.getIcon()).asGuiItem(event -> {
-            MainGui.openGui((Player) event.getWhoClicked());
-        }));
 
-        gui.getFiller().fill(fillItem);
+
+        //gui.getFiller().fill(fillItem);
         gui.open(player);
     }
 
