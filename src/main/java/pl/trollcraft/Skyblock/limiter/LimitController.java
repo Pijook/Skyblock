@@ -83,9 +83,6 @@ public class LimitController {
 
             Limiter limiter = islandLimiter.getLimiter(type);
 
-            Debug.log("Type: " + type);
-            limiter.debug();
-
             configuration.set("islands." + ID + "." + type + ".level", limiter.getLevel());
             configuration.set("islands." + ID + "." + type + ".amount", limiter.getCurrentAmount());
         }
@@ -181,11 +178,13 @@ public class LimitController {
 
     public Cost getLimiterCost(int level, String type){
         if(!upgradesCosts.containsKey(type)){
+            Debug.log("[Cost] Cannot find type");
             return null;
         }
         if(upgradesCosts.get(type).containsKey(level)){
-            upgradesCosts.get(type).get(level);
+            return upgradesCosts.get(type).get(level);
         }
+        Debug.log("[Cost] Cannot find level");
         return null;
     }
 

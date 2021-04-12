@@ -1,7 +1,6 @@
 package pl.trollcraft.Skyblock.gui.upgradesGui;
 
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
-import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
 import me.mattstudios.mfgui.gui.guis.PaginatedGui;
 import org.bukkit.Material;
@@ -143,7 +142,8 @@ public class LimitsGui {
         Cost cost = limitController.getLimiterCost(limiter.getLevel() + 1, type);
         if(cost != null){
             lore.add("");
-            lore.add(ChatUtils.fixColor("&7Level do ulepszenia: &e" + cost.getPlayerLevel()));
+            lore.add(ChatUtils.fixColor("&7Level wymagany do ulepszenia: &e" + cost.getPlayerLevel()));
+            lore.add(ChatUtils.fixColor("&7Pieniadze wymagane do ulepszenia: &e" + cost.getMoney()));
         }
 
         ItemMeta meta = itemStack.getItemMeta();

@@ -431,15 +431,24 @@ public class IslandsController {
         Island island = new Island(
                 bungeeIsland.getOwner(),
                 bungeeIsland.getMembers(),
-                new Location(Bukkit.getWorld(center.getWorld()), center.getX(), center.getY(), center.getZ()),
-                new Location(Bukkit.getWorld(home.getWorld()), home.getX(), home.getY(), home.getZ()),
+                new Location(Bukkit.getWorld("Islands"),
+                        center.getX(),
+                        center.getY(),
+                        center.getZ()),
+                new Location(Bukkit.getWorld("Islands"),
+                        home.getX(),
+                        home.getY(),
+                        home.getZ()),
                 bungeeIsland.getIslandLevel(),
                 new Location(
                         Bukkit.getWorld(point1.getWorld()),
                         point1.getX(),
                         point1.getY(),
                         point1.getZ()),
-                new Location(Bukkit.getWorld(point2.getWorld()), point2.getX(), point2.getY(), point2.getZ()),
+                new Location(Bukkit.getWorld("Islands"),
+                        point2.getX(),
+                        point2.getY(),
+                        point2.getZ()),
                 bungeeIsland.getServer()
         );
 

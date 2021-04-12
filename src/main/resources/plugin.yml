@@ -8,6 +8,8 @@ depend:
   - FastAsyncWorldEdit
   - Multiverse-Core
   - PlaceholderAPI
+  - Vault
+  - InterServerTeleport
 name: Skyblock
 commands:
   debug:

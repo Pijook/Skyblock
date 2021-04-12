@@ -2,8 +2,10 @@ package pl.trollcraft.Skyblock;
 
 import com.google.gson.Gson;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeListener;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
@@ -41,6 +43,8 @@ public class Skyblock extends JavaPlugin {
     private static Jedis jedis;
     private static Gson gson;
 
+    private static Economy econ = null;
+
     private static SkyblockPlayerController skyblockPlayerController;
     private static IslandsController islandsController;
     private static LimitController limitController;
@@ -72,6 +76,12 @@ public class Skyblock extends JavaPlugin {
             Debug.sendError("Could not find PlaceholderAPI! This plugin is required.");
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        /*if (!setupEconomy() ) {
+            Debug.log(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }*/
 
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
@@ -241,6 +251,18 @@ public class Skyblock extends JavaPlugin {
         });
     }
 
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
+    }
+
     //Command Load/save
 
 
@@ -290,6 +312,10 @@ public class Skyblock extends JavaPlugin {
 
     public static KitManager getKitManager(){
         return kitManager;
+    }
+
+    public static Economy getEconomy(){
+        return econ;
     }
 
 }

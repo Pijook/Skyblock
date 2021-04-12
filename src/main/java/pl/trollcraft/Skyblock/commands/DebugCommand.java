@@ -84,6 +84,7 @@ public class DebugCommand implements CommandExecutor {
         ChatUtils.sendMessage(player, "&7/" + label + " island");
         ChatUtils.sendMessage(player, "&7/" + label + " islandjson");
         ChatUtils.sendMessage(player, "&7/" + label + " sync");
+        ChatUtils.sendMessage(player, "&7/" + label + " costs");
         return true;
     }
 }

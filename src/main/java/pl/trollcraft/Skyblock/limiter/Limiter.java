@@ -38,14 +38,16 @@ public class Limiter {
 
     public void decreaseLevel(int amount){
         level = level - amount;
+        if(level < 1){
+            level = 1;
+        }
     }
 
     public void decreaseAmount(int amount){
         currentAmount = currentAmount - amount;
+        if(currentAmount < 0){
+            currentAmount = 0;
+        }
     }
 
-    public void debug(){
-        Debug.log("Level: " + level);
-        Debug.log("Amount: " + currentAmount);
-    }
 }
