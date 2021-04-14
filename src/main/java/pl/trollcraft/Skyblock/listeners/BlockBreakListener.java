@@ -33,7 +33,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
-        Debug.log("=========BlockBreakEvent============");
+        Debug.log("=========BlockBreakEvent=============");
         Block block = event.getBlock();
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
