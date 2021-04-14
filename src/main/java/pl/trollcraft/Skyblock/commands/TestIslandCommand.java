@@ -55,7 +55,7 @@ public class TestIslandCommand implements CommandExecutor {
                     return true;
                 }
 
-                if(!islandsController.canUpgrade(island, worker)){
+                if(!islandsController.canUpgrade(island, player)){
                     ChatUtils.sendMessage(player, "&cMasz za maly poziom aby ulepszyc wyspe!");
                     return true;
                 }

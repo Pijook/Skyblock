@@ -32,6 +32,7 @@ import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.listeners.*;
 import pl.trollcraft.Skyblock.listeners.customListeners.*;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.villagercontroller.VillagerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 import redis.clients.jedis.Jedis;
 
@@ -52,6 +53,7 @@ public class Skyblock extends JavaPlugin {
     private static DropManager dropManager;
     private static ButtonController buttonController;
     private static KitManager kitManager;
+    private static VillagerController villagerController;
 
     //Commands
     private Commands commands;
@@ -77,11 +79,11 @@ public class Skyblock extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        /*if (!setupEconomy() ) {
+        if (!setupEconomy() ) {
             Debug.log(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
             return;
-        }*/
+        }
 
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
@@ -90,6 +92,7 @@ public class Skyblock extends JavaPlugin {
         dropManager = new DropManager();
         buttonController = new ButtonController();
         kitManager = new KitManager();
+        villagerController = new VillagerController();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -103,6 +106,7 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InteractListener(), this);
         getServer().getPluginManager().registerEvents(new EntityDamageListener(), this);
         getServer().getPluginManager().registerEvents(new IslandSaveListener(), this);
+        getServer().getPluginManager().registerEvents(new VillagerChangeClassListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
@@ -118,11 +122,12 @@ public class Skyblock extends JavaPlugin {
         //Commands
 //        getCommand("island").setExecutor(new IslandCommand()); // OLD
         getCommand("debug").setExecutor(new DebugCommand());
-        getCommand("testisland").setExecutor(new TestIslandCommand());
+//        getCommand("testisland").setExecutor(new TestIslandCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("worker").setExecutor(new WorkCommand());
         getCommand("aworker").setExecutor(new AdminWorkCommand());
         getCommand("menu").setExecutor(new GuiCommand());
+        getCommand("vtrades").setExecutor(new TradesCommand());
 
         loadStuff();
     }
@@ -188,7 +193,11 @@ public class Skyblock extends JavaPlugin {
         kitManager.loadKits();
         Debug.log("&aDone!");
 
-        Debug.log("&aFinished loading Skyblock v1.0!");
+        Debug.log("&aLoading villager trades...");
+        villagerController.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aFinished loading " + getDescription().getName() + " " + getDescription().getVersion() + "!");
 
     }
 
@@ -316,6 +325,10 @@ public class Skyblock extends JavaPlugin {
 
     public static Economy getEconomy(){
         return econ;
+    }
+
+    public static VillagerController getVillagerController() {
+        return villagerController;
     }
 
 }

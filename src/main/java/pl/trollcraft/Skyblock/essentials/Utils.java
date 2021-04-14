@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Villager;
 import pl.trollcraft.Skyblock.Skyblock;
 
 import java.util.Random;
@@ -83,6 +84,16 @@ public class Utils {
     public static boolean isEnchantment(String a){
         try{
             Enchantment.getByName(a);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    public static boolean isVillagerProfession(String a){
+        try{
+            Villager.Profession.valueOf(a);
             return true;
         }
         catch (Exception e){

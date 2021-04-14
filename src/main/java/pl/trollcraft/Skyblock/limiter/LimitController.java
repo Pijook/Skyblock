@@ -163,7 +163,9 @@ public class LimitController {
             return false;
         }
 
-        //TODO Add money cost
+        if(upgradeCost.getMoney() > Skyblock.getEconomy().getBalance(player)){
+            return false;
+        }
 
         return true;
 
@@ -172,8 +174,8 @@ public class LimitController {
     public void upgradeLimiter(UUID islandID, String type, Player player){
 
         increaseType(type, islandID);
-
-        //TODO Remove money from account
+        double amount = upgradesCosts.get(type).get(loadedLimiters.get(islandID).getLimiter(type).getLevel()).getMoney();
+        Skyblock.getEconomy().depositPlayer(player, amount);
     }
 
     public Cost getLimiterCost(int level, String type){

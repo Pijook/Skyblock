@@ -1,0 +1,27 @@
+trades:
+  FARMER:
+    1:
+      trade_1:
+        ingredients:
+          1:
+            material: STONE
+            minAmount: 32
+            maxAmount: 64
+        result:
+          material: DIAMOND
+          minAmount: 1
+          maxAmount: 3
+      trade_2:
+        ingredients:
+          1:
+            material: STONE
+            minAmount: 32
+            maxAmount: 64
+          2:
+            material: COBBLESTONE
+            minAmount: 32
+            maxAmount: 64
+        result:
+          material: DIAMOND
+          minAmount: 6
+          maxAmount: 12

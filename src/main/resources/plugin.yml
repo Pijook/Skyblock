@@ -17,9 +17,9 @@ commands:
   island:
     usage: /island
     aliases: [ "is", "tcisland" ]
-  testisland:
-    usage: /testisland
-    aliases: ["tis"]
+#  testisland:
+#    usage: /testisland
+#    aliases: ["tis"]
   spawn:
     usage: /spawn
   worker:
@@ -28,3 +28,5 @@ commands:
     usage: /aworker
   menu:
     usage: /menu
+  vtrades:
+    usage: /vtrades

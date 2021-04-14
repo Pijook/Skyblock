@@ -1,9 +1,13 @@
 upgrade:
   1:
     requiredLevel: 0.0
+    money: 0.0
   2:
     requiredLevel: 4.0
+    money: 50.0
   3:
     requiredLevel: 8.0
+    money: 100.0
   4:
     requiredLevel: 12.0
+    money: 150.0

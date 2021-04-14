@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.customEvents.RemoveIslandFromMemoryEvent;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class IslandsController {
 
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
-    private HashMap<Integer, Double> levelsCosts = new HashMap<>();
+    private HashMap<Integer, Cost> levelsCosts = new HashMap<>();
     private long islandCooldown = -1;
     private HashMap<UUID, Island> islands = new HashMap<>();
 
@@ -33,27 +34,36 @@ public class IslandsController {
 
         for(String islandLevel : configuration.getConfigurationSection("upgrade").getKeys(false)){
 
-            double cost = configuration.getDouble("upgrade." + islandLevel + ".requiredLevel");
-            levelsCosts.put(Integer.parseInt(islandLevel), cost);
+            double level = configuration.getDouble("upgrade." + islandLevel + ".requiredLevel");
+            double money = configuration.getDouble("upgrade." + islandLevel + ".money");
+            levelsCosts.put(Integer.parseInt(islandLevel), new Cost(level, money));
 
         }
 
     }
 
-    public boolean canUpgrade(Island island, Worker worker){
+    public boolean canUpgrade(Island island, Player player){
 
         if(!levelsCosts.containsKey(island.getIslandLevel() + 1)){
             return false;
         }
 
-        double averageLevel = worker.getAverageLevel();
+        double averageLevel = Skyblock.getWorkerController().getWorkerByName(player.getName()).getAverageLevel();
 
-        if(levelsCosts.get(island.getIslandLevel() + 1) <= averageLevel){
-            return true;
+        Cost cost = levelsCosts.get(island.getIslandLevel() + 1);
+        if(averageLevel < cost.getPlayerLevel()){
+            return false;
+        }
+        if(Skyblock.getEconomy().getBalance(player) < cost.getMoney()){
+            return false;
         }
 
         return false;
 
+    }
+
+    public Cost getIslandUpgradeCost(int level){
+        return levelsCosts.get(level);
     }
 
     /**

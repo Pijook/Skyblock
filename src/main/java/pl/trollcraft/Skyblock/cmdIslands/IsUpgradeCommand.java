@@ -55,18 +55,21 @@ public class IsUpgradeCommand extends Command{
                 return;
             }
 
-            if(!islandsController.canUpgrade(island, worker)){
+            if(!islandsController.canUpgrade(island, player)){
                 ChatUtils.sendMessage(player, "&cMasz za maly poziom aby ulepszyc wyspe!");
                 return;
             }
 
             island.upgradeIsland();
+
             if(IslandSizeUpgrade.upgradeSize(skyblockPlayer.getIslandID())){
                 ChatUtils.sendMessage(player, "&aUlepszono wyspe!");
             }
             else{
                 ChatUtils.sendMessage(player, "&cCos poszlo nie tak...");
             }
+
+            Skyblock.getEconomy().withdrawPlayer(player, islandsController.getIslandUpgradeCost(island.getIslandLevel()).getMoney());
             return;
 
         }
