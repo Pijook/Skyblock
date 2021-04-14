@@ -30,9 +30,12 @@ public class DropManager {
     private HashMap<Integer, Cost> upgradesCost = new HashMap<>();
 
     public void setupGenerator(){
-        YamlConfiguration configuration = ConfigUtils.load("drop.yml", Skyblock.getInstance());
+        toCheck.clear();
+        drops.clear();
+        fortune.clear();
+        upgradesCost.clear();
 
-        Storage.dropEnable = configuration.getBoolean("range");
+        YamlConfiguration configuration = ConfigUtils.load("drop.yml", Skyblock.getInstance());
 
         range = configuration.getInt("range");
 

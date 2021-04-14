@@ -3,8 +3,11 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.Settings;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 
 import java.util.Collections;
@@ -19,6 +22,9 @@ public class IsReloadCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         Skyblock.getInstance().loadCommands();
+        Debug.log("&aPrzeladowano komendy!");
+        Settings.load();
+        Debug.log("&aPrzeladowano settings!");;
         ChatUtils.sendMessage((Player) sender, "&aKonfiguracja przeladowana");
     }
 

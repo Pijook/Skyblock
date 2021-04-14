@@ -36,7 +36,7 @@ public class BlockBreakListener implements Listener {
         //Debug.log("=========BlockBreakEvent=============");
         Block block = event.getBlock();
 
-        Debug.log(block.getType().name());
+//        Debug.log(block.getType().name());
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
@@ -67,36 +67,24 @@ public class BlockBreakListener implements Listener {
 
         Worker worker = workerController.getWorkerByName(player.getName());
 
-        Debug.log("==============DROP===================");
         if(Storage.dropEnable) {
-            Debug.log("Skopano: " + event.getBlock().getType().toString());
             if (player.getGameMode().equals(GameMode.SURVIVAL)) {
-                Debug.log("Gamemode survival");
                 if( !(player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH))){
-                    Debug.log("Nie ma silk toucha");
                     if (dropManager.countsAsDrop(block.getType())) {
-                        Debug.log("Wykopany blok to cobble lub stone");
                         ItemStack dropItem = new ItemStack(dropManager.generateMaterial(skyblockPlayer.getDropLevel()));
-                        Debug.log("&aWylosowano: " + dropItem.getType().toString());
                         if( !(dropItem.getType().equals(Material.COBBLESTONE))){
-                            Debug.log("Wylosowany item nie jest cobblem");
                             if( player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.LOOT_BONUS_BLOCKS) ) {
-                                Debug.log("Kilof posiada fortune");
                                 int fortuneLevel = player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
-                                Debug.log("level fortunki wynosi: " + fortuneLevel);
                                 int amountOfItems = dropManager.amountByFortune(fortuneLevel);
-                                Debug.log("Dropie " + amountOfItems + " itemow");
                                 dropItem.setAmount(amountOfItems);
                             }
                         }
                         event.setDropItems(false);
-                        Debug.log("Dropie item");
                         block.getWorld().dropItemNaturally(block.getLocation(), dropItem);
                     }
                 }
             }
         }
-        Debug.log("==============DROP===================");
 
         //Uncomment when limits will work
         //islandLimiter.removeBlock(block);

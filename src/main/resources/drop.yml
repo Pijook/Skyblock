@@ -1,4 +1,4 @@
-enable: true
+dropEnable: true
 range: 100
 toCheck:
   - STONE

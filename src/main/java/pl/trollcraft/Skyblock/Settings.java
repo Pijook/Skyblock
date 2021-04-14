@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 
 public class Settings {
 
@@ -24,6 +25,8 @@ public class Settings {
         Storage.height = configuration.getDouble("island.height");;
         Storage.world = configuration.getString("island.world");;
 
+        Debug.log("DropEnable = " + Storage.dropEnable);
+        Debug.log("Ustawiam na " + ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable"));
         Storage.dropEnable = ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable");
 
 
