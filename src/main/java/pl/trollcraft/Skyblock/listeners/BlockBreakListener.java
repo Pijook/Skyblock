@@ -33,6 +33,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
+        Debug.log("=========BlockBreakEvent============");
         Block block = event.getBlock();
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
@@ -64,8 +65,8 @@ public class BlockBreakListener implements Listener {
 
         Worker worker = workerController.getWorkerByName(player.getName());
 
+        Debug.log("==============DROP===================");
         if(Storage.dropEnable) {
-            Debug.log("=========================================");
             Debug.log("Skopano: " + event.getBlock().getType().toString());
             if (player.getGameMode().equals(GameMode.SURVIVAL)) {
                 Debug.log("Gamemode survival");
@@ -92,8 +93,8 @@ public class BlockBreakListener implements Listener {
                     }
                 }
             }
-            Debug.log("=========================================");
         }
+        Debug.log("==============DROP===================");
 
         //Uncomment when limits will work
         //islandLimiter.removeBlock(block);
