@@ -135,6 +135,7 @@ public class RedisSupport {
         }
         catch (NullPointerException exception){
             exception.printStackTrace();
+            BungeeSupport.sendReloadIslandCommand(islandID.toString(), player);
             Bukkit.getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                 @Override
                 public void run() {

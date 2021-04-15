@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -23,6 +24,7 @@ public class CommandListener implements Listener {
             player.sendMessage(ChatUtils.fixColor("&cCos poszlo nie tak! Sprobuj ponownie za pare sekund..."));
 //            ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
             event.setCancelled(true);
+            BungeeSupport.sendReloadPlayerCommand(player);
             return;
         }
 
@@ -33,6 +35,7 @@ public class CommandListener implements Listener {
                 player.sendMessage(ChatUtils.fixColor("&cCos poszlo nie tak! Sprobuj ponownie za pare sekund..."));
 //                ChatUtils.sendMessage(player, "&cCos poszlo nie tak! Sprobuj ponownie za pare sekund...");
                 event.setCancelled(true);
+                BungeeSupport.sendReloadIslandCommand(skyblockPlayer.getIslandOrCoop().toString(), player);
                 return;
             }
         }

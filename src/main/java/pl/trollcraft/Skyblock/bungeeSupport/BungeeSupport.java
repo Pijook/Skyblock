@@ -114,4 +114,16 @@ public class BungeeSupport {
         String command = "syncIsland:" + islandID;
         sendMessage(command, player);
     }
+
+    public static void sendReloadIslandCommand(String islandID, Player player){
+        Debug.log("Sending command to reload island");
+        String command = "reloadIsland:" + islandID;
+        sendMessage(command, player);
+    }
+
+    public static void sendReloadPlayerCommand(Player player){
+        Debug.log("Sending command to reload island");
+        String command = "reloadPlayer:" + player.getName();
+        sendReloadIslandCommand(command, player);
+    }
 }
