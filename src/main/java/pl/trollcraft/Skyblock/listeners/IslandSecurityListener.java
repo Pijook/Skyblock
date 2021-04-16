@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -44,6 +45,7 @@ public class IslandSecurityListener implements Listener {
             Player player = (Player) event.getDamager();
 
             if(!islandsController.isPlayerOnHisIsland(player)){
+                ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
                 event.setCancelled(true);
             }
         }
@@ -56,8 +58,13 @@ public class IslandSecurityListener implements Listener {
             return;
         }
 
-        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-            event.setCancelled(true);
+        Player player = event.getPlayer();
+
+        if(!islandsController.isPlayerOnHisIsland(player)){
+            if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+                ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
+                event.setCancelled(true);
+            }
         }
 
     }
