@@ -1,6 +1,7 @@
 package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -66,7 +67,8 @@ public class IsRemoveCommand extends Command {
 
                     ChatUtils.sendMessage(member, "&cZostales usuniety z wyspy");
                     ChatUtils.sendMessage(player, "&cGracz " + memberNickname + " zostal usuniety z wyspy");
-                    member.teleport(Storage.spawn);
+                    //member.teleport(Storage.spawn);
+                    member.teleport(new Location(member.getWorld(), Storage.spawn.getX(), Storage.spawn.getY(), Storage.spawn.getZ()));
                     return;
                 }//When member is on different server
                 else{
