@@ -20,8 +20,8 @@ commands:
 #  testisland:
 #    usage: /testisland
 #    aliases: ["tis"]
-  spawn:
-    usage: /spawn
+  tempspawn:
+    usage: /tempspawn
   worker:
     usage: /worker
   aworker:
@@ -30,3 +30,5 @@ commands:
     usage: /menu
   vtrades:
     usage: /vtrades
+  fly:
+    usage: /fly

@@ -1,17 +1,14 @@
 package pl.trollcraft.Skyblock.commands;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 
-public class SpawnCommand implements CommandExecutor {
-
+public class FlyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -23,9 +20,15 @@ public class SpawnCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if(args.length == 0){
-            ChatUtils.sendMessage(player, "&aTeleportuje na spawn...");
-            player.teleport(new Location(player.getWorld(), Storage.spawn.getX(), Storage.spawn.getY(), Storage.spawn.getZ()));
+        if(player.isFlying()){
+            player.setFlying(false);
+            ChatUtils.sendMessage(player, "&7Wylaczono fly!");
+            return true;
+        }
+        if(!player.isFlying()){
+            player.setAllowFlight(true);
+            player.setFlying(true);
+            ChatUtils.sendMessage(player, "&7Uruchiomono fly!");
             return true;
         }
 

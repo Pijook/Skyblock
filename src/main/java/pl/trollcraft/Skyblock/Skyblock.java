@@ -124,11 +124,12 @@ public class Skyblock extends JavaPlugin {
 //        getCommand("island").setExecutor(new IslandCommand()); // OLD
         getCommand("debug").setExecutor(new DebugCommand());
 //        getCommand("testisland").setExecutor(new TestIslandCommand());
-        getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("tempspawn").setExecutor(new SpawnCommand());
         getCommand("worker").setExecutor(new WorkCommand());
         getCommand("aworker").setExecutor(new AdminWorkCommand());
         getCommand("menu").setExecutor(new GuiCommand());
         getCommand("vtrades").setExecutor(new TradesCommand());
+        getCommand("fly").setExecutor(new FlyCommand());
 
         loadStuff();
     }
