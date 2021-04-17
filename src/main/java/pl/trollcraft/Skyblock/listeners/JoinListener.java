@@ -1,6 +1,8 @@
 package pl.trollcraft.Skyblock.listeners;
 
 import com.sk89q.worldedit.function.mask.MaskIntersection;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +22,10 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
+        
+        if(!player.getWorld().getName().equalsIgnoreCase("Islands")){
+            player.teleport(new Location(Bukkit.getWorld("Islands"), player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
+        }
 
         Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
             @Override

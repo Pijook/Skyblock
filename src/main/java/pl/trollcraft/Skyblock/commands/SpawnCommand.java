@@ -25,7 +25,7 @@ public class SpawnCommand implements CommandExecutor {
 
         if(args.length == 0){
             ChatUtils.sendMessage(player, "&aTeleportuje na spawn...");
-            player.teleport(new Location(player.getWorld(), Storage.spawn.getX(), Storage.spawn.getY(), Storage.spawn.getZ()));
+            player.teleport(Storage.spawn);
             return true;
         }
 
