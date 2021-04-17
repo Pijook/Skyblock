@@ -11,15 +11,14 @@ import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.worker.Worker;
+import scala.Int;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class DropManager {
     //Material
     private ArrayList<Material> toCheck = new ArrayList<>();
-    private HashMap<Integer, ArrayList<String>> drops = new HashMap<>();
+    private HashMap<Integer, LinkedHashMap<Material, Double>> drops = new LinkedHashMap<>();
     private int range;
     private Random random;
     //Amount
@@ -37,7 +36,7 @@ public class DropManager {
 
         YamlConfiguration configuration = ConfigUtils.load("drop.yml", Skyblock.getInstance());
 
-        range = configuration.getInt("range");
+        //range = configuration.getInt("range");
 
         for(String key : configuration.getStringList("toCheck")){
             toCheck.add(Material.valueOf(key));
@@ -51,22 +50,16 @@ public class DropManager {
 
         for(String playerLevel : configuration.getConfigurationSection("drops").getKeys(false)){
 
-            ArrayList<String> materials = new ArrayList<>();
-
-            int cobble = range;
+            LinkedHashMap<Material, Double> chances = new LinkedHashMap<>();
 
             for(String materialName : configuration.getConfigurationSection("drops." + playerLevel).getKeys(false)){
+                chances.put(
+                        Material.valueOf(materialName),
+                        configuration.getDouble("drops." + playerLevel + "." + materialName)
+                );
 
-                for(int i = 0; i < configuration.getInt("drops." + playerLevel + "." + materialName); i++){
-                    materials.add(materialName);
-                    cobble--;
-                }
             }
-            for( int i = 0 ; i < cobble ; i++ ){
-                materials.add(Material.COBBLESTONE.toString());
-            }
-
-            drops.put(Integer.parseInt(playerLevel), materials);
+            drops.put(Integer.valueOf(playerLevel), chances);
 
         }
 
@@ -85,7 +78,14 @@ public class DropManager {
     }
 
     public Material generateMaterial(int playerLevel){
-        return Material.valueOf(drops.get(playerLevel).get(random.nextInt(range)));
+        LinkedHashMap<Material, Double> chances = drops.get(playerLevel);
+        double a = random.nextDouble() * 100;
+        for(Material material : chances.keySet()){
+            if(a <= chances.get(material)){
+                return material;
+            }
+        }
+        return Material.COBBLESTONE;
     }
 
     public boolean countsAsDrop(Material material){
