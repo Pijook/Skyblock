@@ -1,5 +1,5 @@
 dropEnable: true
-range: 100
+range: 10000
 toCheck:
   - STONE
   - COBBLESTONE
@@ -7,27 +7,59 @@ fortune:
   percentRange: 100
   amountRange: 3
   level:
-    1: 30
-    2: 50
-    3: 70
-upgrades:
-  1:
-    level: 1.0
-    money: 0.0
-  2:
-    level: 5.0
-    money: 100.0
+    1: 10
+    2: 30
+    3: 50
 drops:
   1:
-    DIAMOND: 1
-    EMERALD: 2
-    IRON_INGOT: 7
-    GOLD_INGOT: 12
-    COAL: 20
+    COAL: 10
   2:
-    DIAMOND: 2
+    COAL: 70
+    REDSTONE: 1
+  3:
+    COAL: 120
+    REDSTONE: 10
+    GOLD_INGOT: 1
+  4:
+    COAL: 145
+    REDSTONE: 15
+    GOLD_INGOT: 2
+    IRON_INGOT: 1
+  5:
+    COAL: 182
+    REDSTONE: 19
+    GOLD_INGOT: 6
+    IRON_INGOT: 2
+  6:
+    COAL: 239
+    REDSTONE: 24
+    GOLD_INGOT: 9
+    IRON_INGOT: 4
+  7:
+    COAL: 268
+    REDSTONE: 31
+    GOLD_INGOT: 11
+    IRON_INGOT: 7
+    EMERALD: 1
+  8:
+    COAL: 300
+    REDSTONE: 42
+    GOLD_INGOT: 15
+    IRON_INGOT: 10
+    EMERALD: 2
+    DIAMOND: 1
+  9:
+    COAL: 339
+    REDSTONE: 59
+    GOLD_INGOT: 23
+    IRON_INGOT: 16
     EMERALD: 3
-    IRON_INGOT: 8
-    GOLD_INGOT: 13
-    COAL: 21
-
+    DIAMOND: 2
+  10:
+    COAL: 420
+    REDSTONE: 81
+    GOLD_INGOT: 45
+    IRON_INGOT: 32
+    EMERALD: 5
+    DIAMOND: 3
+    NETHERITE_INGOT: 1
