@@ -122,8 +122,8 @@ public class BungeeSupport {
     }
 
     public static void sendReloadPlayerCommand(Player player){
-        Debug.log("Sending command to reload island");
+        Debug.log("Sending command to reload player");
         String command = "reloadPlayer:" + player.getName();
-        sendReloadIslandCommand(command, player);
+        sendMessage(command, player);
     }
 }
