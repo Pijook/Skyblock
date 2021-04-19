@@ -25,7 +25,6 @@ public class EntityDamageListener implements Listener {
             Player player = (Player) event.getEntity();
 
             if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)){
-                event.setCancelled(true);
                 SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
                 if(skyblockPlayer == null){
@@ -43,6 +42,7 @@ public class EntityDamageListener implements Listener {
                 }
 
                 player.teleport(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()).getHome());
+                event.setCancelled(true);
                 return;
 
             }
