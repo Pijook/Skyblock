@@ -24,6 +24,7 @@ public class EntityDamageListener implements Listener {
 
             Player player = (Player) event.getEntity();
 
+            /*
             if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)){
                 SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
@@ -45,7 +46,7 @@ public class EntityDamageListener implements Listener {
                 event.setCancelled(true);
                 return;
 
-            }
+            }*/
             if(event.getCause().equals(EntityDamageEvent.DamageCause.FALL)){
                 event.setCancelled(true);
             }

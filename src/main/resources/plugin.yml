@@ -2,7 +2,7 @@ main: pl.trollcraft.Skyblock.Skyblock
 authors:
   - Pijok
   - LucyferMS
-version: 1.0
+version: 1.0.1
 api-version: 1.16
 depend:
   - FastAsyncWorldEdit

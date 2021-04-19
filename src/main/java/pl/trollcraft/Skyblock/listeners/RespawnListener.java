@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -16,11 +17,16 @@ public class RespawnListener implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event){
         Player player = event.getPlayer();
+
         if(!islandsController.isPlayerOnHisIsland(player)){
             skyblockPlayerController.getPlayer(player.getName()).setOnIsland(false);
+            event.setRespawnLocation(Storage.spawn);
         }
         else{
             skyblockPlayerController.getPlayer(player.getName()).setOnIsland(true);
+            event.setRespawnLocation(islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop()).getHome());
         }
+
+
     }
 }
