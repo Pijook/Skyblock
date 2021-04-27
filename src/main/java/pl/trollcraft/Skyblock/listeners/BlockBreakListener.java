@@ -94,8 +94,12 @@ public class BlockBreakListener implements Listener {
             islandLimiter.removeBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
         }*/
 
-        if(limitController.isTypeLimited(block.getType().name())){
-            limitController.decreaseType(block.getType().name(), skyblockPlayer.getIslandOrCoop());
+        Material material = block.getType();
+        if(material.equals(Material.STICKY_PISTON)){
+            material = Material.PISTON;
+        }
+        if(limitController.isTypeLimited(material.name())){
+            limitController.decreaseType(material.name(), skyblockPlayer.getIslandOrCoop());
         }
 
         if(workerController.isBlockToMine(block.getType())){

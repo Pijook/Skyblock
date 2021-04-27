@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,7 +58,11 @@ public class BlockPlaceListener implements Listener {
                 }
 
             }*/
-            String type = block.getType().name();
+            Material material = block.getType();
+            if(material.equals(Material.STICKY_PISTON)){
+                material = Material.PISTON;
+            }
+            String type = material.name();
             if(limitController.isTypeLimited(type)){
 
                 if(limitController.isAboveLimit(type, skyblockPlayer.getIslandOrCoop())){
