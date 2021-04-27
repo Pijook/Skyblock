@@ -14,4 +14,5 @@ public class Commands {
     public IsRemoveCommand isRemoveCommand = new IsRemoveCommand();
     public IsVisitCommand isVisitCommand = new IsVisitCommand();
     public IsUpgradeCommand isUpgradeCommand = new IsUpgradeCommand();
+    public IsLeaveCommand isLeaveCommand = new IsLeaveCommand();
 }

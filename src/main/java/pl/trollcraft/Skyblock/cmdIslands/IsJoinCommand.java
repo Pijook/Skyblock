@@ -79,7 +79,7 @@ public class IsJoinCommand extends Command {
 
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
-
+        ChatUtils.sendMessage(sender, "&cNadal pracujemy nad ta komenda");
     }
 
     @Override
