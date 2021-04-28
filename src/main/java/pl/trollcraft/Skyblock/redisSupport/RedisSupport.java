@@ -178,6 +178,10 @@ public class RedisSupport {
 
         Debug.log(islandJSON);
 
+        if(islandJSON == null){
+            return;
+        }
+
         Skyblock.getJedis().hset(getIslandCode(islandID.toString()), "island", islandJSON);
 
         BungeeSupport.sendIslancSyncCommand(islandID.toString(), player);
