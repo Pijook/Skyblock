@@ -25,6 +25,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +40,8 @@ public class LimitsGui {
     private static Button backButton;
     private static Button nextPageButton;
     private static Button previousPageButton;
+
+    private static HashMap<String, String> alternateIcons = new HashMap<>();
 
     private static ButtonController buttonController = Skyblock.getButtonController();
 
@@ -59,6 +62,10 @@ public class LimitsGui {
         backButton = buttonController.loadButton(configuration, "buttons.back");
         nextPageButton = buttonController.loadButton(configuration, "nextPage");
         previousPageButton = buttonController.loadButton(configuration, "previousPage");
+
+        for(String type : configuration.getConfigurationSection("changedIcons").getKeys(false)){
+            alternateIcons.put(type, configuration.getString("changedIcons." + type));
+        }
 
     }
 
@@ -125,6 +132,9 @@ public class LimitsGui {
         ItemStack itemStack;
         if(Utils.isMaterial(type)){
             itemStack = BuildItem.buildItem("", Material.valueOf(type), 1);
+        }
+        else if(alternateIcons.containsKey(type)){
+            itemStack = BuildItem.buildItem("", Material.valueOf(alternateIcons.get(type)), 1);
         }
         else{
             itemStack = BuildItem.buildItem(type, Material.SKELETON_SKULL, 1);

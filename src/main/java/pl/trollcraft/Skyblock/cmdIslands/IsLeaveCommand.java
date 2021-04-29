@@ -41,12 +41,22 @@ public class IsLeaveCommand extends Command{
             return;
         }*/
 
-        if(!islandsController.isPlayerOnHisIsland(player)){
-            ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
+        if(!skyblockMember.hasIslandOrCoop()){
+            ChatUtils.sendMessage(player, "&cNie nalezysz do zadnej wyspy!");
             return;
         }
 
         Island island = islandsController.getIslandById(skyblockMember.getIslandOrCoop());
+
+        if(island == null){
+            ChatUtils.sendMessage(player, "&cNie nalezysz do zadnej wyspy!");
+            return;
+        }
+
+        if(!islandsController.isLocationOnIsland(player.getLocation(), skyblockMember.getIslandOrCoop())){
+            ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
+            return;
+        }
 
         if(island.getOwner().equalsIgnoreCase(player.getName())){
             ChatUtils.sendMessage(player, "&cNie mozesz odejsc ze swojej wyspy!");

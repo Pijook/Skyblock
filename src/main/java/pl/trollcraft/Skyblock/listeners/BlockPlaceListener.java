@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -27,6 +28,7 @@ public class BlockPlaceListener implements Listener {
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
         Block block = event.getBlock();
+
 
         if(!skyblockPlayer.hasIslandOrCoop()){
             if(!player.hasPermission(PermissionStorage.islandBuild)){

@@ -32,3 +32,5 @@ commands:
     usage: /vtrades
   fly:
     usage: /fly
+  checkblock:
+    usage: /checkblock

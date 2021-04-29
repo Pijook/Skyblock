@@ -16,6 +16,8 @@ previousPage:
     material: RED_STAINED_GLASS_PANE
     amount: 1
     name: "&c&lPoprzednia strona"
+changedIcons:
+  PIG: PIG_SPAWN_EGG
 filledSlots:
   - 0
   - 1
