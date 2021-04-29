@@ -52,8 +52,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String s, String[] args) {
         if ( !(cs.hasPermission("TcSB.basic"))){
-            cs.sendMessage(ChatUtils.fixColor("&cBrak uprawnien"
-                    .replace("%prefix%", "TcSB")));
+            ChatUtils.sendMessage(cs, "&cBrak uprawnien");
             return true;
         }
         if (args.length != 0) {
@@ -61,8 +60,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 if (command.aliases.contains(args[0]) && command.enabled) {
                     if (command.player && !(cs instanceof Player)) {
                         // Must be a player
-                        cs.sendMessage(ChatUtils.fixColor("%prefix% Musisz byc graczem"
-                                .replace("%prefix%", "TcSB")));
+                        ChatUtils.sendMessage(cs, "&cMusisz byc graczem");
                         return true;
                     }
                     if ((cs.hasPermission(command.permission) || command.permission
@@ -71,19 +69,18 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                         command.execute(cs, args);
                     } else {
                         // No permission
-                        cs.sendMessage(ChatUtils.fixColor("%prefix% Brak uprawnien"
-                                .replace("%prefix%", "TcSB")));
+                        ChatUtils.sendMessage(cs, "&cBrak uprawnien");
                     }
                     return true;
                 }
             }
-            Debug.log("&aSprawdzilem wszystkie komendy");
         }
         else {
-            cs.sendMessage(ChatUtils.fixColor("%prefix% Podaj argument"
-                    .replace("%prefix%", "TcS")));
+            ChatUtils.sendMessage(cs, "&cPodaj argument");
             return true;
         }
+
+        ChatUtils.sendMessage(cs, "&cBledna komenda. Wpisz &6/is help &cby poznac wszystkie komendy");
         return true;
     }
 

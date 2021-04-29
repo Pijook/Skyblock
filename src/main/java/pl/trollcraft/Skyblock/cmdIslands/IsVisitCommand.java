@@ -81,7 +81,7 @@ public class IsVisitCommand extends Command {
 
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
-        sender.sendMessage(ChatUtils.fixColor("&cKomenda chwilowo niedostepna."));
+        ChatUtils.sendMessage(sender, "&cNadal pracujemy nad ta komenda");
 //        if( islandsController.getIslandByOwnerOrMember(args[] != null ) {
 //            Location islandHome = islandsController.getIslandByOwnerOrMember(player[0].getName()).getHome();
 //            player[0].teleport(islandHome);

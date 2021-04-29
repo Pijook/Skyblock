@@ -50,10 +50,15 @@ public class IsDeleteCommand extends Command {
 
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
+        ChatUtils.sendMessage(sender, "&cNadal pracujemy nad ta komenda");
+        /*
+
         String owner = island.getOwner();
         BungeeSupport.sendDeleteIslandCommand( islandsController.getIslandIdByOwnerOrMember( owner ), Bukkit.getPlayer(owner));
         DeleteIsland.deleteIs( islandsController.getIslandByOwnerOrMember( owner) );
         ChatUtils.sendMessage((Player) sender, ChatUtils.fixColor("&aUsunieto wyspe gracza " + owner));
+
+         */
     }
 
     @Override

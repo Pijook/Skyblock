@@ -67,6 +67,8 @@ public class IsLeaveCommand extends Command{
         skyblockMember.setOnIsland(false);
         skyblockMember.setIslandID(null);
 
+        ChatUtils.sendMessage(player, "&aNie jestes juz dluzej czlonkiem wyspy gracza " + island.getOwner() );
+
         Player owner = Bukkit.getPlayer(island.getOwner());
         if( owner != null && owner.isOnline() ){
             ChatUtils.sendMessage(owner, "&aGracz " + player.getName() + " odszedl z Twojej wyspy" );

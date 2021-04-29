@@ -3,60 +3,53 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
-import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
 import java.util.Collections;
 import java.util.List;
 
-public class IsCreateCommand extends Command {
+public class IsSethomeCommand extends Command{
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
-    public IsCreateCommand() {
-        super(Collections.singletonList("create"), "Stworz wyspe", "TcSb.basic", true);
+    public IsSethomeCommand() {
+        super(Collections.singletonList("sethome"), "Ustaw spawn wyspy", "TcSb.basic", true);
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if( sender instanceof Player) {
-            Player player = (Player) sender;
+
+        if( !(sender instanceof Player) ){
+            sender.sendMessage(ChatUtils.fixColor("&cKomenda tylko dla graczy"));
+        }
+        Player player = (Player) sender;
+        SkyblockPlayer skyblockOwner = skyblockPlayerController.getPlayer(player.getName());
+        Island island = islandsController.getIslandById(skyblockOwner.getIslandOrCoop());
+        if( skyblockOwner.hasIsland() ) {
             if (islandsController.isPlayerOwner(player.getName())) {
-                ChatUtils.sendMessage(player, "&cPosiadasz juz wyspe!");
-            } else {
-                if(!islandsController.isGeneratorOnCooldown()){
-                    ChatUtils.sendMessage(player, "&aTworze wyspe...");
-                    //CreateIsland.createNew(player);
-                    islandsController.setGeneratorOnCooldown();
-                    BungeeSupport.sendGenerateIslandCommand(player);
+                if (skyblockOwner.isOnIsland()) {
+                    island.setHome(player.getLocation());
+                    ChatUtils.sendMessage(player, "&aUstawiono nowy punkt domowy wyspy");
                 }
                 else {
-                    ChatUtils.sendMessage(player, "&cSprobuj ponownie za pare sekund...");
+                    ChatUtils.sendMessage(player, "&cPunkt domowy wyspy musi znajdować się na wyspie");
                 }
-
+                ChatUtils.sendMessage(player, "&cMusisz być właścicielem wyspy by ustawic punkt domowy");
             }
         }
-        else{
-            sender.sendMessage(ChatUtils.fixColor("&cKomenda tylko dla graczy"));
+        else {
+            ChatUtils.sendMessage(player, "&cNie posiadasz wyspy");
         }
     }
 
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
         ChatUtils.sendMessage(sender, "&cNadal pracujemy nad ta komenda");
-        /*
-        if( player.length > 0 ){
-            execute(player[0], args);
-            ChatUtils.sendMessage((Player) sender, "&aStworzono wyspe jako " + player[0]);
-        }
-        else {
-            ChatUtils.sendMessage((Player) sender, "&cBlad. Nie znaleziono gracza");
-        }
-         */
     }
 
     @Override

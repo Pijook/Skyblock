@@ -41,6 +41,8 @@ public class IsHomeCommand extends Command {
 
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
+        ChatUtils.sendMessage(sender, "&cNadal pracujemy nad ta komenda");
+        /*
         if( islandsController.getIslandByOwnerOrMember(player[0].getName()) != null ) {
             Location islandHome = islandsController.getIslandByOwnerOrMember(player[0].getName()).getHome();
             player[0].teleport(islandHome);
@@ -51,6 +53,8 @@ public class IsHomeCommand extends Command {
         else{
             sender.sendMessage(ChatUtils.fixColor("&c" + player[0].getName() + " nie posiada wyspy"));
         }
+
+         */
     }
 
     @Override

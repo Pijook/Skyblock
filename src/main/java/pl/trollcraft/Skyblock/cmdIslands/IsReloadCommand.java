@@ -30,7 +30,8 @@ public class IsReloadCommand extends Command {
 
     @Override
     public void admin(CommandSender sender, String[] args, Island island, Player... player) {
-        execute(sender, args);
+        ChatUtils.sendMessage(sender, "&cNadal pracujemy nad ta komenda");
+//        execute(sender, args);
     }
 
     @Override
