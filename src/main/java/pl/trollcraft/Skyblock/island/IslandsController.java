@@ -272,6 +272,11 @@ public class IslandsController {
     }
 
     public boolean isLocationOnIsland(Location location, UUID islandID){
+
+        if(islandID == null){
+            return false;
+        }
+
         Island island = getIslandById(islandID);
 
         double[] dim = new double[2];

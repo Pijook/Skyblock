@@ -37,14 +37,11 @@ public class BlockPlaceListener implements Listener {
                 return;
             }
         }
-
-
-        if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())) {
+        else if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())) {
             if (!player.hasPermission(PermissionStorage.islandBuild)) {
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
-
             }
         }
         else{
