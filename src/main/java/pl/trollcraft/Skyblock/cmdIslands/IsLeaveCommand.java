@@ -32,16 +32,27 @@ public class IsLeaveCommand extends Command{
         Player player = (Player) sender;
         SkyblockPlayer skyblockMember = skyblockPlayerController.getPlayer(player.getName());
 
-        if (islandsController.isPlayerOwner(player.getName())) {
+        /*if (islandsController.isPlayerOwner(player.getName())) {
             ChatUtils.sendMessage(player, "&cNie mozesz odejsc ze swojej wyspy!");
             return;
         }
         if(!islandsController.isPlayerOnHisIsland(player)){
             ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
             return;
+        }*/
+
+        if(!islandsController.isPlayerOnHisIsland(player)){
+            ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
+            return;
         }
 
         Island island = islandsController.getIslandById(skyblockMember.getIslandOrCoop());
+
+        if(island.getOwner().equalsIgnoreCase(player.getName())){
+            ChatUtils.sendMessage(player, "&cNie mozesz odejsc ze swojej wyspy!");
+            return;
+        }
+
         island.removeMember(player.getName());
         skyblockMember.setOnIsland(false);
         skyblockMember.setIslandID(null);

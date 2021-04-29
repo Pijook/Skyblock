@@ -70,7 +70,11 @@ public class LimitController {
             islandLimiter.put(type, new Limiter(configuration.getInt("islands." + ID + "." + type + ".level"), configuration.getInt("islands." + ID + "." + type + ".amount")));
         }
 
-        loadedLimiters.put(islandID, new IslandLimiter(islandLimiter));
+        IslandLimiter finalIslandLimiter = new IslandLimiter(islandLimiter);
+
+        finalIslandLimiter = verifyLimiter(finalIslandLimiter);
+
+        loadedLimiters.put(islandID, finalIslandLimiter);
     }
 
     public void saveLimiter(UUID islandID){
@@ -188,6 +192,26 @@ public class LimitController {
         }
         Debug.log("[Cost] Cannot find level");
         return null;
+    }
+
+    public IslandLimiter verifyLimiter(IslandLimiter islandLimiter){
+        ArrayList<String> toRemove = new ArrayList<>();
+        for(String type : islandLimiter.getIslandLimiters().keySet()){
+            if(!defaultLimits.containsKey(type)){
+                toRemove.add(type);
+            }
+        }
+        for(String type : toRemove){
+            islandLimiter.getIslandLimiters().remove(type);
+        }
+
+        for(String defaultType : defaultLimits.keySet()){
+            if(!islandLimiter.getIslandLimiters().containsKey(defaultType)){
+                islandLimiter.getIslandLimiters().put(defaultType, new Limiter(1, 0));
+            }
+        }
+
+        return islandLimiter;
     }
 
 
