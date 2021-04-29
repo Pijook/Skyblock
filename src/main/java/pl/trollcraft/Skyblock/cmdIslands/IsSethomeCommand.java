@@ -39,6 +39,8 @@ public class IsSethomeCommand extends Command{
                 else {
                     ChatUtils.sendMessage(player, "&cPunkt domowy wyspy musi znajdować się na wyspie");
                 }
+            }
+            else{
                 ChatUtils.sendMessage(player, "&cMusisz być właścicielem wyspy by ustawic punkt domowy");
             }
         }
