@@ -105,15 +105,18 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RespawnListener(), this);
         getServer().getPluginManager().registerEvents(new InteractListener(), this);
         getServer().getPluginManager().registerEvents(new EntityDamageListener(), this);
-        getServer().getPluginManager().registerEvents(new IslandSaveListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(), this);
         getServer().getPluginManager().registerEvents(new VillagerChangeClassListener(), this);
         getServer().getPluginManager().registerEvents(new IslandSecurityListener(), this);
+        getServer().getPluginManager().registerEvents(new BreedListener(), this);
+        getServer().getPluginManager().registerEvents(new EntitySpawnListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
         getServer().getPluginManager().registerEvents(new IslandLoadListener(), this);
         getServer().getPluginManager().registerEvents(new IslandSaveListener(), this);
         getServer().getPluginManager().registerEvents(new RemoveIslandFromMemoryListener(), this);
+        getServer().getPluginManager().registerEvents(new IslandSaveListener(), this);
         //BungeeEvents
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeListener());
