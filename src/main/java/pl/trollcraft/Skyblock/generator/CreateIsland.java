@@ -267,6 +267,7 @@ public class CreateIsland {
 
         if(test == null || !test.isOnline()){
             Debug.sendError("&cGRACZ JEST OFFLINE");
+            return;
         }
 
         skyblockPlayerController.getPlayer(owner).setIslandID(islandID);

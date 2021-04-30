@@ -66,6 +66,7 @@ public class JoinListener implements Listener {
             public void run() {
                 RedisSupport.loadPlayer(player);
                 workerController.loadPlayer(player);
+                Skyblock.getKitManager().getFromGlobal(player);
             }
         }, 1L);
     }

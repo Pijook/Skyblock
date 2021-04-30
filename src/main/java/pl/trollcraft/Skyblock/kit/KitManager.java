@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 
@@ -27,26 +28,94 @@ public class KitManager {
 
             HashMap<Integer, Kit> kitSet = new HashMap<>();
 
-            for(String kitLevel : configuration.getConfigurationSection("kits." + kitName).getKeys(false)){
+            for(String kitLevel : configuration.getConfigurationSection("kits." + kitName + ".levels").getKeys(false)){
 
                 ArrayList<ItemStack> items = new ArrayList<>();
 
-                for(String itemName : configuration.getConfigurationSection("kits." + kitName + "." + kitLevel + ".items").getKeys(false)){
+                for(String itemName : configuration.getConfigurationSection("kits." + kitName + ".levels." + kitLevel + ".items").getKeys(false)){
 
-                    items.add(ConfigUtils.getItemstack(configuration,"kits." + kitName + "." + kitLevel + ".items." + itemName));
+                    items.add(ConfigUtils.getItemstack(configuration,"kits." + kitName + ".levels." + kitLevel + ".items." + itemName));
 
                 }
 
                 kitSet.put(Integer.parseInt(kitLevel), new Kit(items));
             }
 
-            availableKits.put(kitName, new KitSet(kitSet, configuration.getLong("kits.")));
+            availableKits.put(kitName, new KitSet(kitSet, configuration.getLong("kits." + kitName + ".cooldown")));
 
         }
     }
 
 
     public void giveKit(Player player, String kitName){
+
+        if(!availableKits.containsKey(kitName)){
+            ChatUtils.sendMessage(player, "&cNie znaleziono takiego zestawu!");
+            return;
+        }
+
+        if(playerCooldowns.containsKey(player.getName())){
+            Debug.log("Player cooldowns contains player!");
+            if(playerCooldowns.get(player.getName()).containsKey(kitName)){
+                Debug.log("Player cooldowns contains player in specified kit!");
+                long currentCooldown = playerCooldowns.get(player.getName()).get(kitName);
+
+                Debug.log("Player cooldown: " + currentCooldown);
+
+                long difference = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - currentCooldown);
+
+                Debug.log("DIfference: " + difference);
+                Debug.log("Kit cooldown: " + availableKits.get(kitName).getCooldown());
+
+                if(difference < availableKits.get(kitName).getCooldown()){
+                    Debug.log("Player cannot get kit!");
+                    ChatUtils.sendMessage(player, "&cMozesz odebrac ten zestaw za " + (availableKits.get(kitName).getCooldown() - difference) + " sekund!");
+                    return;
+                }
+
+            }
+        }
+
+        Debug.log("Player got a kit!");
+        KitSet kit = availableKits.get(kitName);
+        kit.getKit((int) Skyblock.getWorkerController().getWorkerByName(player.getName()).getAverageLevel()).giveItems(player);
+        ChatUtils.sendMessage(player, "&aOtrzymano zestaw " + kitName + "!");
+
+        saveTime(player, kitName);
+    }
+
+    public void saveTime(Player player, String kitName){
+        if(!playerCooldowns.containsKey(player.getName())){
+            playerCooldowns.put(player.getName(), new HashMap<String, Long>());
+        }
+        playerCooldowns.get(player.getName()).put(kitName, System.currentTimeMillis());
+    }
+
+    public void saveTimeToGlobal(Player player){
+        if(playerCooldowns.containsKey(player.getName())){
+            String kitJedis = Skyblock.getGson().toJson(playerCooldowns.get(player.getName()));
+            String code = RedisSupport.getCode(player.getName());
+            Skyblock.getJedis().hset(code, "kit", kitJedis);
+
+            playerCooldowns.remove(player.getName());
+        }
+    }
+
+    public void getFromGlobal(Player player){
+        String code = RedisSupport.getCode(player.getName());
+        String kitJedis = Skyblock.getJedis().hget(code, "kit");
+
+        if(kitJedis == null){
+            playerCooldowns.put(player.getName(), new HashMap<>());
+        }
+        else{
+            HashMap<String, Long> kitCooldown = Skyblock.getGson().fromJson(kitJedis, HashMap.class);
+            playerCooldowns.put(player.getName(), kitCooldown);
+        }
+
+    }
+
+    /*public void giveKit(Player player, String kitName){
 
         if(!availableKits.containsKey(kitName)){
             ChatUtils.sendMessage(player, "&cNie znaleziono takiego zestawu!");
@@ -61,13 +130,17 @@ public class KitManager {
         }
 
         if(playerCooldowns.get(nickname).containsKey(kitName)){
-            System.out.println(playerCooldowns.get(nickname).get(kitName));
             Long currentCooldown = playerCooldowns.get(nickname).get(kitName);
 
+            Debug.log("Current cooldown:" + currentCooldown);
+
+            //long restTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - currentCooldown);
             long restTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - currentCooldown);
 
-            if(restTime > availableKits.get(kitName).getCooldown()){
+            Debug.log("Rest time: " + restTime);
+            if(restTime < availableKits.get(kitName).getCooldown()){
                 ChatUtils.sendMessage(player, "&cMozesz odebrac ten kit za " + (availableKits.get(kitName).getCooldown() - restTime));
+                Debug.log("Rest time to player: " + (availableKits.get(kitName).getCooldown() - restTime));
                 return;
             }
         }
@@ -89,6 +162,6 @@ public class KitManager {
         HashMap<String, Long> cooldowns = playerCooldowns.get(nickname);
         cooldowns.put(kit, System.currentTimeMillis());
         Skyblock.getJedis().hset(code, "kit", Skyblock.getGson().toJson(cooldowns));
-    }
+    }*/
 
 }

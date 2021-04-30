@@ -55,6 +55,6 @@ public class QuitListener implements Listener {
 
         RedisSupport.savePlayer(player);
         workerController.savePlayer(player);
-        Skyblock.getKitManager().clearMap(player.getName());
+        Skyblock.getKitManager().saveTimeToGlobal(player);
     }
 }

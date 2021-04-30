@@ -128,6 +128,12 @@ public class RedisSupport {
 
             island = islandsController.convertBungeeIslandToIsland(bungeeIsland);
 
+            if(!island.getOwner().equalsIgnoreCase(player.getName()) && !island.getMembers().contains(player.getName())){
+                Debug.log(player.getName() + ": " + skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+                BungeeSupport.sendReloadIslandCommand(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop().toString(), player);
+                return;
+            }
+
             islandsController.addIsland(islandID, island, player);
             Debug.log("Loaded island" + islandID + "!");
             IslandLoadEvent islandLoadEvent = new IslandLoadEvent(islandID, island);
