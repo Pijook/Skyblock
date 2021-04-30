@@ -1,6 +1,7 @@
 package pl.trollcraft.Skyblock.villagercontroller;
 
 import org.bukkit.inventory.ItemStack;
+import pl.trollcraft.Skyblock.essentials.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,13 @@ public class Trade {
         List<ItemStack> finalIngredients = new ArrayList<>();
         for(Element element : ingredients){
             ItemStack itemStack = new ItemStack(element.getItemStack());
-            itemStack.setAmount(random.nextInt(element.getMax() - element.getMin()) + element.getMin());
+            if(element.getMin() == element.getMax()){
+                itemStack.setAmount(element.getMin());
+            }
+            else{
+                itemStack.setAmount(Utils.getRandomNumberInRange(element.getMin(), element.getMax()));
+            }
+
             finalIngredients.add(itemStack);
         }
         return finalIngredients;
@@ -44,7 +51,14 @@ public class Trade {
 
     public ItemStack constructResult(Random random){
         ItemStack resultItem = result.getItemStack();
-        resultItem.setAmount(random.nextInt(result.getMax() - result.getMin()) + result.getMin());
+        //resultItem.setAmount(random.nextInt(result.getMax() - result.getMin()) + result.getMin());
+        if(result.getMin() == result.getMax()){
+            resultItem.setAmount(result.getMin());
+        }
+        else{
+            resultItem.setAmount(Utils.getRandomNumberInRange(result.getMin(), result.getMax()));
+        }
+
         return resultItem;
     }
 }

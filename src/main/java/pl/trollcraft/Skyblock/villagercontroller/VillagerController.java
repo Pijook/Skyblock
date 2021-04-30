@@ -38,11 +38,13 @@ public class VillagerController {
 
                 ArrayList<Trade> trades = new ArrayList<>();
 
+
                 for(String tradeName : configuration.getConfigurationSection("trades." + professionName + "." + tradeLevel).getKeys(false)){
 
                     List<Element> ingredients = new ArrayList<>();
 
                     for(String ingredientName : configuration.getConfigurationSection("trades." + professionName + "." + tradeLevel + "." + tradeName + ".ingredients").getKeys(false)){
+                        Debug.log("Loading trade: trades." + professionName + "." + tradeLevel + "." + tradeName);
                         ingredients.add(buildElement(configuration, "trades." + professionName + "." + tradeLevel + "." + tradeName + ".ingredients" + "." + ingredientName));
                     }
 

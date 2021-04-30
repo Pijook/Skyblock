@@ -158,8 +158,8 @@ public class WorkerController {
 
                 ChatUtils.sendSyncMessage(player, "&aLoaded work!");
 
-                //Debug.log("Worker " + player.getName());
-                //getWorkerByName(player.getName()).debugWorker();
+                Debug.log("Worker " + player.getName());
+                debugWorker(player.getName());
 
             }
         }.runTaskLaterAsynchronously(Skyblock.getInstance(), 3L);
@@ -176,7 +176,7 @@ public class WorkerController {
         code = code.replace("%player%", nickname);
 
         String workerJSON = RedisSupport.workerToString(getWorkerByName(nickname));
-
+        debugWorker(player.getName());
         Skyblock.getJedis().hset(code, "worker", workerJSON);
 
         removeWorker(nickname);
