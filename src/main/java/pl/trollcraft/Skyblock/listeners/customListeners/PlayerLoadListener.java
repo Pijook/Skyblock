@@ -31,14 +31,14 @@ public class PlayerLoadListener implements Listener {
         Player player = event.getPlayer();
         Debug.log("[Custom event]&aLoaded player " + player.getName());
 
-        if(Settings.spawnOnJoin){
+        /*if(Settings.spawnOnJoin){
             Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                 @Override
                 public void run() {
                     player.teleport(Storage.spawn);
                 }
             });
-        }
+        }*/
 
         if(toGenerate.contains(player.getName())){
             Debug.log("&aFound player in queue!");

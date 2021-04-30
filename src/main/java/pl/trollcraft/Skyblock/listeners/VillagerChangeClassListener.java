@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import pl.trollcraft.Skyblock.Skyblock;
-import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.villagercontroller.VillagerController;
 
 public class VillagerChangeClassListener implements Listener {
@@ -14,8 +13,6 @@ public class VillagerChangeClassListener implements Listener {
 
     @EventHandler
     public void onChange(VillagerCareerChangeEvent event){
-        Debug.log("1: " + event.getEntity().getProfession().name());
-        Debug.log("2: " + event.getProfession().name());
 
         if(event.getEntity().getProfession().equals(Villager.Profession.NONE)){
             Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
