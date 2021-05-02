@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -31,10 +32,11 @@ public class IsSethomeCommand extends Command{
         SkyblockPlayer skyblockOwner = skyblockPlayerController.getPlayer(player.getName());
         Island island = islandsController.getIslandById(skyblockOwner.getIslandOrCoop());
         if( skyblockOwner.hasIsland() ) {
-            if (islandsController.isPlayerOwner(player.getName())) {
+            if (island.getOwner().equalsIgnoreCase(player.getName())){
                 if (skyblockOwner.isOnIsland()) {
                     island.setHome(player.getLocation());
                     ChatUtils.sendMessage(player, "&aUstawiono nowy punkt domowy wyspy");
+                    BungeeSupport.sendSyncHomeCommand(skyblockOwner.getIslandOrCoop(), player);
                 }
                 else {
                     ChatUtils.sendMessage(player, "&cPunkt domowy wyspy musi znajdować się na wyspie");

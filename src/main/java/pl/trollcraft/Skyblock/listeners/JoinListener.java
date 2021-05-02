@@ -43,6 +43,11 @@ public class JoinListener implements Listener {
     }*/
 
     @EventHandler
+    public void onJoin(PlayerJoinEvent event){
+        event.setJoinMessage("");
+    }
+
+    @EventHandler
     public void onAppear(ISRProcessedEvent event){
         Player player = event.getPlayer();
 

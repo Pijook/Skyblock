@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.bungeeSupport;
 
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -10,6 +11,7 @@ import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
+import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
 
 import java.io.ByteArrayOutputStream;
@@ -83,6 +85,19 @@ public class BungeeSupport {
                 ChatUtils.sendMessage(Bukkit.getPlayer(memberNickname), "&cZostales usuniety z wyspy");
             }
         }
+        if(commands.length == 3){
+            if(commands[0].equalsIgnoreCase("syncHome")){
+                UUID islandID = UUID.fromString(commands[1]);
+
+                if(!Skyblock.getIslandsController().isIslandLoaded(islandID)){
+                    return;
+                }
+
+                Island island = Skyblock.getIslandsController().getIslandById(islandID);
+
+                island.setHome(locationPartToLocation(commands[2]));
+            }
+        }
     }
 
     /**
@@ -125,5 +140,18 @@ public class BungeeSupport {
         Debug.log("Sending command to reload player");
         String command = "reloadPlayer:" + player.getName();
         sendMessage(command, player);
+    }
+
+    public static void sendSyncHomeCommand(UUID islandID, Player player){
+        Location home = Skyblock.getIslandsController().getIslandById(islandID).getHome();
+        Debug.log("Sending sync homes command");
+        String locationPart = home.getWorld().getName() + ";" + home.getX() + ";" + home.getY() + ";" + home.getZ();
+        String command = "syncHome:" + islandID + ":" + locationPart;
+        sendMessage(command, player);
+    }
+
+    private static Location locationPartToLocation(String locationPart){
+        String[] parts = locationPart.split(";");
+        return new Location(Bukkit.getWorld(parts[0]), Double.parseDouble(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]));
     }
 }

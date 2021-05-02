@@ -30,7 +30,15 @@ public class IsAddCommand extends Command {
         Player player = (Player) sender;
 
         if( args.length > 1 ) {
-            if (islandsController.isPlayerOwner(player.getName())) { //If player is owner of island
+
+            Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+
+            if(island == null){
+                ChatUtils.sendMessage(player, "&cNie posiadasz wyspy!");
+                return;
+            }
+
+            if (island.getOwner().equalsIgnoreCase(player.getName())) { //If player is owner of island
                 String memberNickname = args[1];
 
                 Player member = Bukkit.getPlayer(memberNickname);

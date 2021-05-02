@@ -35,7 +35,15 @@ public class IsRemoveCommand extends Command {
 
 
         if( args.length > 1 ) {
-            if (islandsController.isPlayerOwner(player.getName())) { //If player is owner of island
+
+            Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+
+            if(island == null){
+                ChatUtils.sendMessage(player, "&cNie posiadasz wyspy!");
+                return;
+            }
+
+            if (island.getOwner().equalsIgnoreCase(player.getName())) { //If player is owner of island
 
                 if(!islandsController.isPlayerOnHisIsland(player)){
                     ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
@@ -44,7 +52,10 @@ public class IsRemoveCommand extends Command {
 
                 String memberNickname = args[1];
 
-                Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+                if(memberNickname.equalsIgnoreCase(player.getName())){
+                    ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                    return;
+                }
 
                 if(island.getMembers() == null){
                     ChatUtils.sendMessage(player, "&cGracz" + memberNickname + " nie nalezy do twojej wyspy!");

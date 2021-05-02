@@ -1,5 +1,8 @@
 package pl.trollcraft.Skyblock;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -29,6 +32,10 @@ public class Settings {
         Debug.log("Ustawiam na " + ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable"));
         Storage.dropEnable = ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable");
 
+
+        for(World world : Bukkit.getWorlds()){
+            world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        }
 
     }
 }

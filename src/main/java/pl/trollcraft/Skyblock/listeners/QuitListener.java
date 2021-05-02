@@ -27,6 +27,8 @@ public class QuitListener implements Listener {
 
         Player player = event.getPlayer();
 
+        event.setQuitMessage("");
+
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
         if(skyblockPlayerController.isCurrentlyChecked(player)){

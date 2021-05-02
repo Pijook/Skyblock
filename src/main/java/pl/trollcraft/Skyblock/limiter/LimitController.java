@@ -126,6 +126,12 @@ public class LimitController {
         }
     }
 
+    public void increaeLevel(String type, UUID islandID){
+        if(loadedLimiters.containsKey(islandID)){
+            loadedLimiters.get(islandID).increaseLevel(type, 1);
+        }
+    }
+
     public void createNewLimiter(UUID islandID){
         HashMap<String, Limiter> limiters = new HashMap<>();
         IslandLimiter islandLimiter = new IslandLimiter(limiters);
@@ -177,7 +183,8 @@ public class LimitController {
 
     public void upgradeLimiter(UUID islandID, String type, Player player){
 
-        increaseType(type, islandID);
+        //increaseType(type, islandID);
+        increaeLevel(type, islandID);
         double amount = upgradesCosts.get(type).get(loadedLimiters.get(islandID).getLimiter(type).getLevel()).getMoney();
         Skyblock.getEconomy().depositPlayer(player, amount);
     }
@@ -212,6 +219,12 @@ public class LimitController {
         }
 
         return islandLimiter;
+    }
+
+    public void removeLimiter(UUID islandID){
+        if(loadedLimiters.containsKey(islandID)){
+            loadedLimiters.remove(islandID);
+        }
     }
 
 

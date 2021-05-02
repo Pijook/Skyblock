@@ -83,7 +83,11 @@ public class DeleteIsland {
         }
 
         for(Player player : Bukkit.getOnlinePlayers()){
-            if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
+            /*if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
+                player.teleport(Storage.spawn);
+                player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
+            }*/
+            if(islandsController.isPlayerOnIsland(player, island)){
                 player.teleport(Storage.spawn);
                 player.sendMessage(ChatUtils.fixColor("&aTeleportowano na spawna"));
             }
@@ -146,6 +150,7 @@ public class DeleteIsland {
 
 
         islandsController.getIslands().remove( islandsController.getIslandIdByOwnerOrMember(owner) );
+
 
     }
 
