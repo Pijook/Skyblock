@@ -117,6 +117,7 @@ public class BlockBreakListener implements Listener {
             }
         }
 
+        Skyblock.getPointsController().removePoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
 
     }
 }

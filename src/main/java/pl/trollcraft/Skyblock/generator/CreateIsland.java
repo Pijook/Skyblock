@@ -293,7 +293,7 @@ public class CreateIsland {
         point2.getBlock().setType(Material.RED_WOOL);
 
 
-        islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName), Bukkit.getPlayer(owner));
+        islandsController.addIsland(islandID, new Island(owner, members, islandCenter, islandCenter, level, point1, point2, Storage.serverName, 0), Bukkit.getPlayer(owner));
         Skyblock.getLimitController().createNewLimiter(islandID);
     }
 

@@ -27,6 +27,7 @@ import pl.trollcraft.Skyblock.gui.upgradesGui.IslandSizeGui;
 import pl.trollcraft.Skyblock.gui.upgradesGui.LimitsGui;
 import pl.trollcraft.Skyblock.gui.upgradesGui.UpgradesGui;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.island.PointsController;
 import pl.trollcraft.Skyblock.kit.KitManager;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.listeners.*;
@@ -54,6 +55,7 @@ public class Skyblock extends JavaPlugin {
     private static ButtonController buttonController;
     private static KitManager kitManager;
     private static VillagerController villagerController;
+    private static PointsController pointsController;
 
     //Commands
     private Commands commands;
@@ -93,6 +95,7 @@ public class Skyblock extends JavaPlugin {
         buttonController = new ButtonController();
         kitManager = new KitManager();
         villagerController = new VillagerController();
+        pointsController = new PointsController();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -203,6 +206,10 @@ public class Skyblock extends JavaPlugin {
 
         Debug.log("&aLoading villager trades...");
         villagerController.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading block values...");
+        pointsController.load();
         Debug.log("&aDone!");
 
         Debug.log("&aFinished loading " + getDescription().getName() + " " + getDescription().getVersion() + "!");
@@ -337,6 +344,10 @@ public class Skyblock extends JavaPlugin {
 
     public static VillagerController getVillagerController() {
         return villagerController;
+    }
+
+    public static PointsController getPointsController(){
+        return pointsController;
     }
 
 }

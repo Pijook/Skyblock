@@ -70,6 +70,7 @@ public class BlockPlaceListener implements Listener {
                 if(limitController.isAboveLimit(type, skyblockPlayer.getIslandOrCoop())){
                     ChatUtils.sendMessage(player, "&cOsiagnales limit blokow tego typu!");
                     event.setCancelled(true);
+                    return;
                 }
                 else{
                     limitController.increaseType(type, skyblockPlayer.getIslandOrCoop());
@@ -79,6 +80,8 @@ public class BlockPlaceListener implements Listener {
 
 
         }
+
+        Skyblock.getPointsController().addPoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
 
         /*
         //Uncomment when limits will work

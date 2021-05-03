@@ -13,8 +13,9 @@ public class BungeeIsland {
     private Location point1;
     private Location point2;
     private String server;
+    private int points;
 
-    public BungeeIsland(String owner, List<String> members, Location center, Location spawn, int islandLevel, Location point1, Location point2, String server){
+    public BungeeIsland(String owner, List<String> members, Location center, Location spawn, int islandLevel, Location point1, Location point2, String server, int points){
         this.owner = owner;
         this.members = members;
         this.center = center;
@@ -23,6 +24,7 @@ public class BungeeIsland {
         this.point1 = point1;
         this.point2 = point2;
         this.server = server;
+        this.points = points;
     }
 
     public String getOwner() {
@@ -87,5 +89,13 @@ public class BungeeIsland {
 
     public void setServer(String server) {
         this.server = server;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

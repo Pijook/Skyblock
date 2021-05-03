@@ -428,7 +428,8 @@ public class IslandsController {
                 island.getIslandLevel(),
                 new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point1.getWorld().getName(),point1.getX(), point1.getY(), point1.getZ()),
                 new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point2.getWorld().getName(),point2.getX(), point2.getY(), point2.getZ()),
-                island.getServer()
+                island.getServer(),
+                island.getPoints()
         );
 
         bungeeIsland.setPoint1(new pl.trollcraft.Skyblock.island.bungeeIsland.Location(point1.getWorld().getName(),point1.getX(), point1.getY(), point1.getZ()));
@@ -464,7 +465,8 @@ public class IslandsController {
                         point2.getX(),
                         point2.getY(),
                         point2.getZ()),
-                bungeeIsland.getServer()
+                bungeeIsland.getServer(),
+                bungeeIsland.getPoints()
         );
 
         return island;

@@ -14,8 +14,9 @@ public class Island {
     private Location point1;
     private Location point2;
     private String server;
+    private int points;
 
-    public Island(String owner, List<String> members, Location center, Location spawn, int islandLevel, Location point1, Location point2, String server){
+    public Island(String owner, List<String> members, Location center, Location spawn, int islandLevel, Location point1, Location point2, String server, int points){
         this.owner = owner;
         this.members = members;
         this.center = center;
@@ -24,6 +25,7 @@ public class Island {
         this.point1 = point1;
         this.point2 = point2;
         this.server = server;
+        this.points = points;
     }
 
     public String getOwner() {
@@ -100,5 +102,13 @@ public class Island {
 
     public void upgradeIsland(){
         this.islandLevel++;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

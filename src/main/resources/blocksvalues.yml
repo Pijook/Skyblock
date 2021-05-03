@@ -1,0 +1,5 @@
+blocks:
+  STONE: 5
+  COBBLESTONE: 1
+  DIRT: 10
+  GLOWSTONE: 20
