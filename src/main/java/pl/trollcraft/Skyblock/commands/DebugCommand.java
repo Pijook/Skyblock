@@ -53,6 +53,7 @@ public class DebugCommand implements CommandExecutor {
                 ChatUtils.sendMessage(player, "&f&lOwner: " + island.getOwner());
                 ChatUtils.sendMessage(player, "&f&lMembers: " + island.getMembers().toString());
                 ChatUtils.sendMessage(player, "&f&lIsland level: " + island.getIslandLevel());
+                ChatUtils.sendMessage(player, "&f&lPoints: " + island.getPoints());
                 ChatUtils.sendMessage(player, "&f&lSpawn");
                 ChatUtils.sendMessage(player, "X:" + island.getHome().getX());
                 ChatUtils.sendMessage(player, "Y:" + island.getHome().getY());
