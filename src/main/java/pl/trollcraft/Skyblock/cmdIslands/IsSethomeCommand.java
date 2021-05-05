@@ -37,6 +37,7 @@ public class IsSethomeCommand extends Command{
                     island.setHome(player.getLocation());
                     ChatUtils.sendMessage(player, "&aUstawiono nowy punkt domowy wyspy");
                     BungeeSupport.sendSyncHomeCommand(skyblockOwner.getIslandOrCoop(), player);
+                    BungeeSupport.sendIslancSyncCommand(skyblockOwner.getIslandOrCoop().toString(), player);
                 }
                 else {
                     ChatUtils.sendMessage(player, "&cPunkt domowy wyspy musi znajdować się na wyspie");

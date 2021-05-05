@@ -64,7 +64,7 @@ public class MainGui {
 
         GuiItem tutorialItem = ItemBuilder.from(tutorialButton.getIcon()).asGuiItem(event -> {
             //Teleport on tutorial
-            event.getWhoClicked().teleport(new Location(Bukkit.getWorld("Islands"), 0, 80, 0));
+            event.getWhoClicked().teleport(Storage.tutorialLocation);
         });
 
         mainGui.setItem(tutorialButton.getSlot(), tutorialItem);

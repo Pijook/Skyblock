@@ -39,7 +39,7 @@ buttons:
     icon:
       material: DISPENSER
       amount: 1
-      name: "&95lCzlonkowie"
+      name: "&5&lCzlonkowie"
   back:
     slot: 49
     icon:

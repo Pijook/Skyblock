@@ -12,6 +12,7 @@ public class Storage {
 
     public static Location spawn;
 
+    public static Location tutorialLocation;
 
     public static int startSize = 70;
     public static int maxSize = 70;

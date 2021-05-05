@@ -23,10 +23,11 @@ public class Settings {
 
 
         Storage.startSize = configuration.getInt("island.startSize");
-        Storage.maxSize = configuration.getInt("island.maxSize");;
-        Storage.distance = configuration.getInt("island.distance");;
-        Storage.height = configuration.getDouble("island.height");;
-        Storage.world = configuration.getString("island.world");;
+        Storage.maxSize = configuration.getInt("island.maxSize");
+        Storage.distance = configuration.getInt("island.distance");
+        Storage.height = configuration.getDouble("island.height");
+        Storage.world = configuration.getString("island.world");
+        Storage.tutorialLocation = ConfigUtils.getLocationFromConfig(configuration, "tutorialLocation");
 
         Debug.log("DropEnable = " + Storage.dropEnable);
         Debug.log("Ustawiam na " + ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable"));
@@ -36,6 +37,8 @@ public class Settings {
         for(World world : Bukkit.getWorlds()){
             world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         }
+
+
 
     }
 }
