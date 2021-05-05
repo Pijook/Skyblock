@@ -46,12 +46,14 @@ public class Worker {
     }
 
     public void increaseBreedAnimals(int amount){
-        jobs.get("farmer").increaseScore(amount);
+        jobs.get("breeder").increaseScore(amount);
     }
 
     public void increaseHuntedAnimals(int amount){
         jobs.get("hunter").increaseScore(amount);
     }
+
+    public void increaseHarvestedCrops(int amount) { jobs.get("farmer").increaseScore(amount); }
 
     //Getters and Setters
 

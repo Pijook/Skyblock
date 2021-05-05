@@ -14,6 +14,10 @@ blocksToMine:
 woodToChop:
   - OAK_LOG
   - SPRUCE_LOG
+cropsToHarvest:
+  - WHEAT
+  - POTATOES
+  - CARROTS
 
 hunter:
   1:

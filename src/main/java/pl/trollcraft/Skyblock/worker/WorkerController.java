@@ -24,6 +24,7 @@ public class WorkerController {
     private ArrayList<Material> blocksToMine = new ArrayList<>();
     private ArrayList<EntityType> entitiesToHunt = new ArrayList<>();
     private ArrayList<Material> woodToChop = new ArrayList<>();
+    private ArrayList<Material> cropsToHarvest = new ArrayList<>();
 
     private HashMap<String, HashMap<Integer, Integer>> worksLevels = new HashMap<>();
 
@@ -59,6 +60,15 @@ public class WorkerController {
             }
         }
 
+        for(String blockName : configuration.getStringList("cropsToHarvest")){
+            if(Utils.isMaterial(blockName)){
+                cropsToHarvest.add(Material.valueOf(blockName));
+            }
+            else{
+                Debug.sendError("&cWrong block name: " + blockName);
+            }
+        }
+
         HashMap<Integer, Integer> hunterLevels = new HashMap<>();
         int score = 0;
         for(String levelString : configuration.getConfigurationSection("hunter").getKeys(false)){
@@ -84,10 +94,17 @@ public class WorkerController {
             farmerLevels.put(Integer.parseInt(levelString), score);
         }
 
+        HashMap<Integer, Integer> breederLevels = new HashMap<>();
+        for(String levelString : configuration.getConfigurationSection("breeder").getKeys(false)){
+            score = configuration.getInt("breeder." + levelString + ".score");
+            breederLevels.put(Integer.parseInt(levelString), score);
+        }
+
         worksLevels.put("hunter", hunterLevels);
         worksLevels.put("miner", minerLevels);
         worksLevels.put("lumberjack", lumberJackLevels);
         worksLevels.put("farmer", farmerLevels);
+        worksLevels.put("breeder", breederLevels);
 
     }
 
@@ -194,11 +211,18 @@ public class WorkerController {
         return blocksToMine.contains(material);
     }
 
+    public boolean isCropsToHarvest(Material material){
+        return cropsToHarvest.contains(material);
+    }
+
     public boolean canLevelUp(String nickname, String job){
         Worker worker = getWorkerByName(nickname);
 
         int currentLevel = worker.getJobLevel(job);
 
+        if(!worksLevels.containsKey(job)){
+            return false;
+        }
         if(!worksLevels.get(job).containsKey(currentLevel + 1)){
             return false;
         }
@@ -216,8 +240,11 @@ public class WorkerController {
         Worker worker = getWorkerByName(player.getName());
         int currentLevel = worker.getJobLevel(job);
 
+        if(!worksLevels.containsKey(job)){
+            return -1;
+        }
         if(!worksLevels.get(job).containsKey(currentLevel + 1)){
-            return 0;
+            return -1;
         }
 
         return worksLevels.get(job).get(currentLevel + 1);
@@ -241,34 +268,38 @@ public class WorkerController {
          */
 
         ArrayList<String> itemLore = new ArrayList<>();
-        int toNextLevel = 60;
+        int toNextLevel;
 
-        toNextLevel = getNextLevelRequirement(player, "miner") - worker.getJobScore("miner");
+        /*toNextLevel = getNextLevelRequirement(player, "miner") - worker.getJobScore("miner");
         itemLore.add("&7Poziom: " + worker.getJobLevel("miner"));
         itemLore.add("&7Wynik: " + worker.getJobScore("miner"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
+        itemLore = buildWorkerGuiLore(player, worker, "miner");
         ItemStack minerIcon = BuildItem.buildItem("&7&lGornik", Material.IRON_PICKAXE, 1, itemLore);
 
-        itemLore = new ArrayList<>();
-        toNextLevel = getNextLevelRequirement(player, "lumberjack") - worker.getJobScore("lumberjack");
+        /*toNextLevel = getNextLevelRequirement(player, "lumberjack") - worker.getJobScore("lumberjack");
         itemLore.add("&7Poziom: " + worker.getJobLevel("lumberjack"));
         itemLore.add("&7Wynik: " + worker.getJobScore("lumberjack"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
+        itemLore = buildWorkerGuiLore(player, worker, "lumberjack");
         ItemStack lumberjackIcon = BuildItem.buildItem("&e&lDrwal", Material.STONE_AXE, 1, itemLore);
 
-        itemLore = new ArrayList<>();
-        toNextLevel = getNextLevelRequirement(player, "farmer") - worker.getJobScore("farmer");
+        /*toNextLevel = getNextLevelRequirement(player, "farmer") - worker.getJobScore("farmer");
         itemLore.add("&7Poziom: " + worker.getJobLevel("farmer"));
         itemLore.add("&7Wynik: " + worker.getJobScore("farmer"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
-        ItemStack farmerIcon = BuildItem.buildItem("&d&lFarmer", Material.PIG_SPAWN_EGG, 1, itemLore);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
+        itemLore = buildWorkerGuiLore(player, worker, "farmer");
+        ItemStack farmerIcon = BuildItem.buildItem("&d&lFarmer", Material.WHEAT, 1, itemLore);
 
-        itemLore = new ArrayList<>();
-        toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
+        /*toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
         itemLore.add("&7Poziom: " + worker.getJobLevel("hunter"));
         itemLore.add("&7Wynik: " + worker.getJobScore("hunter"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
+        itemLore = buildWorkerGuiLore(player, worker, "hunter");
         ItemStack hunterIcon = BuildItem.buildItem("&c&lLowca", Material.BOW, 1, itemLore);
+
+        itemLore = buildWorkerGuiLore(player, worker, "breeder");
+        ItemStack breederIcon = BuildItem.buildItem("&d&lHodowca", Material.PIG_SPAWN_EGG, 1, itemLore);
 
         double averageLevel = worker.getAverageLevel();
         ItemStack averageIcon = BuildItem.buildItem("&6&lSrednia: &7" + averageLevel, Material.NETHER_STAR, 1);
@@ -277,18 +308,35 @@ public class WorkerController {
         GuiItem lumberJack = ItemBuilder.from(lumberjackIcon).asGuiItem();
         GuiItem farmer = ItemBuilder.from(farmerIcon).asGuiItem();
         GuiItem hunter = ItemBuilder.from(hunterIcon).asGuiItem();
+        GuiItem breeder = ItemBuilder.from(breederIcon).asGuiItem();
         GuiItem average = ItemBuilder.from(averageIcon).asGuiItem();
+
 
         GuiItem filler = ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE).asGuiItem();
 
         gui.getFiller().fill(filler);
         gui.setItem(11, miner);
         gui.setItem(12, lumberJack);
-        gui.setItem(13, average);
+        gui.setItem(13, breeder);
         gui.setItem(14, farmer);
         gui.setItem(15, hunter);
+        gui.setItem(4, average);
 
         gui.open(player);
+    }
+
+    private ArrayList<String> buildWorkerGuiLore(Player player, Worker worker, String workName){
+        ArrayList<String> itemLore = new ArrayList<>();
+        itemLore.add("&7Poziom: " + worker.getJobLevel(workName));
+        itemLore.add("&7Wynik: " + worker.getJobScore(workName));
+
+        int toNextLevel;
+        toNextLevel = getNextLevelRequirement(player, workName);
+        if(toNextLevel != -1){
+            toNextLevel =  toNextLevel - worker.getJobScore(workName);
+            itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);
+        }
+        return itemLore;
     }
 
     public void debugWorker(String nickname){

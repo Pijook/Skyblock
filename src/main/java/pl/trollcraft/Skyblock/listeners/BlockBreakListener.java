@@ -116,6 +116,15 @@ public class BlockBreakListener implements Listener {
                 ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
             }
         }
+        if(workerController.isCropsToHarvest(block.getType())){
+            if(block.getData() == 0x7){
+                worker.increaseHarvestedCrops(1);
+                if(workerController.canLevelUp(worker, "farmer")){
+                    workerController.levelUpJob(worker, "farmer");
+                    ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+                }
+            }
+        }
 
         Skyblock.getPointsController().removePoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
 

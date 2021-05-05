@@ -46,8 +46,8 @@ public class BreedListener implements Listener {
         Worker worker = workerController.getWorkerByName(player.getName());
         worker.increaseBreedAnimals(1);
 
-        if(workerController.canLevelUp(worker,  "farmer")){
-            workerController.levelUpJob(worker, "farmer");
+        if(workerController.canLevelUp(worker,  "breeder")){
+            workerController.levelUpJob(worker, "breeder");
             ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
         }
     }
