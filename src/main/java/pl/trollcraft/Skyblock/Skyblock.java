@@ -87,6 +87,13 @@ public class Skyblock extends JavaPlugin {
             return;
         }
 
+        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
+            getLogger().severe("*** HolographicDisplays is not installed or not enabled. ***");
+            getLogger().severe("*** This plugin will be disabled. ***");
+            this.setEnabled(false);
+            return;
+        }
+
         skyblockPlayerController = new SkyblockPlayerController();
         islandsController = new IslandsController();
         limitController = new LimitController();
@@ -211,6 +218,12 @@ public class Skyblock extends JavaPlugin {
         Debug.log("&aLoading block values...");
         pointsController.load();
         Debug.log("&aDone!");
+
+        if(Storage.topShow){
+            Debug.log("&aChecking top...");
+            islandsController.initTopChecking();
+            Debug.log("&aDone!");
+        }
 
         Debug.log("&aFinished loading " + getDescription().getName() + " " + getDescription().getVersion() + "!");
 

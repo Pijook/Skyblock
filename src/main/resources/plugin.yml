@@ -4,6 +4,8 @@ authors:
   - LucyferMS
 version: 1.0.1
 api-version: 1.16
+softdepend:
+  - HolographicDisplays
 depend:
   - FastAsyncWorldEdit
   - Multiverse-Core

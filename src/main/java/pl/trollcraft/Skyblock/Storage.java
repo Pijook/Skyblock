@@ -1,6 +1,9 @@
 package pl.trollcraft.Skyblock;
 
+import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import org.bukkit.Location;
+
+import java.util.HashMap;
 
 public class Storage {
 
@@ -10,9 +13,17 @@ public class Storage {
     public static String redisWorkerCode = "skyblockworker:%player%";
     public static String islandCode = "skyblockisland:%id%";
 
+    //Top
+    public static boolean topShow;
+    public static String topCode = "skyblock:top";
+    public static Hologram topHologram = null;
+    public static Location topLocation;
+
     public static Location spawn;
 
     public static Location tutorialLocation;
+
+    public static HashMap<String, Integer> islandsTop;
 
     public static int startSize = 70;
     public static int maxSize = 70;

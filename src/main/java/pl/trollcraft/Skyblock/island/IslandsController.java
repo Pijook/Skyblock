@@ -1,14 +1,18 @@
 package pl.trollcraft.Skyblock.island;
 
+import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.customEvents.RemoveIslandFromMemoryEvent;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
@@ -532,5 +536,32 @@ public class IslandsController {
             return false;
         }
         return true;
+    }
+
+    public void initTopChecking(){
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Skyblock.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                String topJSON = Skyblock.getJedis().get(Storage.topCode);
+                Storage.islandsTop = Skyblock.getGson().fromJson(topJSON, HashMap.class);
+
+                if (Storage.topHologram == null) {
+                    Storage.topHologram = HologramsAPI.createHologram(Skyblock.getInstance(), Storage.topLocation);
+                }
+
+                Storage.topHologram.clearLines();
+
+                int i = 1;
+                Storage.topHologram.insertTextLine(0, "&e&lTopka Wysp");
+                for(String owner : Storage.islandsTop.keySet()){
+                    String line = "&e&l" + i + ".&e " + owner + "&7: " + Storage.islandsTop.get(owner);
+                    line = ChatUtils.fixColor(line);
+                    Storage.topHologram.insertTextLine(i, line);
+                    i++;
+                }
+
+            }
+        }, 60L, 3600L);
+
     }
 }

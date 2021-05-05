@@ -29,6 +29,11 @@ public class Settings {
         Storage.world = configuration.getString("island.world");
         Storage.tutorialLocation = ConfigUtils.getLocationFromConfig(configuration, "tutorialLocation");
 
+        Storage.topShow = configuration.getBoolean("showTop");
+        if(Storage.topShow){
+            Storage.topLocation = ConfigUtils.getLocationFromConfig(configuration, "topLocation");
+        }
+
         Debug.log("DropEnable = " + Storage.dropEnable);
         Debug.log("Ustawiam na " + ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable"));
         Storage.dropEnable = ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable");

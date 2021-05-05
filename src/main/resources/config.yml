@@ -15,3 +15,9 @@ tutorialLocation:
   y: 80
   z: 0
   world: Islands
+showTop: false
+topLocation:
+  x: 0
+  y: 80
+  z: 0
+  world: Islands
