@@ -4,6 +4,7 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import org.bukkit.Location;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Storage {
 
@@ -23,7 +24,7 @@ public class Storage {
 
     public static Location tutorialLocation;
 
-    public static HashMap<String, Integer> islandsTop;
+    public static LinkedHashMap<String, Integer> islandsTop;
 
     public static int startSize = 70;
     public static int maxSize = 70;

@@ -19,10 +19,7 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.Worker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class IslandsController {
@@ -542,26 +539,30 @@ public class IslandsController {
         Skyblock.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(Skyblock.getInstance(), new Runnable() {
             @Override
             public void run() {
-                String topJSON = Skyblock.getJedis().get(Storage.topCode);
-                Storage.islandsTop = Skyblock.getGson().fromJson(topJSON, HashMap.class);
-
-                if (Storage.topHologram == null) {
-                    Storage.topHologram = HologramsAPI.createHologram(Skyblock.getInstance(), Storage.topLocation);
-                }
-
-                Storage.topHologram.clearLines();
-
-                int i = 1;
-                Storage.topHologram.insertTextLine(0, "&e&lTopka Wysp");
-                for(String owner : Storage.islandsTop.keySet()){
-                    String line = "&e&l" + i + ".&e " + owner + "&7: " + Storage.islandsTop.get(owner);
-                    line = ChatUtils.fixColor(line);
-                    Storage.topHologram.insertTextLine(i, line);
-                    i++;
-                }
+                checkTop();
 
             }
         }, 60L, 3600L);
 
+    }
+
+    public void checkTop(){
+        String topJSON = Skyblock.getJedis().get(Storage.topCode);
+        Storage.islandsTop = Skyblock.getGson().fromJson(topJSON, LinkedHashMap.class);
+
+        if (Storage.topHologram == null) {
+            Storage.topHologram = HologramsAPI.createHologram(Skyblock.getInstance(), Storage.topLocation);
+        }
+
+        Storage.topHologram.clearLines();
+
+        int i = 1;
+        Storage.topHologram.insertTextLine(0, ChatUtils.fixColor("&e&lTopka Wysp"));
+        for(String owner : Storage.islandsTop.keySet()){
+            String line = "&e&l" + i + ".&e " + owner + "&7: " + Storage.islandsTop.get(owner);
+            line = ChatUtils.fixColor(line);
+            Storage.topHologram.insertTextLine(i, line);
+            i++;
+        }
     }
 }

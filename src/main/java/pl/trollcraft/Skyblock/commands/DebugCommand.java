@@ -77,6 +77,12 @@ public class DebugCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("sync")){
                 islandsController.syncIslands();
+                return true;
+            }
+            if(args[0].equalsIgnoreCase("syncTop")){
+                Debug.log("&aChecking top...");
+                islandsController.checkTop();
+                return true;
             }
         }
 
@@ -86,6 +92,7 @@ public class DebugCommand implements CommandExecutor {
         ChatUtils.sendMessage(player, "&7/" + label + " islandjson");
         ChatUtils.sendMessage(player, "&7/" + label + " sync");
         ChatUtils.sendMessage(player, "&7/" + label + " costs");
+        ChatUtils.sendMessage(player, "&7/" + label + " syncTop");
         return true;
     }
 }
