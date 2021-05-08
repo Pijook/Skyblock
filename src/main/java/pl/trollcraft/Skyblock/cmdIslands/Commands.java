@@ -16,4 +16,5 @@ public class Commands {
     public IsUpgradeCommand isUpgradeCommand = new IsUpgradeCommand();
     public IsLeaveCommand isLeaveCommand = new IsLeaveCommand();
     public IsSethomeCommand isSethomeCommand = new IsSethomeCommand();
+    public IsPointsCommand isPointsCommand = new IsPointsCommand();
 }
