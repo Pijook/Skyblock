@@ -52,7 +52,7 @@ public class IslandsController {
         double averageLevel = Skyblock.getWorkerController().getWorkerByName(player.getName()).getAverageLevel();
 
         Cost cost = levelsCosts.get(island.getIslandLevel() + 1);
-        if(averageLevel < cost.getPlayerLevel()){
+        if(averageLevel > cost.getPlayerLevel()){
             return false;
         }
         if(Skyblock.getEconomy().getBalance(player) < cost.getMoney()){

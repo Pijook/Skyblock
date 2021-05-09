@@ -32,8 +32,37 @@ public class BlockPlaceListener implements Listener {
 
         Block block = event.getBlock();
 
+        Debug.log("Placed block: " + block.getType().name());
 
-        if(!skyblockPlayer.hasIslandOrCoop()){
+        boolean hasCoop = skyblockPlayer.hasIslandOrCoop();
+        boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
+
+        if(!hasCoop){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
+
+        if(!isOnHisIsland){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
+
+        if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
+
+
+        /*if(!skyblockPlayer.hasIslandOrCoop()){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
@@ -46,8 +75,7 @@ public class BlockPlaceListener implements Listener {
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
             }
-        }
-        else{
+        }*/
             /*
             if(islandLimiter.isBlockLimited(block.getType())){
 
@@ -60,11 +88,12 @@ public class BlockPlaceListener implements Listener {
                 }
 
             }*/
-            Material material = block.getType();
-            if(material.equals(Material.STICKY_PISTON)){
-                material = Material.PISTON;
-            }
-            String type = material.name();
+        Material material = block.getType();
+        if(material.equals(Material.STICKY_PISTON)){
+            material = Material.PISTON;
+        }
+        String type = material.name();
+        if(isOnHisIsland){
             if(limitController.isTypeLimited(type)){
 
                 if(limitController.isAboveLimit(type, skyblockPlayer.getIslandOrCoop())){
@@ -77,11 +106,11 @@ public class BlockPlaceListener implements Listener {
                 }
 
             }
-
-
+            Skyblock.getPointsController().addPoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
         }
 
-        Skyblock.getPointsController().addPoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
+
+
 
         /*
         //Uncomment when limits will work

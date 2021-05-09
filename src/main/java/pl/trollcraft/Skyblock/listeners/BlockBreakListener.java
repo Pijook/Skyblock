@@ -40,6 +40,22 @@ public class BlockBreakListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
+        if(!skyblockPlayer.hasIslandOrCoop()){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
+
+        if(!islandsController.isPlayerOnHisIsland(player)){
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
+                return;
+            }
+        }
+
         /*
         if(!skyblockPlayer.isOnIsland()){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
@@ -49,7 +65,7 @@ public class BlockBreakListener implements Listener {
             }
         }*/
 
-        if(!skyblockPlayer.hasIslandOrCoop()){
+        /*if(!skyblockPlayer.hasIslandOrCoop()){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
@@ -63,7 +79,7 @@ public class BlockBreakListener implements Listener {
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
             }
-        }
+        }*/
 
         Worker worker = workerController.getWorkerByName(player.getName());
 
