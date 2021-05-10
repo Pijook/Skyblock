@@ -9,9 +9,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -62,8 +64,11 @@ public class IslandSecurityListener implements Listener {
 
         if(!islandsController.isPlayerOnHisIsland(player)){
             if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-                ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
-                event.setCancelled(true);
+                if(!player.hasPermission(PermissionStorage.islandBuild)){
+                    Debug.log("&c[IslandSecurityListener] Denied action");
+                    ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
+                    event.setCancelled(true);
+                }
             }
         }
 

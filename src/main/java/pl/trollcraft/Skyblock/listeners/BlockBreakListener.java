@@ -3,14 +3,15 @@ package pl.trollcraft.Skyblock.listeners;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
+import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
@@ -40,16 +41,21 @@ public class BlockBreakListener implements Listener {
 
         SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
 
-        if(!skyblockPlayer.hasIslandOrCoop()){
+        boolean hasCoop = skyblockPlayer.hasIslandOrCoop();
+        boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
+
+        if(!hasCoop){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
+                Debug.log("&c[BlockBreakListener] Denied action");
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
             }
         }
 
-        if(!islandsController.isPlayerOnHisIsland(player)){
+        if(!isOnHisIsland){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
+                Debug.log("&c[BlockBreakListener] Denied action");
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
@@ -110,37 +116,47 @@ public class BlockBreakListener implements Listener {
             islandLimiter.removeBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
         }*/
 
-        Material material = block.getType();
-        if(material.equals(Material.STICKY_PISTON)){
-            material = Material.PISTON;
-        }
-        if(limitController.isTypeLimited(material.name())){
-            limitController.decreaseType(material.name(), skyblockPlayer.getIslandOrCoop());
-        }
 
-        if(workerController.isBlockToMine(block.getType())){
-            worker.increaseMinedStone(1);
-            if(workerController.canLevelUp(worker,  "miner")){
-                workerController.levelUpJob(worker, "miner");
-                ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+        if(isOnHisIsland){
+            Material material = block.getType();
+
+            if(material.equals(Material.STICKY_PISTON)){
+                material = Material.PISTON;
             }
-        }
-        if(workerController.isWoodToChop(block.getType())){
-            worker.increaseChoppedWood(1);
-            if(workerController.canLevelUp(worker,  "lumberjack")){
-                workerController.levelUpJob(worker, "lumberjack");
-                ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+            if(limitController.isTypeLimited(material.name())){
+                limitController.decreaseType(material.name(), skyblockPlayer.getIslandOrCoop());
             }
-        }
-        if(workerController.isCropsToHarvest(block.getType())){
-            if(block.getData() == 0x7){
-                worker.increaseHarvestedCrops(1);
-                if(workerController.canLevelUp(worker, "farmer")){
-                    workerController.levelUpJob(worker, "farmer");
+
+            Block blockAbove = event.getBlock().getRelative(BlockFace.UP);
+            if(limitController.isCrop(blockAbove.getType().name())){
+                limitController.decreaseType(block.getType().name(), skyblockPlayer.getIslandOrCoop());
+            }
+
+            if(workerController.isBlockToMine(block.getType())){
+                worker.increaseMinedStone(1);
+                if(workerController.canLevelUp(worker,  "miner")){
+                    workerController.levelUpJob(worker, "miner");
                     ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
                 }
             }
+            if(workerController.isWoodToChop(block.getType())){
+                worker.increaseChoppedWood(1);
+                if(workerController.canLevelUp(worker,  "lumberjack")){
+                    workerController.levelUpJob(worker, "lumberjack");
+                    ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+                }
+            }
+            if(workerController.isCropsToHarvest(block.getType())){
+                if(block.getData() == 0x7){
+                    worker.increaseHarvestedCrops(1);
+                    if(workerController.canLevelUp(worker, "farmer")){
+                        workerController.levelUpJob(worker, "farmer");
+                        ChatUtils.sendMessage(player, "&aOsiagnales nowy lvl pracy!");
+                    }
+                }
+            }
         }
+
 
         Skyblock.getPointsController().removePoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
 

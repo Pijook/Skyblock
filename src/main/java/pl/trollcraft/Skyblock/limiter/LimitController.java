@@ -6,6 +6,7 @@ import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.essentials.Utils;
 import pl.trollcraft.Skyblock.worker.Worker;
 
 import java.util.ArrayList;
@@ -17,14 +18,22 @@ public class LimitController {
     private HashMap<UUID, IslandLimiter> loadedLimiters = new HashMap<>();
     private HashMap<String, HashMap<Integer, Limiter>> defaultLimits = new HashMap<>();
     private HashMap<String, HashMap<Integer, Cost>> upgradesCosts = new HashMap<>();
+    private ArrayList<String> crops = new ArrayList<>();
 
     public void loadSettings(){
         YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Skyblock.getInstance());
 
+        if(configuration.contains("crops")){
+            crops = (ArrayList<String>) configuration.getStringList("crops");
+        }
+
         for(String type : configuration.getConfigurationSection("limiter").getKeys(false)){
 
             HashMap<Integer, Limiter> tempLimit = new HashMap<>();
-
+            Debug.log("Loading limit for " + type);
+            if(!Utils.isMaterial(type) && Utils.isMob(type)){
+                Debug.sendError("Wrong material name: limiter." + type);
+            }
             for(String level : configuration.getConfigurationSection("limiter." + type).getKeys(false)){
                 int amount = configuration.getInt("limiter." + type + "." + level + ".amount");
 
@@ -73,7 +82,7 @@ public class LimitController {
         IslandLimiter finalIslandLimiter = new IslandLimiter(islandLimiter);
 
         finalIslandLimiter = verifyLimiter(finalIslandLimiter);
-
+        finalIslandLimiter.debug();
         loadedLimiters.put(islandID, finalIslandLimiter);
     }
 
@@ -225,6 +234,10 @@ public class LimitController {
         if(loadedLimiters.containsKey(islandID)){
             loadedLimiters.remove(islandID);
         }
+    }
+
+    public boolean isCrop(String name){
+        return crops.contains(name);
     }
 
 

@@ -1,5 +1,7 @@
 package pl.trollcraft.Skyblock.limiter;
 
+import pl.trollcraft.Skyblock.essentials.Debug;
+
 import java.util.HashMap;
 
 public class IslandLimiter {
@@ -48,6 +50,12 @@ public class IslandLimiter {
 
     public void decreaseLevel(String type, int amount){
         islandLimiters.get(type).decreaseLevel(amount);
+    }
+
+    public void debug(){
+        for(String type : islandLimiters.keySet()){
+            Debug.log("(" + type + ")" + " Level: " + islandLimiters.get(type).getLevel() + " Amount: " + islandLimiters.get(type).getCurrentAmount());
+        }
     }
 
 }

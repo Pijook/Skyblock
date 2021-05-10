@@ -39,14 +39,19 @@ public class QuitListener implements Listener {
             if(skyblockPlayer.hasIslandOrCoop()){
                 UUID islandID = skyblockPlayer.getIslandOrCoop();
                 Debug.log("Player has island " + islandID);
-                if(!islandsController.hasIslandOnlineMembers(islandID, player.getName())){
-                    if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
-                        if(islandsController.isIslandLoaded(islandID)){
-                            if(islandsController.getIslandById(islandID).getServer().equalsIgnoreCase(Storage.serverName)){
-                                RedisSupport.saveIsland(player, islandID);
+                try{
+                    if(!islandsController.hasIslandOnlineMembers(islandID, player.getName())){
+                        if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
+                            if(islandsController.isIslandLoaded(islandID)){
+                                if(islandsController.getIslandById(islandID).getServer().equalsIgnoreCase(Storage.serverName)){
+                                    RedisSupport.saveIsland(player, islandID);
+                                }
                             }
                         }
                     }
+                }
+                catch (NullPointerException e){
+                    return;
                 }
             }
             else{

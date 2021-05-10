@@ -79,7 +79,7 @@ public class LimitsGui {
         });
 
         IslandLimiter islandLimiter = Skyblock.getLimitController().getLimiter(Skyblock.getSkyblockPlayerController().getPlayer(player.getName()).getIslandOrCoop());
-
+        islandLimiter.debug();
         for(int slot : fillSlots){
             gui.setItem(slot, fillItem);
         }
@@ -130,11 +130,11 @@ public class LimitsGui {
 
     private static ItemStack createIcon(String type, Limiter limiter){
         ItemStack itemStack;
-        if(Utils.isMaterial(type)){
-            itemStack = BuildItem.buildItem("", Material.valueOf(type), 1);
-        }
-        else if(alternateIcons.containsKey(type)){
+        if(alternateIcons.containsKey(type)){
             itemStack = BuildItem.buildItem("", Material.valueOf(alternateIcons.get(type)), 1);
+        }
+        else if(Utils.isMaterial(type)){
+            itemStack = BuildItem.buildItem("", Material.valueOf(type), 1);
         }
         else{
             itemStack = BuildItem.buildItem(type, Material.SKELETON_SKULL, 1);
