@@ -1,0 +1,57 @@
+title: "Limity"
+rows: 6
+fillItem:
+  material: GRAY_STAINED_GLASS_PANE
+  amount: 1
+  name: ""
+nextPage:
+  slot: 51
+  icon:
+    material: LIME_STAINED_GLASS_PANE
+    amount: 1
+    name: "&a&lNastepna Strona"
+previousPage:
+  slot: 47
+  icon:
+    material: RED_STAINED_GLASS_PANE
+    amount: 1
+    name: "&c&lPoprzednia strona"
+filledSlots:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 17
+  - 18
+  - 26
+  - 27
+  - 35
+  - 36
+  - 44
+  - 45
+  - 46
+  - 47
+  - 48
+  - 50
+  - 51
+  - 52
+  - 53
+ruleFormat: "&c&lRegula %number%"
+ruleMaterial: PAPER
+rules:
+  - "1. Bob budowniczy wszystko naprawi"
+  - "2. Pijok wszystko zepsuje"
+  - "3. Lucek wszystkich zastrzeli"
+buttons:
+  back:
+    slot: 49
+    icon:
+      material: REDSTONE
+      amount: 1
+      name: "&c&lPowrot"

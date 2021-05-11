@@ -16,10 +16,7 @@ import pl.trollcraft.Skyblock.configs.Persist;
 import pl.trollcraft.Skyblock.dropManager.DropManager;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
-import pl.trollcraft.Skyblock.gui.ButtonController;
-import pl.trollcraft.Skyblock.gui.KitGui;
-import pl.trollcraft.Skyblock.gui.MainGui;
-import pl.trollcraft.Skyblock.gui.WarpGui;
+import pl.trollcraft.Skyblock.gui.*;
 import pl.trollcraft.Skyblock.gui.islandGui.IslandGui;
 import pl.trollcraft.Skyblock.gui.islandGui.MembersGui;
 import pl.trollcraft.Skyblock.gui.upgradesGui.DropGui;
@@ -265,6 +262,10 @@ public class Skyblock extends JavaPlugin {
 
         Debug.log("&aLoading Size gui...");
         IslandSizeGui.load();
+        Debug.log("&aDone!");
+
+        Debug.log("&aLoading rules gui...");
+        RulesGui.load();
         Debug.log("&aDone!");
     }
 

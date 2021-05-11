@@ -123,7 +123,8 @@ public class MainGui {
 
         GuiItem statueItem = ItemBuilder.from(statueButton.getIcon()).asGuiItem(event -> {
             //Send on chat or teleport to warp?
-            ChatUtils.sendMessage((Player) event.getWhoClicked(), "&c&lFinish code!");
+            //ChatUtils.sendMessage((Player) event.getWhoClicked(), "&c&lFinish code!");
+            RulesGui.openGui((Player) event.getWhoClicked());
         });
 
         mainGui.setItem(statueButton.getSlot(), statueItem);
