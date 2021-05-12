@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.gui.upgradesGui;
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
 import me.mattstudios.mfgui.gui.guis.PaginatedGui;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -10,10 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.cost.Cost;
-import pl.trollcraft.Skyblock.essentials.BuildItem;
-import pl.trollcraft.Skyblock.essentials.ChatUtils;
-import pl.trollcraft.Skyblock.essentials.ConfigUtils;
-import pl.trollcraft.Skyblock.essentials.Utils;
+import pl.trollcraft.Skyblock.essentials.*;
 import pl.trollcraft.Skyblock.gui.Button;
 import pl.trollcraft.Skyblock.gui.ButtonController;
 import pl.trollcraft.Skyblock.gui.MainGui;
@@ -97,29 +95,35 @@ public class LimitsGui {
         }));
 
         for(String type : islandLimiter.getIslandLimiters().keySet()){
-            GuiItem guiItem = ItemBuilder.from(createIcon(type, islandLimiter.getLimiter(type))).asGuiItem(event -> {
+            try{
+                GuiItem guiItem = ItemBuilder.from(createIcon(type, islandLimiter.getLimiter(type))).asGuiItem(event -> {
 
-                Player target = (Player) event.getWhoClicked();
+                    Player target = (Player) event.getWhoClicked();
 
-                if(!islandsController.isPlayerOnHisIsland(target)){
-                    gui.close(target);
-                    ChatUtils.sendMessage(player, "&cMusisz byc na wyspie aby to zrobic!");
-                    return;
-                }
+                    if(!islandsController.isPlayerOnHisIsland(target)){
+                        gui.close(target);
+                        ChatUtils.sendMessage(player, "&cMusisz byc na wyspie aby to zrobic!");
+                        return;
+                    }
 
-                UUID islandID = skyblockPlayerController.getPlayer(target.getName()).getIslandOrCoop();
+                    UUID islandID = skyblockPlayerController.getPlayer(target.getName()).getIslandOrCoop();
 
-                if(!limitController.canUpgrade(islandID, type, target)){
-                    ChatUtils.sendMessage(player, "&cNie spelniasz wymagan na to ulepszenie!");
-                    return;
-                }
+                    if(!limitController.canUpgrade(islandID, type, target)){
+                        ChatUtils.sendMessage(player, "&cNie spelniasz wymagan na to ulepszenie!");
+                        return;
+                    }
 
-                limitController.upgradeLimiter(islandID, type, target);
-                ChatUtils.sendMessage(player, "&aUlepszono!");
+                    limitController.upgradeLimiter(islandID, type, target);
+                    ChatUtils.sendMessage(player, "&aUlepszono!");
 
-            });
+                });
+                gui.addItem(guiItem);
+            }
+            catch (NullPointerException exception){
+                Debug.log("Catched null in type: " + type);
+                continue;
+            }
 
-            gui.addItem(guiItem);
         }
 
 

@@ -130,7 +130,7 @@ public class BlockBreakListener implements Listener {
             Block blockAbove = event.getBlock().getRelative(BlockFace.UP);
             Debug.log("Block above: " + blockAbove.getType().name());
             if(limitController.isCrop(blockAbove.getType().name())){
-                limitController.decreaseType(block.getType().name(), skyblockPlayer.getIslandOrCoop());
+                limitController.decreaseType(blockAbove.getType().name(), skyblockPlayer.getIslandOrCoop());
             }
 
             if(workerController.isBlockToMine(block.getType())){
