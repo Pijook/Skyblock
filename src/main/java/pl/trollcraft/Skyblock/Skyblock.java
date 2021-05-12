@@ -142,7 +142,7 @@ public class Skyblock extends JavaPlugin {
         getCommand("vtrades").setExecutor(new TradesCommand());
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("checkblock").setExecutor(new CheckBlockCommand());
-
+        getCommand("gamemode").setExecutor(new GameModeCommand());
 
         loadStuff();
     }

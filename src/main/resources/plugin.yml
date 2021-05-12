@@ -36,3 +36,6 @@ commands:
     usage: /fly
   checkblock:
     usage: /checkblock
+  gamemode:
+    usage: /gamemode
+    aliases: [gm]
