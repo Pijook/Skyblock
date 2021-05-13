@@ -32,7 +32,7 @@ public class GameModeCommand implements CommandExecutor {
         if(args.length == 1){
             if(!Utils.isInteger(args[0])){
                 int mode = Integer.parseInt(args[0]);
-                if(mode >= 1 && mode <= 3){
+                if(mode >= 0 && mode <= 3){
                     setGameMode(player, GameMode.getByValue(mode));
                     return true;
                 }

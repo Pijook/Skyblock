@@ -32,7 +32,9 @@ public class IslandSecurityListener implements Listener {
 
         Player player = event.getPlayer();
         if(!islandsController.isPlayerOnHisIsland(player)){
-            event.setCancelled(true);
+            if(!player.hasPermission(PermissionStorage.islandBuild)){
+                event.setCancelled(true);
+            }
         }
 
     }
