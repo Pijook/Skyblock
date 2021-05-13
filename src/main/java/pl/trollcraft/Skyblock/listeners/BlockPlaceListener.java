@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.PistonMoveReaction;
@@ -53,12 +54,19 @@ public class BlockPlaceListener implements Listener {
             }
         }
 
-        if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())){
+        if(!islandsController.isLocationOnIsland(event.getBlockPlaced().getLocation(), skyblockPlayer.getIslandOrCoop())){
+            Debug.log("&c[BlockPlace] Location is not on island!");
             if(!player.hasPermission(PermissionStorage.islandBuild)){
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
             }
+        }
+        else{
+            Location location = event.getBlockPlaced().getLocation();
+            Debug.log("&a[BlockPlace] Location is on island!");
+            Debug.log("&aLocation: " + location.getX() + " " + location.getY() + " " + location.getZ());
+            Debug.log("&aIsland owner: " + islandsController.getIslandByLocation(location).getOwner());
         }
 
 
