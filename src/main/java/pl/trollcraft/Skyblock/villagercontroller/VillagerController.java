@@ -3,19 +3,18 @@ package pl.trollcraft.Skyblock.villagercontroller;
 import javafx.scene.input.InputMethodTextRun;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.essentials.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class VillagerController {
 
@@ -92,8 +91,16 @@ public class VillagerController {
         String material = configuration.getString(path + ".material");
         int min = configuration.getInt(path + ".minAmount");
         int max = configuration.getInt(path + ".maxAmount");
-
         ItemStack itemStack = new ItemStack(Material.valueOf(material), 1);
+
+        if( configuration.contains(path + ".material")) {
+            String enchantment = configuration.getString(path + ".enchant");
+            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemStack.getItemMeta();
+            assert meta != null;
+            meta.addStoredEnchant(Objects.requireNonNull(Utils.getEnchantmentByCommonName(enchantment)), 3, true);
+            itemStack.setItemMeta(meta);
+        }
+
         return new Element(itemStack, min, max);
     }
 }
