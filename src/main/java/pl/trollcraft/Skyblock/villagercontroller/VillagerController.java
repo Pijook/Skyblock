@@ -94,10 +94,14 @@ public class VillagerController {
         ItemStack itemStack = new ItemStack(Material.valueOf(material), 1);
 
         if( configuration.contains(path + ".material")) {
+            int level = 1;
+            if( configuration.contains(path + ".level")){
+                level = configuration.getInt(path + ".level");
+            }
             String enchantment = configuration.getString(path + ".enchant");
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemStack.getItemMeta();
             assert meta != null;
-            meta.addStoredEnchant(Objects.requireNonNull(Utils.getEnchantmentByCommonName(enchantment)), 3, true);
+            meta.addStoredEnchant(Objects.requireNonNull(Utils.getEnchantmentByCommonName(enchantment)), level, true);
             itemStack.setItemMeta(meta);
         }
 
