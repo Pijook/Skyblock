@@ -93,7 +93,7 @@ public class VillagerController {
         int max = configuration.getInt(path + ".maxAmount");
         ItemStack itemStack = new ItemStack(Material.valueOf(material), 1);
 
-        if( configuration.contains(path + ".material")) {
+        if( configuration.contains(path + ".enchant")) {
             int level = 1;
             if( configuration.contains(path + ".level")){
                 level = configuration.getInt(path + ".level");
