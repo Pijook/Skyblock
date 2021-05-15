@@ -165,6 +165,33 @@ public class Utils {
     }
     public static Enchantment getEnchantmentByCommonName(String name){
         name = name.toLowerCase();
+        /*
+        SWEEPING_EDGE
+        LOYALITY
+        IMPALING
+        CHANNELLING
+        PIERCING
+        RIPTIDE
+        MULTISHOT
+        QUICK_CHARGE
+        FROST_WALKER
+        DEPTH_STRIDER
+        SOUL_SPEED
+        LURE
+        LUCK_OF_THE_SEA
+        if(name.equalsIgnoreCase("LUCK_OF_THE_SEA")) return Enchantment.LUCK;
+        if(name.equalsIgnoreCase("LURE")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("SOUL_SPEED")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("DEPTH_STRIDER")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("FROST_WALKER")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("QUICK_CHARGE")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("MULTISHOT")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("RIPTIDE")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("PIERCING")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("CHANNELLING")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("IMPALING")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("LOYALITY")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("SWEEPING_EDGE")) return Enchantment.PROTECTION_FIRE;
         if(name.equalsIgnoreCase("fire_protection")) return Enchantment.PROTECTION_FIRE;
         if(name.equalsIgnoreCase("blast_protection")) return Enchantment.PROTECTION_EXPLOSIONS;
         if(name.equalsIgnoreCase("projectile_protection")) return Enchantment.PROTECTION_PROJECTILE;
@@ -188,6 +215,57 @@ public class Utils {
         if(name.equalsIgnoreCase("fortune")) return Enchantment.LOOT_BONUS_BLOCKS;
         if(name.equalsIgnoreCase("thorns")) return Enchantment.THORNS;
         if(name.equalsIgnoreCase("mending")) return Enchantment.MENDING;
+         */
+        if(name.equalsIgnoreCase("alldamage")) return Enchantment.DAMAGE_ALL;
+        if(name.equalsIgnoreCase("sharpness")) return Enchantment.DAMAGE_ALL;
+        if(name.equalsIgnoreCase("ardmg")) return Enchantment.DAMAGE_ARTHROPODS;
+        if(name.equalsIgnoreCase("baneofarthropods")) return Enchantment.DAMAGE_ARTHROPODS;
+        if(name.equalsIgnoreCase("undeaddamage")) return Enchantment.DAMAGE_UNDEAD;
+        if(name.equalsIgnoreCase("smite")) return Enchantment.DAMAGE_UNDEAD;
+        if(name.equalsIgnoreCase("digspeed")) return Enchantment.DIG_SPEED;
+        if(name.equalsIgnoreCase("efficiency")) return Enchantment.DIG_SPEED;
+        if(name.equalsIgnoreCase("durability")) return Enchantment.DURABILITY;
+        if(name.equalsIgnoreCase("unbreaking")) return Enchantment.DURABILITY;
+        if(name.equalsIgnoreCase("thorns")) return Enchantment.THORNS;
+        if(name.equalsIgnoreCase("highcrit")) return Enchantment.THORNS;
+        if(name.equalsIgnoreCase("fireaspect")) return Enchantment.FIRE_ASPECT;
+        if(name.equalsIgnoreCase("fire")) return Enchantment.FIRE_ASPECT;
+        if(name.equalsIgnoreCase("knockback")) return Enchantment.KNOCKBACK;
+        if(name.equalsIgnoreCase("fortune")) return Enchantment.LOOT_BONUS_BLOCKS;
+        if(name.equalsIgnoreCase("mobloot")) return Enchantment.LOOT_BONUS_MOBS;
+        if(name.equalsIgnoreCase("looting")) return Enchantment.LOOT_BONUS_MOBS;
+        if(name.equalsIgnoreCase("respiration")) return Enchantment.OXYGEN;
+        if(name.equalsIgnoreCase("breath")) return Enchantment.OXYGEN;
+        if(name.equalsIgnoreCase("protection")) return Enchantment.PROTECTION_ENVIRONMENTAL;
+        if(name.equalsIgnoreCase("protect")) return Enchantment.PROTECTION_ENVIRONMENTAL;
+        if(name.equalsIgnoreCase("blastprotect")) return Enchantment.PROTECTION_EXPLOSIONS;
+        if(name.equalsIgnoreCase("fallprot")) return Enchantment.PROTECTION_FALL;
+        if(name.equalsIgnoreCase("featherfall")) return Enchantment.PROTECTION_FALL;
+        if(name.equalsIgnoreCase("fireprotect")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("fireprot")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("projectileprotection")) return Enchantment.PROTECTION_PROJECTILE;
+        if(name.equalsIgnoreCase("projprot")) return Enchantment.PROTECTION_PROJECTILE;
+        if(name.equalsIgnoreCase("silktouch")) return Enchantment.SILK_TOUCH;
+        if(name.equalsIgnoreCase("waterworker")) return Enchantment.WATER_WORKER;
+        if(name.equalsIgnoreCase("aquaaffinity")) return Enchantment.WATER_WORKER;
+        if(name.equalsIgnoreCase("flame")) return Enchantment.ARROW_FIRE;
+        if(name.equalsIgnoreCase("flamearrow")) return Enchantment.ARROW_FIRE;
+        if(name.equalsIgnoreCase("arrowdamage")) return Enchantment.ARROW_DAMAGE;
+        if(name.equalsIgnoreCase("power")) return Enchantment.ARROW_DAMAGE;
+        if(name.equalsIgnoreCase("arrowknockback")) return Enchantment.ARROW_KNOCKBACK;
+        if(name.equalsIgnoreCase("punch")) return Enchantment.ARROW_KNOCKBACK;
+        if(name.equalsIgnoreCase("infarrows")) return Enchantment.ARROW_INFINITE;
+        if(name.equalsIgnoreCase("infinity")) return Enchantment.ARROW_INFINITE;
+        if(name.equalsIgnoreCase("luck")) return Enchantment.LUCK;
+        if(name.equalsIgnoreCase("luck_of_the_sea")) return Enchantment.LUCK;
+        if(name.equalsIgnoreCase("lure")) return Enchantment.LURE;
+        if(name.equalsIgnoreCase("depthstrider")) return Enchantment.DEPTH_STRIDER;
+        if(name.equalsIgnoreCase("frostwalker")) return Enchantment.FROST_WALKER;
+        if(name.equalsIgnoreCase("mending")) return Enchantment.MENDING;
+        if(name.equalsIgnoreCase("bindingcurse")) return Enchantment.BINDING_CURSE;
+        if(name.equalsIgnoreCase("vanishingcurse")) return Enchantment.VANISHING_CURSE;
+        if(name.equalsIgnoreCase("sweepingedge")) return Enchantment.SWEEPING_EDGE;
+
         return null;
     }
 
