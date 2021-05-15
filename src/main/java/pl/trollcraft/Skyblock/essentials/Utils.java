@@ -165,20 +165,7 @@ public class Utils {
     }
     public static Enchantment getEnchantmentByCommonName(String name){
         name = name.toLowerCase();
-        /*
-        SWEEPING_EDGE
-        LOYALITY
-        IMPALING
-        CHANNELLING
-        PIERCING
-        RIPTIDE
-        MULTISHOT
-        QUICK_CHARGE
-        FROST_WALKER
-        DEPTH_STRIDER
-        SOUL_SPEED
-        LURE
-        LUCK_OF_THE_SEA
+
         if(name.equalsIgnoreCase("LUCK_OF_THE_SEA")) return Enchantment.LUCK;
         if(name.equalsIgnoreCase("LURE")) return Enchantment.PROTECTION_FIRE;
         if(name.equalsIgnoreCase("SOUL_SPEED")) return Enchantment.PROTECTION_FIRE;
@@ -200,7 +187,6 @@ public class Utils {
         if(name.equalsIgnoreCase("respiration")) return Enchantment.OXYGEN;
         if(name.equalsIgnoreCase("aqua_affinity")) return Enchantment.WATER_WORKER;
         if(name.equalsIgnoreCase("sharpness")) return Enchantment.DAMAGE_ALL;
-        if(name.equalsIgnoreCase("smite")) return Enchantment.DAMAGE_UNDEAD;
         if(name.equalsIgnoreCase("bane_of_arthropods")) return Enchantment.DAMAGE_ARTHROPODS;
         if(name.equalsIgnoreCase("knockback")) return Enchantment.KNOCKBACK;
         if(name.equalsIgnoreCase("fire_aspect")) return Enchantment.FIRE_ASPECT;
@@ -209,13 +195,8 @@ public class Utils {
         if(name.equalsIgnoreCase("punch")) return Enchantment.ARROW_KNOCKBACK;
         if(name.equalsIgnoreCase("flame")) return Enchantment.ARROW_FIRE;
         if(name.equalsIgnoreCase("infinity")) return Enchantment.ARROW_INFINITE;
-        if(name.equalsIgnoreCase("efficiency")) return Enchantment.DIG_SPEED;
-        if(name.equalsIgnoreCase("unbreaking")) return Enchantment.DURABILITY;
         if(name.equalsIgnoreCase("silk_touch")) return Enchantment.SILK_TOUCH;
-        if(name.equalsIgnoreCase("fortune")) return Enchantment.LOOT_BONUS_BLOCKS;
-        if(name.equalsIgnoreCase("thorns")) return Enchantment.THORNS;
         if(name.equalsIgnoreCase("mending")) return Enchantment.MENDING;
-         */
         if(name.equalsIgnoreCase("alldamage")) return Enchantment.DAMAGE_ALL;
         if(name.equalsIgnoreCase("sharpness")) return Enchantment.DAMAGE_ALL;
         if(name.equalsIgnoreCase("ardmg")) return Enchantment.DAMAGE_ARTHROPODS;
