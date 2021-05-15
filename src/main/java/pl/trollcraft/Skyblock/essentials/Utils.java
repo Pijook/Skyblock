@@ -166,19 +166,18 @@ public class Utils {
     public static Enchantment getEnchantmentByCommonName(String name){
         name = name.toLowerCase();
 
-        if(name.equalsIgnoreCase("LUCK_OF_THE_SEA")) return Enchantment.LUCK;
-        if(name.equalsIgnoreCase("LURE")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("SOUL_SPEED")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("DEPTH_STRIDER")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("FROST_WALKER")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("QUICK_CHARGE")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("MULTISHOT")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("RIPTIDE")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("PIERCING")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("CHANNELLING")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("IMPALING")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("LOYALITY")) return Enchantment.PROTECTION_FIRE;
-        if(name.equalsIgnoreCase("SWEEPING_EDGE")) return Enchantment.PROTECTION_FIRE;
+        if(name.equalsIgnoreCase("luck_of_the_sea")) return Enchantment.LUCK;
+        if(name.equalsIgnoreCase("soul_speed")) return Enchantment.SOUL_SPEED;
+        if(name.equalsIgnoreCase("depth_strider")) return Enchantment.DEPTH_STRIDER;
+        if(name.equalsIgnoreCase("frost_walker")) return Enchantment.FROST_WALKER;
+        if(name.equalsIgnoreCase("quick_charge")) return Enchantment.QUICK_CHARGE;
+        if(name.equalsIgnoreCase("multishot")) return Enchantment.MULTISHOT;
+        if(name.equalsIgnoreCase("riptide")) return Enchantment.RIPTIDE;
+        if(name.equalsIgnoreCase("piercing")) return Enchantment.PIERCING;
+        if(name.equalsIgnoreCase("channelling")) return Enchantment.CHANNELING;
+        if(name.equalsIgnoreCase("impaling")) return Enchantment.IMPALING;
+        if(name.equalsIgnoreCase("loyality")) return Enchantment.LOYALTY;
+        if(name.equalsIgnoreCase("sweeping_edge")) return Enchantment.SWEEPING_EDGE;
         if(name.equalsIgnoreCase("fire_protection")) return Enchantment.PROTECTION_FIRE;
         if(name.equalsIgnoreCase("blast_protection")) return Enchantment.PROTECTION_EXPLOSIONS;
         if(name.equalsIgnoreCase("projectile_protection")) return Enchantment.PROTECTION_PROJECTILE;
@@ -198,7 +197,6 @@ public class Utils {
         if(name.equalsIgnoreCase("silk_touch")) return Enchantment.SILK_TOUCH;
         if(name.equalsIgnoreCase("mending")) return Enchantment.MENDING;
         if(name.equalsIgnoreCase("alldamage")) return Enchantment.DAMAGE_ALL;
-        if(name.equalsIgnoreCase("sharpness")) return Enchantment.DAMAGE_ALL;
         if(name.equalsIgnoreCase("ardmg")) return Enchantment.DAMAGE_ARTHROPODS;
         if(name.equalsIgnoreCase("baneofarthropods")) return Enchantment.DAMAGE_ARTHROPODS;
         if(name.equalsIgnoreCase("undeaddamage")) return Enchantment.DAMAGE_UNDEAD;
