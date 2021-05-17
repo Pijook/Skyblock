@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.*;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import scala.Int;
@@ -166,6 +167,17 @@ public class WorkerController {
                 code = code.replace("%player%", nickname);
 
                 String workerJSON = Skyblock.getJedis().hget(code, "worker");
+
+                if(workerJSON == null){
+                    BungeeSupport.sendReloadWorkerCommand(player);
+                    Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            loadPlayer(player);
+                        }
+                    }, 20L);
+                    return;
+                }
 
                 //Debug.log("Worker JSON: " + workerJSON);
 

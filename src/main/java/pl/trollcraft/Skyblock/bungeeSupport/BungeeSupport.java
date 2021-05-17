@@ -142,6 +142,12 @@ public class BungeeSupport {
         sendMessage(command, player);
     }
 
+    public static void sendReloadWorkerCommand(Player player){
+        Debug.log("Sending command to reload worker");
+        String command = "reloadWorker:" + player.getName();
+        sendMessage(command, player);
+    }
+
     public static void sendSyncHomeCommand(UUID islandID, Player player){
         Location home = Skyblock.getIslandsController().getIslandById(islandID).getHome();
         Debug.log("Sending sync homes command");
