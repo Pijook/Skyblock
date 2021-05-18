@@ -6,9 +6,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -20,10 +22,12 @@ public class InteractListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event){
 
-        if(Storage.serverName.equalsIgnoreCase("sblobby")){
+        Player player = event.getPlayer();
+
+        if( player.hasPermission(PermissionStorage.thisIsSpawn)){
+            Debug.log("Posiadasz permisje " + PermissionStorage.thisIsSpawn);
             return;
         }
-        Player player = event.getPlayer();
 
         if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 
