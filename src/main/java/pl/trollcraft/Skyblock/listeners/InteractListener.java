@@ -25,7 +25,6 @@ public class InteractListener implements Listener {
         Player player = event.getPlayer();
 
         if( player.hasPermission(PermissionStorage.thisIsSpawn)){
-            Debug.log("Posiadasz permisje " + PermissionStorage.thisIsSpawn);
             return;
         }
 

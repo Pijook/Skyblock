@@ -45,7 +45,6 @@ public class BlockBreakListener implements Listener {
         boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
 
         if( player.hasPermission(PermissionStorage.thisIsSpawn)){
-            Debug.log("Posiadasz permisje " + PermissionStorage.thisIsSpawn);
             return;
         }
 
