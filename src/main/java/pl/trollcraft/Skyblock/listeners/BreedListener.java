@@ -26,6 +26,7 @@ public class BreedListener implements Listener {
         Player player = (Player) event.getBreeder();
 
         if(!islandsController.isPlayerOnHisIsland(player)){
+            event.setCancelled(true);
             return;
         }
 
