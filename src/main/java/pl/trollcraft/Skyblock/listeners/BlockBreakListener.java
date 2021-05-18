@@ -44,6 +44,10 @@ public class BlockBreakListener implements Listener {
         boolean hasCoop = skyblockPlayer.hasIslandOrCoop();
         boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
 
+        if(Storage.serverName.equalsIgnoreCase("sblobby")){
+            return;
+        }
+
         if(!hasCoop){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
                 Debug.log("&c[BlockBreakListener] Denied action");

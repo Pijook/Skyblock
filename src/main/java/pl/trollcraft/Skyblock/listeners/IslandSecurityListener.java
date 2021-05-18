@@ -32,7 +32,7 @@ public class IslandSecurityListener implements Listener {
 
         Player player = event.getPlayer();
         if(!islandsController.isPlayerOnHisIsland(player)){
-            if(!player.hasPermission(PermissionStorage.islandBuild)){
+            if(!player.hasPermission(PermissionStorage.bypass)){
                 event.setCancelled(true);
             }
         }
@@ -49,8 +49,10 @@ public class IslandSecurityListener implements Listener {
             Player player = (Player) event.getDamager();
 
             if(!islandsController.isPlayerOnHisIsland(player)){
-                ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
-                event.setCancelled(true);
+                if( !player.hasPermission(PermissionStorage.bypass) ) {
+                    ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
+                    event.setCancelled(true);
+                }
             }
         }
     }
@@ -65,6 +67,10 @@ public class IslandSecurityListener implements Listener {
         Player player = event.getPlayer();
 
         if(!islandsController.isPlayerOnHisIsland(player)){
+            if( !player.hasPermission(PermissionStorage.bypass) ) {
+                event.setCancelled(true);
+            }
+            /*
             if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
                 if(!player.hasPermission(PermissionStorage.islandBuild)){
                     Debug.log("&c[IslandSecurityListener] Denied action");
@@ -72,6 +78,8 @@ public class IslandSecurityListener implements Listener {
                     event.setCancelled(true);
                 }
             }
+
+             */
         }
 
     }

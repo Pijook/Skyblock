@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockPistonEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.PermissionStorage;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
@@ -37,6 +38,10 @@ public class BlockPlaceListener implements Listener {
 
         boolean hasCoop = skyblockPlayer.hasIslandOrCoop();
         boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
+
+        if(Storage.serverName.equalsIgnoreCase("sblobby")){
+            return;
+        }
 
         if(!hasCoop){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
