@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
@@ -19,7 +20,7 @@ public class IsSethomeCommand extends Command{
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsSethomeCommand() {
-        super(Collections.singletonList("sethome"), "Ustaw spawn wyspy", "TcSb.basic", true);
+        super(Collections.singletonList("sethome"), "Ustaw spawn wyspy", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

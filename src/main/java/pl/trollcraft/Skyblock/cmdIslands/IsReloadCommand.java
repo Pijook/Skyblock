@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Settings;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.dropManager.DropManager;
@@ -16,7 +17,7 @@ import java.util.List;
 public class IsReloadCommand extends Command {
 
     public IsReloadCommand() {
-        super(Collections.singletonList("reload"), "Przeladuj plugin", "TcSb.command.reload", true);
+        super(Collections.singletonList("reload"), "Przeladuj plugin", "" + PermissionStorage.otherCommandPermission + ".reload", true);
     }
 
     @Override

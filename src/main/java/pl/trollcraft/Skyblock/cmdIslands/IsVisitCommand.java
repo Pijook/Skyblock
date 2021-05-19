@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -20,7 +21,7 @@ public class IsVisitCommand extends Command {
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsVisitCommand() {
-        super(Collections.singletonList("visit"), "Teleportuj sie na wyspe wybranego gracza", "TcSb.basic", true);
+        super(Collections.singletonList("visit"), "Teleportuj sie na wyspe wybranego gracza", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

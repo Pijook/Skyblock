@@ -4,6 +4,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -51,7 +52,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String s, String[] args) {
-        if ( !(cs.hasPermission("TcSB.basic"))){
+        if ( !(cs.hasPermission(PermissionStorage.basicCommandPermission))){
             ChatUtils.sendMessage(cs, "&cBrak uprawnien");
             return true;
         }
@@ -65,7 +66,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     }
                     if ((cs.hasPermission(command.permission) || command.permission
                             .equalsIgnoreCase("") || command.permission
-                            .equalsIgnoreCase("TcSB.basic")) && command.enabled) {
+                            .equalsIgnoreCase("" + PermissionStorage.basicCommandPermission)) && command.enabled) {
                         command.execute(cs, args);
                     } else {
                         // No permission
@@ -93,7 +94,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     if (alias.toLowerCase().startsWith(args[0].toLowerCase()) && (
                             command.enabled && (cs.hasPermission(command.permission)
                                     || command.permission.equalsIgnoreCase("") || command.permission
-                                    .equalsIgnoreCase("TcSB.basic")))) {
+                                    .equalsIgnoreCase("" + PermissionStorage.basicCommandPermission)))) {
                         result.add(alias);
                     }
                 }
@@ -103,7 +104,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         for (Command command : commands) {
             if (command.aliases.contains(args[0]) && (command.enabled && (
                     cs.hasPermission(command.permission) || command.permission.equalsIgnoreCase("")
-                            || command.permission.equalsIgnoreCase("TcSB.basic")))) {
+                            || command.permission.equalsIgnoreCase("" + PermissionStorage.basicCommandPermission)))) {
                 return command.TabComplete(cs, cmd, s, args);
             }
         }

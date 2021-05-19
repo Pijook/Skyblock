@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
@@ -22,7 +23,7 @@ public class IsRemoveCommand extends Command {
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsRemoveCommand() {
-        super(Collections.singletonList("remove"), "Usun czlonka swojej wyspy", "TcSb.basic", true);
+        super(Collections.singletonList("remove"), "Usun czlonka swojej wyspy", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

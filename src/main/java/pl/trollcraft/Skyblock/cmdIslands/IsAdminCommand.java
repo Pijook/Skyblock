@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -21,7 +22,7 @@ public class IsAdminCommand extends Command {
     public static ArrayList<UUID> currentlyUsedIslands = new ArrayList<>();
 
     public IsAdminCommand() {
-        super(Collections.singletonList("admin"), "Komenda symulujaca wybrana wyspe jako Twoja", "TcSb.command.admin", true);
+        super(Collections.singletonList("admin"), "Komenda symulujaca wybrana wyspe jako Twoja", "" + PermissionStorage.otherCommandPermission + ".admin", true);
     }
 
     @Override

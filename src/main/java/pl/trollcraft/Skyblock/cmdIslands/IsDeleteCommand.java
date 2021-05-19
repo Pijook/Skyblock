@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
@@ -21,7 +22,7 @@ public class IsDeleteCommand extends Command {
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsDeleteCommand() {
-        super(Collections.singletonList("delete"), "Usun wyspe", "TcSb.basic", true);
+        super(Collections.singletonList("delete"), "Usun wyspe", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
@@ -18,7 +19,7 @@ public class IsCreateCommand extends Command {
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsCreateCommand() {
-        super(Collections.singletonList("create"), "Stworz wyspe", "TcSb.basic", true);
+        super(Collections.singletonList("create"), "Stworz wyspe", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -21,7 +22,7 @@ public class IsUpgradeCommand extends Command{
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsUpgradeCommand() {
-        super(Collections.singletonList("upgrade"), "Ulepsz swoja wyspe", "TcSb.basic", true);
+        super(Collections.singletonList("upgrade"), "Ulepsz swoja wyspe", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

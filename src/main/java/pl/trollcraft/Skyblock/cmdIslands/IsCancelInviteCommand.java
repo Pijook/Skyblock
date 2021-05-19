@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -18,7 +19,7 @@ public class IsCancelInviteCommand extends Command {
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsCancelInviteCommand() {
-        super(Collections.singletonList("cancelinvite"), "Anuluj zaproszenie", "TcSb.basic", true);
+        super(Collections.singletonList("cancelinvite"), "Anuluj zaproszenie", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -30,8 +31,8 @@ public class DebugCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if(!player.hasPermission("skyblock.debug")){
-            ChatUtils.sendMessage(player, "&cNie masz dostepu do tej komendy!");
+        if( !sender.hasPermission(PermissionStorage.admCommands)){
+            ChatUtils.sendMessage(sender, "&cNie masz dostepu do tej komendy!");
             return true;
         }
 

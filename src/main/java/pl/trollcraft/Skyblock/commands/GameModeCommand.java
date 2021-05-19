@@ -24,12 +24,12 @@ public class GameModeCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if(!player.hasPermission(PermissionStorage.gamemode)){
-            ChatUtils.sendMessage(player, "&cNie masz dostepu do tej komendy!");
-            return true;
-        }
 
         if(args.length == 1){
+            if(!player.hasPermission(PermissionStorage.gamemodeOwn)){
+                ChatUtils.sendMessage(player, "&cNie masz dostepu do tej komendy!");
+                return true;
+            }
             if(!Utils.isInteger(args[0])){
                 int mode = Integer.parseInt(args[0]);
                 if(mode >= 0 && mode <= 3){
@@ -40,6 +40,10 @@ public class GameModeCommand implements CommandExecutor {
         }
 
         if(args.length == 2){
+            if(!player.hasPermission(PermissionStorage.gamemodeOther)){
+                ChatUtils.sendMessage(player, "&cNie mozesz wykonac tej komendy na innym graczu!");
+                return true;
+            }
             if(!Utils.isInteger(args[0])){
                 Player target = Bukkit.getPlayer(args[1]);
 

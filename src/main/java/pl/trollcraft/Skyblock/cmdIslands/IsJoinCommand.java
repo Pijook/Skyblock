@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -19,7 +20,7 @@ public class IsJoinCommand extends Command {
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsJoinCommand() {
-        super(Collections.singletonList("join"), "Dolacz do wyspy znajomego", "TcSb.basic", true);
+        super(Collections.singletonList("join"), "Dolacz do wyspy znajomego", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override

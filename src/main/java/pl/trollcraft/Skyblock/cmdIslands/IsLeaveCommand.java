@@ -3,6 +3,7 @@ package pl.trollcraft.Skyblock.cmdIslands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -19,7 +20,7 @@ public class IsLeaveCommand extends Command{
     private final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     public IsLeaveCommand() {
-        super(Collections.singletonList("leave"), "Odejdz z wyspy, której jesteś członkiem", "TcSb.basic", true);
+        super(Collections.singletonList("leave"), "Odejdz z wyspy, której jesteś członkiem", "" + PermissionStorage.basicCommandPermission, true);
     }
 
     @Override
