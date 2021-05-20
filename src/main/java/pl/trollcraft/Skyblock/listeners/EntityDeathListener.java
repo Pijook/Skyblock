@@ -39,13 +39,6 @@ public class EntityDeathListener implements Listener {
             }
         }
 
-        /*if(islandLimiter.isEntityLimited(entity.getType())){
-            UUID islandID = islandsController.getIslandIDByLocation(entity.getLocation());
-            if(islandID == null){
-                return;
-            }
-            islandLimiter.removeEntity(islandID, entity.getType());
-        }*/
         String type = event.getEntityType().name();
         if(limitController.isTypeLimited(entity.getType().name())){
             UUID islandID = islandsController.getIslandIDByLocation(entity.getLocation());

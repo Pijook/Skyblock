@@ -70,16 +70,6 @@ public class IslandSecurityListener implements Listener {
             if( !player.hasPermission(PermissionStorage.bypass) ) {
                 event.setCancelled(true);
             }
-            /*
-            if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-                if(!player.hasPermission(PermissionStorage.islandBuild)){
-                    Debug.log("&c[IslandSecurityListener] Denied action");
-                    ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
-                    event.setCancelled(true);
-                }
-            }
-
-             */
         }
 
     }

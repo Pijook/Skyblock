@@ -23,26 +23,6 @@ public class JoinListener implements Listener {
     private final IslandsController islandsController = Skyblock.getIslandsController();
     private final WorkerController workerController = Skyblock.getWorkerController();
 
-    /*@EventHandler
-    public void onJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        
-        if(!player.getWorld().getName().equalsIgnoreCase("Islands")){
-            player.teleport(new Location(Bukkit.getWorld("Islands"), player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
-        }
-
-        Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                RedisSupport.loadPlayer(player);
-                workerController.loadPlayer(player);
-            }
-        }, 1L);
-
-
-
-    }*/
-
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         event.setJoinMessage("");

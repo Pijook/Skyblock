@@ -66,31 +66,6 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        /*
-        if(!skyblockPlayer.isOnIsland()){
-            if(!player.hasPermission(PermissionStorage.islandBuild)){
-                event.setCancelled(true);
-                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-                return;
-            }
-        }*/
-
-        /*if(!skyblockPlayer.hasIslandOrCoop()){
-            if(!player.hasPermission(PermissionStorage.islandBuild)){
-                event.setCancelled(true);
-                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-                return;
-            }
-        }
-
-        if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())){
-            if(!player.hasPermission(PermissionStorage.islandBuild)){
-                event.setCancelled(true);
-                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-                return;
-            }
-        }*/
-
         Worker worker = workerController.getWorkerByName(player.getName());
 
         if(Storage.dropEnable) {

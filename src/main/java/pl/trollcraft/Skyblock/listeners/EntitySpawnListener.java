@@ -21,24 +21,6 @@ public class EntitySpawnListener implements Listener {
 
         Entity entity = event.getEntity();
 
-        /*if(islandLimiter.isEntityLimited(entity.getType())){
-
-            Location location = entity.getLocation();
-
-            UUID islandID = islandsController.getIslandIDByLocation(location);
-
-            if(islandID == null){
-                return;
-            }
-
-            if(islandLimiter.isEntityAboveLimit(islandID, entity.getType())){
-                event.setCancelled(true);
-            }
-            else{
-                islandLimiter.addEntity(islandID, entity.getType());
-            }
-        }*/
-
         String type = entity.getType().name();
         if(limitController.isTypeLimited(type)){
             Location location = entity.getLocation();

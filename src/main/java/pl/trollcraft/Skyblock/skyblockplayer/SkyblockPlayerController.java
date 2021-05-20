@@ -27,22 +27,6 @@ public class SkyblockPlayerController {
         skyblockPlayers.remove(nickname);
     }
 
-    /*public static void loadPlayer(String playerName){
-        YamlConfiguration configuration = ConfigUtils.load("players.yml", Main.getInstance());
-
-        SkyblockPlayer skyblockPlayer = new SkyblockPlayer(null, null, null);
-
-        if(configuration.contains("players." + playerName + ".island")){
-            skyblockPlayer.setIslandID(configuration.getString("players." + playerName + ".island"));
-        }
-        if(configuration.contains("players." + playerName + ".coopIsland")){
-            skyblockPlayer.setCoopIslandID(configuration.getString("players." + playerName + ".coopIsland"));
-        }
-
-        addPlayer(playerName, skyblockPlayer);
-//        skyblockPlayers.put(playerName, skyblockPlayer);
-    }*/
-
     public void savePlayer(String playerName){
         SkyblockPlayer skyblockPlayer = getPlayer(playerName);
 

@@ -263,10 +263,7 @@ public class WorkerController {
     }
 
     public void showGUIToPlayer(Player player){
-        //Debug.log("Workers: " + workers.size());
         Worker worker = getWorkerByName(player.getName());
-
-        //worker.debugWorker();
 
         Gui gui = new Gui(3, "Prace");
 
@@ -274,39 +271,18 @@ public class WorkerController {
             event.setCancelled(true);
         });
 
-        /*
-        Dodac do opisu ile jeszcze potrzebuje - Done
-        Dodac w gui srednia leveli - Done
-         */
-
         ArrayList<String> itemLore = new ArrayList<>();
         int toNextLevel;
 
-        /*toNextLevel = getNextLevelRequirement(player, "miner") - worker.getJobScore("miner");
-        itemLore.add("&7Poziom: " + worker.getJobLevel("miner"));
-        itemLore.add("&7Wynik: " + worker.getJobScore("miner"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
         itemLore = buildWorkerGuiLore(player, worker, "miner");
         ItemStack minerIcon = BuildItem.buildItem("&7&lGornik", Material.IRON_PICKAXE, 1, itemLore);
 
-        /*toNextLevel = getNextLevelRequirement(player, "lumberjack") - worker.getJobScore("lumberjack");
-        itemLore.add("&7Poziom: " + worker.getJobLevel("lumberjack"));
-        itemLore.add("&7Wynik: " + worker.getJobScore("lumberjack"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
         itemLore = buildWorkerGuiLore(player, worker, "lumberjack");
         ItemStack lumberjackIcon = BuildItem.buildItem("&e&lDrwal", Material.STONE_AXE, 1, itemLore);
 
-        /*toNextLevel = getNextLevelRequirement(player, "farmer") - worker.getJobScore("farmer");
-        itemLore.add("&7Poziom: " + worker.getJobLevel("farmer"));
-        itemLore.add("&7Wynik: " + worker.getJobScore("farmer"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
         itemLore = buildWorkerGuiLore(player, worker, "farmer");
         ItemStack farmerIcon = BuildItem.buildItem("&d&lFarmer", Material.WHEAT, 1, itemLore);
 
-        /*toNextLevel = getNextLevelRequirement(player, "hunter") - worker.getJobScore("hunter");
-        itemLore.add("&7Poziom: " + worker.getJobLevel("hunter"));
-        itemLore.add("&7Wynik: " + worker.getJobScore("hunter"));
-        itemLore.add("&7Do nastepnego poziomu: " + toNextLevel);*/
         itemLore = buildWorkerGuiLore(player, worker, "hunter");
         ItemStack hunterIcon = BuildItem.buildItem("&c&lLowca", Material.BOW, 1, itemLore);
 

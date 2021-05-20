@@ -73,33 +73,6 @@ public class BlockPlaceListener implements Listener {
             Debug.log("&aIsland owner: " + islandsController.getIslandByLocation(location).getOwner());
         }
 
-
-        /*if(!skyblockPlayer.hasIslandOrCoop()){
-            if(!player.hasPermission(PermissionStorage.islandBuild)){
-                event.setCancelled(true);
-                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-                return;
-            }
-        }
-        else if(!islandsController.isLocationOnIsland(block.getLocation(), skyblockPlayer.getIslandOrCoop())) {
-            if (!player.hasPermission(PermissionStorage.islandBuild)) {
-                event.setCancelled(true);
-                ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
-                return;
-            }
-        }*/
-            /*
-            if(islandLimiter.isBlockLimited(block.getType())){
-
-                if(islandLimiter.isBlockAboveLimit(skyblockPlayer.getIslandOrCoop(), block.getType())){
-                    ChatUtils.sendMessage(player, "&cOsiagnales limit blokow tego typu!");
-                    event.setCancelled(true);
-                }
-                else{
-                    islandLimiter.addBlock(skyblockPlayer.getIslandOrCoop(), block.getType());
-                }
-
-            }*/
         Material material = block.getType();
         if(material.equals(Material.STICKY_PISTON)){
             material = Material.PISTON;
@@ -120,20 +93,6 @@ public class BlockPlaceListener implements Listener {
             }
             Skyblock.getPointsController().addPoints(block.getType().name(), skyblockPlayer.getIslandOrCoop());
         }
-
-
-
-
-        /*
-        //Uncomment when limits will work
-        else{
-            if(islandLimiter.isBlockLimited(block.getType())){
-                if(islandLimiter.isBlockAboveLimit(block)){
-                    event.setCancelled(true);
-                }
-            }
-        }*/
-
 
         skyblockPlayer.setPlacedBlocks(skyblockPlayer.getPlacedBlocks() + 1);
     }

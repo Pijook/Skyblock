@@ -5,18 +5,28 @@ import me.mattstudios.mfgui.gui.guis.Gui;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.cost.Cost;
+import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.gui.Button;
 import pl.trollcraft.Skyblock.gui.ButtonController;
 import pl.trollcraft.Skyblock.gui.MainGui;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.worker.WorkerController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IslandSizeGui {
 
     private static ButtonController buttonController = Skyblock.getButtonController();
     private static IslandsController islandsController = Skyblock.getIslandsController();
+    private static WorkerController workerController = Skyblock.getWorkerController();
+    private static SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
 
     private static Button upgradeButton;
     private static Button returnButton;
@@ -45,7 +55,7 @@ public class IslandSizeGui {
             event.setCancelled(true);
         });
 
-        gui.setItem(upgradeButton.getSlot(), ItemBuilder.from(upgradeButton.getIcon()).asGuiItem(event -> {
+        gui.setItem(upgradeButton.getSlot(), ItemBuilder.from(createUpgradeButton(player)).asGuiItem(event -> {
             Player target = (Player) event.getWhoClicked();
             target.performCommand("is upgrade");
             gui.close(target);
@@ -58,5 +68,33 @@ public class IslandSizeGui {
         gui.getFiller().fill(ItemBuilder.from(fillItem).asGuiItem());
 
         gui.open(player);
+    }
+
+    private static ItemStack createUpgradeButton(Player player){
+        ItemStack upgradeIcon = upgradeButton.getIcon();
+
+        Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+
+        Cost cost = islandsController.getIslandUpgradeCost(island.getIslandLevel() + 1);
+
+        List<String> lore = new ArrayList<>();
+
+        if(cost != null){
+            lore.add("");
+            lore.add(ChatUtils.fixColor("&7Wymagany Poziom: &e" + cost.getPlayerLevel()));
+            lore.add("");
+            lore.add(ChatUtils.fixColor("&7Koszt: &e" + cost.getMoney()));
+            lore.add("");
+        }
+        else{
+            lore.add("");
+            lore.add(ChatUtils.fixColor("&cPosiadasz maksymalny rozmiar!"));
+            lore.add("");
+        }
+
+        ItemMeta meta = upgradeIcon.getItemMeta();
+        meta.setLore(lore);
+        upgradeIcon.setItemMeta(meta);
+        return upgradeIcon;
     }
 }

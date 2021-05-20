@@ -64,7 +64,7 @@ public class IslandsController {
     }
 
     public Cost getIslandUpgradeCost(int level){
-        return levelsCosts.get(level);
+        return levelsCosts.getOrDefault(level, null);
     }
 
     /**
