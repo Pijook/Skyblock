@@ -145,6 +145,7 @@ public class Skyblock extends JavaPlugin {
         getCommand("gamemode").setExecutor(new GameModeCommand());
 
         loadStuff();
+
     }
 
     @Override

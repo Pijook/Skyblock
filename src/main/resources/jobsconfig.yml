@@ -12,8 +12,14 @@ blocksToMine:
   - DIAMOND_ORE
   - COBBLESTONE
 woodToChop:
-  - OAK_LOG
+  - BIRCH_LOG
   - SPRUCE_LOG
+  - BIRCH_LOG
+  - JUNGLE_LOG
+  - ACACIA_LOG
+  - DARK_OAK_LOG
+  - WARPED_STEM
+  - CRIMSON_STEM
 cropsToHarvest:
   - WHEAT
   - POTATOES
