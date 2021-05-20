@@ -27,28 +27,28 @@ public class KitGui {
         //Kit Wyspiarza
         Button islandButton = buttonController.loadButton(configuration, "buttons.island");
         kitGui.setItem(islandButton.getSlot(), ItemBuilder.from(islandButton.getIcon()).asGuiItem(event -> {
-            kitManager.giveKit((Player) event.getWhoClicked(), "wyspiarz");
+            kitManager.giveKit(event.getWhoClicked().getName(), "wyspiarz");
 
         }));
 
         //Kit Vip'a
         Button vipButton = buttonController.loadButton(configuration, "buttons.vip");
         kitGui.setItem(vipButton.getSlot(), ItemBuilder.from(vipButton.getIcon()).asGuiItem(event -> {
-            kitManager.giveKit((Player) event.getWhoClicked(), "vip");
+            kitManager.giveKit(event.getWhoClicked().getName(), "vip");
 
         }));
 
         //Kit Svip'a
         Button svipButton = buttonController.loadButton(configuration, "buttons.svip");
         kitGui.setItem(svipButton.getSlot(), ItemBuilder.from(svipButton.getIcon()).asGuiItem(event -> {
-            kitManager.giveKit((Player) event.getWhoClicked(), "svip");
+            kitManager.giveKit(event.getWhoClicked().getName(), "svip");
 
         }));
 
         //Kit gracza
         Button playerButton = buttonController.loadButton(configuration, "buttons.player");
         kitGui.setItem(playerButton.getSlot(), ItemBuilder.from(playerButton.getIcon()).asGuiItem(event -> {
-            kitManager.giveKit((Player) event.getWhoClicked(), "gracz");
+            kitManager.giveKit(event.getWhoClicked().getName(), "gracz");
 
         }));
 

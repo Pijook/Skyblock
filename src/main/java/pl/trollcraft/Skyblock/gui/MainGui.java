@@ -61,7 +61,7 @@ public class MainGui {
 
         });
 
-        mainGui.setItem(kitButton.getSlot(), kitItem);
+        //mainGui.setItem(kitButton.getSlot(), kitItem);
 
          /*
             ----- ----- -----

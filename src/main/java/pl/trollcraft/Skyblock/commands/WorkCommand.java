@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.commands;
 
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

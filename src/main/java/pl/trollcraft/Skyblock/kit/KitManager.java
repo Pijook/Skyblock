@@ -1,6 +1,8 @@
 package pl.trollcraft.Skyblock.kit;
 
 import org.bouncycastle.jcajce.provider.digest.Skein;
+import org.bukkit.Bukkit;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -48,10 +50,13 @@ public class KitManager {
             availableKits.put(kitName, new KitSet(kitSet, configuration.getLong("kits." + kitName + ".cooldown")));
 
         }
+
     }
 
 
-    public void giveKit(Player player, String kitName){
+    public void giveKit(String nickname, String kitName){
+
+        Player player = Bukkit.getPlayer(nickname);
 
         if( !player.hasPermission("" + PermissionStorage.kitPermission + "." + kitName)){
             ChatUtils.sendMessage(player, "&cNie masz dostepu do tego zestawu!");
@@ -87,7 +92,12 @@ public class KitManager {
 
         Debug.log("Player got a kit!");
         KitSet kit = availableKits.get(kitName);
-        kit.getKit((int) Skyblock.getWorkerController().getWorkerByName(player.getName()).getAverageLevel()).giveItems(player);
+        kit.getKit(
+                (int) Skyblock.
+                        getWorkerController().
+                        getWorkerByName(player.getName()).
+                        getAverageLevel()).
+                giveItems(player);
         ChatUtils.sendMessage(player, "&aOtrzymano zestaw " + kitName + "!");
 
         saveTime(player, kitName);
