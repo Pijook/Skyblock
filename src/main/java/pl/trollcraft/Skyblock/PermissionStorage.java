@@ -12,4 +12,5 @@ public class PermissionStorage {
     public static String flyOwn = "skyblock.command.fly.own";
     public static String flyOther = "skyblock.command.fly.other";
     public static String thisIsSpawn = "skyblock.sblobby.thisisspawn";
+    public static String kitPermission = "skyblock.kit";
 }

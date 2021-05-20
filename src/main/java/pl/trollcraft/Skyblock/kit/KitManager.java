@@ -4,6 +4,7 @@ import org.bouncycastle.jcajce.provider.digest.Skein;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
@@ -48,6 +49,10 @@ public class KitManager {
 
 
     public void giveKit(Player player, String kitName){
+
+        if( !player.hasPermission("" + PermissionStorage.kitPermission + "." + kitName)){
+            ChatUtils.sendMessage(player, "&cNie masz dostepu do tego zestawu!");
+        }
 
         if(!availableKits.containsKey(kitName)){
             ChatUtils.sendMessage(player, "&cNie znaleziono takiego zestawu!");
