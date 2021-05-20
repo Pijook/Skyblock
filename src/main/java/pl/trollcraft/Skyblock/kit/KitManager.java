@@ -52,6 +52,7 @@ public class KitManager {
 
         if( !player.hasPermission("" + PermissionStorage.kitPermission + "." + kitName)){
             ChatUtils.sendMessage(player, "&cNie masz dostepu do tego zestawu!");
+            return;
         }
 
         if(!availableKits.containsKey(kitName)){
