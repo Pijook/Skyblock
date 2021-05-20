@@ -13,6 +13,8 @@ import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 import java.util.UUID;
 
@@ -44,7 +46,13 @@ public class QuitListener implements Listener {
                         if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)){
                             if(islandsController.isIslandLoaded(islandID)){
                                 if(islandsController.getIslandById(islandID).getServer().equalsIgnoreCase(Storage.serverName)){
-                                    RedisSupport.saveIsland(player, islandID);
+                                    try{
+                                        RedisSupport.saveIsland(player, islandID);
+                                    }
+                                    catch (JedisConnectionException e){
+                                        Skyblock.setJedis(new Jedis());
+                                        RedisSupport.saveIsland(player, islandID);
+                                    }
                                 }
                             }
                         }
@@ -59,9 +67,14 @@ public class QuitListener implements Listener {
             }
         }
 
+        try{
+            RedisSupport.savePlayer(player);
+            workerController.savePlayer(player);
+        }
+        catch (JedisConnectionException e){
+            Skyblock.setJedis(new Jedis());
+        }
 
-        RedisSupport.savePlayer(player);
-        workerController.savePlayer(player);
         if(Storage.kitsEnabled){
             Skyblock.getKitManager().savePlayer(player);
         }

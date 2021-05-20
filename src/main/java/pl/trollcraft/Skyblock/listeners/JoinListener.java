@@ -16,6 +16,8 @@ import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 import pl.trollcraft.ists.model.event.ISRProcessedEvent;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 public class JoinListener implements Listener {
 
@@ -50,8 +52,15 @@ public class JoinListener implements Listener {
         Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
             @Override
             public void run() {
-                RedisSupport.loadPlayer(player);
-                workerController.loadPlayer(player);
+                try{
+                    RedisSupport.loadPlayer(player);
+                    workerController.loadPlayer(player);
+                }
+                catch (JedisConnectionException e){
+                    Skyblock.setJedis(new Jedis());
+                    return;
+                }
+
                 if(Storage.kitsEnabled){
                     Skyblock.getKitManager().loadPlayer(player);
                 }

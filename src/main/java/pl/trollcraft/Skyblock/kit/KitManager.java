@@ -111,17 +111,25 @@ public class KitManager {
                 cooldowns.put(kitName, configuration.getLong("cooldowns." + player.getName() + "." + kitName));
             }
         }
+        else{
+            playerCooldowns.put(player.getName(), new HashMap<>());
+        }
     }
 
     public void savePlayer(Player player){
-        YamlConfiguration configuration = ConfigUtils.load("kitsCooldowns.yml", Skyblock.getInstance());
-        HashMap<String, Long> cooldowns = playerCooldowns.get(player.getName());
 
-        for(String kitName : cooldowns.keySet()){
-            configuration.set("cooldowns." + player.getName() + "." + kitName, cooldowns.get(kitName));
+        if(playerCooldowns.containsKey(player.getName())){
+            YamlConfiguration configuration = ConfigUtils.load("kitsCooldowns.yml", Skyblock.getInstance());
+            HashMap<String, Long> cooldowns = playerCooldowns.get(player.getName());
+
+            for(String kitName : cooldowns.keySet()){
+                configuration.set("cooldowns." + player.getName() + "." + kitName, cooldowns.get(kitName));
+            }
+
+            ConfigUtils.save(configuration, "kitsCooldowns.yml");
+
         }
 
-        ConfigUtils.save(configuration, "kitsCooldowns.yml");
     }
 
     /*public void saveTimeToGlobal(Player player){

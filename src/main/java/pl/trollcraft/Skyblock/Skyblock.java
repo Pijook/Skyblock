@@ -317,6 +317,10 @@ public class Skyblock extends JavaPlugin {
         return jedis;
     }
 
+    public static void setJedis(Jedis a){
+        jedis = a;
+    }
+
     public Commands getCommands() {
         return commands;
     }

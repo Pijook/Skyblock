@@ -33,7 +33,7 @@ public class Kit {
 
     public void giveItems(Player player){
         for(ItemStack itemStack : items){
-            player.getInventory().addItem(itemStack);
+            player.getInventory().addItem(new ItemStack(itemStack));
         }
     }
 }
