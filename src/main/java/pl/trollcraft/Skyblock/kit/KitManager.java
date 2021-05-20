@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
@@ -24,6 +25,8 @@ public class KitManager {
 
     public void loadKits(){
         YamlConfiguration configuration = ConfigUtils.load("kits.yml", Skyblock.getInstance());
+
+        Storage.kitsEnabled = configuration.getBoolean("enabled");
 
         for(String kitName : configuration.getConfigurationSection("kits").getKeys(false)){
 
@@ -97,7 +100,31 @@ public class KitManager {
         playerCooldowns.get(player.getName()).put(kitName, System.currentTimeMillis());
     }
 
-    public void saveTimeToGlobal(Player player){
+    public void loadPlayer(Player player){
+        YamlConfiguration configuration = ConfigUtils.load("kitsCooldowns.yml", Skyblock.getInstance());
+
+        if(configuration.contains("cooldowns." + player.getName())){
+
+            HashMap<String, Long> cooldowns = new HashMap<>();
+
+            for(String kitName : configuration.getConfigurationSection("cooldowns." + player.getName()).getKeys(false)){
+                cooldowns.put(kitName, configuration.getLong("cooldowns." + player.getName() + "." + kitName));
+            }
+        }
+    }
+
+    public void savePlayer(Player player){
+        YamlConfiguration configuration = ConfigUtils.load("kitsCooldowns.yml", Skyblock.getInstance());
+        HashMap<String, Long> cooldowns = playerCooldowns.get(player.getName());
+
+        for(String kitName : cooldowns.keySet()){
+            configuration.set("cooldowns." + player.getName() + "." + kitName, cooldowns.get(kitName));
+        }
+
+        ConfigUtils.save(configuration, "kitsCooldowns.yml");
+    }
+
+    /*public void saveTimeToGlobal(Player player){
         if(playerCooldowns.containsKey(player.getName())){
             String kitJedis = Skyblock.getGson().toJson(playerCooldowns.get(player.getName()));
             String code = RedisSupport.getCode(player.getName());
@@ -119,7 +146,7 @@ public class KitManager {
             playerCooldowns.put(player.getName(), kitCooldown);
         }
 
-    }
+    }*/
 
     /*public void giveKit(Player player, String kitName){
 

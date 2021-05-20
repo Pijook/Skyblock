@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -139,7 +140,15 @@ public class ConfigUtils {
             itemName = configuration.getString(ChatUtils.fixColor(path + ".name"));
         }
 
-        return BuildItem.buildItem(itemName, material, amount, lore);
+        ItemStack itemStack = BuildItem.buildItem(itemName, material, amount, lore);
+
+        if(configuration.contains(path + ".enchants")){
+            for(String enchant : configuration.getConfigurationSection(path + ".enchants").getKeys(false)){
+                itemStack.addUnsafeEnchantment(Enchantment.getByName(enchant), configuration.getInt(path + ".enchants." + enchant));
+            }
+        }
+
+        return itemStack;
     }
 
 }

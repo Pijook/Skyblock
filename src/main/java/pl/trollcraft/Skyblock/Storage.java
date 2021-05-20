@@ -34,5 +34,7 @@ public class Storage {
 
     public static boolean dropEnable = true;
 
+    public static boolean kitsEnabled = false;
+
 
 }

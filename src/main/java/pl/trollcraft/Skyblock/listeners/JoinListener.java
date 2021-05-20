@@ -52,7 +52,9 @@ public class JoinListener implements Listener {
             public void run() {
                 RedisSupport.loadPlayer(player);
                 workerController.loadPlayer(player);
-                Skyblock.getKitManager().getFromGlobal(player);
+                if(Storage.kitsEnabled){
+                    Skyblock.getKitManager().loadPlayer(player);
+                }
             }
         }, 1L);
     }

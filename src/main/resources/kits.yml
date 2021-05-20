@@ -3,6 +3,7 @@
 #vip
 #svip
 #gracz
+enabled: false
 kits:
   gracz:
     cooldown: 60

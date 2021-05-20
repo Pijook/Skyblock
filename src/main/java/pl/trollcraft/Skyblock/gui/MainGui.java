@@ -49,7 +49,16 @@ public class MainGui {
 
         GuiItem kitItem = ItemBuilder.from(kitButton.getIcon()).asGuiItem(event -> {
             //Open kit gui
-            KitGui.openGui((Player) event.getWhoClicked());
+            if(Storage.kitsEnabled){
+                KitGui.openGui((Player) event.getWhoClicked());
+                return;
+            }
+            else{
+                mainGui.close(event.getWhoClicked());
+                ChatUtils.sendMessage(event.getWhoClicked(), "&cMozesz to zrobic tylko na spawnie!");
+                return;
+            }
+
         });
 
         mainGui.setItem(kitButton.getSlot(), kitItem);

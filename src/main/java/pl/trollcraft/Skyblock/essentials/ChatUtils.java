@@ -7,7 +7,7 @@ import pl.trollcraft.Skyblock.Skyblock;
 
 public class ChatUtils {
 
-    private static String prefix = "&f&l[&a&lSky&2&lBlock&f&l]";
+    private static String prefix = "&f&l[&a&lSky&2&lBlock&f&l] ";
 
     /**
      * Changes & to minecraft colors
