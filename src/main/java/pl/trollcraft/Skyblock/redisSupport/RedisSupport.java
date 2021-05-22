@@ -44,7 +44,7 @@ public class RedisSupport {
 
         String playerJSON = Skyblock.getJedis().hget(code, "player");
 
-        //Debug.log("&aJSON: " + playerJSON);
+        Debug.log("&aJSON: " + playerJSON);
 
         SkyblockPlayer skyblockPlayer = stringToPlayer(playerJSON);
 

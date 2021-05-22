@@ -67,4 +67,51 @@ public class JoinListener implements Listener {
             }
         }, 1L);
     }
+
+    /*@EventHandler
+    public void onAppear(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+
+        if(!event.wasISRFound()){
+            if(Settings.spawnOnJoin){
+                Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        player.teleport(Storage.spawn);
+                    }
+                });
+            }
+        }
+
+        if(Settings.spawnOnJoin){
+            Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    player.teleport(Storage.spawn);
+                }
+            });
+        }
+
+        if(!player.getWorld().getName().equalsIgnoreCase("Islands")){
+            player.teleport(new Location(Bukkit.getWorld("Islands"), player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
+        }
+
+        Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    RedisSupport.loadPlayer(player);
+                    workerController.loadPlayer(player);
+                }
+                catch (JedisConnectionException e){
+                    Skyblock.setJedis(new Jedis());
+                    return;
+                }
+
+                if(Storage.kitsEnabled){
+                    Skyblock.getKitManager().loadPlayer(player);
+                }
+            }
+        }, 1L);
+    }*/
 }

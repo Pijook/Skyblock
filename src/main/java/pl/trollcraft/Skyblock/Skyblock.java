@@ -64,7 +64,18 @@ public class Skyblock extends JavaPlugin {
 
         plugin = this;
         instance = this;
-        jedis = new Jedis();
+
+        try{
+            jedis = new Jedis();
+            Debug.log("&aConnection Successful!");
+            Debug.log("The server is running " + jedis.ping());
+        }
+        catch (Exception e){
+            Debug.log(e);
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+
+
         gson = new Gson();
 
 
