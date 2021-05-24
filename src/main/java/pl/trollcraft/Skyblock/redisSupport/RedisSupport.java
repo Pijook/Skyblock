@@ -2,6 +2,7 @@ package pl.trollcraft.Skyblock.redisSupport;
 
 import com.google.gson.Gson;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.trollcraft.Skyblock.Skyblock;
@@ -12,6 +13,7 @@ import pl.trollcraft.Skyblock.customEvents.IslandSaveEvent;
 import pl.trollcraft.Skyblock.customEvents.PlayerLoadEvent;
 import pl.trollcraft.Skyblock.customEvents.PlayerSaveEvent;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -27,6 +29,12 @@ public class RedisSupport {
 
     private static final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private static final IslandsController islandsController = Skyblock.getIslandsController();
+
+    public static void loadSettings(){
+        YamlConfiguration configuration = ConfigUtils.load("datasource.yml", Skyblock.getInstance());
+
+        Storage.redisAddress = configuration.getString("redis.host");
+    }
 
     /**
      * Loads skyblockPlayer from redis base

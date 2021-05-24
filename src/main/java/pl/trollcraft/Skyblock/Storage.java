@@ -14,6 +14,8 @@ public class Storage {
     public static String redisWorkerCode = "skyblockworker:%player%";
     public static String islandCode = "skyblockisland:%id%";
 
+    public static String redisAddress;
+
     //Top
     public static boolean topShow;
     public static String topCode = "skyblock:top";

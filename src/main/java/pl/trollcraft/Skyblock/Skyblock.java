@@ -29,6 +29,7 @@ import pl.trollcraft.Skyblock.kit.KitManager;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.listeners.*;
 import pl.trollcraft.Skyblock.listeners.customListeners.*;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.villagercontroller.VillagerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
@@ -65,19 +66,7 @@ public class Skyblock extends JavaPlugin {
         plugin = this;
         instance = this;
 
-        try{
-            jedis = new Jedis();
-            Debug.log("&aConnection Successful!");
-            Debug.log("The server is running " + jedis.ping());
-        }
-        catch (Exception e){
-            Debug.log(e);
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
-
-
         gson = new Gson();
-
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             /*
@@ -235,6 +224,13 @@ public class Skyblock extends JavaPlugin {
             Debug.log("&aDone!");
         }
 
+        Debug.log("&aLoading redis settings...");
+        RedisSupport.loadSettings();
+        Debug.log("&aDone!");
+
+        Debug.log("&aStarting jedis...");
+        initJedis();
+
         Debug.log("&aFinished loading " + getDescription().getName() + " " + getDescription().getVersion() + "!");
 
     }
@@ -314,8 +310,20 @@ public class Skyblock extends JavaPlugin {
         return econ != null;
     }
 
-    //Command Load/save
+    public static void initJedis(){
+        Debug.log("Trying to connect to " + Storage.redisAddress);
+        try{
+            jedis = new Jedis(Storage.redisAddress);
+            Debug.log("&aConnection Successful!");
+            Debug.log("The server is running " + jedis.ping());
+        }
+        catch (Exception e){
+            Debug.log(e);
+            Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
+        }
+    }
 
+    //Command Load/save
 
     public static Gson getGson() {
         return gson;
