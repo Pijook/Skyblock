@@ -19,12 +19,17 @@ public class LimitController {
     private HashMap<String, HashMap<Integer, Limiter>> defaultLimits = new HashMap<>();
     private HashMap<String, HashMap<Integer, Cost>> upgradesCosts = new HashMap<>();
     private ArrayList<String> crops = new ArrayList<>();
+    private ArrayList<String> destroyableByWater = new ArrayList<>();
 
     public void loadSettings(){
         YamlConfiguration configuration = ConfigUtils.load("limiter.yml", Skyblock.getInstance());
 
         if(configuration.contains("crops")){
             crops = (ArrayList<String>) configuration.getStringList("crops");
+        }
+
+        if(configuration.contains("destroyableByWater")){
+            destroyableByWater = (ArrayList<String>) configuration.getStringList("destroyableByWater");
         }
 
         for(String type : configuration.getConfigurationSection("limiter").getKeys(false)){
@@ -238,6 +243,10 @@ public class LimitController {
 
     public boolean isCrop(String name){
         return crops.contains(name);
+    }
+
+    public boolean isDestroyableByWater(String name){
+        return destroyableByWater.contains(name);
     }
 
 

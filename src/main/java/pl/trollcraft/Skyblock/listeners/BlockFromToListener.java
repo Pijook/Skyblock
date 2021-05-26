@@ -22,7 +22,7 @@ public class BlockFromToListener implements Listener {
         final Material newBlock = event.getBlock().getType();
         final Material oldBlock = event.getToBlock().getType();
 
-        if(newBlock.equals(Material.WATER) && limitController.isCrop(oldBlock.name())){
+        if(newBlock.equals(Material.WATER) && limitController.isDestroyableByWater(oldBlock.name())){
 
             UUID islandID = islandsController.getIslandIDByLocation(event.getToBlock().getLocation());
             if(islandID != null){

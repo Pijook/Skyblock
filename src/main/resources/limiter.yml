@@ -1,3 +1,9 @@
+crops:
+  - WHEAT
+destroyableByWater:
+  - WHEAT
+  - CARROT
+  - CARROTS
 limiter:
   STONE:
     1:
