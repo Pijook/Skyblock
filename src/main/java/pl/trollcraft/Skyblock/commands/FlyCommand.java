@@ -53,28 +53,28 @@ public class FlyCommand implements CommandExecutor {
             }
             if( args.length == 2){
                 if( args[1].equalsIgnoreCase("disable") ){
-                    player.setFlying(false);
+                    other.setFlying(false);
                     ChatUtils.sendMessage(player, "&7Wylaczono fly dla " + other.getName() + "!");
                     ChatUtils.sendMessage(other, "&7Wylaczono fly!");
                     return true;
                 }
                 if( args[1].equalsIgnoreCase("enable") ){
-                    player.setAllowFlight(true);
+                    other.setAllowFlight(true);
                     player.setFlying(true);
                     ChatUtils.sendMessage(player, "&7Wlaczono fly dla " + other.getName() + "!");
                     ChatUtils.sendMessage(other, "&7Wlaczono fly!");
                     return true;
                 }
             }
-            if (player.isFlying()) {
-                player.setFlying(false);
+            if (other.isFlying()) {
+                other.setFlying(false);
                 ChatUtils.sendMessage(player, "&7Wylaczono fly dla " + other.getName() + "!");
                 ChatUtils.sendMessage(other, "&7Wylaczono fly!");
                 return true;
             }
-            if (!player.isFlying()) {
-                player.setAllowFlight(true);
-                player.setFlying(true);
+            if (!other.isFlying()) {
+                other.setAllowFlight(true);
+                other.setFlying(true);
                 ChatUtils.sendMessage(player, "&7Wlaczono fly dla " + other.getName() + "!");
                 ChatUtils.sendMessage(other, "&7Wlaczono fly!");
                 return true;
