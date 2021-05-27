@@ -4,6 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
@@ -26,20 +27,32 @@ public class IsCreateCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if( sender instanceof Player) {
             Player player = (Player) sender;
-            if (islandsController.isPlayerOwner(player.getName())) {
-                ChatUtils.sendMessage(player, "&cPosiadasz juz wyspe!");
-            } else {
-                if(!islandsController.isGeneratorOnCooldown()){
-                    ChatUtils.sendMessage(player, "&aTworze wyspe...");
-                    //CreateIsland.createNew(player);
-                    islandsController.setGeneratorOnCooldown();
-                    BungeeSupport.sendGenerateIslandCommand(player);
-                }
-                else {
-                    ChatUtils.sendMessage(player, "&cSprobuj ponownie za pare sekund...");
-                }
-
+            if(!player.hasPermission(PermissionStorage.thisIsSpawn)){
+                ChatUtils.sendMessage(player, "&cTa komenda dostepna jest tylko na spawnie!");
+                return;
             }
+            long cooldown = islandsController.getIslandCreateCooldown(player.getName());
+            if(cooldown == -1 || cooldown > Storage.createCooldown){
+                if (islandsController.isPlayerOwner(player.getName())) {
+                    ChatUtils.sendMessage(player, "&cPosiadasz juz wyspe!");
+                } else {
+                    if(!islandsController.isGeneratorOnCooldown()){
+                        ChatUtils.sendMessage(player, "&aTworze wyspe...");
+                        //CreateIsland.createNew(player);
+                        islandsController.setGeneratorOnCooldown();
+                        BungeeSupport.sendGenerateIslandCommand(player);
+                        islandsController.saveCooldown(player.getName());
+                    }
+                    else {
+                        ChatUtils.sendMessage(player, "&cSprobuj ponownie za pare sekund...");
+                    }
+
+                }
+            }
+            else{
+                ChatUtils.sendMessage(player, "&cMozesz ponownie utworzyc wyspe za " + (Storage.createCooldown - cooldown) + " sekund");
+            }
+
         }
         else{
             sender.sendMessage(ChatUtils.fixColor("&cKomenda tylko dla graczy"));

@@ -565,4 +565,23 @@ public class IslandsController {
             i++;
         }
     }
+
+    public long getIslandCreateCooldown(String nickname){
+        YamlConfiguration configuration = ConfigUtils.load("createIslandCooldown.yml", Skyblock.getInstance());
+
+        if(!configuration.contains("cooldowns." + nickname)){
+            return -1;
+        }
+        else{
+            long playerCooldown = configuration.getLong("cooldowns." + nickname);
+            long difference = System.currentTimeMillis() - playerCooldown;
+            return TimeUnit.MILLISECONDS.toSeconds(difference);
+        }
+    }
+
+    public void saveCooldown(String nickname){
+        YamlConfiguration configuration = ConfigUtils.load("createIslandCooldown.yml", Skyblock.getInstance());
+        configuration.set("cooldowns." + nickname, System.currentTimeMillis());
+        ConfigUtils.save(configuration, "createIslandCooldown.yml");
+    }
 }

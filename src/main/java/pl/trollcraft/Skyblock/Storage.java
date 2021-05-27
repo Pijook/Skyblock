@@ -38,5 +38,7 @@ public class Storage {
 
     public static boolean kitsEnabled = false;
 
+    public static int createCooldown;
+
 
 }

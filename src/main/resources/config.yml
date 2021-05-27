@@ -1,3 +1,4 @@
+createCooldown: 60
 teleportToSpawn: false
 spawn:
   x: 0
