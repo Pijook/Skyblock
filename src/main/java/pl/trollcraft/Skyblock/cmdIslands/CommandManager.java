@@ -77,7 +77,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             }
         }
         else {
-            ChatUtils.sendMessage(cs, "&cPodaj argument");
+            ChatUtils.sendMessage(cs, "&cWpisz &6/is help &cby poznac wszystkie komendy");
             return true;
         }
 

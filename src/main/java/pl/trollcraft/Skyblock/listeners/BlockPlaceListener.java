@@ -33,7 +33,7 @@ public class BlockPlaceListener implements Listener {
 
         Block block = event.getBlock();
 
-        Debug.log("Placed block: " + block.getType().name());
+//        Debug.log("Placed block: " + block.getType().name());
 
         boolean hasCoop = skyblockPlayer.hasIslandOrCoop();
         boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
@@ -59,19 +59,19 @@ public class BlockPlaceListener implements Listener {
         }
 
         if(!islandsController.isLocationOnIsland(event.getBlockPlaced().getLocation(), skyblockPlayer.getIslandOrCoop())){
-            Debug.log("&c[BlockPlace] Location is not on island!");
+//            Debug.log("&c[BlockPlace] Location is not on island!");
             if(!player.hasPermission(PermissionStorage.islandBuild)){
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
             }
         }
-        else{
-            Location location = event.getBlockPlaced().getLocation();
-            Debug.log("&a[BlockPlace] Location is on island!");
-            Debug.log("&aLocation: " + location.getX() + " " + location.getY() + " " + location.getZ());
-            Debug.log("&aIsland owner: " + islandsController.getIslandByLocation(location).getOwner());
-        }
+//        else{
+//            Location location = event.getBlockPlaced().getLocation();
+//            Debug.log("&a[BlockPlace] Location is on island!");
+//            Debug.log("&aLocation: " + location.getX() + " " + location.getY() + " " + location.getZ());
+//            Debug.log("&aIsland owner: " + islandsController.getIslandByLocation(location).getOwner());
+//        }
 
         Material material = block.getType();
         if(material.equals(Material.STICKY_PISTON)){

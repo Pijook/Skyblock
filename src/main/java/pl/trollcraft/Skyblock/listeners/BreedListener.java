@@ -33,7 +33,7 @@ public class BreedListener implements Listener {
         String type = event.getEntity().getType().name();
 
         if(limitController.isTypeLimited(type)){
-            Debug.log("Entity is limited!");
+//            Debug.log("Entity is limited!");
             if(limitController.isAboveLimit(type, skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop())){
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cOsiagnieto limit tych zwierzat!");

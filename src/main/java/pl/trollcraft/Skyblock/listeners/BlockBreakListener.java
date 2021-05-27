@@ -50,7 +50,7 @@ public class BlockBreakListener implements Listener {
 
         if(!hasCoop){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
-                Debug.log("&c[BlockBreakListener] Denied action");
+//                Debug.log("&c[BlockBreakListener] Denied action");
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
@@ -59,7 +59,7 @@ public class BlockBreakListener implements Listener {
 
         if(!isOnHisIsland){
             if(!player.hasPermission(PermissionStorage.islandBuild)){
-                Debug.log("&c[BlockBreakListener] Denied action");
+//                Debug.log("&c[BlockBreakListener] Denied action");
                 event.setCancelled(true);
                 ChatUtils.sendMessage(player, "&cNie mozesz tego zrobic!");
                 return;
@@ -107,7 +107,7 @@ public class BlockBreakListener implements Listener {
             }
 
             Block blockAbove = event.getBlock().getRelative(BlockFace.UP);
-            Debug.log("Block above: " + blockAbove.getType().name());
+//            Debug.log("Block above: " + blockAbove.getType().name());
             if(limitController.isCrop(blockAbove.getType().name())){
                 limitController.decreaseType(blockAbove.getType().name(), skyblockPlayer.getIslandOrCoop());
             }

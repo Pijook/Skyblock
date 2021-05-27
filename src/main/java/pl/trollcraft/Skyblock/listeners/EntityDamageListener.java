@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -23,11 +24,16 @@ public class EntityDamageListener implements Listener {
         if(event.getEntity().getType().equals(EntityType.PLAYER)){
 
             Player player = (Player) event.getEntity();
+            if( player.hasPermission("" + PermissionStorage.thisIsSpawn)) {
 
-            if(event.getCause().equals(EntityDamageEvent.DamageCause.FALL)){
-                event.setCancelled(true);
+                if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
+                    if (player.getLocation().getY() < 0) {
+                        event.setCancelled(true);
+                        player.teleport(Storage.spawn);
+                    }
+                }
+
             }
-
         }
 
     }
