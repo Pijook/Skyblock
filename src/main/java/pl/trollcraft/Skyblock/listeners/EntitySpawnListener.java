@@ -21,6 +21,7 @@ public class EntitySpawnListener implements Listener {
     public void onSpawn(EntitySpawnEvent event){
 
         Entity entity = event.getEntity();
+        Debug.log("&5Spawnuje " + entity.getName());
 
         String type = entity.getType().name();
         if(limitController.isTypeLimited(type)){
