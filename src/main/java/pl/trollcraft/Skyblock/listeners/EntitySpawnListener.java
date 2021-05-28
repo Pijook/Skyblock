@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 
@@ -32,6 +33,7 @@ public class EntitySpawnListener implements Listener {
             }
 
             if(limitController.isAboveLimit(type, islandID)){
+                Debug.log("&5Anulowalem spawn " + type);
                 event.setCancelled(true);
             }
             else{
