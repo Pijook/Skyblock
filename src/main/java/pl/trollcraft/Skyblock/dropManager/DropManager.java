@@ -9,6 +9,7 @@ import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.cost.Cost;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.worker.Worker;
 import scala.Int;
@@ -78,6 +79,10 @@ public class DropManager {
     }
 
     public Material generateMaterial(int playerLevel){
+        if( !drops.containsKey(playerLevel)){
+            Debug.log("&cNie posiadam szans dla poziomu " + playerLevel + " gornika");
+            return Material.COBBLESTONE;
+        }
         LinkedHashMap<Material, Double> chances = drops.get(playerLevel);
         double a = random.nextDouble() * 100;
         for(Material material : chances.keySet()){

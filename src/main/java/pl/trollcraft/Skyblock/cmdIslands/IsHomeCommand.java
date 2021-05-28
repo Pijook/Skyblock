@@ -28,9 +28,7 @@ public class IsHomeCommand extends Command {
             Player player = (Player) sender;
             if(skyblockPlayerController.getPlayer(player.getName()).hasIslandOrCoop()){
                 Island island = islandsController.getIslandById(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
-                Location loc = island.getHome();
-                loc.setY( island.getHome().getY() + 2 );
-                player.teleport(loc);
+                player.teleport(island.getHome());
             }
             else{
                 ChatUtils.sendMessage(player, "&cNie posiadasz wyspy");

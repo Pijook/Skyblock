@@ -73,7 +73,7 @@ public class BlockBreakListener implements Listener {
                 if( !(player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH))){
                     if (dropManager.countsAsDrop(block.getType())) {
                         //ItemStack dropItem = new ItemStack(dropManager.generateMaterial(skyblockPlayer.getDropLevel()));
-                        ItemStack dropItem = new ItemStack(dropManager.generateMaterial((int) worker.getAverageLevel()));
+                        ItemStack dropItem = new ItemStack(dropManager.generateMaterial((int) worker.getJobLevel("miner")));
                         if( !(dropItem.getType().equals(Material.COBBLESTONE))){
                             if( player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.LOOT_BONUS_BLOCKS) ) {
                                 int fortuneLevel = player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
