@@ -45,11 +45,6 @@ public class AdminWorkCommand implements CommandExecutor {
 
             int value = Integer.parseInt(args[2]);
 
-            if(!worker.doesJobExist(jobName)){
-                ChatUtils.sendMessage(player, "&cPraca o takiej nazwie nie istnieje!");
-                return true;
-            }
-
             if(args[0].equalsIgnoreCase("level")){
                 worker.setJobLevel(jobName, value);
                 ChatUtils.sendMessage(player, "&aUstawiono level " + jobName + " na " + value);

@@ -7,94 +7,169 @@ import java.util.HashMap;
 public class Worker {
 
     //Statistics
-    /*private int minedStone;
+    private int minedStone;
     private int choppedWood;
+    private int harvestedCrops;
     private int breedAnimals;
-    private int huntedAnimals;*/
+    private int huntedAnimals;
 
     //Levels
-    /*private int minerLevel;
+    private int minerLevel;
     private int lumberjackLevel;
     private int farmerLevel;
-    private int hunterLevel;*/
+    private int breederLevel;
+    private int hunterLevel;
 
-    private HashMap<String, Job> jobs;
+    //private HashMap<String, Job> jobs;
 
-    public Worker(HashMap<String, Job> jobs){
-        this.jobs = jobs;
+    public Worker(int minerLevel, int minedStone, int lumberjackLevel, int choppedWood, int farmerLevel, int harvestedCrops, int breederLevel, int breedAnimals, int hunterLevel, int huntedAnimals){
+        this.minerLevel = minerLevel;
+        this.minedStone = minedStone;
+        this.lumberjackLevel = lumberjackLevel;
+        this.choppedWood = choppedWood;
+        this.farmerLevel = farmerLevel;
+        this.harvestedCrops = harvestedCrops;
+        this.breederLevel = breederLevel;
+        this.breedAnimals = breedAnimals;
+        this.hunterLevel = hunterLevel;
+        this.huntedAnimals = huntedAnimals;
     }
 
 
     //Increasing functions
 
     public double getAverageLevel(){
-        double amount = 0;
-        double sum = 0;
-        for(String jobName : jobs.keySet()){
-            sum = sum + jobs.get(jobName).getLevel();
-            amount++;
-        }
-        return (sum/amount);
+        return (double) (minerLevel + lumberjackLevel + farmerLevel + breederLevel + hunterLevel) / 5;
     }
 
     public void increaseMinedStone(int amount){
-        jobs.get("miner").increaseScore(amount);
+        minedStone = minedStone + amount;
     }
 
     public void increaseChoppedWood(int amount){
-        jobs.get("lumberjack").increaseScore(amount);
+        choppedWood = choppedWood + amount;
     }
 
     public void increaseBreedAnimals(int amount){
-        jobs.get("breeder").increaseScore(amount);
+        breedAnimals = breedAnimals + amount;
     }
 
     public void increaseHuntedAnimals(int amount){
-        jobs.get("hunter").increaseScore(amount);
+        huntedAnimals = huntedAnimals + amount;
     }
 
-    public void increaseHarvestedCrops(int amount) { jobs.get("farmer").increaseScore(amount); }
+    public void increaseHarvestedCrops(int amount) {
+        harvestedCrops = harvestedCrops + amount;
+    }
 
     //Getters and Setters
 
     public int getJobScore(String workName) {
-        if(!jobs.containsKey(workName)){
-            Debug.sendError("&cWrong workName! (getJobScore)");
-            return -1;
+        switch (workName){
+            case "miner":
+                return minedStone;
+            case "lumberjack":
+                return choppedWood;
+            case "farmer":
+                return harvestedCrops;
+            case "hunter":
+                return huntedAnimals;
+            case "breeder":
+                return breedAnimals;
+            default:
+                Debug.log("Wrong work name! (" + workName + ")");
+                return -1;
         }
-        return jobs.get(workName).getScore();
     }
 
-    public boolean doesJobExist(String workName){
+    /*public boolean doesJobExist(String workName){
         return jobs.containsKey(workName);
-    }
+    }*/
 
     public void setJobScore(String workName, int score){
-        jobs.get(workName).setScore(score);
+        switch (workName){
+            case "miner":
+                minedStone = score;
+                break;
+            case "lumberjack":
+                choppedWood = score;
+                break;
+            case "farmer":
+                harvestedCrops = score;
+                break;
+            case "hunter":
+                huntedAnimals = score;
+                break;
+            case "breeder":
+                breedAnimals = score;
+                break;
+            default:
+                Debug.log("Wrong work name! (" + workName + ")");
+                break;
+        }
     }
 
     public int getJobLevel(String workName){
-        if(!jobs.containsKey(workName)){
-            Debug.sendError("&cWrong workName! (getJobLevel)");
-            return -1;
+        switch (workName){
+            case "miner":
+                return minerLevel;
+            case "lumberjack":
+                return lumberjackLevel;
+            case "farmer":
+                return farmerLevel;
+            case "hunter":
+                return hunterLevel;
+            case "breeder":
+                return breederLevel;
+            default:
+                Debug.log("Wrong work name! (" + workName + ")");
+                return -1;
         }
-        return jobs.get(workName).getLevel();
     }
 
     public void setJobLevel(String workName, int level){
-        jobs.get(workName).setLevel(level);
+        switch (workName){
+            case "miner":
+                minerLevel = level;
+                break;
+            case "lumberjack":
+                lumberjackLevel = level;
+                break;
+            case "farmer":
+                farmerLevel = level;
+                break;
+            case "hunter":
+                hunterLevel = level;
+                break;
+            case "breeder":
+                breederLevel = level;
+                break;
+            default:
+                Debug.log("Wrong work name! (" + workName + ")");
+                break;
+        }
     }
 
-    public void increaseJobLevel(String jobName, int amount){
-        jobs.get(jobName).setLevel(jobs.get(jobName).getLevel() + amount);
-    }
-
-    public void debugWorker(){
-        for(String jobName : jobs.keySet()){
-            Job job = jobs.get(jobName);
-            Debug.log("Job name: " + jobName);
-            Debug.log("Level: " + job.getLevel());
-            Debug.log("Score: " + job.getScore());
+    public void increaseJobLevel(String workName, int amount){
+        switch (workName){
+            case "miner":
+                minerLevel = minerLevel + amount;
+                break;
+            case "lumberjack":
+                lumberjackLevel = lumberjackLevel + amount;
+                break;
+            case "farmer":
+                farmerLevel = farmerLevel + amount;
+                break;
+            case "hunter":
+                hunterLevel = hunterLevel + amount;
+                break;
+            case "breeder":
+                breederLevel = breederLevel + amount;
+                break;
+            default:
+                Debug.log("Wrong work name! (" + workName + ")");
+                break;
         }
     }
 }

@@ -158,40 +158,34 @@ public class WorkerController {
     public void loadPlayer(Player player){
         ChatUtils.sendMessage(player, "&aLoading work...");
 
-        new BukkitRunnable(){
-            @Override
-            public void run() {
+        String nickname = player.getName();
+        String code = Storage.redisWorkerCode;
+        code = code.replace("%player%", nickname);
 
-                String nickname = player.getName();
-                String code = Storage.redisWorkerCode;
-                code = code.replace("%player%", nickname);
+        String workerJSON = Skyblock.getJedis().hget(code, "worker");
 
-                String workerJSON = Skyblock.getJedis().hget(code, "worker");
-
-                if(workerJSON == null){
-                    BungeeSupport.sendReloadWorkerCommand(player);
-                    Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
-                        @Override
-                        public void run() {
-                            loadPlayer(player);
-                        }
-                    }, 20L);
-                    return;
+        if(workerJSON == null){
+            BungeeSupport.sendReloadWorkerCommand(player);
+            Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    loadPlayer(player);
                 }
+            }, 20L);
+            return;
+        }
 
-                //Debug.log("Worker JSON: " + workerJSON);
+        Debug.log("Worker JSON: " + workerJSON);
 
-                Worker worker = RedisSupport.stringToWorker(workerJSON);
+        Worker worker = RedisSupport.stringToWorker(workerJSON);
 
-                addWorker(player.getName(), worker);
+        addWorker(player.getName(), worker);
 
-                ChatUtils.sendSyncMessage(player, "&aLoaded work!");
+        ChatUtils.sendSyncMessage(player, "&aLoaded work!");
 
-                Debug.log("Worker " + player.getName());
-                debugWorker(player.getName());
+        Debug.log("Worker " + player.getName());
+        debugWorker(player.getName());
 
-            }
-        }.runTaskLaterAsynchronously(Skyblock.getInstance(), 3L);
     }
 
     /**
