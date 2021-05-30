@@ -24,7 +24,13 @@ public class EntityDamageListener implements Listener {
         if(event.getEntity().getType().equals(EntityType.PLAYER)){
 
             Player player = (Player) event.getEntity();
-            if( player.hasPermission("" + PermissionStorage.thisIsSpawn)) {
+            if( Storage.bypassList.contains(player.getName()) ){
+                event.setCancelled(true);
+                return;
+            }
+//            if( player.hasPermission("" + PermissionStorage.thisIsSpawn)) {
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+            if( Storage.isSpawn ){
 
                 if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
                     if (player.getLocation().getY() < 0) {

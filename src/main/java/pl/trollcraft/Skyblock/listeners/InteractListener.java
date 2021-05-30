@@ -24,7 +24,9 @@ public class InteractListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if( player.hasPermission(PermissionStorage.thisIsSpawn)){
+//        if( player.hasPermission(PermissionStorage.thisIsSpawn)){
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+        if( Storage.isSpawn ){
             return;
         }
 

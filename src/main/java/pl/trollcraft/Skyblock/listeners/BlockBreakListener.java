@@ -44,7 +44,12 @@ public class BlockBreakListener implements Listener {
         boolean hasCoop = skyblockPlayer.hasIslandOrCoop();
         boolean isOnHisIsland = islandsController.isPlayerOnHisIsland(player);
 
-        if( player.hasPermission(PermissionStorage.thisIsSpawn)){
+//        if( player.hasPermission(PermissionStorage.thisIsSpawn)){
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+        if( Storage.isSpawn ){
+            return;
+        }
+        if( Storage.bypassList.contains(player.getName()) ){
             return;
         }
 

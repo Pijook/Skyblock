@@ -39,6 +39,12 @@ public class Settings {
         Storage.dropEnable = ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable");
 
         Storage.createCooldown = configuration.getInt("createCooldown");
+        if( configuration.contains("isSpawn")) {
+            Storage.isSpawn = configuration.getBoolean("isSpawn");
+        }
+        else{
+            Storage.isSpawn = false;
+        }
 
 
         for(World world : Bukkit.getWorlds()){

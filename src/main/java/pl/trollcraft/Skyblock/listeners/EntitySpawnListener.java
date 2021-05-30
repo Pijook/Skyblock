@@ -21,6 +21,10 @@ public class EntitySpawnListener implements Listener {
 
     @EventHandler
     public void onSpawn(EntitySpawnEvent event){
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+        if( Storage.isSpawn ){
+            return;
+        }
 
         Entity entity = event.getEntity();
 

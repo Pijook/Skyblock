@@ -26,33 +26,37 @@ public class IslandSecurityListener implements Listener {
     @EventHandler(priority = EventPriority.LOW)
     public void onPickup(PlayerPickupItemEvent event){
 
-        if(Storage.serverName.equalsIgnoreCase("sblobby")){
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+        if( Storage.isSpawn ){
             return;
         }
 
         Player player = event.getPlayer();
+        if( Storage.bypassList.contains(player.getName()) ){
+            return;
+        }
         if(!islandsController.isPlayerOnHisIsland(player)){
-            if(!player.hasPermission(PermissionStorage.bypass)){
-                event.setCancelled(true);
-            }
+            event.setCancelled(true);
         }
 
     }
 
     @EventHandler(priority = EventPriority.LOW)
     public void onEntityDamage(EntityDamageByEntityEvent event){
-        if(Storage.serverName.equalsIgnoreCase("sblobby")){
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+        if( Storage.isSpawn ){
             return;
         }
 
         if(event.getDamager().getType().equals(EntityType.PLAYER)){
             Player player = (Player) event.getDamager();
+            if( Storage.bypassList.contains(player.getName()) ){
+                return;
+            }
 
             if(!islandsController.isPlayerOnHisIsland(player)){
-                if( !player.hasPermission(PermissionStorage.bypass) ) {
-                    ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
-                    event.setCancelled(true);
-                }
+                ChatUtils.sendMessage(player, "&c&lNie mozesz tego zrobic!");
+                event.setCancelled(true);
             }
         }
     }
@@ -60,16 +64,18 @@ public class IslandSecurityListener implements Listener {
     @EventHandler(priority = EventPriority.LOW)
     public void onInteract(PlayerInteractEvent event){
 
-        if(Storage.serverName.equalsIgnoreCase("sblobby")){
+//        if( Storage.serverName.equalsIgnoreCase("sblobby")){
+        if( Storage.isSpawn ){
             return;
         }
 
         Player player = event.getPlayer();
+        if( Storage.bypassList.contains(player.getName()) ){
+            return;
+        }
 
         if(!islandsController.isPlayerOnHisIsland(player)){
-            if( !player.hasPermission(PermissionStorage.bypass) ) {
-                event.setCancelled(true);
-            }
+            event.setCancelled(true);
         }
 
     }

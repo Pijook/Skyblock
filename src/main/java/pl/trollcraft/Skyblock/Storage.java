@@ -2,7 +2,9 @@ package pl.trollcraft.Skyblock;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -39,6 +41,9 @@ public class Storage {
     public static boolean kitsEnabled = false;
 
     public static int createCooldown;
+
+    public static boolean isSpawn = false;
+    public static ArrayList<String> bypassList = new ArrayList<>();
 
 
 }
