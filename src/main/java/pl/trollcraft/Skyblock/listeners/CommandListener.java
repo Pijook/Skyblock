@@ -29,13 +29,16 @@ public class CommandListener implements Listener {
         blocked.add("is");
         blocked.add("island");
         blocked.add("tcisland");
-        blocked.add("bug");
 
         int end = event.getMessage().length();
         if( event.getMessage().contains(" ") ){
             end = event.getMessage().indexOf(" ");
         }
         String label = event.getMessage().substring(1, end);
+
+        if( label.equalsIgnoreCase("bug") ){
+            return;
+        }
 
         if(!skyblockPlayerController.isPlayerLoaded(player.getName())){
             player.sendMessage(ChatUtils.fixColor("&cCos poszlo nie tak! Sprobuj ponownie za pare sekund..."));
