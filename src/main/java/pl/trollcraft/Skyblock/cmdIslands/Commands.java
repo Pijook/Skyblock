@@ -18,4 +18,5 @@ public class Commands {
     public IsSethomeCommand isSethomeCommand = new IsSethomeCommand();
     public IsPointsCommand isPointsCommand = new IsPointsCommand();
     public IsHelpCommand isHelpCommand = new IsHelpCommand();
+    public IsBypassCommand isBypassCommand = new IsBypassCommand();
 }
