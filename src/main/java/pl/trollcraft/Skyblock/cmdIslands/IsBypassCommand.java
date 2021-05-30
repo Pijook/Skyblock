@@ -19,7 +19,7 @@ public class IsBypassCommand extends Command{
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if( args.length == 0) {
+        if( args.length == 1) {
             if( !(sender instanceof Player)){
                 ChatUtils.sendMessage(sender, "&cMusisz byc graczem");
                 return;
@@ -34,7 +34,7 @@ public class IsBypassCommand extends Command{
             }
             return;
         }
-        if( args.length == 1 ){
+        if( args.length == 2 ){
             String other = args[1];
             Player otherPlayer = Bukkit.getPlayer(args[1]);
 
