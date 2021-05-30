@@ -26,6 +26,11 @@ commands:
     usage: /tempspawn
   worker:
     usage: /worker
+    aliases:
+      - praca
+      - prace
+      - profesje
+      - profesja
   aworker:
     usage: /aworker
   menu:
