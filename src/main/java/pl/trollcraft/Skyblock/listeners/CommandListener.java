@@ -29,6 +29,7 @@ public class CommandListener implements Listener {
         blocked.add("is");
         blocked.add("island");
         blocked.add("tcisland");
+        blocked.add("bug");
 
         int end = event.getMessage().length();
         if( event.getMessage().contains(" ") ){
