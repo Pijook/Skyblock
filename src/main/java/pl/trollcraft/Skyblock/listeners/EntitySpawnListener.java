@@ -23,11 +23,6 @@ public class EntitySpawnListener implements Listener {
     public void onSpawn(EntitySpawnEvent event){
 
         Entity entity = event.getEntity();
-        if(!(Storage.serverName.equalsIgnoreCase("sblobby"))) {
-            if(Utils.isMob(entity.getType().name()) ) {
-                Debug.log("&5Spawnuje " + entity.getName());
-            }
-        }
 
         String type = entity.getType().name();
         if(limitController.isTypeLimited(type)){
