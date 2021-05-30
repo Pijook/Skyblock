@@ -22,6 +22,16 @@ public class IsBypassCommand extends Command{
         if( args.length == 1) {
             if( !(sender instanceof Player)){
                 ChatUtils.sendMessage(sender, "&cMusisz byc graczem");
+                ChatUtils.sendMessage(sender, "&aLista graczy z wlaczonym bypassem:");
+                StringBuilder message = new StringBuilder();
+                for( int i = 0 ; i < Storage.bypassList.size() ; i++ ){
+                    if( i == 0 ){
+                        message.append(", ");
+                        continue;
+                    }
+                    message.append("").append(Storage.bypassList.get(i));
+                }
+                ChatUtils.sendMessage(sender, "" + message);
                 return;
             }
             Player player = (Player) sender;
