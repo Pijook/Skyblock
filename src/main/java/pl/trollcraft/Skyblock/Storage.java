@@ -45,5 +45,7 @@ public class Storage {
     public static boolean isSpawn = false;
     public static ArrayList<String> bypassList = new ArrayList<>();
 
+    public static ArrayList<Player> godList = new ArrayList<>();
+
 
 }

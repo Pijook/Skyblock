@@ -24,6 +24,12 @@ public class EntityDamageListener implements Listener {
         if(event.getEntity().getType().equals(EntityType.PLAYER)){
 
             Player player = (Player) event.getEntity();
+
+            if( Storage.godList.contains(player) ){
+                event.setCancelled(true);
+                return;
+            }
+
             if( Storage.bypassList.contains(player.getName()) ){
                 event.setCancelled(true);
                 return;

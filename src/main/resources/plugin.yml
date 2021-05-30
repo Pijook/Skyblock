@@ -16,6 +16,8 @@ name: Skyblock
 commands:
   debug:
     usage: /debug
+  bug:
+    usage: /bug
   island:
     usage: /island
     aliases: [ "is", "tcisland" ]

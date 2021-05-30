@@ -145,6 +145,7 @@ public class Skyblock extends JavaPlugin {
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("checkblock").setExecutor(new CheckBlockCommand());
         getCommand("gamemode").setExecutor(new GameModeCommand());
+        getCommand("bug").setExecutor(new BugCommand());
 
         loadStuff();
 

@@ -7,7 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.potion.PotionEffectType;
+import pl.trollcraft.Skyblock.SbTimer;
 import pl.trollcraft.Skyblock.Settings;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
@@ -27,8 +29,17 @@ public class JoinListener implements Listener {
     private final WorkerController workerController = Skyblock.getWorkerController();
 
     @EventHandler
+    public void onTeleport(PlayerTeleportEvent event){
+//        event.getPlayer().addPotionEffect(  PotionEffectType.ABSORPTION.createEffect(20*5, 50) );
+        Storage.godList.add(event.getPlayer());
+        SbTimer.removeGod(event.getPlayer() );
+    }
+
+    @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        event.getPlayer().addPotionEffect(  PotionEffectType.ABSORPTION.createEffect(3, 50) );
+//        event.getPlayer().addPotionEffect(  PotionEffectType.ABSORPTION.createEffect(20*5, 50) );
+        Storage.godList.add(event.getPlayer());
+        SbTimer.removeGod(event.getPlayer() );
         event.setJoinMessage("");
     }
 
