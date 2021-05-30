@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffectType;
 import pl.trollcraft.Skyblock.Settings;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
@@ -27,12 +28,14 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
+        event.getPlayer().addPotionEffect(  PotionEffectType.ABSORPTION.createEffect(3, 50) );
         event.setJoinMessage("");
     }
 
     @EventHandler
     public void onAppear(ISRProcessedEvent event){
         Player player = event.getPlayer();
+
 
         if(!event.wasISRFound()){
             if(Settings.spawnOnJoin){
