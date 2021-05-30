@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.essentials.Utils;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 
@@ -23,7 +24,9 @@ public class EntitySpawnListener implements Listener {
 
         Entity entity = event.getEntity();
         if(!(Storage.serverName.equalsIgnoreCase("sblobby"))) {
-            Debug.log("&5Spawnuje " + entity.getName());
+            if(Utils.isMob(entity.getType().name()) ) {
+                Debug.log("&5Spawnuje " + entity.getName());
+            }
         }
 
         String type = entity.getType().name();
