@@ -35,8 +35,8 @@ public class IsBypassCommand extends Command{
             return;
         }
         if( args.length == 1 ){
-            String other = args[0];
-            Player otherPlayer = Bukkit.getPlayer(args[0]);
+            String other = args[1];
+            Player otherPlayer = Bukkit.getPlayer(args[1]);
 
             if (Storage.bypassList.contains(other)) {
                 Storage.bypassList.remove(other);
