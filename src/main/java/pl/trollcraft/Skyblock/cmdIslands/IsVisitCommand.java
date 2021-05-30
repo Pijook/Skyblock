@@ -35,6 +35,20 @@ public class IsVisitCommand extends Command {
             //If Player is on same sector
             if(target != null && target.isOnline()){
                 SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(ownerToFind);
+                if(skyblockPlayer == null){
+                    ChatUtils.sendMessage(player, "&cTen gracz jest offline!");
+                    return;
+                }
+
+                if( skyblockPlayer.getIslandID() == null ){
+                    ChatUtils.sendMessage(player, "&cTen gracz nie ma wyspy. Jesli jestes pewien, ze ten gracz posiada wyspe - zglos to Administracji");
+                    return;
+                }
+
+                if( islandsController.getIslandById(skyblockPlayer.getIslandID()) == null ){
+                    ChatUtils.sendMessage(player, "&cWystapil problem. Zglos ten fakt administracji");
+                    return;
+                }
 
                 if(skyblockPlayer.hasIslandOrCoop()){
                     player.teleport(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()).getHome());
