@@ -4,6 +4,7 @@ package pl.trollcraft.Skyblock.objectconverter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import pl.trollcraft.Skyblock.island.Island;
+import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.worker.Worker;
 
@@ -60,8 +61,18 @@ public class ObjectConverter {
         //PlacedBlocks
         //DropLevel
         String a = "";
-        a = a + "" + skyblockPlayer.getIslandID().toString();
-        a = a + ";" + skyblockPlayer.getCoopIslandID().toString();
+        if(skyblockPlayer.getIslandID() == null){
+            a = a + "";
+        }
+        else{
+            a = a + "" + skyblockPlayer.getIslandID().toString();
+        }
+        if(skyblockPlayer.getCoopIslandID() == null){
+            a = a + ";";
+        }
+        else{
+            a = a + ";" + skyblockPlayer.getCoopIslandID().toString();
+        }
         a = a + ";" + listToString(skyblockPlayer.getInvites());
         a = a + ";" + skyblockPlayer.getPlacedBlocks();
         a = a + ";" + skyblockPlayer.getDropLevel();
@@ -70,13 +81,28 @@ public class ObjectConverter {
 
     public SkyblockPlayer stringToPlayer(String playerJSON){
         String[] a = playerJSON.split(";");
-        return new SkyblockPlayer(
-                UUID.fromString(a[0]),
-                UUID.fromString(a[1]),
-                stringToList(a[2]),
-                Integer.parseInt(a[3]),
-                Integer.parseInt(a[4])
-        );
+        UUID islandID;
+
+        if(a[0] == null || a[0].equalsIgnoreCase("")){
+            islandID = null;
+        }
+        else{
+            islandID = UUID.fromString(a[0]);
+        }
+
+        UUID coopID;
+
+        if(a[1] == null || a[1].equalsIgnoreCase("")){
+            coopID = null;
+        }
+        else{
+            coopID = UUID.fromString(a[1]);
+        }
+
+        ArrayList<String> invites = stringToList(a[2]);
+        int placedBlocks = Integer.parseInt(a[3]);
+        int dropLevel = Integer.parseInt(a[4]);
+        return new SkyblockPlayer(islandID, coopID, invites, placedBlocks, dropLevel);
     }
 
     public String workerToString(Worker worker){
@@ -114,23 +140,69 @@ public class ObjectConverter {
         );
     }
 
+    public String bungeeIslandToString(BungeeIsland island){
+        String a = "";
+        a = a + island.getOwner();
+        a = a + ";" + listToString(island.getMembers());
+        a = a + ";" + locationToString(island.getCenter());
+        a = a + ";" + locationToString(island.getHome());
+        a = a + ";" + island.getIslandLevel();
+        a = a + ";" + locationToString(island.getPoint1());
+        a = a + ";" + locationToString(island.getPoint2());
+        a = a + ";" + island.getServer();
+        a = a + ";" + island.getPoints();
+        return a;
+    }
+
+    public BungeeIsland stringToBungeeIsland(String json){
+        String[] a = json.split(";");
+        return new BungeeIsland(
+                a[0],
+                stringToList(a[1]),
+                stringToBungeeLocation(a[2]),
+                stringToBungeeLocation(a[3]),
+                Integer.parseInt(a[4]),
+                stringToBungeeLocation(a[5]),
+                stringToBungeeLocation(a[6]),
+                a[7],
+                Integer.parseInt(a[8])
+        );
+    }
+
     private String locationToString(Location location){
         String a = "";
         a = a + location.getWorld().getName();
-        a = a + ";" + location.getX();
-        a = a + ";" + location.getY();
-        a = a + ";" + location.getZ();
+        a = a + ":" + location.getX();
+        a = a + ":" + location.getY();
+        a = a + ":" + location.getZ();
+        return a;
+    }
+
+    private String locationToString(pl.trollcraft.Skyblock.island.bungeeIsland.Location location){
+        String a = "";
+        a = a + location.getWorld();
+        a = a + ":" + location.getX();
+        a = a + ":" + location.getY();
+        a = a + ":" + location.getZ();
         return a;
     }
 
     private Location stringToLocation(String location){
-        String[] a = location.split(";");
+        String[] a = location.split(":");
         return new Location(Bukkit.getWorld(a[0]), Double.parseDouble(a[1]), Double.parseDouble(a[2]), Double.parseDouble(a[3]));
+    }
+
+    private pl.trollcraft.Skyblock.island.bungeeIsland.Location stringToBungeeLocation(String location){
+        String[] a = location.split(":");
+        return new pl.trollcraft.Skyblock.island.bungeeIsland.Location(a[0], Double.parseDouble(a[1]), Double.parseDouble(a[2]), Double.parseDouble(a[3]));
     }
 
     private String listToString(List<String> list){
         String a = "";
-        if(list.size() == 0){
+        if(list == null){
+            return a;
+        }
+        else if(list.size() == 0){
             return a;
         }
         else if(list.size() == 1){
@@ -155,4 +227,5 @@ public class ObjectConverter {
         returnList.addAll(Arrays.asList(a));
         return returnList;
     }
+
 }

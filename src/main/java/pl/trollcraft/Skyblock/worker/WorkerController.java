@@ -323,6 +323,7 @@ public class WorkerController {
 
     public void debugWorker(String nickname){
         Worker worker = getWorkerByName(nickname);
-        Debug.log(Skyblock.getGson().toJson(worker));
+        //Debug.log(Skyblock.getGson().toJson(worker));
+        Debug.log(Skyblock.getObjectConverter().workerToString(worker));
     }
 }

@@ -28,7 +28,7 @@ public class IsCreateCommand extends Command {
         if( sender instanceof Player) {
             Player player = (Player) sender;
 //            if(!player.hasPermission(PermissionStorage.thisIsSpawn)){
-            if( Storage.serverName.equalsIgnoreCase("sblobby")){
+            if(!Storage.isSpawn){
                 ChatUtils.sendMessage(player, "&cTa komenda dostepna jest tylko na spawnie!");
                 return;
             }

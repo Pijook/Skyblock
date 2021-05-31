@@ -210,8 +210,9 @@ public class RedisSupport {
      * @return Ready string
      */
     public static String playerToString(SkyblockPlayer player){
-        Gson gson = Skyblock.getGson();
-        return gson.toJson(player);
+        /*Gson gson = Skyblock.getGson();
+        return gson.toJson(player);*/
+        return Skyblock.getObjectConverter().playerToString(player);
     }
 
     /**
@@ -220,8 +221,9 @@ public class RedisSupport {
      * @return Ready skyblockPlayer
      */
     public static SkyblockPlayer stringToPlayer(String json){
-        Gson gson = Skyblock.getGson();
-        return gson.fromJson(json, SkyblockPlayer.class);
+        /*Gson gson = Skyblock.getGson();
+        return gson.fromJson(json, SkyblockPlayer.class);*/
+        return Skyblock.getObjectConverter().stringToPlayer(json);
     }
 
     /**
@@ -230,8 +232,9 @@ public class RedisSupport {
      * @return Converted object to string
      */
     public static String islandToString(Island island){
-        Gson gson = Skyblock.getGson();
-        return gson.toJson(island);
+        /*Gson gson = Skyblock.getGson();
+        return gson.toJson(island);*/
+        return Skyblock.getObjectConverter().IslandToString(island);
 
     }
 
@@ -241,28 +244,33 @@ public class RedisSupport {
      * @return Converted string to object
      */
     public static Island stringToIsland(String json){
-        Gson gson = Skyblock.getGson();
-        return gson.fromJson(json, Island.class);
+        /*Gson gson = Skyblock.getGson();
+        return gson.fromJson(json, Island.class);*/
+        return Skyblock.getObjectConverter().stringToIsland(json);
     }
 
     public static String bungeeIslandToString(BungeeIsland bungeeIsland){
-        Gson gson = Skyblock.getGson();
-        return gson.toJson(bungeeIsland);
+        /*Gson gson = Skyblock.getGson();
+        return gson.toJson(bungeeIsland);*/
+        return Skyblock.getObjectConverter().bungeeIslandToString(bungeeIsland);
     }
 
     public static BungeeIsland stringToBungeeIsland(String json){
-        Gson gson = Skyblock.getGson();
-        return gson.fromJson(json, BungeeIsland.class);
+        /*Gson gson = Skyblock.getGson();
+        return gson.fromJson(json, BungeeIsland.class);*/
+        return Skyblock.getObjectConverter().stringToBungeeIsland(json);
     }
 
     public static String workerToString(Worker worker){
-        Gson gson = Skyblock.getGson();
-        return gson.toJson(worker);
+        /*Gson gson = Skyblock.getGson();
+        return gson.toJson(worker);*/
+        return Skyblock.getObjectConverter().workerToString(worker);
     }
 
     public static Worker stringToWorker(String string){
-        Gson gson = Skyblock.getGson();
-        return gson.fromJson(string, Worker.class);
+        /*Gson gson = Skyblock.getGson();
+        return gson.fromJson(string, Worker.class);*/
+        return Skyblock.getObjectConverter().stringToWorker(string);
     }
 
     /**

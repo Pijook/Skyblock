@@ -29,6 +29,7 @@ import pl.trollcraft.Skyblock.kit.KitManager;
 import pl.trollcraft.Skyblock.limiter.LimitController;
 import pl.trollcraft.Skyblock.listeners.*;
 import pl.trollcraft.Skyblock.listeners.customListeners.*;
+import pl.trollcraft.Skyblock.objectconverter.ObjectConverter;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.villagercontroller.VillagerController;
@@ -54,6 +55,7 @@ public class Skyblock extends JavaPlugin {
     private static KitManager kitManager;
     private static VillagerController villagerController;
     private static PointsController pointsController;
+    private static ObjectConverter objectConverter;
 
     //Commands
     private Commands commands;
@@ -67,6 +69,8 @@ public class Skyblock extends JavaPlugin {
         instance = this;
 
         gson = new Gson();
+
+        objectConverter = new ObjectConverter();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             /*
@@ -390,5 +394,10 @@ public class Skyblock extends JavaPlugin {
     public static PointsController getPointsController(){
         return pointsController;
     }
+
+    public static ObjectConverter getObjectConverter() {
+        return objectConverter;
+    }
+
 
 }
