@@ -132,6 +132,8 @@ public class RedisSupport {
 
             String islandJSON = Skyblock.getJedis().hget(redisCode, "island");
 
+            Debug.log(islandJSON);
+
             BungeeIsland bungeeIsland = stringToBungeeIsland(islandJSON);
 
             island = islandsController.convertBungeeIslandToIsland(bungeeIsland);

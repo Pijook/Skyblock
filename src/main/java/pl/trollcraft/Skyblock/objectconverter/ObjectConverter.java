@@ -212,7 +212,7 @@ public class ObjectConverter {
         else{
             a = a + list.get(0);
             for(int i = 1; i < list.size(); i++){
-                a = a + ";" + list.get(i);
+                a = a + ":" + list.get(i);
             }
             return a;
         }
@@ -222,7 +222,7 @@ public class ObjectConverter {
         if(list == null || list.equalsIgnoreCase("")){
             return new ArrayList<>();
         }
-        String[] a = list.split(";");
+        String[] a = list.split(":");
         ArrayList<String> returnList = new ArrayList<>();
         returnList.addAll(Arrays.asList(a));
         return returnList;
