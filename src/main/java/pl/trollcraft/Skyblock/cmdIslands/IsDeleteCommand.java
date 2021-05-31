@@ -31,6 +31,10 @@ public class IsDeleteCommand extends Command {
             Player player = (Player) sender;
             SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
             if(islandsController.isPlayerOwner(player.getName())) {
+                if( islandsController.getIslandByLocation(player.getLocation()) == null ){
+                    ChatUtils.sendMessage(player, "&cMusisz znajdowac sie na swojej wyspie, jesli to jest Twoja wyspa, zglos ten fakt administracji");
+                    return;
+                }
                 if( islandsController.getIslandByLocation(player.getLocation()).getOwner().equalsIgnoreCase(player.getName())) {
                     BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()), player);
                     DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
