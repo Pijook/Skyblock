@@ -567,7 +567,7 @@ public class IslandsController {
     }
 
     public long getIslandCreateCooldown(String nickname){
-        YamlConfiguration configuration = ConfigUtils.load("createIslandCooldown.yml", Skyblock.getInstance());
+        YamlConfiguration configuration = ConfigUtils.loadFromNetworkGlobalFolder("createIslandCooldown.yml");
 
         if(!configuration.contains("cooldowns." + nickname)){
             return -1;
@@ -580,8 +580,8 @@ public class IslandsController {
     }
 
     public void saveCooldown(String nickname){
-        YamlConfiguration configuration = ConfigUtils.load("createIslandCooldown.yml", Skyblock.getInstance());
+        YamlConfiguration configuration = ConfigUtils.loadFromNetworkGlobalFolder("createIslandCooldown.yml");
         configuration.set("cooldowns." + nickname, System.currentTimeMillis());
-        ConfigUtils.save(configuration, "createIslandCooldown.yml");
+        ConfigUtils.saveToNetworkGlobalFolder(configuration, "createIslandCooldown.yml");
     }
 }

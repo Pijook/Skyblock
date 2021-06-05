@@ -20,6 +20,146 @@ public class ConfigUtils {
     /**
      * Loads specified config from resources or plugin folder
      * @param configName Name of a config
+     * @return Returns loaded Global Config file or error if it doesn't exist
+     */
+    public static YamlConfiguration loadFromNetworkGlobalFolder(String configName, boolean...priv){
+        boolean pv = false;
+        if( priv.length != 0){
+            pv = priv[0];
+        }
+        String networkName = "skyblocknet";
+        String folderName = "AAANetworkConfigs";
+        if( pv ){
+            folderName = ".NetworkConfigs";
+        }
+        YamlConfiguration config;
+        Plugin plugin = Skyblock.getInstance();
+        String path = plugin.getDataFolder().getAbsolutePath();
+        int pos = path.indexOf("" + networkName);
+        String cut = path.substring(0, pos);
+
+        File file = new File(cut + networkName + File.separator + folderName + File.separator + configName);
+        if (!file.exists()) {
+            try {
+                saveToNetworkGlobalFolder(new YamlConfiguration(), configName);
+            } catch (IllegalArgumentException e) {
+                Debug.log("&cNie posiadam pliku " + configName );
+                return null;
+            }
+        }
+        config = new YamlConfiguration();
+        try {
+            config.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return config;
+    }
+
+    /**
+     * Saves given config file
+     * @param c Yaml file
+     * @param file File name
+     */
+    public static void saveToNetworkGlobalFolder(YamlConfiguration c, String file, boolean...priv){
+        boolean pv = false;
+        if( priv.length != 0){
+            pv = priv[0];
+        }
+
+        String networkName = "skyblocknet";
+        String folderName = "AAANetworkConfigs";
+        if( pv ){
+            folderName = ".NetworkConfigs";
+        }
+        Plugin plugin = Skyblock.getInstance();
+        String path = plugin.getDataFolder().getAbsolutePath();
+        int pos = path.indexOf("" + networkName);
+        String cut = path.substring(0, pos);
+        try {
+            c.save(new File(cut + networkName + File.separator + folderName, file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads specified config from resources or plugin folder
+     * @param configName Name of a config
+     * @return Returns loaded Global Config file or error if it doesn't exist
+     */
+    public static YamlConfiguration loadFromServerGlobalFolder(String configName, boolean...priv){
+        boolean pv = false;
+        if( priv.length != 0){
+            pv = priv[0];
+        }
+
+        String folderName = "AAAPluginConfigs";
+        if( pv ){
+            folderName = ".PluginConfigs";
+        }
+        YamlConfiguration config;
+        Plugin plugin = Skyblock.getInstance();
+        String path = plugin.getDataFolder().getAbsolutePath();
+        int pos = path.indexOf("" + plugin.getName());
+        String cut = path.substring(0, pos);
+
+        File file = new File(cut + folderName + File.separator + configName);
+        if (!file.exists()) {
+            try {
+                saveToServerGlobalFolder(new YamlConfiguration(), configName);
+            } catch (IllegalArgumentException e) {
+                Debug.log("&cNie posiadam pliku " + configName );
+                return null;
+            }
+        }
+        config = new YamlConfiguration();
+        try {
+            config.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return config;
+    }
+
+    /**
+     * Saves given config file
+     * @param c Yaml file
+     * @param file File name
+     */
+    public static void saveToServerGlobalFolder(YamlConfiguration c, String file, boolean...priv){
+        boolean pv = false;
+        if( priv.length != 0){
+            pv = priv[0];
+        }
+
+        String folderName = "AAAPluginConfigs";
+        if( pv ){
+            folderName = ".PluginConfigs";
+        }
+        Plugin plugin = Skyblock.getInstance();
+        String path = plugin.getDataFolder().getAbsolutePath();
+        int pos = path.indexOf("" + plugin.getName());
+        String cut = path.substring(0, pos);
+
+        try {
+            c.save(new File(cut + folderName, file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads specified config from resources or plugin folder
+     * @param configName Name of a config
      * @param plugin Plugin that loads config
      * @return Returns loaded config file or error if it doesn't exist
      */

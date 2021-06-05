@@ -7,6 +7,7 @@ import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
+import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.DeleteIsland;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -36,9 +37,12 @@ public class IsDeleteCommand extends Command {
                     return;
                 }
                 if( islandsController.getIslandByLocation(player.getLocation()).getOwner().equalsIgnoreCase(player.getName())) {
+                    islandsController.setGeneratorOnCooldown();
                     BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()), player);
                     DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
-                    ChatUtils.sendMessage(player, "&aUsunieto wyspe");
+                    islandsController.saveCooldown(player.getName());
+                    Debug.log("&aZapisuje cooldown gracza " + player.getName());
+                    ChatUtils.sendMessage(player, "&aUsunieto wyspe. Ponowne utworzenie wyspy nie bedzie mozliwe przez jakis czas");
                 }
                 else{
                     ChatUtils.sendMessage(player, "&cMusisz znajdowac sie na swojej wyspie");

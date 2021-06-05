@@ -17,6 +17,7 @@ public class Settings {
     public static void load(){
 
         YamlConfiguration configuration = ConfigUtils.load("config.yml", Skyblock.getInstance());
+        YamlConfiguration network = ConfigUtils.loadFromNetworkGlobalFolder("networkIslandConfig.yml");
 
         spawnOnJoin = configuration.getBoolean("teleportToSpawn");
         Storage.spawn = ConfigUtils.getLocationFromConfig(configuration, "spawn");
@@ -38,7 +39,8 @@ public class Settings {
         Debug.log("Ustawiam na " + ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable"));
         Storage.dropEnable = ConfigUtils.load("drop.yml", Skyblock.getInstance()).getBoolean("dropEnable");
 
-        Storage.createCooldown = configuration.getInt("createCooldown");
+        assert network != null;
+        Storage.createCooldown = network.getInt("createCooldown");
         if( configuration.contains("isSpawn")) {
             Storage.isSpawn = configuration.getBoolean("isSpawn");
         }

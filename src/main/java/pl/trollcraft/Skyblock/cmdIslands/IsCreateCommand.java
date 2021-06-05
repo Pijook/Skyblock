@@ -40,9 +40,7 @@ public class IsCreateCommand extends Command {
                     if(!islandsController.isGeneratorOnCooldown()){
                         ChatUtils.sendMessage(player, "&aTworze wyspe...");
                         //CreateIsland.createNew(player);
-                        islandsController.setGeneratorOnCooldown();
                         BungeeSupport.sendGenerateIslandCommand(player);
-                        islandsController.saveCooldown(player.getName());
                     }
                     else {
                         ChatUtils.sendMessage(player, "&cSprobuj ponownie za pare sekund...");
@@ -51,7 +49,19 @@ public class IsCreateCommand extends Command {
                 }
             }
             else{
-                ChatUtils.sendMessage(player, "&cMozesz ponownie utworzyc wyspe za " + (Storage.createCooldown - cooldown) + " sekund");
+                long time = (Storage.createCooldown - cooldown);
+                long h = time / 60 / 60;
+                long m = (time - ( h * 60 * 60 ) ) / 60;
+                long s = (time - ( h * 60 * 60 ) - ( m * 60 ) );
+                StringBuilder message = new StringBuilder("");
+                if( h != 0){
+                    message.append("").append(h).append(" godzin, ");
+                }
+                if( m != 0){
+                    message.append("").append(m).append(" minut, ");
+                }
+                message.append("").append(s).append(" sekund");
+                ChatUtils.sendMessage(player, "&cPonowne stworzenie wyspy bedzie mozliwe za " + message );
             }
 
         }

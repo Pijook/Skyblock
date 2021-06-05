@@ -40,7 +40,7 @@ public class Storage {
 
     public static boolean kitsEnabled = false;
 
-    public static int createCooldown;
+    public static int createCooldown = 10800;
 
     public static boolean isSpawn = false;
     public static ArrayList<String> bypassList = new ArrayList<>();
