@@ -132,7 +132,7 @@ public class BlockBreakListener implements Listener {
                 }
             }
             if(workerController.isCropsToHarvest(block.getType())){
-                if(block.getData() == 0x7){
+                if(workerController.isCropFullyGrown(block)){
                     worker.increaseHarvestedCrops(1);
                     if(workerController.canLevelUp(worker, "farmer")){
                         workerController.levelUpJob(worker, "farmer");

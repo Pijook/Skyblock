@@ -5,6 +5,7 @@ import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,7 +26,8 @@ public class WorkerController {
     private ArrayList<Material> blocksToMine = new ArrayList<>();
     private ArrayList<EntityType> entitiesToHunt = new ArrayList<>();
     private ArrayList<Material> woodToChop = new ArrayList<>();
-    private ArrayList<Material> cropsToHarvest = new ArrayList<>();
+    //private ArrayList<Material> cropsToHarvest = new ArrayList<>();
+    private HashMap<Material, Byte> cropsToHarvest = new HashMap<>();
 
     private HashMap<String, HashMap<Integer, Integer>> worksLevels = new HashMap<>();
 
@@ -62,8 +64,10 @@ public class WorkerController {
         }
 
         for(String blockName : configuration.getStringList("cropsToHarvest")){
-            if(Utils.isMaterial(blockName)){
-                cropsToHarvest.add(Material.valueOf(blockName));
+            String[] fragments = blockName.split(":");
+            if(Utils.isMaterial(fragments[0])){
+                cropsToHarvest.put(Material.valueOf(fragments[0]), Byte.parseByte(fragments[1]));
+                //cropsToHarvest.add(Material.valueOf(blockName));
             }
             else{
                 Debug.sendError("&cWrong block name: " + blockName);
@@ -218,7 +222,19 @@ public class WorkerController {
     }
 
     public boolean isCropsToHarvest(Material material){
-        return cropsToHarvest.contains(material);
+        return cropsToHarvest.containsKey(material);
+    }
+
+    public boolean isCropFullyGrown(Block block){
+        if(!cropsToHarvest.containsKey(block.getType())){
+            return false;
+        }
+        if(block.getData() == cropsToHarvest.get(block.getType())){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean canLevelUp(String nickname, String job){
