@@ -67,7 +67,7 @@ public class IsUpgradeCommand extends Command{
                 ChatUtils.sendMessage(player, "&aUlepszono wyspe!");
             }
             else{
-                ChatUtils.sendMessage(player, "&cCos poszlo nie tak...");
+                ChatUtils.sendMessage(player, "&cCos poszlo nie tak... (Upgrade Island)");
             }
 
             Skyblock.getEconomy().withdrawPlayer(player, islandsController.getIslandUpgradeCost(island.getIslandLevel()).getMoney());
