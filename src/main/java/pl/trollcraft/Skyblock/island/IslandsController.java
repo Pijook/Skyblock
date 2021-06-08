@@ -542,13 +542,13 @@ public class IslandsController {
                 checkTop();
 
             }
-        }, 60L, 3600L);
+        }, 60L, 72000L);
 
     }
 
     public void checkTop(){
-        String topJSON = Skyblock.getJedis().get(Storage.topCode);
-        Storage.islandsTop = Skyblock.getGson().fromJson(topJSON, LinkedHashMap.class);
+        String topJSON = Skyblock.getJedis().hget(Storage.topCode, "island");
+        Storage.islandsTop = (LinkedHashMap<String, Integer>) Skyblock.getObjectConverter().stringToMap(topJSON);
 
         if (Storage.topHologram == null) {
             Storage.topHologram = HologramsAPI.createHologram(Skyblock.getInstance(), Storage.topLocation);

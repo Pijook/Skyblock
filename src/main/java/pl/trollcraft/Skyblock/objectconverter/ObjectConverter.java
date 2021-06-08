@@ -7,11 +7,9 @@ import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.bungeeIsland.BungeeIsland;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.worker.Worker;
+import scala.Int;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class ObjectConverter {
 
@@ -75,6 +73,12 @@ public class ObjectConverter {
         }
         a = a + ";" + listToString(skyblockPlayer.getInvites());
         a = a + ";" + skyblockPlayer.getPlacedBlocks();
+        a = a + ";" + skyblockPlayer.getBrokenBlocks();
+        a = a + ";" + skyblockPlayer.getBrokenCobble();
+        a = a + ";" + skyblockPlayer.getBrokenStone();
+        a = a + ";" + skyblockPlayer.getKilledAnimals();
+        a = a + ";" + skyblockPlayer.getKills();
+        a = a + ";" + skyblockPlayer.getDeaths();
         a = a + ";" + skyblockPlayer.getDropLevel();
         return a;
     }
@@ -101,8 +105,14 @@ public class ObjectConverter {
 
         ArrayList<String> invites = stringToList(a[2]);
         int placedBlocks = Integer.parseInt(a[3]);
-        int dropLevel = Integer.parseInt(a[4]);
-        return new SkyblockPlayer(islandID, coopID, invites, placedBlocks, dropLevel);
+        int brokenBlocks = Integer.parseInt(a[4]);
+        int brokenCobble = Integer.parseInt(a[5]);
+        int brokenStone = Integer.parseInt(a[6]);
+        int killedAnimals = Integer.parseInt(a[7]);
+        int kills = Integer.parseInt(a[8]);
+        int deaths = Integer.parseInt(a[9]);
+        int dropLevel = Integer.parseInt(a[10]);
+        return new SkyblockPlayer(islandID, coopID, invites, placedBlocks, brokenBlocks, brokenCobble, brokenStone, killedAnimals, kills, deaths, dropLevel);
     }
 
     public String workerToString(Worker worker){
@@ -226,6 +236,38 @@ public class ObjectConverter {
         ArrayList<String> returnList = new ArrayList<>();
         returnList.addAll(Arrays.asList(a));
         return returnList;
+    }
+
+    public String mapToString(Map<String, Integer> map){
+        String a = "";
+
+        if(map.size() > 0){
+            int i = 0;
+            for(String key : map.keySet()){
+                if(i != 0){
+                    a = a + ";";
+                }
+                a = a + key + ":" + map.get(key);
+                i++;
+            }
+        }
+
+        return a;
+    }
+
+    public Map<String, Integer> stringToMap(String a){
+        Map<String, Integer> map = new HashMap<>();
+
+        String[] fragments = a.split(";");
+
+        if(fragments.length > 0){
+            for(String fragment : fragments){
+                String[] values = fragment.split(":");
+                map.put(values[0], Integer.parseInt(values[1]));
+            }
+        }
+
+        return map;
     }
 
 }

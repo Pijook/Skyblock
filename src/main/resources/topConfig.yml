@@ -1,0 +1,49 @@
+top:
+  choppedWood:
+    header: "&e&lTop 10 Drwali"
+    x: 70.5
+    y: 86.0
+    z: 27.5
+    world: Islands
+  hunter:
+    header: "&c&lTop 10 Lowcow"
+    x: 66.5
+    y: 81.0
+    z: 43.4
+    world: Islands
+  minedCobble:
+    header: "&7&lTop 10 Gornikow (Cobble)"
+    x: 67.5
+    y: 80.0
+    z: 54.5
+    world: Islands
+  minedStone:
+    header: "&7&lTop 10 Gornikow (Stone)"
+    x: 87.5
+    y: 85.0
+    z: 54.5
+    world: Islands
+  placedBlocks:
+    header: "&2&lTop 10 Budowniczych"
+    x: 89.5
+    y: 85.0
+    z: -0.5
+    world: Islands
+  killedAnimals:
+    header: "&4&lTop 10 rzeznikow"
+    x: 40.5
+    y: 85.0
+    z: 86.5
+    world: Islands
+  kills:
+    header: "&c&lTop 10 zabojcow"
+    x: -9.5
+    y: 85.0
+    z: 74.5
+    world: Islands
+  deaths:
+    header: "&7&lTop 10 smierci"
+    x: 3.5
+    y: 85.0
+    z: 72.5
+    world: Islands

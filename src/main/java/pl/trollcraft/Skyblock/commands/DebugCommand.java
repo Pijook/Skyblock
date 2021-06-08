@@ -83,6 +83,7 @@ public class DebugCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("syncTop")){
                 Debug.log("&aChecking top...");
                 islandsController.checkTop();
+                Skyblock.getTopController().sync();
                 return true;
             }
         }

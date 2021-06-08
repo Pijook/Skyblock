@@ -103,6 +103,14 @@ public class BlockBreakListener implements Listener {
 
         if(isOnHisIsland){
             Material material = block.getType();
+            skyblockPlayer.increaseBrokenBlocks(1);
+
+            if(material.equals(Material.COBBLESTONE)){
+                skyblockPlayer.increaseBrokenCobble(1);
+            }
+            else if(material.equals(Material.STONE)){
+                skyblockPlayer.increaseBrokenStone(1);
+            }
 
             if(material.equals(Material.STICKY_PISTON)){
                 material = Material.PISTON;

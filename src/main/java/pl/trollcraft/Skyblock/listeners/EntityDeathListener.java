@@ -1,6 +1,7 @@
 package pl.trollcraft.Skyblock.listeners;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,6 +28,15 @@ public class EntityDeathListener implements Listener {
 
         if(event.getEntity().getKiller() != null){
             Player player = event.getEntity().getKiller();
+
+            if(entity.getType().equals(EntityType.COW)
+                    || entity.getType().equals(EntityType.SHEEP)
+                    || entity.getType().equals(EntityType.PIG)
+                    || entity.getType().equals(EntityType.CHICKEN)){
+
+                Skyblock.getSkyblockPlayerController().getPlayer(player.getName()).increaseKilledAnimals(1);
+
+            }
 
             if(workerController.isMobToHunt(event.getEntityType())){
                 Worker worker = workerController.getWorkerByName(player.getName());

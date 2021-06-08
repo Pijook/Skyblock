@@ -5,18 +5,31 @@ import java.util.UUID;
 
 public class SkyblockPlayer {
 
+    //W chuj topek wiec w chuj danych
     private UUID islandID;
     private UUID coopIslandID;
     private ArrayList<String> invites;
     private int placedBlocks;
+    private int brokenBlocks;
+    private int brokenCobble;
+    private int brokenStone;
+    private int killedAnimals;
+    private int kills;
+    private int deaths;
     private boolean isOnIsland;
     private int dropLevel;
 
-    public SkyblockPlayer(UUID islandID, UUID coopIslandID, ArrayList<String> invites, int placedBlocks, int dropLevel){
+    public SkyblockPlayer(UUID islandID, UUID coopIslandID, ArrayList<String> invites, int placedBlocks, int brokenBlocks, int brokenCobble, int brokenStone, int killedAnimals, int kills, int deaths, int dropLevel){
         this.islandID = islandID;
         this.coopIslandID = coopIslandID;
         this.invites = invites;
         this.placedBlocks = placedBlocks;
+        this.brokenBlocks = brokenBlocks;
+        this.brokenCobble = brokenCobble;
+        this.brokenStone = brokenStone;
+        this.killedAnimals = killedAnimals;
+        this.kills = kills;
+        this.deaths = deaths;
         this.isOnIsland = false;
         this.dropLevel = dropLevel;
     }
@@ -124,5 +137,91 @@ public class SkyblockPlayer {
 
     public void setDropLevel(int dropLevel) {
         this.dropLevel = dropLevel;
+    }
+
+    public int getBrokenBlocks() {
+        return brokenBlocks;
+    }
+
+    public void setBrokenBlocks(int brokenBlocks) {
+        this.brokenBlocks = brokenBlocks;
+    }
+
+    public int getBrokenCobble() {
+        return brokenCobble;
+    }
+
+    public void setBrokenCobble(int brokenCobble) {
+        this.brokenCobble = brokenCobble;
+    }
+
+    public int getBrokenStone() {
+        return brokenStone;
+    }
+
+    public void setBrokenStone(int brokenStone) {
+        this.brokenStone = brokenStone;
+    }
+
+    public int getKilledAnimals() {
+        return killedAnimals;
+    }
+
+    public void setKilledAnimals(int killedAnimals) {
+        this.killedAnimals = killedAnimals;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+
+    /*
+     private int placedBlocks;
+    private int brokenBlocks;
+    private int brokenCobble;
+    private int brokenStone;
+    private int killedAnimals;
+    private int kills;
+    private int deaths;
+     */
+
+    public void increasePlacedBlocks(int a){
+        this.placedBlocks = placedBlocks + a;
+    }
+
+    public void increaseBrokenBlocks(int a){
+        this.brokenBlocks = brokenBlocks + a;
+    }
+
+    public void increaseBrokenCobble(int a){
+        this.brokenCobble = brokenCobble + a;
+    }
+
+    public void increaseBrokenStone(int a){
+        this.brokenStone = brokenStone + a;
+    }
+
+    public void increaseKilledAnimals(int a){
+        this.killedAnimals = killedAnimals + a;
+    }
+
+    public void increaseKills(int a){
+        this.kills = kills + a;
+    }
+
+    public void increaseDeaths(int a){
+        this.deaths = deaths + a;
     }
 }

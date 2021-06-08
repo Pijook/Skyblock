@@ -32,6 +32,7 @@ import pl.trollcraft.Skyblock.listeners.customListeners.*;
 import pl.trollcraft.Skyblock.objectconverter.ObjectConverter;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
+import pl.trollcraft.Skyblock.top.TopController;
 import pl.trollcraft.Skyblock.villagercontroller.VillagerController;
 import pl.trollcraft.Skyblock.worker.WorkerController;
 import redis.clients.jedis.Jedis;
@@ -56,6 +57,7 @@ public class Skyblock extends JavaPlugin {
     private static VillagerController villagerController;
     private static PointsController pointsController;
     private static ObjectConverter objectConverter;
+    private static TopController topController;
 
     //Commands
     private Commands commands;
@@ -104,6 +106,7 @@ public class Skyblock extends JavaPlugin {
         kitManager = new KitManager();
         villagerController = new VillagerController();
         pointsController = new PointsController();
+        topController = new TopController();
 
         persist = new Persist(Persist.PersistType.YAML);
 
@@ -124,6 +127,7 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntitySpawnListener(), this);
         getServer().getPluginManager().registerEvents(new EntityChangeBlockListener(), this);
         getServer().getPluginManager().registerEvents(new BlockFromToListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerKillPlayerListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
@@ -236,6 +240,10 @@ public class Skyblock extends JavaPlugin {
 
         Debug.log("&aStarting jedis...");
         initJedis();
+
+        Debug.log("&aLoading top...");
+        topController.load();
+        topController.initTimer();
 
         Debug.log("&aFinished loading " + getDescription().getName() + " " + getDescription().getVersion() + "!");
 
@@ -397,6 +405,10 @@ public class Skyblock extends JavaPlugin {
 
     public static ObjectConverter getObjectConverter() {
         return objectConverter;
+    }
+
+    public static TopController getTopController() {
+        return topController;
     }
 
 
