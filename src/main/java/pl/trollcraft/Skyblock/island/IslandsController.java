@@ -44,8 +44,9 @@ public class IslandsController {
     }
 
     public boolean canUpgrade(Island island, Player player){
-
+        Debug.log("&cChecking can player upgrade island...");
         if(!levelsCosts.containsKey(island.getIslandLevel() + 1)){
+            Debug.log("&4Could not find higher upgrade level! (False)");
             return false;
         }
 
@@ -53,14 +54,16 @@ public class IslandsController {
 
         Cost cost = levelsCosts.get(island.getIslandLevel() + 1);
         if(averageLevel < cost.getPlayerLevel()){
+            Debug.log("&4Player average level is too low! (False)");
             return false;
         }
         if(Skyblock.getEconomy().getBalance(player) < cost.getMoney()){
+            Debug.log("&4Player doesn't have enough money! (False)");
             return false;
         }
 
-        return false;
-
+        Debug.log("&aEverything is fine! (True)");
+        return true;
     }
 
     public Cost getIslandUpgradeCost(int level){
