@@ -290,6 +290,9 @@ public class Skyblock extends JavaPlugin {
         Debug.log("&aLoading rules gui...");
         RulesGui.load();
         Debug.log("&aDone!");
+
+        Debug.log("&aLoading communicators...");
+        Communicators.load();
     }
 
     /**

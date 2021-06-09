@@ -148,7 +148,8 @@ public class MainGui {
 
         GuiItem communicatorsItem = ItemBuilder.from(communicatorsButton.getIcon()).asGuiItem(event -> {
             //Send on chat?
-            ChatUtils.sendMessage((Player) event.getWhoClicked(), "&c&lFinish code!");
+            //ChatUtils.sendMessage((Player) event.getWhoClicked(), "&c&lFinish code!");
+            Communicators.sendMessage((Player) event.getWhoClicked());
         });
 
         mainGui.setItem(communicatorsButton.getSlot(), communicatorsItem);

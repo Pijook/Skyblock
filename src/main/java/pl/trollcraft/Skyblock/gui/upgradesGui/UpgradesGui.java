@@ -40,6 +40,8 @@ public class UpgradesGui {
         upgradesGui.setItem(dropButtton.getSlot(), ItemBuilder.from(dropButtton.getIcon()).asGuiItem(event -> {
             DropGui.openGui((Player) event.getWhoClicked());
         }));
+
+        upgradesGui.getFiller().fill(ItemBuilder.from(ConfigUtils.getItemstack(configuration, "fillItem")).asGuiItem());
     }
 
     public static void openGui(Player player){
