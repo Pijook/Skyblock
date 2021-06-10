@@ -4,6 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.Island;
@@ -71,6 +72,7 @@ public class IsUpgradeCommand extends Command{
             }
 
             Skyblock.getEconomy().withdrawPlayer(player, islandsController.getIslandUpgradeCost(island.getIslandLevel()).getMoney());
+            //BungeeSupport.sendIslancSyncCommand(skyblockPlayer.getIslandOrCoop().toString(), player);
             return;
 
         }
