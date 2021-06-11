@@ -58,7 +58,7 @@ public class IsUpgradeCommand extends Command{
             }
 
             if(!islandsController.canUpgrade(island, player)){
-                ChatUtils.sendMessage(player, "&cMasz za maly poziom aby ulepszyc wyspe!");
+                //ChatUtils.sendMessage(player, "&cMasz za maly poziom aby ulepszyc wyspe!");
                 return;
             }
 

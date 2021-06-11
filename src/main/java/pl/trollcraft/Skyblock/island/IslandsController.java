@@ -54,10 +54,12 @@ public class IslandsController {
 
         Cost cost = levelsCosts.get(island.getIslandLevel() + 1);
         if(averageLevel < cost.getPlayerLevel()){
+            ChatUtils.sendMessage(player, "&cMasz za maly poziom aby ulepszyc wyspe!");
             Debug.log("&4Player average level is too low! (False)");
             return false;
         }
         if(Skyblock.getEconomy().getBalance(player) < cost.getMoney()){
+            ChatUtils.sendMessage(player, "&cMasz za malo pieniedzy aby ulepszyc wyspe!");
             Debug.log("&4Player doesn't have enough money! (False)");
             return false;
         }

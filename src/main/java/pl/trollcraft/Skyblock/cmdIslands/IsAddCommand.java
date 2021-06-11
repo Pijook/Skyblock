@@ -49,7 +49,7 @@ public class IsAddCommand extends Command {
                     return;
                 }
 
-                SkyblockPlayer skyblockMember = skyblockPlayerController.getPlayer(memberNickname);
+                SkyblockPlayer skyblockMember = skyblockPlayerController.getPlayer(member.getName());
 
                 if(skyblockMember.hasIslandOrCoop()){
                     ChatUtils.sendMessage(player, "&cTen gracz posiada juz wyspe lub nalezy do innej!");
