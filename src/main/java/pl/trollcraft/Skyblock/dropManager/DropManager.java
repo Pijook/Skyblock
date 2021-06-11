@@ -28,6 +28,8 @@ public class DropManager {
     private int percentRange;
     //Cost
     private HashMap<Integer, Cost> upgradesCost = new HashMap<>();
+    //MaxLevel
+    private int maxLevel;
 
     public void setupGenerator(){
         toCheck.clear();
@@ -61,7 +63,7 @@ public class DropManager {
 
             }
             drops.put(Integer.valueOf(playerLevel), chances);
-
+            maxLevel = Integer.parseInt(playerLevel);
         }
 
         random = new Random();
@@ -80,8 +82,13 @@ public class DropManager {
 
     public Material generateMaterial(int playerLevel){
         if( !drops.containsKey(playerLevel)){
-            Debug.log("&cNie posiadam szans dla poziomu " + playerLevel + " gornika");
-            return Material.COBBLESTONE;
+            if(playerLevel > maxLevel){
+                playerLevel = maxLevel;
+            }
+            else{
+                Debug.log("&cNie posiadam szans dla poziomu " + playerLevel + " gornika");
+                return Material.COBBLESTONE;
+            }
         }
         LinkedHashMap<Material, Double> chances = drops.get(playerLevel);
         double a = random.nextDouble() * 100;
