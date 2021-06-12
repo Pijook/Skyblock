@@ -37,9 +37,9 @@ public class IsDeleteCommand extends Command {
                     return;
                 }
                 if( islandsController.getIslandByLocation(player.getLocation()).getOwner().equalsIgnoreCase(player.getName())) {
+                    DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
                     islandsController.setGeneratorOnCooldown();
                     BungeeSupport.sendDeleteIslandCommand(islandsController.getIslandIdByOwnerOrMember(player.getName()), player);
-                    DeleteIsland.deleteIs(islandsController.getIslandById(skyblockPlayer.getIslandOrCoop()));
                     islandsController.saveCooldown(player.getName());
                     Debug.log("&aZapisuje cooldown gracza " + player.getName());
                     ChatUtils.sendMessage(player, "&aUsunieto wyspe. Ponowne utworzenie wyspy nie bedzie mozliwe przez jakis czas");

@@ -43,6 +43,19 @@ public class DeleteIsland {
     public static void deleteIs(Island island){
         String owner = island.getOwner();
 
+        for(Player player : Bukkit.getOnlinePlayers()){
+            SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
+            if(island.getOwner().equalsIgnoreCase(player.getName()) || island.getMembers().contains(player.getName())){
+                skyblockPlayer.setIslandID(null);
+            }
+            /*SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
+            if(player.getName().equalsIgnoreCase(owner)){
+                skyblockPlayer.setIslandID(null);
+            }
+            else{
+                skyblockPlayer.setCoopIslandID(null);
+            }*/
+        }
 
         Location center = island.getCenter();
 
@@ -71,16 +84,6 @@ public class DeleteIsland {
         freePosistions.set("free." + freeIsId + ".world", world);
 
         ConfigUtils.save(freePosistions, "freeislands.yml");
-
-        for(Player player : Bukkit.getOnlinePlayers()){
-            SkyblockPlayer skyblockPlayer = skyblockPlayerController.getPlayer(player.getName());
-            if(player.getName().equalsIgnoreCase(owner)){
-                skyblockPlayer.setIslandID(null);
-            }
-            else{
-                skyblockPlayer.setCoopIslandID(null);
-            }
-        }
 
         for(Player player : Bukkit.getOnlinePlayers()){
             /*if( islandsController.getIslandByLocation( player.getLocation() ).equals(island) ){
