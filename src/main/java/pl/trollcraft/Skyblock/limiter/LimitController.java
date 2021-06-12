@@ -200,7 +200,7 @@ public class LimitController {
         //increaseType(type, islandID);
         increaeLevel(type, islandID);
         double amount = upgradesCosts.get(type).get(loadedLimiters.get(islandID).getLimiter(type).getLevel()).getMoney();
-        Skyblock.getEconomy().depositPlayer(player, amount);
+        Skyblock.getEconomy().withdrawPlayer(player, amount);
     }
 
     public Cost getLimiterCost(int level, String type){
