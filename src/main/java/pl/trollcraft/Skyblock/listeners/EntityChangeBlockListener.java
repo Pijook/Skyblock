@@ -27,7 +27,17 @@ public class EntityChangeBlockListener implements Listener {
             return;
         }
 
-        Block block = event.getBlock();
+        if(event.getEntity().getType().equals(EntityType.VILLAGER)){
+            event.setCancelled(true);
+        }
+
+        if(event.getBlock().getType().equals(Material.FARMLAND)){
+            if(!event.getEntity().getType().equals(EntityType.PLAYER)){
+                event.setCancelled(true);
+            }
+        }
+
+        /*Block block = event.getBlock();
 
         UUID islandID = islandsController.getIslandIDByLocation(block.getLocation());
 
@@ -46,7 +56,7 @@ public class EntityChangeBlockListener implements Listener {
                 return;
             }
 
-        }
+        }*/
 
     }
 }
