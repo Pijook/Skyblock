@@ -24,17 +24,17 @@ public class TradesCommand implements CommandExecutor {
             return true;
         }
 
-        Player player = (Player) sender;
+//        Player player = (Player) sender;
 
         if(args.length == 1){
             if(args[0].equalsIgnoreCase("reload")){
                 Skyblock.getVillagerController().load();
-                ChatUtils.sendMessage(player, "&aPrzeladowano trade'y!");
+                ChatUtils.sendMessage(sender, "&aPrzeladowano trade'y!");
                 return true;
             }
         }
 
-        ChatUtils.sendMessage(player, "&7/" + label + " reload");
+        ChatUtils.sendMessage(sender, "&7/" + label + " reload");
         return true;
     }
 }
