@@ -29,6 +29,11 @@ public class IsVisitCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
 
         if( sender instanceof Player) {
+
+            if(args.length != 1){
+                ChatUtils.sendMessage(sender, "&7/visit <nickname>");
+            }
+
             String ownerToFind = args[1];
             Player player = (Player) sender;
             Player target = Bukkit.getPlayer(ownerToFind);
