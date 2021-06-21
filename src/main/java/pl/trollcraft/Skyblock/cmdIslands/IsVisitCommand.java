@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -62,7 +63,9 @@ public class IsVisitCommand extends Command {
             }
             //If player is on different sector
             else{
-                SkyblockPlayer skyblockPlayer = RedisSupport.getSkyblockPlayer(ownerToFind);
+                BungeeSupport.sendVisitIslandCommand(player, ownerToFind);
+                ChatUtils.sendMessage(player, "&eOczekiwanie na teleportacje...");
+                /*SkyblockPlayer skyblockPlayer = RedisSupport.getSkyblockPlayer(ownerToFind);
 
                 if(skyblockPlayer == null){
                     ChatUtils.sendMessage(player, "&cTen gracz jest offline!");
@@ -85,7 +88,7 @@ public class IsVisitCommand extends Command {
                     player.teleport(island.getHome());
                     ChatUtils.sendMessage(player, "&aTeleportowano na wyspe!");
                     return;
-                }
+                }*/
 
             }
         }

@@ -98,6 +98,28 @@ public class BungeeSupport {
                 island.setHome(locationPartToLocation(commands[2]));
             }
         }
+        if(commands.length == 6){
+            if(commands[0].equalsIgnoreCase("tp")){
+                String nickname = commands[1];
+                if(commands[2].equalsIgnoreCase("null")){
+                    Player target = Bukkit.getPlayer(nickname);
+                    ChatUtils.sendMessage(target, "&cNie znaleziono wyspy");
+                    return;
+                }
+                else{
+                    Player target = Bukkit.getPlayer(nickname);
+                    Location location = new Location(
+                            Bukkit.getWorld(commands[5]),
+                            Double.parseDouble(commands[2]),
+                            Double.parseDouble(commands[3]),
+                            Double.parseDouble(commands[4])
+                    );
+                    ChatUtils.sendMessage(target, "&aTeleportowanie...");
+                    target.teleport(location);
+                    return;
+                }
+            }
+        }
     }
 
     /**
@@ -145,6 +167,12 @@ public class BungeeSupport {
     public static void sendReloadWorkerCommand(Player player){
         Debug.log("Sending command to reload worker");
         String command = "reloadWorker:" + player.getName();
+        sendMessage(command, player);
+    }
+
+    public static void sendVisitIslandCommand(Player player, String owner){
+        Debug.log("Sending command to visit island");
+        String command = "visit:" + player.getName() + ":" + owner;
         sendMessage(command, player);
     }
 
