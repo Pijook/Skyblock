@@ -32,6 +32,7 @@ public class IsVisitCommand extends Command {
 
             if(args.length != 1){
                 ChatUtils.sendMessage(sender, "&7/visit <nickname>");
+                return;
             }
 
             String ownerToFind = args[1];
