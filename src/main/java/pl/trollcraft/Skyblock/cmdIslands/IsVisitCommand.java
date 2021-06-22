@@ -30,8 +30,8 @@ public class IsVisitCommand extends Command {
 
         if( sender instanceof Player) {
 
-            if(args.length != 1){
-                ChatUtils.sendMessage(sender, "&7/visit <nickname>");
+            if(args.length != 2){
+                ChatUtils.sendMessage(sender, "&7/is visit <nickname>");
                 return;
             }
 

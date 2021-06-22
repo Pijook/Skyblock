@@ -71,7 +71,7 @@ public class JoinListener implements Listener {
                     workerController.loadPlayer(player);
                 }
                 catch (JedisConnectionException e){
-                    Skyblock.initJedis();
+                    Skyblock.initJedis(0);
                     return;
                 }
 

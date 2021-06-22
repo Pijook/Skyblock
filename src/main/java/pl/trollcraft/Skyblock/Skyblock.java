@@ -239,7 +239,7 @@ public class Skyblock extends JavaPlugin {
         Debug.log("&aDone!");
 
         Debug.log("&aStarting jedis...");
-        initJedis();
+        initJedis(0);
 
         Debug.log("&aLoading top...");
         topController.load();
@@ -327,7 +327,7 @@ public class Skyblock extends JavaPlugin {
         return econ != null;
     }
 
-    public static void initJedis(){
+    public static void initJedis(int a){
         Debug.log("Trying to connect to " + Storage.redisAddress);
         try{
             jedis = new Jedis(Storage.redisAddress);
@@ -336,7 +336,21 @@ public class Skyblock extends JavaPlugin {
         }
         catch (Exception e){
             Debug.log(e);
-            Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
+            Debug.log("&cTrying to reconnect in 5 seconds...");
+            if(a < 5){
+                Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        initJedis(a + 1);
+                    }
+                }, 100L);
+            }
+            else{
+                Debug.log("&cGiving up after 5 tries");
+                Bukkit.getPluginManager().disablePlugin(Skyblock.getInstance());
+            }
+
+
         }
     }
 

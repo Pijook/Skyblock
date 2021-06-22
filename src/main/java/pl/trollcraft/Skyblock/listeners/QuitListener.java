@@ -50,7 +50,7 @@ public class QuitListener implements Listener {
                                         RedisSupport.saveIsland(player, islandID);
                                     }
                                     catch (JedisConnectionException e){
-                                        Skyblock.initJedis();
+                                        Skyblock.initJedis(0);
                                         RedisSupport.saveIsland(player, islandID);
                                     }
                                 }
@@ -72,7 +72,7 @@ public class QuitListener implements Listener {
             workerController.savePlayer(player);
         }
         catch (JedisConnectionException e){
-            Skyblock.initJedis();
+            Skyblock.initJedis(0);
         }
 
         if(Storage.kitsEnabled){
