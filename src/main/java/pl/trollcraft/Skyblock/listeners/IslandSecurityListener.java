@@ -1,5 +1,6 @@
 package pl.trollcraft.Skyblock.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,10 +18,14 @@ import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
+import java.util.List;
+
 public class IslandSecurityListener implements Listener {
 
     private static SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private static IslandsController islandsController = Skyblock.getIslandsController();
+
+    public static List<Material> food;
 
 
     @EventHandler(priority = EventPriority.LOW)
@@ -75,7 +80,12 @@ public class IslandSecurityListener implements Listener {
         }
 
         if(!islandsController.isPlayerOnHisIsland(player)){
-            event.setCancelled(true);
+            if(event.getAction().equals(Action.RIGHT_CLICK_AIR)){
+                if(!food.contains(player.getInventory().getItemInMainHand().getType())){
+                    event.setCancelled(true);
+                }
+            }
+
         }
 
     }

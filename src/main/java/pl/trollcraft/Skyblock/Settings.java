@@ -2,10 +2,14 @@ package pl.trollcraft.Skyblock;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.trollcraft.Skyblock.essentials.ConfigUtils;
 import pl.trollcraft.Skyblock.essentials.Debug;
+import pl.trollcraft.Skyblock.listeners.IslandSecurityListener;
+
+import java.util.ArrayList;
 
 public class Settings {
 
@@ -53,7 +57,39 @@ public class Settings {
             world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         }
 
-
+        ArrayList<Material> food = new ArrayList<Material>();
+        food.add(Material.APPLE);
+        food.add(Material.MUSHROOM_STEW);
+        food.add(Material.BREAD);
+        food.add(Material.COOKED_PORKCHOP);
+        food.add(Material.GOLDEN_APPLE);
+        food.add(Material.COD);
+        food.add(Material.SALMON);
+        food.add(Material.TROPICAL_FISH);
+        food.add(Material.PUFFERFISH);
+        food.add(Material.COOKED_COD);
+        food.add(Material.COOKED_SALMON);
+        food.add(Material.COOKIE);
+        food.add(Material.MELON_SLICE);
+        food.add(Material.DRIED_KELP);
+        food.add(Material.BEEF);
+        food.add(Material.COOKED_BEEF);
+        food.add(Material.CHICKEN);
+        food.add(Material.COOKED_CHICKEN);
+        food.add(Material.ROTTEN_FLESH);
+        food.add(Material.SPIDER_EYE);
+        food.add(Material.CARROT);
+        food.add(Material.POTATO);
+        food.add(Material.BAKED_POTATO);
+        food.add(Material.PUMPKIN_PIE);
+        food.add(Material.RABBIT);
+        food.add(Material.COOKED_RABBIT);
+        food.add(Material.RABBIT_STEW);
+        food.add(Material.MUTTON);
+        food.add(Material.COOKED_MUTTON);
+        food.add(Material.BEETROOT);
+        food.add(Material.BEETROOT_SOUP);
+        IslandSecurityListener.food = food;
 
     }
 }
