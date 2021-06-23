@@ -85,6 +85,10 @@ public class IslandSecurityListener implements Listener {
                     event.setCancelled(true);
                 }
             }
+            else{
+                event.setCancelled(true);
+            }
+
 
         }
 
