@@ -69,14 +69,14 @@ public class MainGui {
             ----- ----- -----
         */
 
-        Button tutorialButton = buttonController.loadButton(configuration, "buttons.tutorial");
+        /*Button tutorialButton = buttonController.loadButton(configuration, "buttons.tutorial");
 
         GuiItem tutorialItem = ItemBuilder.from(tutorialButton.getIcon()).asGuiItem(event -> {
             //Teleport on tutorial
             event.getWhoClicked().teleport(Storage.tutorialLocation);
         });
 
-        mainGui.setItem(tutorialButton.getSlot(), tutorialItem);
+        mainGui.setItem(tutorialButton.getSlot(), tutorialItem);*/
 
         /*
             ----- ----- -----

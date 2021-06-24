@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTransformEvent;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.essentials.Debug;
 
 public class EntityTransformListener implements Listener {
 
@@ -12,7 +13,9 @@ public class EntityTransformListener implements Listener {
     public void onTransform(EntityTransformEvent event){
 
         if(event.getTransformReason().equals(EntityTransformEvent.TransformReason.CURED)){
-            Villager villager = (Villager) event.getEntity();
+            Debug.log(event.getEntity().getType());
+            Debug.log(event.getTransformedEntity().getType());
+            Villager villager = (Villager) event.getTransformedEntity();
             Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                 @Override
                 public void run() {
