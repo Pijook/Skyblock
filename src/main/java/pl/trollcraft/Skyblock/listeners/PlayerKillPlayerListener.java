@@ -26,6 +26,8 @@ public class PlayerKillPlayerListener implements Listener {
 
         if(!islandsController.isPlayerOnHisIsland(dead)){
             event.setKeepInventory(true);
+            event.setKeepLevel(true);
+            event.getDrops().clear();
         }
 
     }
