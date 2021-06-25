@@ -10,6 +10,7 @@ import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.listeners.IslandSecurityListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Settings {
 
@@ -57,6 +58,17 @@ public class Settings {
             world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         }
 
+        loadSecuredBlocks();
+        loadFood();
+
+    }
+
+    private static void loadSecuredBlocks(){
+
+
+    }
+
+    private static void loadFood(){
         ArrayList<Material> food = new ArrayList<Material>();
         food.add(Material.APPLE);
         food.add(Material.MUSHROOM_STEW);
@@ -90,6 +102,5 @@ public class Settings {
         food.add(Material.BEETROOT);
         food.add(Material.BEETROOT_SOUP);
         IslandSecurityListener.food = food;
-
     }
 }

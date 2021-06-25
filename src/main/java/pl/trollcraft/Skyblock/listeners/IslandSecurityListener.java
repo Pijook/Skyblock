@@ -26,6 +26,7 @@ public class IslandSecurityListener implements Listener {
     private static IslandsController islandsController = Skyblock.getIslandsController();
 
     public static List<Material> food;
+    public static List<Material> securedBlocks;
 
 
     @EventHandler(priority = EventPriority.LOW)
@@ -80,6 +81,7 @@ public class IslandSecurityListener implements Listener {
         }
 
         if(!islandsController.isPlayerOnHisIsland(player)){
+
             if(event.getAction().equals(Action.RIGHT_CLICK_AIR)){
                 if(!food.contains(player.getInventory().getItemInMainHand().getType())){
                     event.setCancelled(true);
