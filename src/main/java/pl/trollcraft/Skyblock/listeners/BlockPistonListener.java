@@ -8,21 +8,30 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.limiter.IslandLimiter;
+import pl.trollcraft.Skyblock.limiter.LimitController;
+import pl.trollcraft.Skyblock.limiter.Limiter;
+
+import java.util.UUID;
 
 public class BlockPistonListener implements Listener {
 
     private final IslandsController islandsController = Skyblock.getIslandsController();
+    private final LimitController limitController = Skyblock.getLimitController();
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPistonMove(BlockPistonExtendEvent event){
 
         for(Block block : event.getBlocks()){
             Island island = islandsController.getIslandByLocation(block.getLocation());
-            if(island == null){
+            if(island == null) {
                 event.setCancelled(true);
-                break;
+                return;
             }
+
         }
+
+        UUID islandID = islandsController.getIslandIDByLocation(event.getBlocks().get(0).getLocation());
 
         /*if(island == null){
             block.setType(Material.AIR);

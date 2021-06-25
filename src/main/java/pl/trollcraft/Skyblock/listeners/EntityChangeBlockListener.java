@@ -23,9 +23,6 @@ public class EntityChangeBlockListener implements Listener {
     @EventHandler
     public void onChange(EntityChangeBlockEvent event){
 
-        if(!event.getEntity().getType().equals(EntityType.VILLAGER)){
-            return;
-        }
 
         if(event.getEntity().getType().equals(EntityType.VILLAGER)){
             event.setCancelled(true);
