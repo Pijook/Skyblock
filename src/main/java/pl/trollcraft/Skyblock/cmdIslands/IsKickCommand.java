@@ -53,7 +53,7 @@ public class IsKickCommand extends Command{
             }
         }
         else{
-            ChatUtils.sendMessage(sender, "&7/is" + aliases.get(0) + " <nickname>");
+            ChatUtils.sendMessage(sender, "&7/is " + aliases.get(0) + " <nickname>");
         }
     }
 
