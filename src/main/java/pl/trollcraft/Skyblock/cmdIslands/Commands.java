@@ -19,4 +19,5 @@ public class Commands {
     public IsPointsCommand isPointsCommand = new IsPointsCommand();
     public IsHelpCommand isHelpCommand = new IsHelpCommand();
     public IsBypassCommand isBypassCommand = new IsBypassCommand();
+    public IsKickCommand isKickCommand = new IsKickCommand();
 }
