@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.island.IslandsController;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -24,10 +25,12 @@ public class PlayerKillPlayerListener implements Listener {
             skyblockPlayerController.getPlayer(killer.getName()).increaseKills(1);
         }
 
-        if(!islandsController.isPlayerOnHisIsland(dead)){
-            event.setKeepInventory(true);
-            event.setKeepLevel(true);
-            event.getDrops().clear();
+        if(!Storage.isSpawn){
+            if(!islandsController.isPlayerOnHisIsland(dead)){
+                event.setKeepInventory(true);
+                event.setKeepLevel(true);
+                event.getDrops().clear();
+            }
         }
 
     }
