@@ -1,6 +1,7 @@
 package pl.trollcraft.Skyblock.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,7 @@ public class IslandSecurityListener implements Listener {
 
     public static List<Material> food;
     public static List<Material> securedBlocks;
+    public static List<Material> signs;
 
 
     @EventHandler(priority = EventPriority.LOW)
@@ -84,6 +86,12 @@ public class IslandSecurityListener implements Listener {
 
             if(event.getAction().equals(Action.RIGHT_CLICK_AIR)){
                 if(!food.contains(player.getInventory().getItemInMainHand().getType())){
+                    event.setCancelled(true);
+                }
+            }
+            if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_BLOCK)){
+                Block block = event.getClickedBlock();
+                if(!signs.contains(block.getType())){
                     event.setCancelled(true);
                 }
             }

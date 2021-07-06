@@ -60,12 +60,27 @@ public class Settings {
 
         loadSecuredBlocks();
         loadFood();
+        loadSigns();
 
     }
 
     private static void loadSecuredBlocks(){
 
 
+    }
+
+    private static void loadSigns(){
+        ArrayList<Material> list = new ArrayList<>();
+        list.add(Material.ACACIA_WALL_SIGN);
+        list.add(Material.BIRCH_WALL_SIGN);
+        list.add(Material.CRIMSON_WALL_SIGN);
+        list.add(Material.SPRUCE_WALL_SIGN);
+        list.add(Material.BIRCH_WALL_SIGN);
+        list.add(Material.DARK_OAK_WALL_SIGN);
+        list.add(Material.JUNGLE_WALL_SIGN);
+        list.add(Material.OAK_WALL_SIGN);
+        list.add(Material.WARPED_WALL_SIGN);
+        IslandSecurityListener.signs = list;
     }
 
     private static void loadFood(){
