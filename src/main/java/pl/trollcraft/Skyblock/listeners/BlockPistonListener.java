@@ -65,7 +65,14 @@ public class BlockPistonListener implements Listener {
 
         }
 
-        UUID islandID = islandsController.getIslandIDByLocation(event.getBlocks().get(0).getLocation());
+        UUID islandID;
+        try{
+             islandID = islandsController.getIslandIDByLocation(event.getBlocks().get(0).getLocation());
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            return;
+        }
+
 
         for(Block block : event.getBlocks()){
             Debug.log(block.getType());
