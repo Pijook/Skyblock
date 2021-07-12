@@ -40,7 +40,7 @@ public class BreedListener implements Listener {
                 return;
             }
             else{
-                limitController.increaseType(type, skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
+                //limitController.increaseType(type, skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
             }
         }
 
