@@ -35,6 +35,8 @@ public class Settings {
         Storage.world = configuration.getString("island.world");
         Storage.tutorialLocation = ConfigUtils.getLocationFromConfig(configuration, "tutorialLocation");
 
+        Storage.playersPerIsland = configuration.getInt("playersPerIsland");
+
         Storage.topShow = configuration.getBoolean("showTop");
         if(Storage.topShow){
             Storage.topLocation = ConfigUtils.getLocationFromConfig(configuration, "topLocation");

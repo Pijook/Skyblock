@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.trollcraft.Skyblock.PermissionStorage;
 import pl.trollcraft.Skyblock.Skyblock;
+import pl.trollcraft.Skyblock.Storage;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
@@ -53,6 +54,11 @@ public class IsAddCommand extends Command {
 
                 if(skyblockMember.hasIslandOrCoop()){
                     ChatUtils.sendMessage(player, "&cTen gracz posiada juz wyspe lub nalezy do innej!");
+                    return;
+                }
+
+                if(island.getMembers().size() + 1 >= Storage.playersPerIsland){
+                    ChatUtils.sendMessage(player, "&cPosiadasz juz maksymalna liczbe dodanych graczy! (" + Storage.playersPerIsland + ")");
                     return;
                 }
 

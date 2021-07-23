@@ -36,6 +36,8 @@ public class Storage {
     public static double height = 70;
     public static String world = "Islands";
 
+    public static int playersPerIsland;
+
     public static boolean dropEnable = true;
 
     public static boolean kitsEnabled = false;

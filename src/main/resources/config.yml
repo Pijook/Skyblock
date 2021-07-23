@@ -1,5 +1,6 @@
 createCooldown: 60
 teleportToSpawn: false
+playersPerIsland: 5
 spawn:
   x: 0
   y: 80
