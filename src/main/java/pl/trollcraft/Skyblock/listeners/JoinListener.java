@@ -48,7 +48,7 @@ public class JoinListener implements Listener {
         Player player = event.getPlayer();
 
 
-        if(!event.wasISRFound()){
+        /*if(!event.wasISRFound()){
             if(Settings.spawnOnJoin){
                 Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                     @Override
@@ -57,6 +57,14 @@ public class JoinListener implements Listener {
                     }
                 });
             }
+        }*/
+        if(Settings.spawnOnJoin){
+            Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    player.teleport(Storage.spawn);
+                }
+            });
         }
 
         if(!player.getWorld().getName().equalsIgnoreCase("Islands")){
