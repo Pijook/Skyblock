@@ -13,6 +13,7 @@ import pl.trollcraft.Skyblock.essentials.Debug;
 import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -96,6 +97,26 @@ public class BungeeSupport {
                 Island island = Skyblock.getIslandsController().getIslandById(islandID);
 
                 island.setHome(locationPartToLocation(commands[2]));
+            }
+            if(commands[0].equalsIgnoreCase("returnIslandInfo")){
+                String nickname = commands[1];
+                String islandParts = commands[2];
+
+                Player player = Bukkit.getPlayer(nickname);
+
+                if(islandParts.equalsIgnoreCase("null")){
+                    ChatUtils.sendMessage(player, "&cNie znaleziono takiej wyspy!");
+                    return;
+                }
+                else{
+                    Island island = RedisSupport.stringToIsland(islandParts);
+
+                    ChatUtils.sendMessage(player, "&7Informacje o wyspie gracza &e&l" + island.getOwner());
+                    ChatUtils.sendMessage(player, "&7Poziom wyspy: &e" + island.getIslandLevel());
+                    ChatUtils.sendMessage(player, "&7Czlonkowie wyspy: &e" + island.getMembers().toString());
+                    ChatUtils.sendMessage(player, "&7Sektor: &e" + island.getServer());
+                    return;
+                }
             }
         }
         if(commands.length == 6){
@@ -181,6 +202,14 @@ public class BungeeSupport {
         Debug.log("Sending sync homes command");
         String locationPart = home.getWorld().getName() + ";" + home.getX() + ";" + home.getY() + ";" + home.getZ();
         String command = "syncHome:" + islandID + ":" + locationPart;
+        sendMessage(command, player);
+    }
+
+    public static void sendGetIslandInfoCommand(Player player){
+        Location location = player.getLocation();
+        Debug.log("Sending get island info command");
+        String locationPart = location.getWorld().getName() + ";" + location.getX() + ";" + location.getY() + ";" + location.getZ();
+        String command = "getIslandInfo:" + player.getName() + ":" + locationPart;
         sendMessage(command, player);
     }
 
