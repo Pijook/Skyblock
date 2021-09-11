@@ -23,12 +23,14 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.Worker;
 
 import javax.activation.MailcapCommandMap;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class RedisSupport {
 
     private static final SkyblockPlayerController skyblockPlayerController = Skyblock.getSkyblockPlayerController();
     private static final IslandsController islandsController = Skyblock.getIslandsController();
+    private static HashMap<String, Integer> retries = new HashMap<>();
 
     public static void loadSettings(){
         YamlConfiguration configuration = ConfigUtils.load("datasource.yml", Skyblock.getInstance());
@@ -141,6 +143,26 @@ public class RedisSupport {
             if(!island.getOwner().equalsIgnoreCase(player.getName()) && !island.getMembers().contains(player.getName())){
                 Debug.log(player.getName() + ": " + skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop());
                 BungeeSupport.sendReloadIslandCommand(skyblockPlayerController.getPlayer(player.getName()).getIslandOrCoop().toString(), player);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+                        if(retries.containsKey(player.getName())){
+                            int amount = retries.get(player.getName());
+                            if(amount > 3){
+                                Debug.log("&4Giving up");
+                                return;
+                            }
+                            else{
+                                retries.put(player.getName(), amount + 1);
+                            }
+                        }
+                        else{
+                            retries.put(player.getName(), 1);
+                        }
+                        Debug.log("Try number " + retries.get(player.getName()) + " to load island!");
+                        loadIsland(islandID, player);
+                    }
+                },  60L);
                 return;
             }
 
@@ -148,6 +170,7 @@ public class RedisSupport {
             Debug.log("Loaded island" + islandID + "!");
             IslandLoadEvent islandLoadEvent = new IslandLoadEvent(islandID, island);
             Bukkit.getPluginManager().callEvent(islandLoadEvent);
+            retries.put(player.getName(), 0);
         }
         catch (NullPointerException exception){
             exception.printStackTrace();
