@@ -29,7 +29,6 @@ import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
-import javax.activation.MailcapCommandMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

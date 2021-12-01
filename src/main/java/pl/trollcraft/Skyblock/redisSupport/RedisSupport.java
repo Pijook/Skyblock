@@ -22,7 +22,6 @@ import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 import pl.trollcraft.Skyblock.worker.Worker;
 
-import javax.activation.MailcapCommandMap;
 import java.util.HashMap;
 import java.util.UUID;
 

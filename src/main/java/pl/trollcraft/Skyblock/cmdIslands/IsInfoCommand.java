@@ -24,11 +24,14 @@ public class IsInfoCommand extends Command{
             return;
         }
 
-        if(args.length == 0){
+        if(args.length == 1){
             Player player = (Player) sender;
             BungeeSupport.sendGetIslandInfoCommand(player);
             ChatUtils.sendMessage(player, "&cOczekuje na informacje zwrotna od serwera...");
             return;
+        }
+        else{
+            sender.sendMessage(ChatUtils.fixColor("&c/is " + aliases.get(0) ));
         }
 
     }
