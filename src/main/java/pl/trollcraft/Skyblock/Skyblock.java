@@ -129,6 +129,8 @@ public class Skyblock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockFromToListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerKillPlayerListener(), this);
         getServer().getPluginManager().registerEvents(new EntityTransformListener(), this);
+        getServer().getPluginManager().registerEvents(new CreatureSpawnListener(), this);
+        getServer().getPluginManager().registerEvents(new InteractAtEntityListener(), this);
         //Custom Events
         getServer().getPluginManager().registerEvents(new PlayerLoadListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSaveListener(), this);
