@@ -14,6 +14,7 @@ import pl.trollcraft.Skyblock.generator.CreateIsland;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.listeners.customListeners.PlayerLoadListener;
 import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
+import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -84,6 +85,20 @@ public class BungeeSupport {
                 String memberNickname = commands[1];
                 Skyblock.getSkyblockPlayerController().getPlayer(memberNickname).setIslandID(null);
                 ChatUtils.sendMessage(Bukkit.getPlayer(memberNickname), "&cZostales usuniety z wyspy");
+            }
+            if(commands[0].equalsIgnoreCase("deletedIsland")){
+                String islandID = commands[1];
+                for(String nickname : Skyblock.getSkyblockPlayerController().getSkyblockPlayers().keySet()){
+                    SkyblockPlayer skyblockPlayer = Skyblock.getSkyblockPlayerController().getPlayer(nickname);
+                    if(skyblockPlayer.getIslandOrCoop().equals(islandID)){
+                        skyblockPlayer.setCoopIslandID(null);
+                        skyblockPlayer.setIslandID(null);
+                    }
+                }
+
+                if(Skyblock.getIslandsController().getIslands().containsKey(UUID.fromString(islandID))){
+                    Skyblock.getIslandsController().getIslands().remove(UUID.fromString(islandID));
+                }
             }
         }
         if(commands.length == 3){

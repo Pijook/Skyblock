@@ -116,4 +116,8 @@ public class SkyblockPlayerController {
             }
         }, 20L, 60L);
     }
+
+    public HashMap<String, SkyblockPlayer> getSkyblockPlayers(){
+        return skyblockPlayers;
+    }
 }
