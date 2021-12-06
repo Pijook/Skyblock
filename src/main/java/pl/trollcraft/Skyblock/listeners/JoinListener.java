@@ -87,7 +87,7 @@ public class JoinListener implements Listener {
                     Skyblock.getKitManager().loadPlayer(player);
                 }
             }
-        }, 1L);
+        }, 5L);
     }
 
     /*@EventHandler

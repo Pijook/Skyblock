@@ -47,11 +47,12 @@ public class PlayerLoadListener implements Listener {
         }
 
         if(islandID != null){
-            if(!islandsController.isIslandLoaded(islandID)){
+            /*if(!islandsController.isIslandLoaded(islandID)){
                 if(!IsAdminCommand.currentlyUsedIslands.contains(islandID)) {
                     RedisSupport.loadIsland(islandID, player);
                 }
-            }
+            }*/
+            RedisSupport.loadIsland(islandID, player);
         }
 
         ChatUtils.sendSyncMessage(player, "&aLoaded island!");

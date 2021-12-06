@@ -8,6 +8,7 @@ import pl.trollcraft.Skyblock.Skyblock;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -67,6 +68,7 @@ public class IsJoinCommand extends Command {
             skyblockMember.setIslandID(skyblockOwner.getIslandID());
             skyblockMember.setOnIsland(true);
             islandsController.addMember(ownerNickname, player.getName());
+            RedisSupport.saveIsland(player, skyblockMember.getIslandOrCoop());
 
             ChatUtils.sendMessage(player, "&aDolaczono na wyspe gracza " + ownerNickname);
             ChatUtils.sendMessage(owner, "&aGracz " + player.getName() + " dolaczyl do twojej wyspy!");

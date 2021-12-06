@@ -45,6 +45,11 @@ public class IsAddCommand extends Command {
 
                 Player member = Bukkit.getPlayer(memberNickname);
 
+                if(!Skyblock.getIslandsController().isPlayerOnHisIsland(player)){
+                    ChatUtils.sendMessage(player, "&cMusisz byc na swojej wyspie aby to zrobic!");
+                    return;
+                }
+
                 if(member == null || !member.isOnline()){
                     ChatUtils.sendMessage(player, "&cAby zaprosic gracza musi byc on na twojej wyspie!");
                     return;

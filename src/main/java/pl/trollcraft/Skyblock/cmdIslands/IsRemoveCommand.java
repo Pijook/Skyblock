@@ -11,6 +11,7 @@ import pl.trollcraft.Skyblock.bungeeSupport.BungeeSupport;
 import pl.trollcraft.Skyblock.essentials.ChatUtils;
 import pl.trollcraft.Skyblock.island.Island;
 import pl.trollcraft.Skyblock.island.IslandsController;
+import pl.trollcraft.Skyblock.redisSupport.RedisSupport;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayer;
 import pl.trollcraft.Skyblock.skyblockplayer.SkyblockPlayerController;
 
@@ -81,13 +82,13 @@ public class IsRemoveCommand extends Command {
                     ChatUtils.sendMessage(player, "&cGracz " + memberNickname + " zostal usuniety z wyspy");
                     //member.teleport(Storage.spawn);
                     member.teleport(new Location(member.getWorld(), Storage.spawn.getX(), Storage.spawn.getY(), Storage.spawn.getZ()));
-                    return;
                 }//When member is on different server
                 else{
                     BungeeSupport.sendRemoveMemberCommand(memberNickname, player);
                     ChatUtils.sendMessage(player, "&cGracz " + memberNickname + " zostal usuniety z wyspy");
-                    return;
                 }
+
+                RedisSupport.saveIsland(player, Skyblock.getSkyblockPlayerController().getPlayer(player.getName()).getIslandOrCoop());
 
             }
             else{
