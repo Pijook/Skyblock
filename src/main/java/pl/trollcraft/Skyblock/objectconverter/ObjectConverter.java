@@ -182,28 +182,28 @@ public class ObjectConverter {
     private String locationToString(Location location){
         String a = "";
         a = a + location.getWorld().getName();
-        a = a + ":" + location.getX();
-        a = a + ":" + location.getY();
-        a = a + ":" + location.getZ();
+        a = a + "!" + location.getX();
+        a = a + "!" + location.getY();
+        a = a + "!" + location.getZ();
         return a;
     }
 
     private String locationToString(pl.trollcraft.Skyblock.island.bungeeIsland.Location location){
         String a = "";
         a = a + location.getWorld();
-        a = a + ":" + location.getX();
-        a = a + ":" + location.getY();
-        a = a + ":" + location.getZ();
+        a = a + "!" + location.getX();
+        a = a + "!" + location.getY();
+        a = a + "!" + location.getZ();
         return a;
     }
 
     private Location stringToLocation(String location){
-        String[] a = location.split(":");
+        String[] a = location.split("!");
         return new Location(Bukkit.getWorld(a[0]), Double.parseDouble(a[1]), Double.parseDouble(a[2]), Double.parseDouble(a[3]));
     }
 
     private pl.trollcraft.Skyblock.island.bungeeIsland.Location stringToBungeeLocation(String location){
-        String[] a = location.split(":");
+        String[] a = location.split("!");
         return new pl.trollcraft.Skyblock.island.bungeeIsland.Location(a[0], Double.parseDouble(a[1]), Double.parseDouble(a[2]), Double.parseDouble(a[3]));
     }
 

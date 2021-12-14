@@ -33,6 +33,8 @@ public class WorkerController {
 
     private HashMap<String, Worker> workers = new HashMap<>();
 
+    private HashMap<String, Integer> loadTries = new HashMap<>();
+
     public void loadSettings(){
         YamlConfiguration configuration = ConfigUtils.load("jobsconfig.yml", Skyblock.getInstance());
 
@@ -173,7 +175,15 @@ public class WorkerController {
             Skyblock.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Skyblock.getInstance(), new Runnable() {
                 @Override
                 public void run() {
-                    loadPlayer(player);
+                    if(!loadTries.containsKey(player.getName()) || loadTries.get(player.getName()) < 3){
+                        int amount = loadTries.getOrDefault(player.getName(), 0);
+                        amount++;
+                        loadTries.put(player.getName(), amount);
+                        loadPlayer(player);
+                    }
+                    else{
+                        Debug.log("&cGiving up from working " + player.getName() + " worker!");
+                    }
                 }
             }, 20L);
             return;
@@ -202,7 +212,13 @@ public class WorkerController {
         String code = Storage.redisWorkerCode;
         code = code.replace("%player%", nickname);
 
-        String workerJSON = RedisSupport.workerToString(getWorkerByName(nickname));
+        Worker worker = getWorkerByName(nickname);
+
+        if(worker == null){
+            return;
+        }
+
+        String workerJSON = RedisSupport.workerToString(worker);
         debugWorker(player.getName());
         Skyblock.getJedis().hset(code, "worker", workerJSON);
 

@@ -61,6 +61,8 @@ public class BungeeSupport {
      */
     public static void matchBungeeCommand(String command){
 
+        Debug.log("Received message " + command);
+
         String[] commands = command.split(":");
 
         if(commands.length == 2){
@@ -121,17 +123,17 @@ public class BungeeSupport {
 
                 if(islandParts.equalsIgnoreCase("null")){
                     ChatUtils.sendMessage(player, "&cNie znaleziono takiej wyspy!");
-                    return;
                 }
                 else{
+                    ChatUtils.sendMessage(player, "&aZnaleziono wyspe!");
                     Island island = RedisSupport.stringToIsland(islandParts);
 
                     ChatUtils.sendMessage(player, "&7Informacje o wyspie gracza &e&l" + island.getOwner());
                     ChatUtils.sendMessage(player, "&7Poziom wyspy: &e" + island.getIslandLevel());
                     ChatUtils.sendMessage(player, "&7Czlonkowie wyspy: &e" + island.getMembers().toString());
                     ChatUtils.sendMessage(player, "&7Sektor: &e" + island.getServer());
-                    return;
                 }
+                return;
             }
         }
         if(commands.length == 6){
